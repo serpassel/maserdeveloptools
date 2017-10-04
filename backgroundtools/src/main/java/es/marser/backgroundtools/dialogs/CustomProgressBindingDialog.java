@@ -16,7 +16,7 @@ import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
  *         [EN]  MVP Custom Progress Box
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class CustomProgressBindingDialog extends BaseCustomBinDialog {
 
     /**
@@ -60,7 +60,7 @@ public class CustomProgressBindingDialog extends BaseCustomBinDialog {
 
     @Override
     protected int getDialogLayout() {
-        return R.layout.dialog_progress_bind_file;
+        return R.layout.bin_progress_dialog;
     }
 
     /**

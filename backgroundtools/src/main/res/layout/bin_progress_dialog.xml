@@ -8,9 +8,10 @@
             alias="tt"
             type="es.marser.TextTools" />
 
+<import type="es.marser.backgroundtools.dialogs.model.DialogProgressModel"/>
         <variable
             name="model"
-            type="es.marser.backgroundtools.dialogs.DialogProgressModel" />
+            type="DialogProgressModel" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
