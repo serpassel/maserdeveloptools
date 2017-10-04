@@ -8,7 +8,7 @@ package es.marser.task_result;
  *         [EN]  Results and evolution of asynchronous tasks in loop
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "EmptyMethod"})
 public interface TaskUpdater<A, B, C> {
     /**
      * Lanzar al incio  del bucle
