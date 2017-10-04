@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Fondo [EN]  Background -->
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="2dip" />
+
+            <gradient
+                android:angle="270"
+                android:centerColor="@color/bt_accent_light"
+                android:centerY="0.75"
+                android:endColor="@color/bt_accent_light"
+                android:startColor="@color/bt_accent" />
+
+        </shape>
+    </item>
+
+    <!--Progreso [EN]  Progress -->
+    <item android:id="@android:id/progress">
+        <clip>
+            <shape>
+                <!-- radius of secundary progress -->
+                <corners android:radius="2dip" />
+                <gradient
+                    android:angle="270"
+                    android:centerColor="@color/bt_accent"
+                    android:centerY="0.75"
+                    android:endColor="@color/bt_accent"
+                    android:startColor="@color/bt_accent_dark" />
+            </shape>
+        </clip>
+    </item>
+</layer-list>

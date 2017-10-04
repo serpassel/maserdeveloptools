@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--BASE-->
+    <color name="bt_base_dialogs_root_primary">@color/bt_primary</color>
+    <dimen name="bt_base_dialogs_margin">@dimen/bt_default_margin</dimen>
+    <dimen name="bt_load_padding">@dimen/bt_default_padding</dimen>
+
+    <!--HEAD-->
+    <color name="bt_base_dialogs_title">@color/bt_primary_dark</color>
+    <dimen name="bt_image_dimen">@dimen/bt_m_image</dimen>
+    <string name="bt_content">Cargando…</string>
+
+    <!--BODY-->
+    <integer name="bt_limit_text">30</integer>
+    <string name="bt_progress">PROGRESO: </string>
+    <string name="bt_char">/</string>
+</resources>

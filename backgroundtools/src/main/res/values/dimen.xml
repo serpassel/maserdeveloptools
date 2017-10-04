@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Dimensiones de imagenes [EN]  Dimensions of images-->
+    <dimen name="bt_xxxl_image">200dp</dimen>
+    <dimen name="bt_xxl_image">150dp</dimen>
+    <dimen name="bt_xl_image">100dp</dimen>
+    <dimen name="bt_x_image">75dp</dimen>
+    <dimen name="bt_l_image">48dp</dimen>
+    <dimen name="bt_lm_image">36dp</dimen>
+    <dimen name="bt_m_image">24dp</dimen>
+    <dimen name="bt_ms_image">20dp</dimen>
+    <dimen name="bt_s_image">16dp</dimen>
+
+    <!--Margen [EN]  Margin-->
+    <dimen name="bt_default_padding">2dp</dimen>
+    <dimen name="bt_default_margin">5dp</dimen>
+    <dimen name="bt_default_box_margin">10dp</dimen>
+    <dimen name="bt_second_box_margin">20dp</dimen>
+    <dimen name="bt_default_field_margin">1dp</dimen>
+</resources>

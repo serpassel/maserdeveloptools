@@ -26,7 +26,7 @@ import es.marser.backgroundtools.R;
         @BindingMethod(type = ProgressBar.class, attribute = "android:progress", method = "setProgress")
 })
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class DialogProgressObject {
+public class DialogProgressModel {
 
     /*Referencia a los iconos admitidos [EN]  Reference to supported icons*/
     public static final String BC3_ICON = "bc3";
@@ -47,7 +47,7 @@ public class DialogProgressObject {
     public final ObservableField<String> icon = new ObservableField<>("");//Icono del título [EN]  Title Icon
 
 
-    @BindingAdapter(value = {"foo:icon"})
+    @BindingAdapter(value = {"icon"})
     public static void setIcon(ImageView view, String icon) {
         switch (icon) {
             case BC3_ICON:

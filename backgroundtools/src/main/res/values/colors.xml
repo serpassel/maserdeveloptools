@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bt_wrong_color_red_500">#f44336</color>
+    <color name="bt_right_color_teal_500">#009688</color>
+    <color name="bt_warning_color_amber_500">#ffc107</color>
+    <color name="bt_transparent">#00000000</color>
+</resources>
