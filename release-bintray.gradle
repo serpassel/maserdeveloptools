@@ -2,7 +2,7 @@
  * Bintray release configuration
  * */
 ext {
-    bintrayRepo = 'marsertools-rep'
+    bintrayRepo = 'developtools-rep'
     bintrayName = POM_ARTIFACT_ID
 
     publishedGroupId = 'es.marser.developtools'

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="EntryPointsManager">
-    <entry_points version="2.0" />
+    <entry_points version="2.0">
+      <entry_point TYPE="field" FQNAME="es.marser.maserdeveloptools.CompileGrand s1" />
+      <entry_point TYPE="field" FQNAME="es.marser.maserdeveloptools.CompileGrand s" />
+      <entry_point TYPE="implicit.constructor" FQNAME="es.marser.maserdeveloptools.CompileGrand" />
+    </entry_points>
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="android.support.annotation.Nullable" />

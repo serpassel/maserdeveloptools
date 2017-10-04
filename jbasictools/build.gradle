@@ -1,9 +1,15 @@
 apply plugin: 'java'
 
+repositories {
+    maven {
+        url "https://dl.bintray.com/zergio/developtools-rep"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-}
+   }
 
 //noinspection GroovyUnusedAssignment
 sourceCompatibility = "1.8"
