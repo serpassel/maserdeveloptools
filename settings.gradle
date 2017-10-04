@@ -1,1 +1,1 @@
-include ':app', ':jbasictools', ':sqltools'
+include ':app', ':jbasictools', ':sqltools', ':backgroundtools'
