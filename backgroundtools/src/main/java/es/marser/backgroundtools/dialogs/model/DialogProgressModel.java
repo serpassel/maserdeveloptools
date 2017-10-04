@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs;
+package es.marser.backgroundtools.dialogs.model;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingMethod;
