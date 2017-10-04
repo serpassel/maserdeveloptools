@@ -17,21 +17,21 @@ public class BooleanToolsTest {
 
     @Test
     public void channel1() {
-        Assert.assertEquals(false, BooleanTools.parseInt(-1));
-        Assert.assertEquals(true, BooleanTools.parseInt(0));
-        Assert.assertEquals(true, BooleanTools.parseInt(10));
-        Assert.assertEquals(true, BooleanTools.parseString("true"));
-        Assert.assertEquals(true, BooleanTools.parseString("0"));
-        Assert.assertEquals(false, BooleanTools.parseString("false"));
-        Assert.assertEquals(false, BooleanTools.parseString("-1"));
-        Assert.assertEquals(false, BooleanTools.parseString("CASE"));
+        Assert.assertEquals(false, es.marser.tools.BooleanTools.parseInt(-1));
+        Assert.assertEquals(true, es.marser.tools.BooleanTools.parseInt(0));
+        Assert.assertEquals(true, es.marser.tools.BooleanTools.parseInt(10));
+        Assert.assertEquals(true, es.marser.tools.BooleanTools.parseString("true"));
+        Assert.assertEquals(true, es.marser.tools.BooleanTools.parseString("0"));
+        Assert.assertEquals(false, es.marser.tools.BooleanTools.parseString("false"));
+        Assert.assertEquals(false, es.marser.tools.BooleanTools.parseString("-1"));
+        Assert.assertEquals(false, es.marser.tools.BooleanTools.parseString("CASE"));
 
-        Assert.assertEquals(0, BooleanTools.booleanToInt(true));
-        Assert.assertEquals(-1, BooleanTools.booleanToInt(false));
-        Assert.assertEquals(-1, BooleanTools.inverseInBoolean(0));
-        Assert.assertEquals(0, BooleanTools.inverseInBoolean(-1));
-        Assert.assertEquals(true, BooleanTools.nc(null, true));
-        Assert.assertEquals(false, BooleanTools.nc(null));
+        Assert.assertEquals(0, es.marser.tools.BooleanTools.booleanToInt(true));
+        Assert.assertEquals(-1, es.marser.tools.BooleanTools.booleanToInt(false));
+        Assert.assertEquals(-1, es.marser.tools.BooleanTools.inverseInBoolean(0));
+        Assert.assertEquals(0, es.marser.tools.BooleanTools.inverseInBoolean(-1));
+        Assert.assertEquals(true, es.marser.tools.BooleanTools.nc(null, true));
+        Assert.assertEquals(false, es.marser.tools.BooleanTools.nc(null));
 
     }
 }

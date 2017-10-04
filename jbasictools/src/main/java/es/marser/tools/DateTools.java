@@ -1,4 +1,4 @@
-package es.marser;
+package es.marser.tools;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

@@ -1,4 +1,4 @@
-package es.marser;
+package es.marser.tools;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

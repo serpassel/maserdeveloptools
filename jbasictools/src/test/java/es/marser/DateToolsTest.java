@@ -64,14 +64,14 @@ public class DateToolsTest {
     @Test
     public void channel1() {
         String informat1 = "01-ene-2010 12:20:01";
-        Assert.assertEquals(true, DateTools.getRef(in.getTimeInMillis() + "").equals(
+        Assert.assertEquals(true, es.marser.tools.DateTools.getRef(in.getTimeInMillis() + "").equals(
                 "ID: " +
                         in.getTimeInMillis() +
                         "  " + informat1));
-        Assert.assertEquals(true, DateTools.getDateTime(timeMil).equals(informat1));
+        Assert.assertEquals(true, es.marser.tools.DateTools.getDateTime(timeMil).equals(informat1));
         String indateformat = "01-ene-2010";
-        Assert.assertEquals(true, DateTools.getDate(timeMil).equals(indateformat));
-        Assert.assertEquals(true, DateTools.getTime(timeMil).equals(intimeformat));
+        Assert.assertEquals(true, es.marser.tools.DateTools.getDate(timeMil).equals(indateformat));
+        Assert.assertEquals(true, es.marser.tools.DateTools.getTime(timeMil).equals(intimeformat));
     }
 
     /**
@@ -80,11 +80,11 @@ public class DateToolsTest {
      */
     @Test
     public void channel2() {
-        Assert.assertEquals(true, DateTools.SQLiteDate(DateTools.setTimeMilis(timeMil)).equals(insqlite));
+        Assert.assertEquals(true, es.marser.tools.DateTools.SQLiteDate(es.marser.tools.DateTools.setTimeMilis(timeMil)).equals(insqlite));
         String inbc3 = "01012010";
-        Assert.assertEquals(true, DateTools.formatBC3Date(in).equals(inbc3));
-        Assert.assertEquals(true, sdf.format(DateTools.parseShortDate("01012010").getTime()).equals(sdf.format(in4.getTime())));
-        Assert.assertEquals(true, sdf.format(DateTools.parseShortDate("010110").getTime()).equals(sdf.format(in4.getTime())));
+        Assert.assertEquals(true, es.marser.tools.DateTools.formatBC3Date(in).equals(inbc3));
+        Assert.assertEquals(true, sdf.format(es.marser.tools.DateTools.parseShortDate("01012010").getTime()).equals(sdf.format(in4.getTime())));
+        Assert.assertEquals(true, sdf.format(es.marser.tools.DateTools.parseShortDate("010110").getTime()).equals(sdf.format(in4.getTime())));
     }
 
     /**
@@ -93,8 +93,8 @@ public class DateToolsTest {
      */
     @Test
     public void channel3() {
-        Assert.assertEquals(true, DateTools.formatShortDate(in).equals("01-01-2010"));
-        Assert.assertEquals(true, DateTools.formatLongDate(in).equals("01 de enero de 2010"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.formatShortDate(in).equals("01-01-2010"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.formatLongDate(in).equals("01 de enero de 2010"));
     }
 
     /**
@@ -103,25 +103,25 @@ public class DateToolsTest {
      */
     @Test
     public void channel4() {
-        Assert.assertEquals(true, DateTools.sameDay(in2, in3));
-        Assert.assertEquals(true, DateTools.sameDay(DateTools.firstDaysOfTheMonth(in3), in5));
-        Assert.assertEquals(false, DateTools.sameDay(DateTools.firstDaysOfTheMonth(in3), in2));
-        Assert.assertEquals(true, DateTools.sameDay(DateTools.lastDayOfTheMonth(in3), in6));
+        Assert.assertEquals(true, es.marser.tools.DateTools.sameDay(in2, in3));
+        Assert.assertEquals(true, es.marser.tools.DateTools.sameDay(es.marser.tools.DateTools.firstDaysOfTheMonth(in3), in5));
+        Assert.assertEquals(false, es.marser.tools.DateTools.sameDay(es.marser.tools.DateTools.firstDaysOfTheMonth(in3), in2));
+        Assert.assertEquals(true, es.marser.tools.DateTools.sameDay(es.marser.tools.DateTools.lastDayOfTheMonth(in3), in6));
 
-        int saturdays = DateTools.countTheDayOfTheWeek(in7, in8, Calendar.SATURDAY);
-        int wenddays = DateTools.countTheDayOfTheWeek(in7, in8, Calendar.WEDNESDAY);
-        int fridays = DateTools.countTheDayOfTheWeek(in7, in8, Calendar.FRIDAY);
+        int saturdays = es.marser.tools.DateTools.countTheDayOfTheWeek(in7, in8, Calendar.SATURDAY);
+        int wenddays = es.marser.tools.DateTools.countTheDayOfTheWeek(in7, in8, Calendar.WEDNESDAY);
+        int fridays = es.marser.tools.DateTools.countTheDayOfTheWeek(in7, in8, Calendar.FRIDAY);
         Assert.assertEquals(true, saturdays == 5);
         Assert.assertEquals(true, wenddays == 4);
         Assert.assertEquals(true, fridays == 4);
-        Assert.assertEquals(true, DateTools.businessDays(in7, in8) == 20);
+        Assert.assertEquals(true, es.marser.tools.DateTools.businessDays(in7, in8) == 20);
 
-        Assert.assertEquals(true, DateTools.betweenTwoDate(in7, in8, in9));
-        Assert.assertEquals(false, DateTools.betweenTwoDate(in7, in8, in10));
-        Assert.assertEquals(false, DateTools.betweenTwoDate(in7, in8, in11));
-        Assert.assertEquals(true, DateTools.betweenTwoDate(in7, in8, in8));
-        Assert.assertEquals(false, DateTools.isBusinessDay(new GregorianCalendar(2017, 8, 23)));
-        Assert.assertEquals(true, DateTools.isBusinessDay(new GregorianCalendar(2017, 8, 13)));
+        Assert.assertEquals(true, es.marser.tools.DateTools.betweenTwoDate(in7, in8, in9));
+        Assert.assertEquals(false, es.marser.tools.DateTools.betweenTwoDate(in7, in8, in10));
+        Assert.assertEquals(false, es.marser.tools.DateTools.betweenTwoDate(in7, in8, in11));
+        Assert.assertEquals(true, es.marser.tools.DateTools.betweenTwoDate(in7, in8, in8));
+        Assert.assertEquals(false, es.marser.tools.DateTools.isBusinessDay(new GregorianCalendar(2017, 8, 23)));
+        Assert.assertEquals(true, es.marser.tools.DateTools.isBusinessDay(new GregorianCalendar(2017, 8, 13)));
         GregorianCalendar[] holidays = new GregorianCalendar[]{
                 new GregorianCalendar(2017, 8, 5),
                 new GregorianCalendar(2017, 8, 13),
@@ -132,33 +132,33 @@ public class DateToolsTest {
                 new GregorianCalendar(2017, 8, 13),
                 new GregorianCalendar(2017, 8, 23),//sábado, saturday
                 new GregorianCalendar(2017, 8, 25)};
-        DateTools.Pair year = new DateTools.Pair(new GregorianCalendar(2016, 11, 31), new GregorianCalendar(2017, 11, 31));
+        es.marser.tools.DateTools.Pair year = new es.marser.tools.DateTools.Pair(new GregorianCalendar(2016, 11, 31), new GregorianCalendar(2017, 11, 31));
         /*Filtro de fechas vacacionales [EN]  Holiday Dates Filter*/
-        Assert.assertEquals(true, DateTools.filterBusinessListBetween(year, holidays).equals(DateTools.filterBusinessListBetween(year, holidays2)));
-        Assert.assertEquals(false, DateTools.isBusinessDay(
+        Assert.assertEquals(true, es.marser.tools.DateTools.filterBusinessListBetween(year, holidays).equals(es.marser.tools.DateTools.filterBusinessListBetween(year, holidays2)));
+        Assert.assertEquals(false, es.marser.tools.DateTools.isBusinessDay(
                 new GregorianCalendar(2017, 8, 13),
-                DateTools.filterBusinessListBetween(DateTools.yearRange(2017), holidays)
+                es.marser.tools.DateTools.filterBusinessListBetween(es.marser.tools.DateTools.yearRange(2017), holidays)
                 )
         );
-        Assert.assertEquals(true, DateTools.isBusinessDay(
+        Assert.assertEquals(true, es.marser.tools.DateTools.isBusinessDay(
                 new GregorianCalendar(2017, 8, 12),
-                DateTools.filterBusinessListBetween(DateTools.yearRange(2017), holidays)
+                es.marser.tools.DateTools.filterBusinessListBetween(es.marser.tools.DateTools.yearRange(2017), holidays)
                 )
         );
 
         /*Añadir días hábiles [EN]  Add business days*/
-        Assert.assertEquals(true, DateTools.formatComparative(
-                DateTools.addBusinessDays(
+        Assert.assertEquals(true, es.marser.tools.DateTools.formatComparative(
+                es.marser.tools.DateTools.addBusinessDays(
                         new GregorianCalendar(2017, 8, 13), 10)//27 de septiembre
                 ).equals("27092017")
         );
 
         /*Añadir días hábiles [EN]  Add business days*/
-        Assert.assertEquals(true, DateTools.formatComparative(
-                DateTools.addBusinessDays(
+        Assert.assertEquals(true, es.marser.tools.DateTools.formatComparative(
+                es.marser.tools.DateTools.addBusinessDays(
                         new GregorianCalendar(2017, 8, 13),
                         10,
-                        DateTools.filterBusinessListBetween(DateTools.yearRange(2017), holidays)
+                        es.marser.tools.DateTools.filterBusinessListBetween(es.marser.tools.DateTools.yearRange(2017), holidays)
                 )//28 de septiembre
                 ).equals("28092017")
         );
@@ -167,10 +167,10 @@ public class DateToolsTest {
     @Test
     public void channel5() {
         /*Rango año 2017 [EN]  [EN]  Rank year 2017*/
-        Assert.assertEquals(true, DateTools.yearRange(2017).toString().equals("Pair|31122016|31122017"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.yearRange(2017).toString().equals("Pair|31122016|31122017"));
          /*Rango febrero 2017 [EN]  Rank February 2017*/
-        Assert.assertEquals(true, DateTools.monthRange(2017, 1).toString().equals("Pair|31012017|28022017"));
-        Assert.assertEquals(true, DateTools.monthRange(2020, 1).toString().equals("Pair|31012020|29022020"));
-        Assert.assertEquals(true, DateTools.monthRange(2017, 11).toString().equals("Pair|30112017|31122017"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.monthRange(2017, 1).toString().equals("Pair|31012017|28022017"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.monthRange(2020, 1).toString().equals("Pair|31012020|29022020"));
+        Assert.assertEquals(true, es.marser.tools.DateTools.monthRange(2017, 11).toString().equals("Pair|30112017|31122017"));
     }
 }

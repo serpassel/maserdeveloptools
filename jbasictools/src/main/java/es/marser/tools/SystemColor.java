@@ -1,4 +1,4 @@
-package es.marser;
+package es.marser.tools;
 
 /**
  * Created by Sergio on 27/08/2017.
