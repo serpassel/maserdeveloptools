@@ -7,11 +7,13 @@
         <item name="android:textColor">@color/bt_wrong_color_red_500</item>
         <item name="android:textSize">10sp</item>
     </style>
+
     <style name="bt_head_label">
         <item name="background">@color/bt_transparent</item>
         <item name="android:textColor">@color/bt_secondary_text</item>
         <item name="android:textSize">17sp</item>
     </style>
+
     <style name="bt_body_label">
         <item name="background">@color/bt_transparent</item>
         <item name="android:textColor">@color/bt_primary_text</item>
