@@ -2,18 +2,18 @@
  * Bintray release configuration
  * */
 ext {
-    bintrayRepo = 'prueba-rep'
+    bintrayRepo = 'marsertools-rep'
     bintrayName = POM_ARTIFACT_ID
 
-    publishedGroupId = 'es.marser.prueba'
-    libraryName = 'PruebaLib'
+    publishedGroupId = 'es.marser.developtools'
+    libraryName = 'MaserDevelopTools'
     artifact = POM_ARTIFACT_ID
     packagingType = POM_PACKAGING
 
     libraryDescription = POM_DESCRIPTION
 
     siteUrl = 'https://github.com/serpassel/maserdeveloptools'
-    gitUrl = 'https://github.com/serpassel/prueba-multi-lib-hub.git'
+    gitUrl = 'https://github.com/serpassel/maserdeveloptools.git'
 
     libraryVersion = POM_VERSION
 

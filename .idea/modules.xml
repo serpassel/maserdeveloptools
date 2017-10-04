@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MaserDevelopTools.iml" filepath="$PROJECT_DIR$/MaserDevelopTools.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/jbasictools/jbasictools.iml" filepath="$PROJECT_DIR$/jbasictools/jbasictools.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqltools/sqltools.iml" filepath="$PROJECT_DIR$/sqltools/sqltools.iml" />
     </modules>
   </component>
 </project>
