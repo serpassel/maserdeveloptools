@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 
-import es.marser.TextTools;
+import es.marser.tools.TextTools;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 

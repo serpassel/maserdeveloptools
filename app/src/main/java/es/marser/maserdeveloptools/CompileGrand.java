@@ -1,7 +1,7 @@
 package es.marser.maserdeveloptools;
 
 
-import es.marser.TextTools;
+import es.marser.tools.TextTools;
 import es.marser.sqltools.SQLStrings;
 
 /**

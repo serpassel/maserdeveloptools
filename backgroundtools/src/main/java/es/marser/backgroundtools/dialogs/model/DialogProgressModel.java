@@ -8,7 +8,7 @@ import android.databinding.ObservableField;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import es.marser.MathTools;
+import es.marser.tools.MathTools;
 import es.marser.backgroundtools.R;
 
 

@@ -3,7 +3,7 @@ package es.marser.backgroundtools.dialogs;
 import android.content.Context;
 import android.os.Bundle;
 
-import es.marser.MathTools;
+import es.marser.tools.MathTools;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;

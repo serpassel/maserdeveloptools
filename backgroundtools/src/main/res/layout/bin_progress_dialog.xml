@@ -6,7 +6,7 @@
 
         <import
             alias="tt"
-            type="es.marser.TextTools" />
+            type="es.marser.tools.TextTools" />
 
 <import type="es.marser.backgroundtools.dialogs.model.DialogProgressModel"/>
         <variable

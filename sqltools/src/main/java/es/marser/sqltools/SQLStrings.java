@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import es.marser.TextTools;
+import es.marser.tools.TextTools;
 import es.marser.sqltools.annotation.DbColumn;
 import es.marser.sqltools.annotation.DbColumnInclosed;
 import es.marser.sqltools.annotation.DbPrimaryKey;
