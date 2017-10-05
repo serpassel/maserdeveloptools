@@ -8,7 +8,7 @@
     <!--HEAD-->
     <color name="bt_base_dialogs_title">@color/bt_primary_dark</color>
     <dimen name="bt_image_dimen">@dimen/bt_m_image</dimen>
-    <string name="bt_content">Cargando…</string>
+    <string name="bt_content">Icon</string>
 
     <!--BODY-->
     <integer name="bt_limit_text">30</integer>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">MaserDevelopTools</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_main" tools:ignore="UnusedResources">MainActivity</string>
 </resources>

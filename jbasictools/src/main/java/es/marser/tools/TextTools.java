@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
  *         8.- Vector transformation
  */
 @SuppressWarnings({"unused", "WeakerAccess"})
-public abstract class TextTools {
+public class TextTools {
 
     public static String[] alfabetic = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",
             "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
