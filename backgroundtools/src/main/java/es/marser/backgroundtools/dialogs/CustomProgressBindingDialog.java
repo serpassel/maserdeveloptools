@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 
 import es.marser.tools.MathTools;
-import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 
@@ -60,7 +59,7 @@ public class CustomProgressBindingDialog extends BaseCustomBinDialog {
 
     @Override
     protected int getDialogLayout() {
-        return R.layout.bin_progress_dialog;
+        return 0;
     }
 
     /**

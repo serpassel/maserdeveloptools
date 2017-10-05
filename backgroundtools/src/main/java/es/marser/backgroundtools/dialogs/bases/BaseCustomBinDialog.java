@@ -95,9 +95,10 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      * [EN]  View link.  Required for the model variable in the view to be named model
      */
     protected void bindObject() {
+/*
         viewDataBinding.setVariable(BR.model, source);
         viewDataBinding.executePendingBindings();
-
+*/
     }
 
     /**

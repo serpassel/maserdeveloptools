@@ -60,6 +60,6 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
 
     @Override
     protected int getDialogLayout() {
-        return R.layout.bin_indeterminate_dialog;
+        return 0;
     }
 }

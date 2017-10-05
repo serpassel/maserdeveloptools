@@ -12,8 +12,8 @@ dependencies {
    }
 
 //noinspection GroovyUnusedAssignment
-sourceCompatibility = "1.8"
+sourceCompatibility = JavaVersion.VERSION_1_7
 //noinspection GroovyUnusedAssignment
-targetCompatibility = "1.8"
+targetCompatibility = JavaVersion.VERSION_1_7
 
 apply from: rootProject.file('release-bintray.gradle')
