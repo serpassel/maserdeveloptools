@@ -71,18 +71,18 @@ public class ToastModel {
         }
     }
 
-    @BindingAdapter(value = {"colorSecondaryToastText"})
-    public static void setSecondaryToastTextColor(TextView v, String state) {
+    @BindingAdapter(value = {"colorSecondaryToast"})
+    public static void setSecondaryToastColor(View v, String state) {
         switch (state) {
             case ToastModel.WARNING_ICON:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color_light));
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color_light));
                 break;
             case ToastModel.ERROR_ICON:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color_light));
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color_light));
                 break;
             case ToastModel.INFORMATION_ICON:
             default:
-                v.setTextColor(ContextCompat.getColor(v.getContext(),R.color.bt_information_color_light));
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(),R.color.bt_information_color_light));
                 break;
         }
     }

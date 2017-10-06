@@ -63,7 +63,7 @@ public class Launch_toast {
     public static void informationToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.INFORMATION_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
+        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[0]);
         toastModel.msg.set(message);
         launchToast(context, toastModel);
     }
@@ -79,7 +79,7 @@ public class Launch_toast {
     public static void warningToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.WARNING_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
+        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
         toastModel.msg.set(message);
         launchToast(context, toastModel);
     }
@@ -95,7 +95,7 @@ public class Launch_toast {
     public static void errorToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.ERROR_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[3]);
+        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
         toastModel.msg.set(message);
         launchToast(context, toastModel);
     }

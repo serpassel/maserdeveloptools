@@ -3,27 +3,29 @@
 
     <dimen name="bt_toast_launcher_padding">@dimen/bt_default_padding</dimen>
     <dimen name="bt_toast_launcher_margin">@dimen/bt_default_margin</dimen>
-    <dimen name="bt_toast_launcher_imagen_dimen">@dimen/bt_lm_image</dimen>
+    <dimen name="bt_toast_launcher_imagen_dimen">@dimen/bt_m_image</dimen>
 
-    <color name="bt_toast_backgroung">@color/bt_primary_dark</color>
+    <color name="bt_toast_background">@color/bt_primary_dark</color>
 
     <style name="bt_head_toast_label">
         <item name="background">@color/bt_transparent</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="bt_body_toast_label">
-        <item name="background">@color/bt_transparent</item>
+        <item name="android:textColor">@color/bt_toast_background</item>
+        <item name="android:padding">@dimen/bt_toast_launcher_padding</item>
+        <item name="android:minWidth">200dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>
-        <item name=" android:lines">2</item>
+        <item name="android:lines">2</item>
     </style>
 
     <!--OPTION-->
     <string-array name="toast_title">
         <item>Información</item>
-        <item>Warning</item>
+        <item>Advertencia</item>
         <item>Error</item>
     </string-array>
 </resources>
