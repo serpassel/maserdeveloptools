@@ -47,8 +47,8 @@ public class DialogProgressModel {
     public final ObservableField<String> icon = new ObservableField<>("");//Icono del título [EN]  Title Icon
 
 
-    @BindingAdapter(value = {"icon"})
-    public static void setIcon(ImageView view, String icon) {
+    @BindingAdapter(value = {"iconDialog"})
+    public static void setDialogIcon(ImageView view, String icon) {
         switch (icon) {
             case BC3_ICON:
                 view.setImageResource(R.drawable.ic_bc3);

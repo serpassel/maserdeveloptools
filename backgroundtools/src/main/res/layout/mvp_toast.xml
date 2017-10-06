@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:foo="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="es.marser.backgroundtools.toast.model.ToastModel" />
+
+        <variable
+            name="model"
+            type="ToastModel" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/bt_toast_backgroung"
+        android:orientation="horizontal"
+        android:padding="@dimen/bt_toast_launcher_padding">
+        <!--HEAD-->
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="@dimen/bt_toast_launcher_imagen_dimen"
+            android:layout_height="@dimen/bt_toast_launcher_imagen_dimen"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/bt_toast_launcher_margin"
+            android:scaleType="fitXY"
+            foo:iconToast="@{model.icon}" />
+
+        <!--BODY-->
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/bt_toast_launcher_margin"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <!--Primary-->
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.title}"
+                android:theme="@style/bt_head_toast_label"
+                foo:colorPrimaryToastText="@{model.icon}"/>
+            <!--Secundary-->
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/bt_toast_launcher_margin"
+                android:text="@{model.msg}"
+                foo:colorSecondaryToastText="@{model.icon}"
+                android:theme="@style/bt_body_toast_label" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

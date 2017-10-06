@@ -13,6 +13,16 @@
             name="item"
             type="es.marser.backgroundtools.dialogs.model.ExampleModelObject"/>
 
+        <!--MODELO manejador de eventos de la vista [EN]  MODEL view event handler-->
+        <variable
+            name="handler"
+            type="es.marser.backgroundtools.handlers.ViewHandler"/>
+
+        <!--MODELO manejador de eventos de ventana [EN]  MODEL window event handler-->
+        <variable
+            name="winaction"
+            type="es.marser.backgroundtools.handlers.WindowAction"/>
+
     </data>
 
     <FrameLayout

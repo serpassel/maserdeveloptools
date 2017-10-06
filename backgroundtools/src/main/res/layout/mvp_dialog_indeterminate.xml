@@ -38,7 +38,7 @@
                 android:layout_margin="@dimen/bt_base_dialogs_margin"
                 android:contentDescription="@string/bt_content"
                 android:scaleType="fitXY"
-                foo:icon="@{model.icon}" />
+                foo:iconDialog="@{model.icon}" />
             <!--Título-->
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="0dp"

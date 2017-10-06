@@ -4,4 +4,15 @@
     <color name="bt_right_color_teal_500">#009688</color>
     <color name="bt_warning_color_amber_500">#ffc107</color>
     <color name="bt_transparent">#00000000</color>
+
+
+    <!--Material Desing 900-->
+    <color name="bt_error_color">#b71c1c</color>
+    <color name="bt_information_color">#33691e</color>
+    <color name="bt_warning_color">#f57f17</color>
+
+    <!--Material Desing 200-->
+    <color name="bt_error_color_light">#ef9a9a</color>
+    <color name="bt_information_color_light">#a5d6a7</color>
+    <color name="bt_warning_color_light">#fff59d</color>
 </resources>
