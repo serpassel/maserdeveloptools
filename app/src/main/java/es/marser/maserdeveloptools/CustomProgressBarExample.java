@@ -3,7 +3,9 @@ package es.marser.maserdeveloptools;
 import android.content.Context;
 
 import es.marser.backgroundtools.dialogs.CustomInterminateBinDialog;
+import es.marser.backgroundtools.dialogs.CustomProgressBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.tools.MathTools;
 
 /**
  * @author sergio
@@ -27,6 +29,40 @@ public class CustomProgressBarExample {
 
     public static void indeterminateSpinner(Context context) {
         CustomInterminateBinDialog.newInstace(context, CustomInterminateBinDialog.createBundle(null)).show();
+    }
 
+    public static void progressIndeterminateBox(Context context) {
+        CustomProgressBinDialog bar = CustomProgressBinDialog
+                .newInstace(context,
+                        CustomProgressBinDialog
+                                .createBundle(
+                                        CustomProgressBinDialog.EXCEL_ICON
+                                ));
+        bar.setMax(null);
+        bar.show();
+    }
+
+    public static void progressBox(Context context) {
+        int max = 1000;
+        String headTitle = "Leyendo xls...";
+
+        CustomProgressBinDialog bar = CustomProgressBinDialog
+                .newInstace(context,
+                        CustomProgressBinDialog
+                                .createBundle(
+                                        CustomProgressBinDialog.EXCEL_ICON
+                                ));
+        bar.show();
+
+        bar.setTitle(headTitle);
+        bar.setMax(max);
+
+        for(int i = 0;i<max;++i){
+            bar.setProgress(i);
+
+            if(MathTools.isMultiple(i,100)){
+                bar.addError("Error " + i);
+            }
+        }
     }
 }

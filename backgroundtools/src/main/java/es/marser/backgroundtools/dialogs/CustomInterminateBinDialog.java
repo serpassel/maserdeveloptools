@@ -83,9 +83,9 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
     protected int getDialogLayout() {
         switch (getArguments().getString(MODE_BOX_EXTRA, MODE_BOX_EXTRA)) {
             case MODE_BOX_EXTRA:
-                return R.layout.mvp_dialog_indeterminate_progress;
+                return R.layout.mvp_dialog_indeterminate;
             default:
-                return R.layout.mvc_spinner;
+                return R.layout.mvp_spinner;
 
         }
     }

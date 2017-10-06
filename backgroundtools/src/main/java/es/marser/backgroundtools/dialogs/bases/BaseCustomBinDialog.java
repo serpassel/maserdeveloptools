@@ -18,18 +18,17 @@ import es.marser.tools.TextTools;
  *         <p>
  *         Para que la librería funcione activar Biblioteca de vinculación de datos de android, en el módulo de la app
  *         <p>
- *
+ *         <p>
  *         <p>
  *         [EN]  Custom Dialogos building base. [EN]  MVC design pattern
  *         <p>
  *         In order for the library to work activate android Databinding Library, in the module of the app
  *         <p>
- *             android {...
- *             dataBinding{
- *                 enabled = true
- *             }
- *             }
- *
+ *         android {...
+ *         dataBinding{
+ *         enabled = true
+ *         }
+ *         }
  * @see BaseDialog
  */
 
@@ -92,7 +91,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
 
         builder.setView(view);
         dialog = builder.create();
-     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         bindObject();
         postBuild();
     }

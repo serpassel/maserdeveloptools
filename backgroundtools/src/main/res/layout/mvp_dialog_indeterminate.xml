@@ -28,7 +28,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/bt_base_dialogs_margin"
-            android:background="@color/bt_base_dialogs_title">
+            android:background="@color/bt_base_dialogs_title"
+            android:orientation="horizontal">
             <!--icono-->
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/bt_image_dimen"
@@ -40,8 +41,9 @@
                 foo:icon="@{model.icon}" />
             <!--Título-->
             <android.support.v7.widget.AppCompatTextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
                 android:layout_marginEnd="@dimen/bt_base_dialogs_margin"
                 android:layout_marginLeft="@dimen/bt_base_dialogs_margin"
