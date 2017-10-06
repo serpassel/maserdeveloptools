@@ -8,7 +8,7 @@ import org.junit.Test;
  *         Created by sergio on 23/09/17.
  *         Funcional de clase estática
  */
-@SuppressWarnings("CanBeFinal")
+@SuppressWarnings({"CanBeFinal", "unused","WeakerAccess"})
 public class TextToolsTest {
 
     private String in = "prueba";

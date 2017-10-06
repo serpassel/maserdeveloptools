@@ -7,7 +7,7 @@ package es.marser.tools;
  *         <p>
  *         [EN]  Basic tools for handling boolean
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public abstract class BooleanTools {
 
     /**

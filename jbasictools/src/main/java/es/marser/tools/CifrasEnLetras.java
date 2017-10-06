@@ -30,6 +30,7 @@ public class CifrasEnLetras {
     /////////////////////////////////////////////
     // ENUMERACIONES
 
+    @SuppressWarnings("unused")
     private enum Genero {
         neutro, masculino, femenino;
 

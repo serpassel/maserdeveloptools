@@ -13,6 +13,7 @@ import org.junit.Test;
  *         [EN]
  *         DateTools Functional Check
  */
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class BooleanToolsTest {
 
     @Test

@@ -19,6 +19,7 @@ import java.lang.annotation.Target;
  * @see es.marser.sqltools.SQLStrings.inclosed#CREATION
  * @see es.marser.sqltools.SQLStrings.inclosed#MODIFICATION
  */
+@SuppressWarnings("unused")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface DbColumnInclosed {

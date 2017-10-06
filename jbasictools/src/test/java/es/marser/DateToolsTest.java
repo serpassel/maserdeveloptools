@@ -18,7 +18,7 @@ import java.util.GregorianCalendar;
  *         [EN]
  *         DateTools Functional Check
  */
-@SuppressWarnings("CanBeFinal")
+@SuppressWarnings({"CanBeFinal", "unused", "WeakerAccess"})
 public class DateToolsTest {
 
     private GregorianCalendar in = new GregorianCalendar();

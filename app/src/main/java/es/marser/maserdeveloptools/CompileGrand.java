@@ -9,7 +9,7 @@ import es.marser.sqltools.SQLStrings;
  *         Created by sergio on 4/10/17.
  */
 
-@SuppressWarnings("ALL")
+@SuppressWarnings({"ALL", "unused"})
 public class CompileGrand {
 String s = TextTools.nc("");
     String s1 = SQLStrings.createFilter("filter");

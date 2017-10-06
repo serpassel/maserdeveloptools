@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
  *         <p>
  *         [EN]  Primary Key
  */
+@SuppressWarnings("unused")
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)//Indica que la anotación es para un campo
 public @interface DbPrimaryKey {

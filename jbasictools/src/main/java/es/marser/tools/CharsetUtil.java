@@ -32,6 +32,7 @@ import java.util.TreeSet;
 public class CharsetUtil {
 
 
+    @SuppressWarnings("unused")
     private static class Charset implements Comparable<Charset> {
         private String canonical = null;
         private String mime = null;

@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
  *         4.- Calculations with dates.
  *         5.- Predefined ranges
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public abstract class DateTools {
 
     public static final String comparativeFormatting = "ddMMyyyy"; //Variable de formateo comparativo [EN]  Comparative Format Variable
@@ -598,7 +598,7 @@ public abstract class DateTools {
     /**
      * Par de fechas [EN]  Pair of dates
      */
-    @SuppressWarnings("CanBeFinal")
+    @SuppressWarnings({"CanBeFinal", "unused"})
     public static class Pair {
         public GregorianCalendar start;
         public GregorianCalendar end;

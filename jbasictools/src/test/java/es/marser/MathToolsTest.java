@@ -13,6 +13,7 @@ import java.math.BigDecimal;
  *         [EN]  Test of basic mathematic tools
  */
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class MathToolsTest {
     @Test
     public void channel2() {

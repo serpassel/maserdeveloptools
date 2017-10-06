@@ -40,7 +40,7 @@ import es.marser.sqltools.annotation.DbTable;
  *         
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue"})
 public abstract class SQLStrings {
 
     /**
@@ -48,6 +48,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Enumeration of self-creation fields
      */
+    @SuppressWarnings("unused")
     public enum inclosed {
         /*Tiempo de creación del registro [EN]  Record creation time es*/
         CREATION {

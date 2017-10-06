@@ -11,6 +11,7 @@ import android.widget.Toast;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.toast.model.ToastModel;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -30,13 +31,12 @@ import es.marser.backgroundtools.toast.model.ToastModel;
  *         }
  */
 
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class Launch_toast {
-
-    private static ViewDataBinding viewDataBinding;
 
     private static void launchToast(Context context, ToastModel toastModel) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        viewDataBinding = DataBindingUtil.inflate(inflater, R.layout.mvp_toast, null, false);
+        ViewDataBinding viewDataBinding = DataBindingUtil.inflate(inflater, R.layout.mvp_toast, null, false);
         View view = viewDataBinding.getRoot();
 
         viewDataBinding.setVariable(BR.model, toastModel);
@@ -64,7 +64,7 @@ public class Launch_toast {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.INFORMATION_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[0]);
-        toastModel.msg.set(message);
+        toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
     }
 
@@ -80,7 +80,7 @@ public class Launch_toast {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.WARNING_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
-        toastModel.msg.set(message);
+        toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
     }
 
@@ -96,7 +96,7 @@ public class Launch_toast {
         ToastModel toastModel = new ToastModel();
         toastModel.icon.set(ToastModel.ERROR_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
-        toastModel.msg.set(message);
+        toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
     }
 

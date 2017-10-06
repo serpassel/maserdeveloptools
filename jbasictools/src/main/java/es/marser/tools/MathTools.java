@@ -26,7 +26,7 @@ import java.util.Stack;
  *         6.- Calculations
  */
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public abstract class MathTools {
 
     //1.- CORRECCIÓN DE NULOS_______________________________________________

@@ -29,7 +29,7 @@ import java.util.regex.Pattern;
  *         7.- StringBuilder. deleted
  *         8.- Vector transformation
  */
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public class TextTools {
 
     public static String[] alfabetic = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J",

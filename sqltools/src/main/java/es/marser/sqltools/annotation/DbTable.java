@@ -15,6 +15,7 @@ import java.lang.annotation.RetentionPolicy;
  *         [EN]  Structure of the table in which the registers on which the POJO depends
  *
  */
+@SuppressWarnings("unused")
 @Retention(RetentionPolicy.RUNTIME)//La anotación se usa en tiempo de ejecución
 
 public @interface DbTable {

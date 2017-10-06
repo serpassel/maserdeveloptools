@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * @author sergio
  *         Created by sergio on 2/10/17.
  */
-@SuppressWarnings("CanBeFinal")
+@SuppressWarnings({"CanBeFinal", "unused"})
 @RunWith(MockitoJUnitRunner.class)
 public class SQLStringsTest {
 
