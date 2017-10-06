@@ -56,6 +56,7 @@ public class CustomProgressBarExample {
 
         bar.setTitle(headTitle);
         bar.setMax(max);
+        bar.setTemp("[PlaceHolder]");
 
         for(int i = 0;i<max;++i){
             bar.setProgress(i);
