@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="@color/bt_transparent"
+        android:keepScreenOn="true">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_margin="@dimen/bt_base_dialogs_margin"
+            android:background="@color/bt_transparent"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/com_progressbar_spinner" />
+
+    </FrameLayout>
+</layout>

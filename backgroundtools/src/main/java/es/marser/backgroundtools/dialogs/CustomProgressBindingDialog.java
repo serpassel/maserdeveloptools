@@ -13,6 +13,7 @@ import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
  *         Cuadro de progreso personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Progress Box
+ * @see es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})

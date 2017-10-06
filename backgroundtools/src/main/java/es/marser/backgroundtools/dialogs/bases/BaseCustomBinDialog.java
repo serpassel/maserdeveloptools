@@ -4,22 +4,36 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 
-import es.marser.tools.TextTools;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
  *         Created by Sergio on 06/09/2017.
  *         Base de construcción de Dialogos personalizados. Patrón de diseño MVC
  *         <p>
+ *         Para que la librería funcione activar Biblioteca de vinculación de datos de android, en el módulo de la app
+ *         <p>
+ *
+ *         <p>
  *         [EN]  Custom Dialogos building base. [EN]  MVC design pattern
+ *         <p>
+ *         In order for the library to work activate android Databinding Library, in the module of the app
+ *         <p>
+ *             android {...
+ *             dataBinding{
+ *                 enabled = true
+ *             }
+ *             }
+ *
  * @see BaseDialog
  */
 
-@SuppressWarnings({"unused", "EmptyMethod"})
+@SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
 public abstract class BaseCustomBinDialog extends BaseDialog {
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
@@ -27,7 +41,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     /*Variable modelo [EN]  Model variable*/
     protected DialogProgressModel source;
 
-/*Variables para el icono de cabecera [EN]  Variables for the header icon*/
+    /*Variables para el icono de cabecera [EN]  Variables for the header icon*/
     public static final String BC3_ICON = DialogProgressModel.BC3_ICON;
     public static final String EXCEL_ICON = DialogProgressModel.EXCEL_ICON;
     public static final String PDF_ICON = DialogProgressModel.PDF_ICON;
@@ -59,17 +73,18 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     /**
      * Construcción del cuadro de dialogo
      * <ul>
-     * <il>Pre-creación [EN]  [EN]  Pre-creation</il>
+     * <il>Pre-creación [EN]  Pre-creation</il>
      * <il>Crear Dialogo [EN]  Create Dialogo</il>
      * <il>Enlazar modelo a la vista [EN]  Link model to view</il>
      * <il>Post-creación [EN]  Post-creation</il>
      * </ul>
      * [EN]  Construction of the dialog box
      */
+    @SuppressWarnings("ConstantConditions")
     private void buildDialog() {
         preBuild();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewDataBinding = DataBindingUtil.inflate(inflater, getDialogLayout(), null, false);
@@ -77,6 +92,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
 
         builder.setView(view);
         dialog = builder.create();
+     dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         bindObject();
         postBuild();
     }
@@ -95,10 +111,8 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      * [EN]  View link.  Required for the model variable in the view to be named model
      */
     protected void bindObject() {
-/*
         viewDataBinding.setVariable(BR.model, source);
         viewDataBinding.executePendingBindings();
-*/
     }
 
     /**
