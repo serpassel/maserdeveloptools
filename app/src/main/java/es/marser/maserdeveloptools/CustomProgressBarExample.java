@@ -4,6 +4,7 @@ import android.content.Context;
 
 import es.marser.backgroundtools.dialogs.CustomInterminateBinDialog;
 import es.marser.backgroundtools.dialogs.CustomProgressBinDialog;
+import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.MathTools;
 
@@ -15,7 +16,7 @@ import es.marser.tools.MathTools;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CustomProgressBarExample {
 
-    public static void indeterminateBox(Context context) {
+    public static BaseCustomBinDialog indeterminateBox(Context context) {
         CustomInterminateBinDialog binDialog = CustomInterminateBinDialog.newInstace(context,
                 CustomInterminateBinDialog
                         .createBundle(
@@ -25,6 +26,7 @@ public class CustomProgressBarExample {
         binDialog.setTemp("[Placeholder]");
         binDialog.show();
 
+        return binDialog;
     }
 
     public static void indeterminateSpinner(Context context) {
