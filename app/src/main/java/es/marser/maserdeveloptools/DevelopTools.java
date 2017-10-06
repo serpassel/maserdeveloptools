@@ -16,6 +16,6 @@ public class DevelopTools extends AppCompatActivity {
         //CustomProgressBarExample.indeterminateBox(this);
         //CustomProgressBarExample.indeterminateSpinner(this);
         //CustomProgressBarExample.progressIndeterminateBox(this);
-        CustomProgressBarExample.progressBox(this);
+        //CustomProgressBarExample.progressBox(this);
     }
 }
