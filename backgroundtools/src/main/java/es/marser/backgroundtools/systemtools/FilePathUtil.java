@@ -344,7 +344,7 @@ public abstract class FilePathUtil {
 
     //READING FILE DIRECTORIES_____________________________________________________________________________________
 /*
-    public static void getFiles(String filter, TaskUpdater<File, File, List<File>> taskUpdater) {
+    public static void getFiles(String filter, DataUploaderTask<File, File, List<File>> taskUpdater) {
         List<File> names = new ArrayList<>();
 
         if (taskUpdater != null) {
@@ -372,7 +372,7 @@ public abstract class FilePathUtil {
         }
     }
 
-    public static void getFilesInPath(File path, TaskUpdater<File, File, List<File>> taskUpdater) {
+    public static void getFilesInPath(File path, DataUploaderTask<File, File, List<File>> taskUpdater) {
         //Log.i(MainCRUD.TAG, "FilePathUtil PATH " + path.toString());
 
         if (path == null) {
@@ -410,13 +410,13 @@ public abstract class FilePathUtil {
     //____________________MÉTODOS PARA LANZADOR DE EVENTOS
 
 
-    protected TaskUpdater<File, File, Void> taskUpdater;
+    protected DataUploaderTask<File, File, Void> taskUpdater;
 
-    public TaskUpdater getTaskUpdater() {
+    public DataUploaderTask getTaskUpdater() {
         return taskUpdater;
     }
 
-    public void setTaskUpdater(TaskUpdater<File, File, Void> taskUpdater) {
+    public void setTaskUpdater(DataUploaderTask<File, File, Void> taskUpdater) {
         this.taskUpdater = taskUpdater;
     }
     */
