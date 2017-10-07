@@ -3,7 +3,6 @@ package es.marser.backgroundtools.systemtools;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 
 import java.io.IOException;
@@ -17,7 +16,7 @@ import java.io.IOException;
  */
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public class NetWorkTools extends AppCompatActivity {
+public class NetWorkTools {
     private OnNetworkAirListener onNetworkAirListener;
     private Context context;
 

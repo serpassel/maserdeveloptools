@@ -8,7 +8,7 @@ package es.marser.backgroundtools.async;
  *         [EN]  Asynchronous Data Loading Task
  */
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "EmptyMethod"})
 public interface DataUploaderTask<A, B, C> {
     /**
      * Iniciar tarea

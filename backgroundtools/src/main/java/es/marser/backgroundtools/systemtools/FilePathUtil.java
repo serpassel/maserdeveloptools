@@ -5,7 +5,10 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 
@@ -13,8 +16,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
+import es.marser.backgroundtools.async.DataUploaderTask;
 import es.marser.backgroundtools.toast.Launch_toast;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
@@ -295,7 +300,7 @@ public abstract class FilePathUtil {
      */
     public static String getMimeType(File file) {
         String myme = file != null ? MimeTypeMap.getSingleton().getMimeTypeFromExtension(TextTools.nc(getExtension(file).toLowerCase())) : null;
-        return myme != null ?  myme : "*/*";
+        return myme != null ? myme : "*/*";
     }
 
     /**
@@ -343,81 +348,201 @@ public abstract class FilePathUtil {
 
 
     //READING FILE DIRECTORIES_____________________________________________________________________________________
-/*
-    public static void getFiles(String filter, DataUploaderTask<File, File, List<File>> taskUpdater) {
-        List<File> names = new ArrayList<>();
 
-        if (taskUpdater != null) {
-            taskUpdater.onStart(getAppPath());
-        }
-
-        if (TextTools.isEmpty(filter)) {
-            filter = "";
-        }
-        final String finalFilter = filter;
-        FilenameFilter fileFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.contains(finalFilter);
-            }
-        };
-        for (File file : getAppPath().listFiles(fileFilter)) {
-            names.add(file);
-            if (taskUpdater != null) {
-                taskUpdater.onUpdate(file);
-            }
-        }
-        if (taskUpdater != null) {
-            taskUpdater.onFinish(names);
-        }
+    /**
+     * Recuperación asíncrona de objetos File de una ruta
+     * <p>
+     * [EN]  Retrieving asynchronous objects from a file
+     *
+     * @param path   Ruta de origen [EN]  Source Path
+     * @param filter Filter de objetos por nombre [EN]  Filter objects by name
+     * @param task   Oyente de resultados [EN]  Listener results
+     */
+    public static void getAsyncFiles(File path, String filter, DataUploaderTask<Void, File, Void> task) {
+        new AsyncLoadFilesPath(task).execute(new FileLoader(filter, path));
     }
 
-    public static void getFilesInPath(File path, DataUploaderTask<File, File, List<File>> taskUpdater) {
-        //Log.i(MainCRUD.TAG, "FilePathUtil PATH " + path.toString());
+    /**
+     * Recuperación síncrona de archivos de una ruta
+     * <p>
+     * [EN]  Synchronous File Recovery for a Path
+     *
+     * @param path   Ruta de origen [EN]  Source Path
+     * @param filter Filter de objetos por nombre [EN]  Filter objects by name
+     * @return Arreglo de objetos file en la ruta [EN]  Array of objects file in the path
+     */
+    public static File[] getUnSyncFiles(File path, String filter) {
+        FileLoader fileLoader = new FileLoader(filter, path);
+        return fileLoader.getPathFiles();
+    }
 
-        if (path == null) {
-            if (taskUpdater != null) {
-                taskUpdater.onFailure(new NullPointerException("Path null"));
+    /**
+     * Subclase para la carga asincrona de los archivos y directorios de un directorio
+     * <p>
+     * [EN]  Subclass for the asynchronous load of the files and directories of a directory
+     */
+    @SuppressWarnings("CanBeFinal")
+    private static class AsyncLoadFilesPath extends AsyncTask<FileLoader, Bundle, Void> {
+
+        private DataUploaderTask<Void, File, Void> taskLoadingResult;
+        private String filter;
+
+        public enum Extras {
+            INDEX_EXTRA,
+            OBJECT_EXTRA,
+            THROWABLE_EXTRA
+        }
+
+        public AsyncLoadFilesPath(DataUploaderTask<Void, File, Void> taskLoadingResult) {
+            this.taskLoadingResult = taskLoadingResult;
+        }
+
+        @Override
+        protected Void doInBackground(FileLoader... params) {
+            FileLoader fileLoader = params[0];
+
+            if (fileLoader != null && fileLoader.path != null) {
+
+                for (File file : fileLoader.getPathFiles()) {
+
+                    /*Mostrar archivos ocultos [EN]  Show hidden files */
+                    if (fileLoader.showHidden || !file.isHidden()) {
+
+                    /*Crear bundle de publicación [EN]  Create publishing bundle*/
+                        Bundle bundle = new Bundle();
+                    /*Argumento de tipo de información [EN]  Information Type Argument*/
+                        bundle.putSerializable(Extras.INDEX_EXTRA.name(), Extras.OBJECT_EXTRA);
+                    /*Argumento con el valor de la información [EN]  Argument with the value of the information*/
+                        bundle.putSerializable(Extras.OBJECT_EXTRA.name(), file);
+                    /*Publicar información [EN]  Publish Information*/
+                        publishProgress(bundle);
+                    }
+                }
             }
-            return;
+            return null;
         }
 
-        if (path.isDirectory() && !path.exists()) {
-            path.mkdirs();
-        }
+        @Override
+        protected void onProgressUpdate(Bundle... values) {
+            super.onProgressUpdate(values);
 
-        List<File> names = new ArrayList<>();
-
-        if (taskUpdater != null) {
-            taskUpdater.onStart(getAppPath());
-        }
-
-        for (File file : path.listFiles()) {
-            if (!file.getName().startsWith(".")) {
-                names.add(file);
-                if (taskUpdater != null) {
-                    taskUpdater.onUpdate(file);
+            for (Bundle b : values) {
+                if (b == null) {
+                    continue;
+                }
+                Extras ex = (Extras) b.getSerializable(Extras.INDEX_EXTRA.name());
+                if (ex != null) {
+                    switch (ex) {
+                        case OBJECT_EXTRA:
+                            try {
+                                File in = (File) b.getSerializable(Extras.OBJECT_EXTRA.name());
+                                if (taskLoadingResult != null && in != null) {
+                                    taskLoadingResult.onUpdate(in);
+                                }
+                            } catch (ClassCastException e) {
+                                if (taskLoadingResult != null) {
+                                    taskLoadingResult.onFailure(e);
+                                }
+                            }
+                            break;
+                        case THROWABLE_EXTRA:
+                            if (taskLoadingResult != null) {
+                                try {
+                                    Throwable throwable = (Throwable) b.getSerializable(Extras.THROWABLE_EXTRA.name());
+                                    taskLoadingResult.onFailure(throwable);
+                                } catch (ClassCastException e) {
+                                    if (taskLoadingResult != null) {
+                                        taskLoadingResult.onFailure(e);
+                                    }
+                                }
+                            }
+                            break;
+                    }
                 }
             }
         }
+    }
 
-        if (taskUpdater != null) {
-            taskUpdater.onFinish(names);
+    /**
+     * Subclase para introducir parámetros en la tarea asyncrona
+     * <p>
+     * [EN]  Subclass to enter parameters in the asynchronous task
+     */
+    @SuppressWarnings("CanBeFinal")
+    public static class FileLoader implements Parcelable {
+        private String filter;
+        private File path;
+        public boolean showHidden;
+
+        public FileLoader() {
+            this(null, null);
+        }
+
+
+        public FileLoader(String filter) {
+            this(filter, null);
+        }
+
+        public FileLoader(File path) {
+            this(null, path);
+        }
+
+        public FileLoader(String filter, File path) {
+            this(filter, path, false);
+        }
+
+        public FileLoader(String filter, File path, boolean showHidden) {
+            this.filter = filter;
+            this.path = path;
+            this.showHidden = showHidden;
+        }
+
+        public FilenameFilter getFilenameFilter() {
+            return new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.contains(TextTools.nc(filter));
+                }
+            };
+        }
+
+        public File[] getPathFiles() {
+            if (path == null || !path.exists()) {
+                return new File[]{};
+            }
+            return path.isDirectory() ? path.listFiles(getFilenameFilter()) : path.getParentFile().listFiles(getFilenameFilter());
+        }
+
+        //IMPLEMENTATION PARCELABLE______________________________________________________________________________
+        public static final Creator<FileLoader> CREATOR = new Creator<FileLoader>() {
+            @Override
+            public FileLoader createFromParcel(Parcel in) {
+                return new FileLoader(in);
+            }
+
+            @Override
+            public FileLoader[] newArray(int size) {
+                return new FileLoader[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        protected FileLoader(Parcel in) {
+            filter = in.readString();
+            showHidden = in.readByte() != 0;
+            path = (File) in.readSerializable();
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(filter);
+            dest.writeByte((byte) (showHidden ? 1 : 0));
+            dest.writeSerializable(path);
         }
     }
 
-
-    //____________________MÉTODOS PARA LANZADOR DE EVENTOS
-
-
-    protected DataUploaderTask<File, File, Void> taskUpdater;
-
-    public DataUploaderTask getTaskUpdater() {
-        return taskUpdater;
-    }
-
-    public void setTaskUpdater(DataUploaderTask<File, File, Void> taskUpdater) {
-        this.taskUpdater = taskUpdater;
-    }
-    */
 }

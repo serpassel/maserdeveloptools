@@ -3,8 +3,6 @@ package es.marser.backgroundtools.systemtools;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
-import com.android.dx.command.Main;
-
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,7 +15,7 @@ import es.marser.backgroundtools.TAG;
  * @author sergio
  *         Created by sergio on 7/10/17.
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "CanBeFinal"})
 @RunWith(AndroidJUnit4.class)
 public class FilePathUtilTest {
 
@@ -38,7 +36,6 @@ public class FilePathUtilTest {
 
     @Test
     public void channel4() {
-        File file = new File(FilePathUtil.getAndroidPath(), "PRUEBA.txt");
         for (String s : exts) {
             Log.i(TAG.TAG, "MymeType for " + s + ": " + FilePathUtil
                     .getMimeType(

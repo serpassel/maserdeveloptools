@@ -1,7 +1,5 @@
 package es.marser.backgroundtools.async;
 
-import java.util.List;
-
 /**
  * @author sergio
  *         Created by Sergio on 02/09/2017.
@@ -11,20 +9,18 @@ import java.util.List;
  */
 
 @SuppressWarnings({"unused", "WeakerAccess"})
-public abstract class TaskLoadingResult<T> implements DataUploaderTask<Integer, T, List<T>> {
+public abstract class TaskLoadingResult<T> implements DataUploaderTask<Void, T, Void> {
 
     /**
-     *
-     * @param start Número de Objetos a procesar
+     * @param start Objecto Nulo [EN]  Null object
      */
     @Override
-    public void onStart(Integer start) {
+    public void onStart(Void start) {
 
     }
 
     /**
-     *
-     * @param update objeto genérico procesado
+     * @param update objeto genérico procesado [EN]  processed generic object
      */
     @Override
     public void onUpdate(T update) {
@@ -32,17 +28,16 @@ public abstract class TaskLoadingResult<T> implements DataUploaderTask<Integer, 
     }
 
     /**
-     *
-     * @param finish Lista de objetos genéricos procesados
+     * @param finish Objeto nulo [EN]  Null object
+
      */
     @Override
-    public void onFinish(List<T> finish) {
-
+    public void onFinish(Void finish) {
     }
 
     /**
-     *
-     * @param e Objeto de error generado durante lla ejecución de la tarea
+     * @param e Objeto de error generado durante la ejecución de la tarea
+     *          <p>[EN]  Error object generated during task execution
      */
     @Override
     public void onFailure(Throwable e) {
