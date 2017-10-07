@@ -13,7 +13,21 @@ import android.view.View;
 
 @SuppressWarnings("unused")
 public interface WindowAction<T> extends ViewHandler<T> {
-
+    /**
+     * Acción aceptar
+     * <p>
+     * [EN]  Accept action
+     *
+     * @param v Vista pulsada [EN]  Pulsed view
+     */
     void onOk(View v);
+
+    /**
+     * Acción cancelar
+     * <p>
+     * [EN]  Action cancel
+     *
+     * @param v Vista pulsada [EN]  Pulsed view
+     */
     void onCancel(View v);
 }

@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bt_primary</item>
+        <item name="colorPrimaryDark">@color/bt_primary_dark</item>
+        <item name="colorAccent">@color/bt_accent</item>
+        <item name="colorButtonNormal">@color/bt_transparent</item>
+        <item name="textColorPrimary">@color/app_primary_text</item>
+        <item name="textColorSecondary">@color/app_secondary_text</item>
+    </style>
 <!--LABELS-->
     <style name="bt_error_label">
         <item name="background">@color/bt_transparent</item>
