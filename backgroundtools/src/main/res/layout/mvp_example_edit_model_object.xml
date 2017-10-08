@@ -36,7 +36,8 @@
                 android:layout_width="@dimen/bt_generic_edit_image_dimen"
                 android:layout_height="@dimen/bt_generic_edit_image_dimen"
                 android:layout_margin="?attr/dialogs_default_margin"
-                app:srcCompat="@drawable/ic_calculator" />
+                app:srcCompat="@drawable/ic_calculator"
+                bind:ignore="VectorDrawableCompat" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:layout_width="0dp"

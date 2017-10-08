@@ -20,9 +20,10 @@ import es.marser.backgroundtools.dialogs.bases.BaseDialog;
  *         Created by sergio on 8/10/17.
  *         Dialogo de
  */
-@MediumTest
+@SuppressWarnings({"CanBeFinal", "unused"})
 @RunWith(AndroidJUnit4.class)
-public class DialogTest {
+@MediumTest
+class DialogTest {
 
     @Rule
     public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();

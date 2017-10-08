@@ -8,7 +8,6 @@ import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
 import es.marser.backgroundtools.dialogs.progress.CustomProgressBinDialog;
-import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.MathTools;
 
