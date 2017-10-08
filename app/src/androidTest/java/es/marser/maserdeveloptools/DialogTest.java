@@ -32,7 +32,6 @@ class DialogTest {
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(
             DevelopTools.class);
 
-
     @Test
     public void dialog1() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {

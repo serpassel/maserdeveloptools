@@ -15,7 +15,7 @@ public class DevelopTools extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       // launch();
+       launch();
     }
 
     public void launch() {
@@ -28,6 +28,6 @@ public class DevelopTools extends AppCompatActivity {
        //es.marser.backgroundtools.toast.Launch_toast.errorToast(this, "Mensaje de error");
        //es.marser.backgroundtools.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
-        //DialogExample.editGeneric(this);
+        DialogExample.editGeneric(this);
     }
 }

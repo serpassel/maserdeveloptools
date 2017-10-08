@@ -1,8 +1,11 @@
 package es.marser.maserdeveloptools;
 
+import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 
+import es.marser.backgroundtools.TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
@@ -66,17 +69,17 @@ public class DialogExample {
         bar.setMax(max);
         bar.setTemp("[PlaceHolder]");
 
-        for(int i = 0;i<max;++i){
+        for (int i = 0; i < max; ++i) {
             bar.setProgress(i);
 
-            if(MathTools.isMultiple(i,100)){
+            if (MathTools.isMultiple(i, 100)) {
                 bar.addError("Error " + i);
             }
         }
         return bar;
     }
 
-    public static BaseDialog editGeneric(Context context){
+    public static BaseDialog editGeneric(Context context) {
         GenericEditDialog gene =
                 GenericEditDialog.newInstance(
                         context,
@@ -85,7 +88,13 @@ public class DialogExample {
                         new GenericEditDialog.OnResult<ExampleModelObject>() {
                             @Override
                             public void onResult(int result, ExampleModelObject value) {
+                                Log.w(TAG.TAG, "Resultado");
 
+                                if (result == Activity.RESULT_OK) {
+                                    Log.i(TAG.TAG, "Aceptar");
+                                } else {
+                                    Log.i(TAG.TAG, "Cancelar");
+                                }
                             }
 
                             @Override
