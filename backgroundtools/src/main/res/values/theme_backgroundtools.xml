@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="BackgroundToolsTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/bt_primary</item>
+        <item name="colorPrimaryDark">@color/bt_primary_dark</item>
+        <item name="colorAccent">@color/bt_accent</item>
+
+        <!--CUSTOM COLORS-->
+        <!--global-->
+        <item name="dialogs_base_background_tint">@color/bt_primary_light</item>
+
+        <!--head-->
+        <item name="dialogs_head_background_tint">@color/bt_primary_dark</item>
+        <item name="dialogs_head_text_color">@color/bt_primary_light</item>
+
+        <!--body-->
+        <item name="dialogs_body_background_tint">@color/bt_primary_light</item>
+        <item name="dialogs_body_text_color">@color/bt_primary_dark</item>
+
+        <!--foo-->
+        <item name="dialogs_foo_background_tint">@color/bt_primary_dark</item>
+        <item name="dialogs_foo_text_color">@color/bt_primary_light</item>
+
+        <!--accent-->
+        <item name="dialogs_accent">@color/bt_accent</item>
+        <item name="dialogs_accent_dark">@color/bt_accent_dark</item>
+        <item name="dialogs_accent_light">@color/bt_accent_light</item>
+
+        <!--CUSTOM DRAWABLES-->
+        <!--progress bar-->
+        <item name="dialogs_spinner">@drawable/com_progressbar_spinner</item>
+        <item name="dialogs_progressbar">@drawable/com_progressbar_background</item>
+
+        <!--field box-->
+        <item name="box_field">@drawable/box_container</item>
+
+        <!--CUSTOM DIMENSION-->
+        <!--margin padding-->
+        <item name="dialogs_default_margin">5dp</item>
+        <item name="dialogs_default_padding">2dp</item>
+
+        <!--box margin padding-->
+        <item name="box_default_hight_margin">20dp</item>
+        <item name="box_default_medium_margin">10dp</item>
+        <item name="box_default_small_margin">5dp</item>
+
+        <!--field margin padding-->
+        <item name="field_default_margin">1dp</item>
+        <item name="field_default_padding">2dp</item>
+
+        <!--button margin padding-->
+        <item name="button_default_margin">10dp</item>
+        <item name="button_default_padding">5dp</item>
+
+    </style>
+
+</resources>

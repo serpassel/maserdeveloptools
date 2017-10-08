@@ -25,7 +25,7 @@
                     android:angle="270"
                     android:centerColor="@color/bt_accent"
                     android:centerY="0.75"
-                    android:endColor="@color/bt_accent"
+                    android:endColor="@color/bt_accent_light"
                     android:startColor="@color/bt_accent_dark" />
             </shape>
         </clip>

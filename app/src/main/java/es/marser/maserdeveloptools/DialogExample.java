@@ -1,9 +1,13 @@
 package es.marser.maserdeveloptools;
 
 import android.content.Context;
+import android.view.View;
 
-import es.marser.backgroundtools.dialogs.CustomInterminateBinDialog;
-import es.marser.backgroundtools.dialogs.CustomProgressBinDialog;
+import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
+import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
+import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
+import es.marser.backgroundtools.dialogs.progress.CustomProgressBinDialog;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.MathTools;
@@ -14,9 +18,9 @@ import es.marser.tools.MathTools;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class CustomProgressBarExample {
+public class DialogExample {
 
-    public static BaseCustomBinDialog indeterminateBox(Context context) {
+    public static BaseDialog indeterminateBox(Context context) {
         CustomInterminateBinDialog binDialog = CustomInterminateBinDialog.newInstace(context,
                 CustomInterminateBinDialog
                         .createBundle(
@@ -29,11 +33,13 @@ public class CustomProgressBarExample {
         return binDialog;
     }
 
-    public static void indeterminateSpinner(Context context) {
-        CustomInterminateBinDialog.newInstace(context, CustomInterminateBinDialog.createBundle(null)).show();
+    public static BaseDialog indeterminateSpinner(Context context) {
+        CustomInterminateBinDialog binDialog = CustomInterminateBinDialog.newInstace(context, CustomInterminateBinDialog.createBundle(null));
+        binDialog.show();
+        return binDialog;
     }
 
-    public static void progressIndeterminateBox(Context context) {
+    public static BaseDialog progressIndeterminateBox(Context context) {
         CustomProgressBinDialog bar = CustomProgressBinDialog
                 .newInstace(context,
                         CustomProgressBinDialog
@@ -42,9 +48,10 @@ public class CustomProgressBarExample {
                                 ));
         bar.setMax(null);
         bar.show();
+        return bar;
     }
 
-    public static void progressBox(Context context) {
+    public static BaseDialog progressBox(Context context) {
         int max = 1000;
         String headTitle = "Leyendo xls...";
 
@@ -67,5 +74,29 @@ public class CustomProgressBarExample {
                 bar.addError("Error " + i);
             }
         }
+        return bar;
+    }
+
+    public static BaseDialog editGeneric(Context context){
+        GenericEditDialog gene =
+                GenericEditDialog.newInstance(
+                        context,
+                        GenericEditDialog
+                                .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
+                        new GenericEditDialog.OnResult<ExampleModelObject>() {
+                            @Override
+                            public void onResult(int result, ExampleModelObject value) {
+
+                            }
+
+                            @Override
+                            public void onClick(View v, ExampleModelObject value) {
+
+                            }
+                        }
+                );
+
+        gene.show();
+        return gene;
     }
 }

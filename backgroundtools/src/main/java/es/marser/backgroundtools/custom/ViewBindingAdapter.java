@@ -420,14 +420,17 @@ public class ViewBindingAdapter {
         }
     }
 
+    @SuppressWarnings("unused")
     public interface AfterTextChanged {
         void afterTextChanged(Editable s);
     }
 
+    @SuppressWarnings("unused")
     public interface BeforeTextChanged {
         void beforeTextChanged(CharSequence s, int start, int count, int after);
     }
 
+    @SuppressWarnings("unused")
     public interface OnTextChanged {
         void onTextChanged(CharSequence s, int start, int before, int count);
     }

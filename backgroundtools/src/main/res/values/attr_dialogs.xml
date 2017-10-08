@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--COLORS-->
+    <!--global-->
+    <attr name="dialogs_base_background_tint" format="reference|color" />
+
+    <!--head-->
+    <attr name="dialogs_head_background_tint" format="reference|color" />
+    <attr name="dialogs_head_text_color" format="reference|color" />
+
+    <!--body-->
+    <attr name="dialogs_body_background_tint" format="reference|color" />
+    <attr name="dialogs_body_text_color" format="reference|color" />
+
+    <!--foo-->
+    <attr name="dialogs_foo_background_tint" format="reference|color" />
+    <attr name="dialogs_foo_text_color" format="reference|color" />
+
+    <!--accent-->
+    <attr name="dialogs_accent" format="reference|color" />
+    <attr name="dialogs_accent_dark" format="reference|color" />
+    <attr name="dialogs_accent_light" format="reference|color" />
+
+    <!--DRAWABLES-->
+    <!--progress bar-->
+    <attr name="dialogs_spinner" format="reference" />
+    <attr name="dialogs_progressbar" format="reference" />
+
+    <!--field box-->
+    <attr name="box_field" format="reference"/>
+
+    <!--DIMENSION-->
+    <!--margin padding-->
+    <attr name="dialogs_default_margin" format="reference|dimension"/>
+    <attr name="dialogs_default_padding" format="reference|dimension" />
+
+    <!--box margin padding-->
+    <attr name="box_default_hight_margin" format="reference|dimension"/>
+    <attr name="box_default_medium_margin" format="reference|dimension"/>
+    <attr name="box_default_small_margin" format="reference|dimension"/>
+
+    <!--field margin padding-->
+    <attr name="field_default_margin" format="reference|dimension"/>
+    <attr name="field_default_padding" format="reference|dimension"/>
+
+    <!--button margin padding-->
+    <attr name="button_default_margin" format="reference|dimension"/>
+    <attr name="button_default_padding" format="reference|dimension"/>
+
+</resources>

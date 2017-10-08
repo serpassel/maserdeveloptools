@@ -381,12 +381,13 @@ public abstract class FilePathUtil {
      * <p>
      * [EN]  Subclass for the asynchronous load of the files and directories of a directory
      */
-    @SuppressWarnings("CanBeFinal")
+    @SuppressWarnings({"CanBeFinal", "unused"})
     private static class AsyncLoadFilesPath extends AsyncTask<FileLoader, Bundle, Void> {
 
         private DataUploaderTask<Void, File, Void> taskLoadingResult;
         private String filter;
 
+        @SuppressWarnings("unused")
         public enum Extras {
             INDEX_EXTRA,
             OBJECT_EXTRA,
@@ -468,7 +469,7 @@ public abstract class FilePathUtil {
      * <p>
      * [EN]  Subclass to enter parameters in the asynchronous task
      */
-    @SuppressWarnings("CanBeFinal")
+    @SuppressWarnings({"CanBeFinal", "unused"})
     public static class FileLoader implements Parcelable {
         private String filter;
         private File path;

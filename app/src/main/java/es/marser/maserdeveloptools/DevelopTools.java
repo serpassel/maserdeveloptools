@@ -1,7 +1,9 @@
 package es.marser.maserdeveloptools;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import es.marser.backgroundtools.toast.Launch_toast;
 
 @SuppressWarnings("EmptyMethod")
 public class DevelopTools extends AppCompatActivity {
@@ -15,18 +17,19 @@ public class DevelopTools extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        launch();
+       // launch();
     }
 
-    private void launch() {
-        //CustomProgressBarExample.indeterminateBox(this);
-        //CustomProgressBarExample.indeterminateSpinner(this);
-        //CustomProgressBarExample.progressIndeterminateBox(this);
-        //CustomProgressBarExample.progressBox(this);
+    public void launch() {
+       DialogExample.indeterminateBox(this);
+       DialogExample.indeterminateSpinner(this);
+       DialogExample.progressIndeterminateBox(this);
+       DialogExample.progressBox(this);
 
-  //      Launch_toast.warningToast(this, "Mensaje de advertencia");
-  //     Launch_toast.errorToast(this, "Mensaje de error");
-//      Launch_toast.informationToast(this, "Mensaje de información");
+       Launch_toast.warningToast(this, "Mensaje de advertencia");
+       Launch_toast.errorToast(this, "Mensaje de error");
+       Launch_toast.informationToast(this, "Mensaje de información");
 
+        //DialogExample.editGeneric(this);
     }
 }

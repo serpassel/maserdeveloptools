@@ -102,6 +102,7 @@ public class NetWorkTools {
      * <p>
      *     [EN]  Connection test result listener
      */
+    @SuppressWarnings("unused")
     public interface OnNetworkAirListener {
         void isOnlineResult(boolean isconected, String msg);
     }

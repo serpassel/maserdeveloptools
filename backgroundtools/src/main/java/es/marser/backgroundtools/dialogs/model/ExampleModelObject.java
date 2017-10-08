@@ -18,6 +18,12 @@ public class ExampleModelObject extends BaseObservable implements Parcelable {
     private String name;
     private String subname;
 
+    public ExampleModelObject() {
+    }
+
+    public ExampleModelObject(String name) {
+        this.name = name;
+    }
 
     @Bindable
     public String getName() {

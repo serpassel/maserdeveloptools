@@ -12,7 +12,7 @@ import android.view.View;
  *         [EN]  Event handler model in MVP views
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod", "SameReturnValue"})
 public interface ViewHandler<T> {
     /**
      * Variable para bloqueo de accions

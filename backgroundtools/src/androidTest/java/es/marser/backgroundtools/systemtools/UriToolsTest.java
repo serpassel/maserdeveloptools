@@ -9,6 +9,7 @@ import org.junit.Test;
  * @author sergio
  *         Created by sergio on 6/10/17.
  */
+@SuppressWarnings("unused")
 public class UriToolsTest {
 
     @Test

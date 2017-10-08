@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <!--BASE-->
-    <color name="bt_base_dialogs_root_primary">#eeeeee</color>
-    <dimen name="bt_base_dialogs_margin">@dimen/bt_default_margin</dimen>
-    <dimen name="bt_load_padding">@dimen/bt_default_padding</dimen>
 
     <!--HEAD-->
-    <color name="bt_base_dialogs_title">#424242</color>
     <dimen name="bt_image_dimen">23dp</dimen>
     <string name="bt_content">Icon</string>
 
@@ -14,16 +9,4 @@
     <integer name="bt_limit_text">30</integer>
     <string name="bt_progress">PROGRESO: </string>
     <string name="bt_char">/</string>
-
-    <style name="bt_head_dialog_label">
-        <item name="background">@color/bt_transparent</item>
-        <item name="android:textColor">@color/bt_base_dialogs_root_primary</item>
-        <item name="android:textSize">17sp</item>
-    </style>
-
-    <style name="bt_body_dialog_label">
-        <item name="background">@color/bt_transparent</item>
-        <item name="android:textColor">@color/bt_accent_dark</item>
-        <item name="android:textSize">15sp</item>
-    </style>
 </resources>

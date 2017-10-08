@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--GLOBAL-->
-    <dimen name="bt_generic_edit_padding">@dimen/bt_default_padding</dimen>
-    <dimen name="bt_generic_edit_margin">@dimen/bt_default_margin</dimen>
+    <!--dimen name="bt_generic_edit_padding">@dimen/bt_default_padding</dimen>
+    <dimen name="bt_generic_edit_margin">@dimen/bt_default_margin</dimen-->
 
     <!--HEAD-->
     <dimen name="bt_generic_edit_image_dimen">23dp</dimen>
     <string name="bt_generic_edit_content">Icon</string>
-    <color name="bt_generic_edit_color">?attr/colorPrimary</color>
     <string name="bt_generic_edit_head_font">Roboto_Black.ttf</string>
     <string name="bt_generic_edit_default_head_title">Editar</string>
 
     <style name="bt_generic_edit_head_label">
         <item name="background">@color/bt_transparent</item>
-        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:textColor">?attr/dialogs_head_text_color</item>
         <item name="android:textSize">17sp</item>
     </style>
 

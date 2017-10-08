@@ -22,19 +22,20 @@
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/dialogs_base_background_tint"
         android:orientation="vertical">
 
         <!--HEAD-->
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bt_generic_edit_color"
+            android:background="?attr/dialogs_head_background_tint"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_width="@dimen/bt_generic_edit_image_dimen"
                 android:layout_height="@dimen/bt_generic_edit_image_dimen"
-                android:layout_margin="@dimen/bt_generic_edit_margin"
+                android:layout_margin="?attr/dialogs_default_margin"
                 app:srcCompat="@drawable/ic_calculator" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -48,6 +49,20 @@
                 bind:fontText="@{@string/bt_generic_edit_head_font}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
+
+        <!--BODY-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            </android.support.v7.widget.LinearLayoutCompat>
+        </android.support.v4.widget.NestedScrollView>
 
         <!--FOO-->
         <include

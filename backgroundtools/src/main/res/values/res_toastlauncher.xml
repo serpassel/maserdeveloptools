@@ -1,12 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="bt_toast_launcher_padding">@dimen/bt_default_padding</dimen>
-    <dimen name="bt_toast_launcher_margin">@dimen/bt_default_margin</dimen>
-    <dimen name="bt_toast_launcher_imagen_dimen">@dimen/bt_m_image</dimen>
-
-    <color name="bt_toast_background">@color/bt_primary_dark</color>
-
     <style name="bt_head_toast_label">
         <item name="background">@color/bt_transparent</item>
         <item name="android:textSize">17sp</item>
@@ -14,8 +8,8 @@
     </style>
 
     <style name="bt_body_toast_label">
-        <item name="android:textColor">@color/bt_toast_background</item>
-        <item name="android:padding">@dimen/bt_toast_launcher_padding</item>
+        <item name="android:textColor">?attr/dialogs_body_text_color</item>
+        <item name="android:padding">?attr/dialogs_default_padding</item>
         <item name="android:minWidth">200dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textStyle">normal</item>

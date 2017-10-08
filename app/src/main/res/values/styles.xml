@@ -1,14 +1,11 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="BackgroundToolsTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/app_primary</item>
         <item name="colorPrimaryDark">@color/app_primary_dark</item>
         <item name="colorAccent">@color/app_accent</item>
-        <item name="colorButtonNormal">@color/bt_transparent</item>
-        <item name="textColorPrimary">@color/app_primary_text</item>
-        <item name="textColorSecondary">@color/app_secondary_text</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

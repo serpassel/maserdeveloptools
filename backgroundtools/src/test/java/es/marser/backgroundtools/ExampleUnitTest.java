@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
  */
 @SuppressWarnings("unused")
 public class ExampleUnitTest {
-    @SuppressWarnings("WeakerAccess")
+    @SuppressWarnings({"WeakerAccess", "unused"})
     public enum extras {
         INDEX_EXTRA,
         OBJECT_EXTRA,

@@ -13,8 +13,8 @@
         android:thickness="5dp"
         android:useLevel="true">
         <size
-            android:width="@dimen/bt_l_image"
-            android:height="@dimen/bt_l_image" />
+            android:width="@dimen/l_image"
+            android:height="@dimen/l_image" />
 
         <gradient
             android:centerColor="@color/bt_accent_dark"

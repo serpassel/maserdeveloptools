@@ -3,13 +3,12 @@ package es.marser.backgroundtools.custom;
 import android.text.Editable;
 import android.text.TextWatcher;
 
-import static android.R.attr.editable;
-
 /**
  * @author sergio
  *         Created by Sergio on 02/06/2017.
  */
 
+@SuppressWarnings("unused")
 public class MaskWatcher implements TextWatcher {
     private boolean isRunning = false;
     private boolean isDeleting = false;

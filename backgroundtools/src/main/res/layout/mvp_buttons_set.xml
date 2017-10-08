@@ -10,41 +10,39 @@
             type="WindowAction" />
     </data>
 
-        <android.support.v7.widget.LinearLayoutCompat
-            android:id="@+id/botonera"
-            android:layout_width="match_parent"
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/botonera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/dialogs_foo_background_tint"
+        android:orientation="horizontal"
+        android:padding="?attr/button_default_padding">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/aceptar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/bt_buttons_set_padding"
-            android:background="@color/bt_buttons_set_root_color"
-            android:orientation="horizontal">
+            android:onClick="@{winaction::onOk}"
+            android:text="@string/bt_ACTION_OK"
+            android:theme="@style/bt_buttons_set" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="2" />
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/aceptar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{winaction::onOk}"
-                android:text="@string/bt_ACTION_OK"
-                android:theme="@style/bt_buttons_set"
-               />
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{winaction::onCancel}"
+            android:text="@string/bt_ACTION_CANCEL"
+            android:theme="@style/bt_buttons_set" />
 
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="0.1" />
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/cancelar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="@{winaction::onCancel}"
-                android:text="@string/bt_ACTION_CANCEL"
-                android:theme="@style/bt_buttons_set"
-                />
-
-        </android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
 </layout>
