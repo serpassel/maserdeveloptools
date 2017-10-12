@@ -107,4 +107,17 @@ public class DialogExample {
         gene.show();
         return gene;
     }
+
+    public static BaseDialog editGeneric(Context context, GenericEditDialog.OnResult<ExampleModelObject> result ) {
+        GenericEditDialog gene =
+                GenericEditDialog.newInstance(
+                        context,
+                        GenericEditDialog
+                                .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
+                        result
+                );
+
+        gene.show();
+        return gene;
+    }
 }

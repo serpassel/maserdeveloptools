@@ -18,12 +18,11 @@ import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 /**
  * @author sergio
  *         Created by sergio on 8/10/17.
- *         Dialogo de
+ *         Test de cuadros de dialogos
  */
-@SuppressWarnings({"CanBeFinal", "unused"})
-@RunWith(AndroidJUnit4.class)
 @MediumTest
-class DialogTest {
+@RunWith(AndroidJUnit4.class)
+public class DialogTest {
 
     @Rule
     public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
@@ -31,6 +30,7 @@ class DialogTest {
     @Rule
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(
             DevelopTools.class);
+
 
     @Test
     public void dialog1() {
@@ -91,6 +91,22 @@ class DialogTest {
                 Assert.assertTrue(bd4.isShowing());
                 Log.i(TAG.TAG, "BaseDialog 4");
                 bd4.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog5() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd5;
+                //5
+                bd5 = DialogExample.editGeneric(mActivityRule.getActivity());
+                Assert.assertTrue(bd5.isShowing());
+                Log.i(TAG.TAG, "BaseDialog 5");
+                bd5.close();
             }
         });
         mActivityRule.getActivity().finish();

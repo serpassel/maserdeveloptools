@@ -24,7 +24,7 @@
             android:layout_weight="2" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/aceptar"
+            android:id="@+id/bt_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{winaction::onOk}"
@@ -38,7 +38,7 @@
             android:layout_weight="0.1" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/cancelar"
+            android:id="@+id/bt_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{winaction::onCancel}"

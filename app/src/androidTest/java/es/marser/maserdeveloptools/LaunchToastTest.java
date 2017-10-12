@@ -1,6 +1,6 @@
 package es.marser.maserdeveloptools;
 
-import android.support.test.filters.MediumTest;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -14,12 +14,11 @@ import es.marser.backgroundtools.toast.Launch_toast;
 /**
  * @author sergio
  *         Created by sergio on 8/10/17.
- *         Dialogo de
+ *         Test de cuadros de dialogos
  */
-@SuppressWarnings({"CanBeFinal", "unused"})
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
-class LaunchToastTest {
+public class LaunchToastTest {
 
     @Rule
     public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
@@ -27,7 +26,6 @@ class LaunchToastTest {
     @Rule
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(
             DevelopTools.class);
-
 
     @Test
     public void toast1() {

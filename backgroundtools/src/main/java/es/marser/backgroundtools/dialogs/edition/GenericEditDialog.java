@@ -5,9 +5,11 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.View;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.handlers.WindowAction;
 
@@ -114,6 +116,7 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
     @Override
     public void onCancel(View v) {
+        Log.i(TAG.TAG, "Cerrado");
         result.onResult(Activity.RESULT_CANCELED, model);
         close();
     }
