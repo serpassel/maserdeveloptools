@@ -62,13 +62,18 @@
         <!--padding-->
         <item name="android:padding">?attr/dialogs_default_padding</item>
         <!--sizes-->
-        <item name="android:minWidth">200dp</item>
-        <item name="android:minHeight">25dp</item>
+        <!--item name="android:minWidth">200dp</item-->
+        <!--item name="android:minHeight">25dp</item-->
+        <!--text-->
+        <item name="android:textAppearance">@style/bt_textinputlayout_box.text</item>
+        <item name="android:textColorHint">?attr/dialogs_edittext_hint_color</item>
+        <!--app attributes-->
     </style>
 
     <!--estilo hint texto-->
-    <style name="bt_textinputlayout_hint_text" parent="@style/TextAppearance.AppCompat">
+    <style name="bt_textinputlayout_box.text" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">15sp</item>
+        <item name="android:textColorHint">?attr/dialogs_edittext_hint_color</item>
         <item name="android:textColor">?attr/colorControlNormal</item>
         <item name="android:textColorHighlight">?attr/dialogs_edittext_hint_color</item>
         <item name="android:textColorLink">?attr/colorPrimary</item>
