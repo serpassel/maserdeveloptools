@@ -5,6 +5,9 @@
     <color name="bt_warning_color_amber_500">#ffc107</color>
     <color name="bt_transparent">#00000000</color>
 
+    <color name="bt_black">#000000</color>
+    <color name="bt_white">#FFFFFF</color>
+
 
     <!--Material Desing 700-->
     <color name="bt_error_color">#d32f2f</color>

@@ -20,8 +20,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/dialogs_base_background_tint"
         android:keepScreenOn="true"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
 
         <!--HEAD-->
         <android.support.v7.widget.LinearLayoutCompat
@@ -41,12 +40,12 @@
                 foo:iconDialog="@{model.icon}" />
             <!--Título-->
             <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_head_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="@{tt.limitText(model.title, @integer/bt_limit_text)}"
-                android:theme="@style/bt_head_label" />
+                android:layout_weight="1"
+                android:text="@{tt.limitText(model.title, @integer/bt_limit_text)}" />
         </android.support.v7.widget.LinearLayoutCompat>
         <!--Body-->
         <android.support.v7.widget.LinearLayoutCompat
@@ -64,11 +63,11 @@
                 android:indeterminateDrawable="?attr/dialogs_spinner" />
 
             <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_body_label"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@{tt.limitText(model.temp, @integer/bt_limit_text)}"
-                android:theme="@style/bt_body_label" />
+                android:text="@{tt.limitText(model.temp, @integer/bt_limit_text)}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 

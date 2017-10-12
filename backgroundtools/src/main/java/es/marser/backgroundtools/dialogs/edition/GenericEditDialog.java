@@ -79,7 +79,6 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
         viewDataBinding.setVariable(BR.winaction, this);
         viewDataBinding.executePendingBindings();
-
     }
 
     @Override
@@ -96,7 +95,11 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
     }
 
     @Override
-    public void onClick(View v, T value) {}
+    public void onClick(View v, T value) {
+        if (result != null) {
+            result.onClick(v, value);
+        }
+    }
 
     @Override
     public boolean onLongClick(View v, T model) {

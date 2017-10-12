@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:state_selected="true" >
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--selected-->
+    <item android:state_selected="true">
         <shape>
-        <!-- color de fondo -->
-        <solid android:color="?attr/colorControlActivated" />
+            <!-- color de fondo -->
+            <solid android:color="@color/bt_information_color_light" />
 
-        <!-- curvatura de las esquinas -->
-        <corners android:radius="3dp" />
+            <!-- curvatura de las esquinas -->
+            <corners android:radius="3dp" />
 
-        <!-- padding para dejar una separación prudencial entre los elementos conetenidos y el borde -->
-        <padding android:left="4dp" android:top="1dp" android:right="4dp" android:bottom="1dp"/>
+            <!-- padding para dejar una separación prudencial entre los elementos conetenidos y el borde -->
+            <padding android:bottom="1dp" android:left="4dp" android:right="4dp" android:top="1dp" />
 
-        <!-- borde -->
-        <stroke
-            android:width="1dp"
-            android:color="?attr/colorPrimaryDark" />
+            <!-- borde -->
+            <stroke android:width="1dp" android:color="@color/bt_primary_dark" />
         </shape>
     </item>
-    <item android:state_enabled="false" >
+    <!--unenabled-->
+    <item android:state_enabled="false">
         <shape>
             <!-- color de fondo -->
             <solid android:color="@color/bt_primary_light" />
@@ -26,30 +26,26 @@
             <corners android:radius="3dp" />
 
             <!-- padding para dejar una separación prudencial entre los elementos conetenidos y el borde -->
-            <padding android:left="4dp" android:top="1dp" android:right="4dp" android:bottom="1dp"/>
+            <padding android:bottom="1dp" android:left="4dp" android:right="4dp" android:top="1dp" />
 
             <!-- borde -->
-            <stroke
-                android:width="1dp"
-                android:color="@color/bt_primary_dark" />
+            <stroke android:width="1dp" android:color="@color/bt_primary_dark" />
         </shape>
     </item>
+    <!--default-->
     <item>
         <shape>
             <!-- color de fondo -->
-            <solid android:color="@color/bt_primary_light" />
+            <solid android:color="@color/bt_white" />
 
             <!-- curvatura de las esquinas -->
             <corners android:radius="3dp" />
 
             <!-- padding para dejar una separación prudencial entre los elementos conetenidos y el borde -->
-            <padding android:left="4dp" android:top="1dp" android:right="4dp" android:bottom="1dp"/>
+            <padding android:bottom="1dp" android:left="4dp" android:right="4dp" android:top="1dp" />
 
             <!-- borde -->
-            <stroke
-                android:width="1dp"
-                android:color="@color/bt_primary_dark" />
+            <stroke android:width="1dp" android:color="@color/bt_primary_dark" />
         </shape>
     </item>
-
 </selector>

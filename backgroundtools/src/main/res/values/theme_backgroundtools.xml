@@ -34,7 +34,16 @@
         <item name="dialogs_progressbar">@drawable/com_progressbar_background</item>
 
         <!--field box-->
-        <item name="box_field">@drawable/box_container</item>
+        <item name="box_container">@drawable/box_container</item>
+
+        <!--edittext-->
+        <item name="dialogs_edittext_hint_color">@color/bt_primary_dark</item>
+        <item name="dialogs_edittext_text_color">@color/bt_black</item>
+        <item name="colorControlNormal">@color/bt_primary_dark</item>
+        <item name="colorControlActivated">@color/bt_primary_dark</item>
+        <item name="dialogs_edittext_text_color_highlight">?attr/colorAccent</item>
+
+        <!--item name="android:editTextStyle">@style/bt_edit_text.text</item-->
 
         <!--CUSTOM DIMENSION-->
         <!--margin padding-->

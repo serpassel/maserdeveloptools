@@ -45,7 +45,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@{tt.limitText(model.title, @integer/bt_limit_text)}"
-                android:theme="@style/bt_head_label" />
+                style="@style/bt_head_label" />
         </android.support.v7.widget.LinearLayoutCompat>
 
         <!--BODY-->
@@ -60,7 +60,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_margin="?attr/dialogs_default_margin"
                 android:text="@{tt.limitText(model.temp, @integer/bt_limit_text)}"
-                android:theme="@style/bt_body_label" />
+                style="@style/bt_body_label" />
 
             <ProgressBar
                 style="@style/CustomProgressBar"
@@ -78,7 +78,7 @@
                 android:layout_margin="?attr/dialogs_default_margin"
                 android:gravity="end"
                 android:text="@{model.progresstext}"
-                android:theme="@style/bt_body_label"
+                style="@style/bt_body_label"
                 android:typeface="monospace" />
         </android.support.v7.widget.LinearLayoutCompat>
 

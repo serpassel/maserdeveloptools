@@ -1,31 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!--LABELS-->
+    <!--error label-->
     <style name="bt_error_label">
-        <item name="background">@color/bt_transparent</item>
+        <item name="android:background">@color/bt_transparent</item>
+        <item name="android:textAppearance">@style/bt_error_label.text</item>
+    </style>
+    <!--error label text-->
+    <style name="bt_error_label.text" parent="@style/TextAppearance.AppCompat">
         <item name="android:textColor">@color/bt_wrong_color_red_500</item>
         <item name="android:textSize">10sp</item>
     </style>
 
-    <!--Head label-->
+    <!--head label-->
     <style name="bt_head_label">
+        <!--background-->
         <item name="android:background">@color/bt_transparent</item>
-        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">?attr/dialogs_default_margin</item>
+        <!--margins-->
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">
+            ?attr/dialogs_default_margin
+        </item>
         <item name="android:layout_marginLeft">?attr/dialogs_default_margin</item>
         <item name="android:layout_marginRight">?attr/dialogs_default_margin</item>
-        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">?attr/dialogs_default_margin</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">
+            ?attr/dialogs_default_margin
+        </item>
+        <!--padding-->
+        <item name="android:padding">?attr/dialogs_default_padding</item>
+        <!--gravity-->
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <!--text-->
+        <item name="android:textAppearance">@style/bt_head_label.text</item>
+    </style>
+    <!--head label text-->
+    <style name="bt_head_label.text" parent="@style/TextAppearance.AppCompat">
         <item name="android:textSize">17sp</item>
+        <item name="android:textColor">?attr/dialogs_head_text_color</item>
     </style>
 
     <!--body label-->
-    <style name="bt_body_label">
-        <item name="android:background">@color/bt_transparent</item>
-        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">?attr/dialogs_default_margin</item>
-        <item name="android:layout_marginLeft">?attr/dialogs_default_margin</item>
-        <item name="android:layout_marginRight">?attr/dialogs_default_margin</item>
-        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">?attr/dialogs_default_margin</item>
-        <item name="android:textColor">?attr/dialogs_accent_dark</item>
+    <style name="bt_body_label" parent="bt_head_label">
+        <!--text-->
+        <item name="android:textAppearance">@style/bt_head_label.text</item>
+    </style>
+    <!--body label text-->
+    <style name="bt_body_label.text" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textColor">?attr/dialogs_body_text_color</item>
         <item name="android:textSize">15sp</item>
+    </style>
+
+    <!--EDIT TEXT - TEXTINPUTLAYOUT-->
+    <!--box-->
+    <style name="bt_textinputlayout_box">
+        <!--background-->
+        <item name="android:background">?attr/box_container</item>
+        <!--gravity-->
+        <item name="android:gravity">start|top</item>
+        <!--margin-->
+        <item name="android:layout_margin">?attr/box_default_hight_margin</item>
+        <!--padding-->
+        <item name="android:padding">?attr/dialogs_default_padding</item>
+        <!--sizes-->
+        <item name="android:minWidth">200dp</item>
+        <item name="android:minHeight">25dp</item>
+    </style>
+
+    <!--estilo hint texto-->
+    <style name="bt_textinputlayout_hint_text" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/colorControlNormal</item>
+        <item name="android:textColorHighlight">?attr/dialogs_edittext_hint_color</item>
+        <item name="android:textColorLink">?attr/colorPrimary</item>
+    </style>
+
+    <!--edit input text-->
+    <style name="bt_input_edit_text" parent="bt_head_label">
+        <!-- cursor y línea normal-->
+        <item name="android:minHeight">25dp</item>
+        <!--gravity-->
+        <item name="android:gravity">start|top</item>
+        <!--text-->
+        <item name="android:textAppearance">@style/bt_input_edit_text.text</item>
+    </style>
+
+    <style name="bt_input_edit_text.text" parent="@style/TextAppearance.AppCompat">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/dialogs_edittext_text_color</item>
+        <item name="android:textColorHighlight">?attr/dialogs_edittext_text_color_highlight</item>
+        <item name="colorControlNormal">@color/bt_primary_dark</item>
+        <item name="colorControlActivated">@color/bt_primary_dark</item>
+    </style>
+
+    <!--edit text-->
+    <style name="bt_edit_text" parent="bt_head_label">
+        <!-- cursor y línea normal-->
+        <item name="android:minHeight">25dp</item>
+        <!--gravity-->
+        <item name="android:gravity">start|top</item>
+        <!--text-->
+        <item name="android:editTextStyle">@style/bt_edit_text.text</item>
+    </style>
+
+    <!--Aplica en el menu base para que surja efecto-->
+    <style name="bt_edit_text.text" parent="@android:style/Widget.EditText">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">?attr/dialogs_edittext_text_color</item>
+        <item name="android:textColorHighlight">?attr/dialogs_edittext_text_color_highlight</item>
+        <item name="colorControlNormal">@color/bt_primary_dark</item>
+        <item name="colorControlActivated">@color/bt_primary_dark</item>
     </style>
 
 

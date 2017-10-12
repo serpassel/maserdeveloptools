@@ -28,6 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{winaction::onOk}"
+            android:background="@color/bt_transparent"
             android:text="@string/bt_ACTION_OK"
             android:theme="@style/bt_buttons_set" />
 
@@ -41,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="@{winaction::onCancel}"
+            android:background="@color/bt_transparent"
             android:text="@string/bt_ACTION_CANCEL"
             android:theme="@style/bt_buttons_set" />
 

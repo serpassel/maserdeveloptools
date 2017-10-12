@@ -40,13 +40,13 @@
                 bind:ignore="VectorDrawableCompat" />
 
             <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_head_label"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="@{model.name != null ? model.name : @string/bt_generic_edit_head_font}"
-                android:theme="@style/bt_generic_edit_head_label"
                 bind:fontText="@{@string/bt_generic_edit_head_font}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
@@ -61,8 +61,49 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
+                <!--Name-->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/box_input_2"
+                    style="@style/bt_textinputlayout_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="?attr/dialogs_edittext_hint_color"
+                    app:errorTextAppearance="@style/bt_error_label"
+                    app:hintTextAppearance="@style/bt_textinputlayout_hint_text">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/field_input_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={model.name}"
+                        android:textColor="?attr/dialogs_edittext_text_color" />
+                </android.support.design.widget.TextInputLayout>
+
+
+                <!--Subname-->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/box_input"
+                    style="@style/bt_textinputlayout_box"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/bt_example_edit_model_subname_hint_text"
+                    app:errorTextAppearance="@style/bt_error_label"
+                    app:hintAnimationEnabled="true"
+                    app:hintEnabled="true"
+                    app:hintTextAppearance="@style/bt_textinputlayout_hint_text">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/field_input"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:text="@={model.subname}"
+                        android:textColor="?attr/dialogs_edittext_text_color" />
+                </android.support.design.widget.TextInputLayout>
 
             </android.support.v7.widget.LinearLayoutCompat>
+
         </android.support.v4.widget.NestedScrollView>
 
         <!--FOO-->

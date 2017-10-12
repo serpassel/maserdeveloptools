@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!--dimen name="bt_buttons_set_padding">@dimen/bt_default_padding</dimen>
-    <dimen name="bt_buttons_set_margin">@dimen/bt_default_box_margin</dimen-->
 
     <string name="bt_ACTION_OK">Aceptar</string>
     <string name="bt_ACTION_CANCEL">Cancelar</string>
@@ -9,7 +7,6 @@
     <style name="bt_buttons_set">
         <item name="android:textColor">?attr/dialogs_foo_text_color</item>
         <item name="android:textSize">14sp</item>
-        <item name="android:background">@color/bt_transparent</item>
         <item name="android:textAllCaps">true</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:layout_gravity">center</item>
