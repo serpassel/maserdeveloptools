@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +51,7 @@ import es.marser.async.TaskResult;
  *         </ul>
  */
 @SuppressWarnings({"unused"})
-public abstract class CRUDHandler extends SQLiteOpenHelper {
+public class CRUDHandler extends SQLiteOpenHelper {
 
     /*Nombre de la base de datos por defecto [EN]  Default database name*/
     public static final String DEFAULT_DATABASE_USERSNAME = "dbusers";
@@ -60,11 +61,6 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
     private Context context;
     /*Arreglo de clases mapeadas para creación de tablas [EN]  Array of mapped classes for creating tables */
     private Class[] tables;
-    /*Nombre de la base de datos [EN]  Array of mapped classes for creating tables*/
-    private String DATABASE;
-
-    /*Versión de la base de datos [EN]  Version of the database*/
-    protected abstract int dbversion();
 
     //START EVENTS_________________________________________________________________________________
 
@@ -80,9 +76,15 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
      */
     public CRUDHandler(Context context, String name, int version, Class... tables) {
         super(context, name, null, version);
-        this.DATABASE = name;
         this.context = context;
+        if(tables == null){
+            tables = new Class[]{};
+        }
         this.tables = tables;
+    }
+
+    public CRUDHandler(Context context, @NonNull DatabaseSettings settings) {
+        this(context, settings.getName(), settings.getVersion(), settings.getTables());
     }
 
     /**
@@ -204,7 +206,7 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
         if (db.isOpen()) {
             db.close();
         }
-        return context.deleteDatabase(DATABASE);
+        return context.deleteDatabase(getDatabaseName());
     }
 
     //STATE AND VARIBLES_______________________________________________________________________________________
@@ -229,17 +231,6 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
      */
     public SQLiteDatabase getDb() {
         return this.db;
-    }
-
-    /**
-     * Nombre de la base de datos
-     * <p>
-     * [EN]  Database name
-     *
-     * @return Cadena de text con el nombre de la base de datos [EN]  String of text with the name of the database
-     */
-    public String databaseName() {
-        return DATABASE;
     }
 
     //DATA CONNECTION HANDLING_______________________________________________________________________________
