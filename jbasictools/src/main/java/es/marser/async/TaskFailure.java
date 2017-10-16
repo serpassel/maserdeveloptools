@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.async;
+package es.marser.async;
 
 /**
  * @author sergio
@@ -6,7 +6,7 @@ package es.marser.backgroundtools.async;
  *         Definición de oyente de resultado de tarea asíncrona, con devolución de error en caso de fallo en la ejecución
  *         <p>
  *         [EN]  Definition of asynchronous task listener, with error return in case of execution failure
- * @see es.marser.backgroundtools.async.TaskResult
+ * @see es.marser.async.TaskResult
  */
 
 @SuppressWarnings("unused")

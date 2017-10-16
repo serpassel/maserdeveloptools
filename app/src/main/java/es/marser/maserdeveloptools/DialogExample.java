@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import es.marser.backgroundtools.TAG;
+import es.marser.TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;

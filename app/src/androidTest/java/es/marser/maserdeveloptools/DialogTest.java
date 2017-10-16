@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import es.marser.backgroundtools.TAG;
+import es.marser.TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
 /**

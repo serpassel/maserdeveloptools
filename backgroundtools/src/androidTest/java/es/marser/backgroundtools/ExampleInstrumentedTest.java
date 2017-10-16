@@ -10,6 +10,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
+import es.marser.TAG;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
 
 import static org.junit.Assert.assertEquals;

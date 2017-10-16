@@ -9,7 +9,7 @@ import android.util.Log;
 import android.view.View;
 
 import es.marser.backgroundtools.BR;
-import es.marser.backgroundtools.TAG;
+import es.marser.TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.handlers.WindowAction;
 

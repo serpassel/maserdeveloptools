@@ -11,10 +11,10 @@ import android.os.AsyncTask;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.marser.backgroundtools.async.AsyncPublishObject;
-import es.marser.backgroundtools.async.DataUploaderTask;
-import es.marser.backgroundtools.async.TaskFailure;
-import es.marser.backgroundtools.async.TaskResult;
+import es.marser.async.AsyncPublishObject;
+import es.marser.async.DataUploaderTask;
+import es.marser.async.TaskFailure;
+import es.marser.async.TaskResult;
 
 
 /**

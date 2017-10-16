@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import es.marser.backgroundtools.TAG;
+import es.marser.TAG;
 
 /**
  * @author sergio
