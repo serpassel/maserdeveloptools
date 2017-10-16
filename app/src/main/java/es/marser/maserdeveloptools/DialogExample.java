@@ -17,6 +17,9 @@ import es.marser.tools.MathTools;
 /**
  * @author sergio
  *         Created by sergio on 6/10/17.
+ *         Ejemplo de dialogos personalizados
+ *         <p>
+ *         [EN]  Example of custom dialogs
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
@@ -108,7 +111,7 @@ public class DialogExample {
         return gene;
     }
 
-    public static BaseDialog editGeneric(Context context, GenericEditDialog.OnResult<ExampleModelObject> result ) {
+    public static BaseDialog editGeneric(Context context, GenericEditDialog.OnResult<ExampleModelObject> result) {
         GenericEditDialog gene =
                 GenericEditDialog.newInstance(
                         context,
