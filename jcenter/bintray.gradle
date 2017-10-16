@@ -11,6 +11,15 @@ if (project.hasProperty("android")) { // Android libraries
     task javadoc(type: Javadoc) {
         source = android.sourceSets.main.java.srcDirs
         classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
+
+        options.memberLevel = JavadocMemberLevel.PRIVATE
+        options.links("http://docs.oracle.com/javase/7/docs/api/");
+        options.links("http://developer.android.com/reference/");
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+        exclude '**/BR.java'
+        exclude '**/internal/**'
+        failOnError false
     }
 } else { // Java libraries
     task sourcesJar(type: Jar, dependsOn: classes) {

@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import es.marser.TAG;
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
 
 import static org.junit.Assert.assertEquals;
@@ -36,9 +36,9 @@ public class ExampleInstrumentedTest {
         for (File f : FilePathUtil.getUnSyncFiles(FilePathUtil.getAndroidPath(), null)) {
             if (!f.isHidden()) {
                 if (f.isDirectory()) {
-                        Log.i(TAG.TAG, "Directorio " + f.getAbsolutePath());
+                        Log.i(LOG_TAG.TAG, "Directorio " + f.getAbsolutePath());
                 } else if (f.isFile()) {
-                        Log.i(TAG.TAG, "Archivo " + f.getAbsolutePath());
+                        Log.i(LOG_TAG.TAG, "Archivo " + f.getAbsolutePath());
                 }
             }
         }
@@ -46,9 +46,9 @@ public class ExampleInstrumentedTest {
 
     @Test
     public void FileAbsolute() {
-        Log.i(TAG.TAG, "es absoluto " + FilePathUtil.getAndroidPath().isAbsolute());
-        Log.i(TAG.TAG, "es absoluto " + new File("/").isAbsolute());
-        Log.i(TAG.TAG, "es absoluto " + new File("/storage/emulated/0/495999632").isAbsolute());
+        Log.i(LOG_TAG.TAG, "es absoluto " + FilePathUtil.getAndroidPath().isAbsolute());
+        Log.i(LOG_TAG.TAG, "es absoluto " + new File("/").isAbsolute());
+        Log.i(LOG_TAG.TAG, "es absoluto " + new File("/storage/emulated/0/495999632").isAbsolute());
     }
 
     @Test
@@ -58,15 +58,15 @@ public class ExampleInstrumentedTest {
         for (File f : FilePathUtil.getUnSyncFiles(ar.getParentFile(), null)) {
             if (f.isDirectory()) {
                 if (f.isHidden()) {
-                    Log.w(TAG.TAG, "Directorio " + f.getAbsolutePath());
+                    Log.w(LOG_TAG.TAG, "Directorio " + f.getAbsolutePath());
                 } else {
-                    Log.i(TAG.TAG, "Directorio " + f.getAbsolutePath());
+                    Log.i(LOG_TAG.TAG, "Directorio " + f.getAbsolutePath());
                 }
             } else if (f.isFile()) {
                 if (f.isHidden()) {
-                    Log.w(TAG.TAG, "Archivo " + f.getAbsolutePath());
+                    Log.w(LOG_TAG.TAG, "Archivo " + f.getAbsolutePath());
                 } else {
-                    Log.i(TAG.TAG, "Archivo " + f.getAbsolutePath());
+                    Log.i(LOG_TAG.TAG, "Archivo " + f.getAbsolutePath());
                 }
             }
 
@@ -80,15 +80,15 @@ public class ExampleInstrumentedTest {
         for (File f : FilePathUtil.getUnSyncFiles(ar, null)) {
             if (f.isDirectory()) {
                 if (f.isHidden()) {
-                    Log.w(TAG.TAG, "Directorio " + f.getAbsolutePath());
+                    Log.w(LOG_TAG.TAG, "Directorio " + f.getAbsolutePath());
                 } else {
-                    Log.i(TAG.TAG, "Directorio " + f.getAbsolutePath());
+                    Log.i(LOG_TAG.TAG, "Directorio " + f.getAbsolutePath());
                 }
             } else if (f.isFile()) {
                 if (f.isHidden()) {
-                    Log.w(TAG.TAG, "Archivo " + f.getAbsolutePath());
+                    Log.w(LOG_TAG.TAG, "Archivo " + f.getAbsolutePath());
                 } else {
-                    Log.i(TAG.TAG, "Archivo " + f.getAbsolutePath());
+                    Log.i(LOG_TAG.TAG, "Archivo " + f.getAbsolutePath());
                 }
             }
 

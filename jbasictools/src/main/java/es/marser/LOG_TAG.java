@@ -5,6 +5,6 @@ package es.marser;
  *         Created by sergio on 7/10/17.
  */
 
-public class TAG {
+public class LOG_TAG {
 public static final String TAG = "BACKGROUND_TAG";
 }

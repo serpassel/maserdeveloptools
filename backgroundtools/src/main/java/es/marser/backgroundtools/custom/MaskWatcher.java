@@ -6,6 +6,9 @@ import android.text.TextWatcher;
 /**
  * @author sergio
  *         Created by Sergio on 02/06/2017.
+ *         Mascara de entrada para cajas de texto
+ *         <p>
+ *         [EN]  Input Mask for Text Boxes
  */
 
 @SuppressWarnings("unused")

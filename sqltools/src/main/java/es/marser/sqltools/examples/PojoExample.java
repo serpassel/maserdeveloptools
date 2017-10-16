@@ -4,6 +4,7 @@ import es.marser.sqltools.annotation.DbColumn;
 import es.marser.sqltools.annotation.DbColumnInclosed;
 import es.marser.sqltools.annotation.DbPrimaryKey;
 import es.marser.sqltools.annotation.DbTable;
+import es.marser.tools.DateTools;
 
 /**
  * @author sergio
@@ -31,6 +32,13 @@ public class PojoExample {
     private String modificacion;
 
     public PojoExample() {
+        this(DateTools.getTimeStamp(), "PRUEBA", "10");
+    }
+
+    public PojoExample(String key, String name, String age) {
+        this.key = key;
+        this.name = name;
+        this.age = age;
     }
 
     public String getKey() {
@@ -79,7 +87,7 @@ public class PojoExample {
 
     @Override
     public String toString() {
-        return "users|" +
+        return "example|" +
                 key + "|" +
                 name + '|' +
                age + '|' ;

@@ -33,7 +33,7 @@ public interface ViewHandler<T> {
      * <p>
      * [EN]  Short press on a view
      * <p>
-     * \@{(v)->handler.onClick(v,item)}
+     * \@{(v)- \> handler.onClick(v,item)}
      *
      * @param v    Vista pulsada [EN]  Press view
      * @param item modelo de datos de clase genérica [EN]  generic class data model

@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import es.marser.TAG;
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
 /**
@@ -41,7 +41,7 @@ public class DialogTest {
                 //1
                 bd1 = DialogExample.indeterminateBox(mActivityRule.getActivity());
                 Assert.assertTrue(bd1.isShowing());
-                Log.i(TAG.TAG, "BaseDialog 1");
+                Log.i(LOG_TAG.TAG, "BaseDialog 1");
                 bd1.close();
             }
         });
@@ -57,7 +57,7 @@ public class DialogTest {
                 //2
                 bd2 = DialogExample.indeterminateBox(mActivityRule.getActivity());
                 Assert.assertTrue(bd2.isShowing());
-                Log.i(TAG.TAG, "BaseDialog 2");
+                Log.i(LOG_TAG.TAG, "BaseDialog 2");
                 bd2.close();
             }
         });
@@ -73,7 +73,7 @@ public class DialogTest {
                 //3
                 bd3 = DialogExample.progressIndeterminateBox(mActivityRule.getActivity());
                 Assert.assertTrue(bd3.isShowing());
-                Log.i(TAG.TAG, "BaseDialog 3");
+                Log.i(LOG_TAG.TAG, "BaseDialog 3");
                 bd3.close();
             }
         });
@@ -89,7 +89,7 @@ public class DialogTest {
                 //4
                 bd4 = DialogExample.progressBox(mActivityRule.getActivity());
                 Assert.assertTrue(bd4.isShowing());
-                Log.i(TAG.TAG, "BaseDialog 4");
+                Log.i(LOG_TAG.TAG, "BaseDialog 4");
                 bd4.close();
             }
         });
@@ -105,7 +105,7 @@ public class DialogTest {
                 //5
                 bd5 = DialogExample.editGeneric(mActivityRule.getActivity());
                 Assert.assertTrue(bd5.isShowing());
-                Log.i(TAG.TAG, "BaseDialog 5");
+                Log.i(LOG_TAG.TAG, "BaseDialog 5");
                 bd5.close();
             }
         });

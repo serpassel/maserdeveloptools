@@ -289,7 +289,7 @@ public class TextTools {
         while (builder.length() < lengh) {
             builder.append(charter);
         }
-        // Log.i(MainCRUD.TAG, "Longitud " + builder.length());
+        // Log.i(MainCRUD.LOG_TAG, "Longitud " + builder.length());
         return builder.toString();
     }
 

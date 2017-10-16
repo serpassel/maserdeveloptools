@@ -8,8 +8,9 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
-import es.marser.TAG;
+
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.handlers.WindowAction;
 
@@ -116,7 +117,7 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
     @Override
     public void onCancel(View v) {
-        Log.i(TAG.TAG, "Cerrado");
+        Log.i(LOG_TAG.TAG, "Cerrado");
         result.onResult(Activity.RESULT_CANCELED, model);
         close();
     }

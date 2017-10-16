@@ -5,7 +5,7 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
-import es.marser.TAG;
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
@@ -91,12 +91,12 @@ public class DialogExample {
                         new GenericEditDialog.OnResult<ExampleModelObject>() {
                             @Override
                             public void onResult(int result, ExampleModelObject value) {
-                                Log.w(TAG.TAG, "Resultado");
+                                Log.w(LOG_TAG.TAG, "Resultado");
 
                                 if (result == Activity.RESULT_OK) {
-                                    Log.i(TAG.TAG, "Aceptar");
+                                    Log.i(LOG_TAG.TAG, "Aceptar");
                                 } else {
-                                    Log.i(TAG.TAG, "Cancelar");
+                                    Log.i(LOG_TAG.TAG, "Cancelar");
                                 }
                             }
 

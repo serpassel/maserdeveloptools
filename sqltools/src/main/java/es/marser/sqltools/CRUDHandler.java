@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ import es.marser.async.AsyncPublishObject;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.TaskFailure;
 import es.marser.async.TaskResult;
+
+import static android.content.ContentValues.TAG;
 
 
 /**
@@ -146,7 +149,9 @@ public class CRUDHandler extends SQLiteOpenHelper {
             List<String> columns = SQLStrings.addColumns(l, oldVersion);
             for (String col : columns) {
                 db.execSQL(col);
+                Log.i(TAG, "Columna actualizada " + col);
             }
+
         }
     }
 
@@ -174,6 +179,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
             /*Ejecutar setencia [EN]  Execute setencia */
             try {
                 db.execSQL(sql);
+                Log.i(TAG, "Tabla creada " + sql);
             } catch (Exception ignored) {
             }
         }

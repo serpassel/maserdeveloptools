@@ -31,6 +31,9 @@ import static com.android.databinding.library.baseAdapters.R.id;
 /**
  * @author sergio
  *         Created by Sergio on 21/04/2017.
+ *         Adaptadores de enlace
+ *         <p>
+ *         [EN]  Link Adapters
  */
 
 @SuppressWarnings({"unused", "WeakerAccess"})

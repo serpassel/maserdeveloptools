@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
-import es.marser.TAG;
+import es.marser.LOG_TAG;
 
 /**
  * @author sergio
@@ -37,7 +37,7 @@ public class FilePathUtilTest {
     @Test
     public void channel4() {
         for (String s : exts) {
-            Log.i(TAG.TAG, "MymeType for " + s + ": " + FilePathUtil
+            Log.i(LOG_TAG.TAG, "MymeType for " + s + ": " + FilePathUtil
                     .getMimeType(
                             new File(FilePathUtil.getAndroidPath(), "PRUEBA" + s))
             );

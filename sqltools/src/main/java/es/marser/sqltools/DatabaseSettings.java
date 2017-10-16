@@ -64,7 +64,7 @@ public class DatabaseSettings {
         return tables;
     }
 
-    public DatabaseSettings setTables(Class[] tables) {
+    public DatabaseSettings setTables(Class... tables) {
         this.tables = tables;
         return this;
     }

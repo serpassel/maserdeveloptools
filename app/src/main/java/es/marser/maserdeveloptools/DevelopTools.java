@@ -29,5 +29,6 @@ public class DevelopTools extends AppCompatActivity {
        //es.marser.backgroundtools.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
         //DialogExample.editGeneric(this);
+        SQLExample.createDatabase(this);
     }
 }
