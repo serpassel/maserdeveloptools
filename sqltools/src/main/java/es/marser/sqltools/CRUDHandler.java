@@ -66,10 +66,6 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
     /*Versión de la base de datos [EN]  Version of the database*/
     protected abstract int dbversion();
 
-    /*Clase de definición de la base de datos*/
-    protected abstract Class settingClass();
-
-
     //START EVENTS_________________________________________________________________________________
 
     /**
@@ -118,13 +114,15 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        /*Actualizamos las tablas si se ha modificado la versión de la base de datos*/
+        /*Actualizar las tablas si se ha modificado la versión de la base de datos
+        [EN]  Update the tables if the database version has been modified*/
+
         if (oldVersion < newVersion) {
             upDateTables(db, oldVersion);
         }
     }
 
-    //STRUCTURE OF THE DATABASE___________________________________________________________________
+    //STRUCTURE OF THE DATABASE________________________________________________________________________________
 
     /**
      * Agregar nuevas tablas y columnas a las tablas existentes
@@ -141,12 +139,13 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
     protected void upDateTables(SQLiteDatabase db, int oldVersion) {
         /*Crear tablas por si existiera una nueva [EN]  Create tables if there is a new one*/
         createTables(db);
+        for (Class l : tables) {
         /*Agregar las columnas nuevas [EN]  Add new columns*/
-        List<String> columns = SQLStrings.addColumns(settingClass(), oldVersion);
-        for (String col : columns) {
-            db.execSQL(col);
+            List<String> columns = SQLStrings.addColumns(l, oldVersion);
+            for (String col : columns) {
+                db.execSQL(col);
+            }
         }
-
     }
 
     /**
@@ -952,8 +951,8 @@ public abstract class CRUDHandler extends SQLiteOpenHelper {
             for (Object o : params[0]) {
                 //Guardar objeto [EN]  Save object
                 if (o != null) {
-                        //noinspection ThrowableResultOfMethodCallIgnored
-                        addRecord(o);
+                    //noinspection ThrowableResultOfMethodCallIgnored
+                    addRecord(o);
                 }
                 //Notificar grabación [EN]  Notify recording
                 publishProgress(++count);

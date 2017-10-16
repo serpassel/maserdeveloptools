@@ -232,7 +232,6 @@ public abstract class SQLStrings {
      * @return Sentencia SQl agregar columna <p>EN]  SQl statement add column
      * @see es.marser.sqltools.annotation
      */
-
     private static String addColumn(String tableName, Field field) {
         StringBuilder builder = new StringBuilder();
         Annotation a = field.getAnnotation(DbColumn.class);
@@ -1014,49 +1013,6 @@ public abstract class SQLStrings {
             default:
                 throw new NoSuchFieldError();
         }
-    }
-
-    /**
-     * Transforma un registro de datos en un objeto mapeado
-     * <p>
-     * [EN]  Transforms a data record into a mapped object
-     *
-     * @param rs  Cursor con datos [EN]  Cursor with data
-     * @param cls Clase mapeada a generar [EN]  Mapped class to generate
-     * @return Objeto sin indentificar con los valores del registro [EN]  Unidentified object with registry values
-     * @throws IllegalAccessException no se puede acceder al método [EN]  can not access method
-     * @throws InstantiationException no tiene constructores instaciables [EN]  does not have installable builders
-     * @deprecated Replaced by  {@link #getGenericByReflection(Cursor, Class)}
-     */
-    @Deprecated
-    public static Object getRecordByReflection(Cursor rs, Class cls)
-            throws IllegalAccessException, InstantiationException {
-
-        Field[] f = cls.getDeclaredFields();
-        Annotation a;
-        Object o;
-
-        o = cls.newInstance();//Creamos un objeto nuevo
-//Seteamos los campos
-        for (Field f1 : f) {
-            a = f1.getAnnotation(DbPrimaryKey.class);
-            //Seteamos la clave primaria
-            if (a != null) {
-                setColumnByReflection(o, rs, f1, rs.getColumnIndex(((DbPrimaryKey) a).id_name()));
-            }
-            //Repetimos el proceso con las columnas de campos
-            a = f1.getAnnotation(DbColumn.class);
-            if (a != null) {
-                setColumnByReflection(o, rs, f1, rs.getColumnIndex(((DbColumn) a).col_name()));
-            }
-
-            //Repetimos el proceso con las columnas de incluidas de modificación y creación
-            a = f1.getAnnotation(DbColumnInclosed.class);
-            if (a != null) {
-                setColumnByReflection(o, rs, f1, rs.getColumnIndex(((DbColumnInclosed) a).col_name()));
-            }
-        }
-        return o;
     }
 
     /**

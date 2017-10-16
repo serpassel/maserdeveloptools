@@ -14,7 +14,7 @@ import es.marser.sqltools.annotation.DbTable;
  *
  */
 
-@DbTable(name = "users")
+@DbTable(name = "example")
 @SuppressWarnings({"unused", "WeakerAccess", "UnusedReturnValue", "SameParameterValue"})
 public class PojoExample {
     @DbPrimaryKey
