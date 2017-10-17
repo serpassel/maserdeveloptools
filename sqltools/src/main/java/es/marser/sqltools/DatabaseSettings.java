@@ -1,5 +1,6 @@
 package es.marser.sqltools;
 
+import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
 /**
@@ -20,6 +21,7 @@ import es.marser.tools.TextTools;
  *         </ul>
  */
 
+@SuppressWarnings("unused")
 public class DatabaseSettings {
 
     private static String default_databasename = "database";
@@ -38,7 +40,10 @@ public class DatabaseSettings {
 
     public DatabaseSettings(String name, int version, Class[] tables) {
         this.name = TextTools.nc(name, default_databasename);
-        this.version = version;
+        this.version = MathTools.notNaN(version, 1);
+        if(tables == null){
+            tables = new Class[]{};
+        }
         this.tables = tables;
     }
 

@@ -38,6 +38,33 @@ public abstract class BooleanTools {
     }
 
     /**
+     * Cadena de texto a booleana con posibilidad de resultado nulo
+     * <p>
+     * [EN]  String of text to boolean with possibility of null result
+     *
+     * @param input booleana o entero en texto [EN]  boolean or integer in text
+     * @return false or true
+     */
+    public static Boolean parseStringNulable(String input) {
+       if(input == null){
+           return null;
+       }
+
+        if (TextTools.isNumeric(input)) {
+            return parseInt(Integer.parseInt(input));
+        }
+        if(input.toLowerCase().equals("true") || input.toLowerCase().equals("false")){
+            try {
+                return Boolean.parseBoolean(input.toLowerCase());
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        return null;
+    }
+
+
+    /**
      * Transforma valor booleano a entero
      * [EN]  Transforms Boolean value to integer
      *

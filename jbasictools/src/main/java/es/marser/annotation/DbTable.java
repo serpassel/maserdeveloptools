@@ -1,4 +1,4 @@
-package es.marser.sqltools.annotation;
+package es.marser.annotation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

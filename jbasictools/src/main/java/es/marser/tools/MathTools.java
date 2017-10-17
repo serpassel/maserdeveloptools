@@ -242,12 +242,12 @@ public abstract class MathTools {
     public static double parse(String input) {
         double out;
         if (!TextTools.isNumeric(input)) {
-            return 0.0;
+            return Double.MIN_VALUE;
         }
         try {
             out = Double.parseDouble(input);
         } catch (Exception ex) {
-            return 0.0;
+            return Double.MIN_VALUE;
         }
         return out;
     }
@@ -263,12 +263,12 @@ public abstract class MathTools {
         int out;
 
         if (!TextTools.isNumeric(input)) {
-            return 0;
+            return Integer.MIN_VALUE;
         }
         try {
             out = new BigDecimal(input).toBigInteger().intValue();
         } catch (Exception ex) {
-            return 0;
+            return Integer.MIN_VALUE;
         }
         return out;
     }
@@ -293,13 +293,14 @@ public abstract class MathTools {
 
     /**
      * Conversión de cadena de texto a bigdecimal
+     * <p>
      * [EN]  Converting string to bigdecimal
      *
      * @param in entrada cadena de texto numérica [EN]  input numeric text string
-     * @return 0.0 con cadena no numérica [EN]  0.0 with non-numeric string
+     * @return valor mínimo de double con cadena no numérica [EN]  minimum value of double with non-numeric string
      */
     public static BigDecimal parseBigDecimal(String in) {
-        return TextTools.isNumeric(in) ? new BigDecimal(in) : new BigDecimal("0.0");
+        return TextTools.isNumeric(in) ? new BigDecimal(in) : BigDecimal.valueOf(Double.MIN_VALUE);
     }
 
     //4.- COMPARADORES________________________________________________________

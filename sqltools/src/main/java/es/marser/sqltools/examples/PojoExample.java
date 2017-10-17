@@ -1,9 +1,9 @@
 package es.marser.sqltools.examples;
 
-import es.marser.sqltools.annotation.DbColumn;
-import es.marser.sqltools.annotation.DbColumnInclosed;
-import es.marser.sqltools.annotation.DbPrimaryKey;
-import es.marser.sqltools.annotation.DbTable;
+import es.marser.annotation.DbColumn;
+import es.marser.annotation.DbColumnInclosed;
+import es.marser.annotation.DbPrimaryKey;
+import es.marser.annotation.DbTable;
 import es.marser.tools.DateTools;
 
 /**

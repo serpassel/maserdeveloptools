@@ -10,11 +10,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import es.marser.annotation.DbColumn;
+import es.marser.annotation.DbColumnInclosed;
+import es.marser.annotation.DbPrimaryKey;
+import es.marser.annotation.DbTable;
 import es.marser.tools.TextTools;
-import es.marser.sqltools.annotation.DbColumn;
-import es.marser.sqltools.annotation.DbColumnInclosed;
-import es.marser.sqltools.annotation.DbPrimaryKey;
-import es.marser.sqltools.annotation.DbTable;
+
+
 
 /**
  * @author sergio
@@ -71,10 +73,10 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creating tables by java reflection. Creates the table if it does not exist
      * <p>
-     * <p>Nombre de la tabla {@link es.marser.sqltools.annotation.DbTable} [EN]  Name of table
-     * <p>Clave primaria {@link es.marser.sqltools.annotation.DbPrimaryKey} [EN]  Primary Key
-     * <p>Campos de la tabla {@link es.marser.sqltools.annotation.DbColumn} [EN] Table Fields
-     * <p>Campos autocreados {@link es.marser.sqltools.annotation.DbTable} [EN] Self-created fields
+     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
+     * <p>Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
+     * <p>Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
+     * <p>Campos autocreados {@link es.marser.annotation.DbTable} [EN] Self-created fields
      *
      * @param obj POJO mapeado [EN] [EN]  mapped POJO
      * @return Sentencia SQL de creación de tablas [EN]  SQL table creation statement
@@ -143,7 +145,7 @@ public abstract class SQLStrings {
      * Crea la sentencia de eliminación de una tabla
      * <p>
      * [EN]  Creates the delete statement for a table
-     * Nombre de la tabla {@link es.marser.sqltools.annotation.DbTable} [EN]  Name of table
+     * Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
      *
      * @param obj POJO mapeado [EN] mapped POJO
      * @return Sentencia SQL de eliminación de tablas [EN] SQL statement of drop tables
@@ -199,8 +201,8 @@ public abstract class SQLStrings {
      * Lista las nuevas columnas a añadir según la versión mapeada
      * <p>
      * [EN]  List the new columns to be added according to the mapped version
-     * Nombre de la tabla {@link es.marser.sqltools.annotation.DbTable} [EN]  Name of table
-     * Campos de la tabla {@link es.marser.sqltools.annotation.DbColumn} [EN] Table Fields
+     * Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
+     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
      *
      * @param obj        POJO mapeado <p> [EN]  POJO mapeado
      * @param oldversion versión de la base de datos anterior <p>[EN]  version of the previous database
@@ -225,12 +227,12 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creates the SQl statement to add a column to a table, by reflection methods
      * <p>
-     * Campos de la tabla {@link es.marser.sqltools.annotation.DbColumn} [EN] Table Fields
+     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
      *
      * @param tableName nombre de la tabla <p>[EN]  table name
      * @param field     campo a agregar <p>[EN]  field to add
      * @return Sentencia SQl agregar columna <p>EN]  SQl statement add column
-     * @see es.marser.sqltools.annotation
+     * @see es.marser.annotation
      */
     private static String addColumn(String tableName, Field field) {
         StringBuilder builder = new StringBuilder();
@@ -264,7 +266,7 @@ public abstract class SQLStrings {
      * Recupera todos los registros de una tabla
      * <p>
      * [EN]  Recovers all records in a table
-     * <p>Nombre de la tabla {@link es.marser.sqltools.annotation.DbTable} [EN]  Name of table
+     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
      *
      * @param cls Clase mapeada [EN]  SQl statement for reading all records
      * @return Sentencia SQl para lectura de todos los registros [EN]  SQl statement for reading all records
@@ -283,7 +285,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Generates primary keyword search clause. [EN]  Add to select statement
      * <p>
-     * Clave primaria {@link es.marser.sqltools.annotation.DbPrimaryKey} [EN]  Primary Key
+     * Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
      *
      * @param key Valor de la clave primaria [EN]  Primary Key Value
      * @param cls Clase mapeada [EN]  Primary Key Value
@@ -318,7 +320,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creates a statement by the parent key.  Add to selection statement
      * <p>
-     * Campos de la tabla {@link es.marser.sqltools.annotation.DbColumn} [EN] Table Fields
+     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
      *
      * @param parentKey Índice de registro padre [EN]  Parent Registration Index
      * @param cls       Clase mapeada [EN]  Mapped class
@@ -353,10 +355,10 @@ public abstract class SQLStrings {
      * Crea sentencia SQL para inserción del registro
      * <p>
      * [EN]  Create SQL statement for record insertion
-     * <p>Nombre de la tabla {@link es.marser.sqltools.annotation.DbTable} [EN]  Name of table
-     * <p>Clave primaria {@link es.marser.sqltools.annotation.DbPrimaryKey} [EN]  Primary Key
-     * <p>Campos de la tabla {@link es.marser.sqltools.annotation.DbColumn} [EN] Table Fields
-     * <p>Campos autocreados {@link es.marser.sqltools.annotation.DbTable} [EN] Self-created fields
+     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
+     * <p>Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
+     * <p>Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
+     * <p>Campos autocreados {@link es.marser.annotation.DbTable} [EN] Self-created fields
      *
      * @param obj Objecto mapeado [EN]  Mapped object
      * @return Sentencia SQL de inserción de datos [EN]  SQL statement of data insertion

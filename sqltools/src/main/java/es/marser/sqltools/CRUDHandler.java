@@ -138,7 +138,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param db         Objeto de base de datos SQLite [EN]  Method called the first time the database is connected
      * @param oldVersion Versión vieja de la base de datos [EN]  Old version of the database
-     * @see es.marser.sqltools.annotation
+     * @see es.marser.annotation
      * @see es.marser.sqltools.examples.PojoExample
      */
     protected void upDateTables(SQLiteDatabase db, int oldVersion) {
@@ -165,7 +165,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * [EN]  Classes must be mapped according to the annotation package
      *
      * @param db Objeto de base de datos SQLite [EN]  Method called the first time the database is connected
-     * @see es.marser.sqltools.annotation
+     * @see es.marser.annotation
      * @see es.marser.sqltools.examples.PojoExample
      */
     protected final void createTables(SQLiteDatabase db) {
