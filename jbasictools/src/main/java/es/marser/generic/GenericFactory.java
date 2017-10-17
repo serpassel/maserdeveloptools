@@ -11,6 +11,7 @@ import es.marser.annotation.DbColumn;
 import es.marser.async.DataUploaderTask;
 import es.marser.tools.BooleanTools;
 import es.marser.tools.MathTools;
+import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
 
 /**
@@ -110,7 +111,7 @@ public class GenericFactory {
                     try {
                         /*Ejecutar el método con el valor recuperado*/
                         if (method != null) {
-                            switch (field.getType().getCanonicalName()) {
+                            switch (field.getType().getSimpleName()) {
                                 case "Integer":
                                 case "int":
                                     method.invoke(obj, MathTools.parseInt(text));
@@ -120,6 +121,7 @@ public class GenericFactory {
                                     method.invoke(obj, MathTools.parseBigDecimal(text).doubleValue());
                                     break;
                                 case "BigDecimal":
+                                    System.out.println(SystemColor.ANSI_BLUE + "Variable " + text);
                                     method.invoke(obj, MathTools.parseBigDecimal(text));
                                     break;
                                 case "Long":
@@ -150,25 +152,25 @@ public class GenericFactory {
                 } else
                     try {//Valores por defecto en caso de valores nulos o incompletos [EN]  Default values ​​in case of null or incomplete values
                         if (method != null) {
-                            switch (field.getType().getCanonicalName()) {
+                            switch (field.getType().getSimpleName()) {
                                 case "Integer":
                                 case "int":
-                                    method.invoke(obj, Integer.MIN_VALUE);
+                                    method.invoke(obj, 0);
                                     break;
                                 case "double":
                                 case "Double":
-                                    method.invoke(obj, Double.MIN_VALUE);
+                                    method.invoke(obj, 0.0);
                                     break;
                                 case "BigDecimal":
-                                    method.invoke(obj, BigDecimal.valueOf(Double.MIN_VALUE));
+                                    method.invoke(obj, new BigDecimal("0.0"));
                                     break;
                                 case "Long":
                                 case "long":
-                                    method.invoke(obj, Long.MIN_VALUE);
+                                    method.invoke(obj, 0);
                                     break;
                                 case "Float":
                                 case "float":
-                                    method.invoke(obj, Float.MIN_VALUE);
+                                    method.invoke(obj, 0.0f);
                                     break;
                                 case "Boolean":
                                 case "boolean":

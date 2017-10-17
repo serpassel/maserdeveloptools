@@ -17,29 +17,27 @@ import es.marser.annotation.DbTable;
 import es.marser.tools.TextTools;
 
 
-
 /**
  * @author sergio
  *         Created by Sergio on 21/04/2017.
  *         Métodos estáticos para creación de sentencias SQL
- *         
+ *         <p>
  *         <p>Estructura de base de datos
  *         <p>Recuperación de datos
  *         <p>Manejo de registros
  *         <p>Filtro y orden
  *         <p>Transformación de clases mapeadas en datos
  *         <p>Transformación de datos en clase mapeadas
- *         
+ *         <p>
  *         <p>
  *         Static methods for creating SQL statements
- *         
+ *         <p>
  *         <p>[EN]  Database structure
  *         <p>[EN]  Data recovery
  *         <p>[EN]  Records Management
  *         <p>[EN]  Filter and Order
  *         <p>[EN]  Transformation of mapped classes into data
  *         <p>[EN]  Transformation of data in mapped class
- *         
  */
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue"})
@@ -823,6 +821,7 @@ public abstract class SQLStrings {
                 }
                 break;
 
+            case "BigDecimal":
             case "Object":
                 out.append("'");
                 out.append(TextTools.toSQLString(value.toString()));
@@ -838,7 +837,7 @@ public abstract class SQLStrings {
 
     /**
      * Selección del tipo de campo SQLite según el valor a registrar
-     *<ul>
+     * <ul>
      * <li>String</li>
      * <li>double</li>
      * <li>Double</li>
@@ -859,28 +858,19 @@ public abstract class SQLStrings {
      */
     public static String getDbCastName(Class cls) {
         switch (cls.getSimpleName()) {
-            case "String":
-                return "TEXT";
             case "double":
-                return "NUM";
             case "Double":
                 return "NUM";
-            case "BigDecimal":
-                return "NUM";
             case "int":
-                return "INTEGER";
             case "long":
-                return "INTEGER";
             case "Long":
-                return "INTEGER";
             case "Integer":
-                return "INTEGER";
             case "Date":
-                return "INTEGER";
             case "Boolean":
-                return "INTEGER";
             case "boolean":
                 return "INTEGER";
+            case "String":
+            case "BigDecimal":
             default:
                 return "TEXT";
         }
@@ -1004,7 +994,13 @@ public abstract class SQLStrings {
                 f1.set(obj, rs.getDouble(colindex));
                 break;
             case "BigDecimal":
-                f1.set(obj, new BigDecimal(String.valueOf(rs.getDouble(colindex))));
+                /*Añadir excepción para valores creados como Double
+                [EN]  Add exception for values ​​created as Double*/
+                try {
+                    f1.set(obj, new BigDecimal(rs.getString(colindex)));
+                } catch (Exception e) {
+                    f1.set(obj, new BigDecimal(String.valueOf(rs.getDouble(colindex))));
+                }
                 break;
             case "Date":
                 b = rs.getInt(colindex);

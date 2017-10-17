@@ -242,12 +242,12 @@ public abstract class MathTools {
     public static double parse(String input) {
         double out;
         if (!TextTools.isNumeric(input)) {
-            return Double.MIN_VALUE;
+            return 0.0;
         }
         try {
             out = Double.parseDouble(input);
         } catch (Exception ex) {
-            return Double.MIN_VALUE;
+            return 0.0;
         }
         return out;
     }
@@ -257,18 +257,18 @@ public abstract class MathTools {
      * [EN]  Converting string to integer
      *
      * @param input cadena de texto de entrada [EN]  input string
-     * @return entero convertido [EN]  integer converted
+     * @return entero convertido. En caso de error devuelve 0 [EN]  integer converted. In case of error returns 0
      */
     public static int parseInt(String input) {
         int out;
 
         if (!TextTools.isNumeric(input)) {
-            return Integer.MIN_VALUE;
+            return 0;
         }
         try {
             out = new BigDecimal(input).toBigInteger().intValue();
         } catch (Exception ex) {
-            return Integer.MIN_VALUE;
+            return 0;
         }
         return out;
     }
@@ -300,7 +300,7 @@ public abstract class MathTools {
      * @return valor mínimo de double con cadena no numérica [EN]  minimum value of double with non-numeric string
      */
     public static BigDecimal parseBigDecimal(String in) {
-        return TextTools.isNumeric(in) ? new BigDecimal(in) : BigDecimal.valueOf(Double.MIN_VALUE);
+        return TextTools.isNumeric(in) ? new BigDecimal(in) : new BigDecimal("0.0");
     }
 
     //4.- COMPARADORES________________________________________________________
