@@ -1,4 +1,4 @@
-package es.marser.maserdeveloptools;
+package es.marser.maserdeveloptools.backgroundtest;
 
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import es.marser.backgroundtools.toast.Launch_toast;
+import es.marser.maserdeveloptools.DevelopTools;
 
 /**
  * @author sergio

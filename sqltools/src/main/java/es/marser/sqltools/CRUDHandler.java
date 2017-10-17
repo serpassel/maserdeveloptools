@@ -13,12 +13,12 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.async.AsyncPublishObject;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.TaskFailure;
 import es.marser.async.TaskResult;
 
-import static android.content.ContentValues.TAG;
 
 
 /**
@@ -149,7 +149,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
             List<String> columns = SQLStrings.addColumns(l, oldVersion);
             for (String col : columns) {
                 db.execSQL(col);
-                Log.i(TAG, "Columna actualizada " + col);
+                Log.i(LOG_TAG.TAG, "Columna actualizada " + col);
             }
 
         }
@@ -179,7 +179,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
             /*Ejecutar setencia [EN]  Execute setencia */
             try {
                 db.execSQL(sql);
-                Log.i(TAG, "Tabla creada " + sql);
+                Log.i(LOG_TAG.TAG, "Tabla creada " + sql);
             } catch (Exception ignored) {
             }
         }
@@ -209,7 +209,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      */
     public boolean deleteDatabase() {
        /*Desconectar antes de borrar [EN]  Disconnect before deleting*/
-        if (db.isOpen()) {
+        if (db != null && db.isOpen()) {
             db.close();
         }
         return context.deleteDatabase(getDatabaseName());
@@ -451,16 +451,16 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param in        Clase Mapeada
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
-    private void asyncCrudAction(Object in, CrudAction action, OnChanged onChanged) {
+    private AsyncTask asyncCrudAction(Object in, CrudAction action, OnChanged onChanged) {
         if (in == null || action == null) {
             if (onChanged != null) {
                 onChanged.onFailure(new NullPointerException("Null input"));
             } else {
-                return;
+                return null;
             }
         }
 
-        new AsyncUD(onChanged) {
+      return  new AsyncUD(onChanged) {
             @Override
             protected Boolean doInBackground(Object... params) {
                 Throwable t = crudAction(params[0], (CrudAction) params[1]);
@@ -481,8 +481,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param in        Registro de entrada mapeado [EN]  Mapped input record
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
-    public void addRecord(Object in, OnChanged onChanged) {
-        asyncCrudAction(in, CrudAction.INSERT_OR_IGNORE, onChanged);
+    public AsyncTask addRecord(Object in, OnChanged onChanged) {
+        return asyncCrudAction(in, CrudAction.INSERT_OR_IGNORE, onChanged);
     }
 
     /**
@@ -493,8 +493,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param in        Registro de entrada mapeado [EN]  Mapped input record
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
-    public void delRecord(Object in, OnChanged onChanged) {
-        asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
+    public AsyncTask delRecord(Object in, OnChanged onChanged) {
+    return asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
     }
 
     /**
@@ -505,8 +505,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param in        Registro de entrada mapeado [EN]  Mapped input record
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
-    public void updateRecord(Object in, OnChanged onChanged) {
-        asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
+    public AsyncTask updateRecord(Object in, OnChanged onChanged) {
+      return  asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
     }
 
 
@@ -709,8 +709,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    private <T> void getRecord(String sql, Class<T> cls, OnSingleRead<T> onRead) {
-        new AsyncSingleCRUD<T>(onRead) {
+    private <T> AsyncTask getRecord(String sql, Class<T> cls, OnSingleRead<T> onRead) {
+        return new AsyncSingleCRUD<T>(onRead) {
             @SuppressWarnings("unchecked")
             @Override
             protected T doInBackground(String... params) {
@@ -762,8 +762,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    public <T> void findRecordByKey(Object key, Class<T> cls, OnSingleRead<T> onRead) {
-        getRecord(SQLStrings.findRecordSql(key, cls), cls, onRead);
+    public <T> AsyncTask findRecordByKey(Object key, Class<T> cls, OnSingleRead<T> onRead) {
+        return getRecord(SQLStrings.findRecordSql(key, cls), cls, onRead);
     }
 
     /**
@@ -776,8 +776,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    public <T> void findRecordByFilter(String filter, Class<T> cls, OnSingleRead<T> onRead) {
-        getRecord(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
+    public <T> AsyncTask findRecordByFilter(String filter, Class<T> cls, OnSingleRead<T> onRead) {
+       return getRecord(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
     }
 
     /*RESULTADO MULTIPLE [EN]  MULTIPLE RESULT*/
@@ -840,8 +840,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    private <T> void getRecords(String sql, Class<T> cls, OnRead<T> onRead) {
-        new AsyncListCRUD<T>(onRead) {
+    private <T> AsyncTask getRecords(String sql, Class<T> cls, OnRead<T> onRead) {
+        return new AsyncListCRUD<T>(onRead) {
             @SuppressWarnings("unchecked")
             @Override
             protected Void doInBackground(String... params) {
@@ -890,8 +890,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    public <T> void getAllRecords(Class<T> cls, OnRead<T> onRead) {
-        getRecords(SQLStrings.selectAll(cls), cls, onRead);
+    public <T> AsyncTask getAllRecords(Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.selectAll(cls), cls, onRead);
     }
 
     /**
@@ -904,8 +904,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    public <T> void findRecordsByFilter(String filter, Class<T> cls, OnRead<T> onRead) {
-        getRecords(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
+    public <T> AsyncTask findRecordsByFilter(String filter, Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
     }
 
     /**
@@ -918,15 +918,15 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead    Oyente de resultados [EN]  Listener results
      * @param <T>       Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
-    public <T> void findRecordsByParent(Object parentkey, Class<T> cls, OnRead<T> onRead) {
-        getRecords(SQLStrings.findRecordByParent(parentkey, cls), cls, onRead);
+    public <T> AsyncTask findRecordsByParent(Object parentkey, Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.findRecordByParent(parentkey, cls), cls, onRead);
     }
 
     //BLOCK RECORDING, ASYNCHRONOUS
 
     @SuppressWarnings("unchecked")
-    public void addDataList(List<Object> data, OnBlockSaved onBlockSaved) {
-        new AddSyncList(onBlockSaved).execute(data);
+    public AsyncTask addDataList(List<Object> data, OnBlockSaved onBlockSaved) {
+        return new AddSyncList(onBlockSaved).execute(data);
     }
 
     /**

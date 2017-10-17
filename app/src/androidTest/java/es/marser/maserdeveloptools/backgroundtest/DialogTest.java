@@ -1,4 +1,4 @@
-package es.marser.maserdeveloptools;
+package es.marser.maserdeveloptools.backgroundtest;
 
 import android.support.test.filters.MediumTest;
 import android.support.test.rule.ActivityTestRule;
@@ -14,6 +14,8 @@ import org.junit.runner.RunWith;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.maserdeveloptools.DevelopTools;
+import es.marser.maserdeveloptools.DialogExample;
 
 /**
  * @author sergio
