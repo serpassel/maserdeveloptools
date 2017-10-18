@@ -3,6 +3,8 @@ package es.marser;
 import org.junit.Assert;
 import org.junit.Test;
 
+import es.marser.tools.TextTools;
+
 /**
  * @author sergio
  *         Created by sergio on 23/09/17.
@@ -36,6 +38,8 @@ public class TextToolsTest {
         Assert.assertFalse(!es.marser.tools.TextTools.marqueeText(in, 10, ".").equals(in+"...."));
         Assert.assertFalse(!es.marser.tools.TextTools.firstChar(in).equals("p"));
         Assert.assertFalse(!es.marser.tools.TextTools.secondChar(in).equals("r"));
+        Assert.assertEquals(3, TextTools.charOccurrences("nhj|iijj|kjijih|", TextTools.OBJECT_SEPARATOR_CHAR));
+        Assert.assertEquals(3, TextTools.charOccurrences("nhjRT&iijjRT&kjijihRT&", "RT&"));
     }
 
     @Test
@@ -45,13 +49,15 @@ public class TextToolsTest {
         Assert.assertFalse(!es.marser.tools.TextTools.validateAndConfirmPassword(in, in));
         Assert.assertFalse(!es.marser.tools.TextTools.validateMail("kjjnjnjknjk@kjnjknjk.kkjjknkjnk"));
         Assert.assertFalse(es.marser.tools.TextTools.validateMail("kjjnjnjknjk@kjnjknjk"));
+        Assert.assertEquals(3, TextTools.charOccurrences("ttttt,tttt,ttttt,", TextTools.COMMA));
+        Assert.assertEquals(3, TextTools.charOccurrences("ttttt.tttt.ttttt.", TextTools.POINT));
     }
 
     @Test
     public void channel5() {
         Assert.assertFalse(!es.marser.tools.TextTools.rotateString(in.toCharArray()).equals("abeurp"));
         Assert.assertFalse(!es.marser.tools.TextTools.oddCouple(in.toCharArray()).equals("pubrea"));
-        Assert.assertFalse(!es.marser.tools.TextTools.transposetArray(inarr).equals("ud|no|os|"));
+        Assert.assertFalse(!es.marser.tools.TextTools.transposetArray(inarr).equals("udRT&noRT&osRT&"));
     }
 
 }

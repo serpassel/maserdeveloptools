@@ -50,8 +50,8 @@ public class ExampleObject {
     private BigDecimal medicion;
     @DbColumn(col_name = "lines", indexorder = 4)
     private String lines;
-    @DbColumn(col_name = "etiqueta", indexorder = 5)
-    private String etiqueta;
+    @DbColumn(col_name = "noreadable", readabled = false)
+    private String noreadable;
 
     public ExampleObject() {
         this.key = DateTools.getTimeStamp();
@@ -97,13 +97,6 @@ public class ExampleObject {
         this.lines = lines;
     }
 
-    public String getEtiqueta() {
-        return etiqueta;
-    }
-
-    public void setEtiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
-    }
 
     @Override
     public String toString() {
@@ -117,8 +110,6 @@ public class ExampleObject {
                 getMedicion() +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.nc(lines) +
-                TextTools.OBJECT_SEPARATOR_CHAR +
-                TextTools.nc(etiqueta) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.RETORNO_CARRO_SALTO_LINEA;
 

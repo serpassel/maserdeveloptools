@@ -11,7 +11,6 @@ import es.marser.annotation.DbColumn;
 import es.marser.async.DataUploaderTask;
 import es.marser.tools.BooleanTools;
 import es.marser.tools.MathTools;
-import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
 
 /**
@@ -19,10 +18,12 @@ import es.marser.tools.TextTools;
  *         Created by Sergio on 02/09/2017.
  *         Creación de objetos genéricos, a partir de una cadena de texto separados por un marcador
  *         Creación de sub-registros, a partir de una cadena de texto separados por un marcador
+ *         El registro debe de llevar un campo adicional a su comeinezo que lo identifique, y que no se considerará en su creación
  *         <p>
  *         [EN]
  *         Creating generic objects, from a string of text separated by a marker
  *         Creating Sub-Records, from a Text String Separated by a Placemark
+ *         The record must carry an additional field to its identifying origin, and that it will not be considered in its creation
  */
 
 @SuppressWarnings("unused")
@@ -59,15 +60,23 @@ public class GenericFactory {
      * @see #getEntryClassObjet(Field)
      */
     public static <T> T BuildSingleObject(Class<T> cls, String registro, String market) {
+
+        registro = TextTools.nc(registro).trim();
+
+        /*Arreglo de campos del registro de texto [EN]  Arrangement of text record fields*/
+        String[] tokenizer = TextTools.getRecordSplit(registro, market);
+
+        if (tokenizer.length == 0) {
+            return null;
+        }
+
         /*Obtener instancia vacía del objeto [EN]  Get Empty Object Instance*/
         T obj = getInstance(cls);
 
         /*Creación de variables de reflexión [EN]  Creating reflection variables*/
         String varname, methodname;
-        Annotation a;
+        DbColumn a;
         Method method = null;
-        String[] tokenizer = TextTools.nc(registro).split(market);//Arreglo de campos [EN]  Arrangement of fields
-
         int i; //Contador de posición de campos [EN]  Field Position Counter
 
         for (Field field : cls.getDeclaredFields()) {
@@ -77,11 +86,11 @@ public class GenericFactory {
 
             /*Comprobar que la columna ha sido marcada como columna de lectura ,(valor por defector verdadero)
             * [EN]  Check that the column has been marked as reading column, (true defector value)*/
-            if (a != null && ((DbColumn) a).readabled()) {
+            if (a != null && a.readabled()) {
 
                 /*Recuperar el nombre de la variable y creación del método set
                 * [EN]  Recover the name of the variable and create the set method*/
-                varname = ((DbColumn) a).col_name();//Nombre de la variable [EN]  Name of the variable
+                varname = a.col_name();//Nombre de la variable [EN]  Name of the variable
                 methodname = "set" + varname.substring(0, 1).toUpperCase() + varname.substring(1);//Método set [EN]  Method set
 
                 try {
@@ -101,7 +110,7 @@ public class GenericFactory {
                 * Se debe de indicar en el clase del objeto
                 * [EN]  Reading the position in the record of the current variable
                 * [EN]  It must be indicated in the class of the objectt*/
-                i = ((DbColumn) a).indexorder();
+                i = a.indexorder();
 
                 if (tokenizer.length > i) {
                     /*Lectura de valor en el registro de entrada
@@ -121,7 +130,6 @@ public class GenericFactory {
                                     method.invoke(obj, MathTools.parseBigDecimal(text).doubleValue());
                                     break;
                                 case "BigDecimal":
-                                    System.out.println(SystemColor.ANSI_BLUE + "Variable " + text);
                                     method.invoke(obj, MathTools.parseBigDecimal(text));
                                     break;
                                 case "Long":
@@ -147,8 +155,6 @@ public class GenericFactory {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
-
                 } else
                     try {//Valores por defecto en caso de valores nulos o incompletos [EN]  Default values ​​in case of null or incomplete values
                         if (method != null) {
@@ -215,7 +221,23 @@ public class GenericFactory {
      * @return Objeto instanciado y seteado o nulo en caso de error [EN]  Object instantiated and set or null in case of error
      */
     public static <T> T BuildSingleItem(Class<T> cls, String registro) {
-        return BuildSingleObject(cls, registro, TextTools.ITEM_SEPARATOR_SPLIT);
+        return BuildSingleItem(cls, registro, TextTools.ITEM_SEPARATOR_SPLIT);
+    }
+
+    /**
+     * Crear un objeto genérico separado por el separador de sub-campos por defecto
+     * <p>
+     * [EN]  Create a generic object separated by the default sub-field separator
+     *
+     * @param cls      Clase genérica [EN]  Generic class
+     * @param registro Valor del registro en cadena de texto [EN]  Value of the record in text string
+     * @param market Marcador separador de registros [EN]  Bookmark record separator
+     * @param <T>      Objeto genérico [EN]  Generic object
+     * @return Objeto instanciado y seteado o nulo en caso de error [EN]  Object instantiated and set or null in case of error
+     */
+    public static <T> T BuildSingleItem(Class<T> cls, String registro, String market) {
+        registro = "D" + market.charAt(0) + TextTools.nc(registro);
+        return BuildSingleObject(cls, registro, market);
     }
 
     /**
@@ -226,7 +248,7 @@ public class GenericFactory {
      * @param cls      Clase genérica [EN]  Generic class
      * @param registro Cadena de texto con el resgitro de subcampo [EN]  Text string with subfield
      * @param iter     Longitud del registro individual dentro del subcampo [EN]  Length of the individual record within the subfield
-     * @param  market Separador de sub-registros [EN]  Sub-record separator
+     * @param market   Separador de sub-registros [EN]  Sub-record separator
      * @param onResult Oyente de resultados [EN]  Listener results
      * @param <T>      Objeto genérico [EN]  Generic object
      * @return Listado de registros del subcampo instanciados y seteados [EN]  List of subfield records instantiated and set
@@ -234,32 +256,25 @@ public class GenericFactory {
     public static <T> List<T> itemsBuilder(Class<T> cls, String registro, int iter, String market, DataUploaderTask<Integer, T, List<T>> onResult) {
         List<T> result = new ArrayList<>();
 
-        if(TextTools.isEmpty(registro) || TextTools.isEmpty(market)){
+        for (Annotation a : cls.getAnnotations())
+
+            if (TextTools.isEmpty(registro) || TextTools.isEmpty(market)) {
             /*Publicar finalización de lectura
         [EN]  Publish end of reading*/
-            if (onResult != null) {
-                onResult.onFinish(result);
+                if (onResult != null) {
+                    onResult.onFinish(result);
+                }
+                return result;
             }
-            return result;
-        }
 
-        /*Corrección del final del registro
-        [EN]  Correction of end of record*/
-        if(!registro.endsWith(market)){
-            registro += registro + market;
-        }
-
-        /*Añadir caracter al final de la entrada como corrección de resgitros nulos
-        * [EN]  Add character at the end of the entry as correction of nulls*/
-        registro = registro + "&";
-        String[] data = registro.split(market);
+        String[] data = TextTools.getRecordSplit(registro, market);
 
         /*Publicar el número de registros
         [EN]  Publish the number of records*/
         if (onResult != null) {
             onResult.onStart(data.length);
         }
-
+        char c = market.charAt(0);
         T o;
         String work = "";//Variable de acumulación de datos, para registro individual [EN]  Variable of accumulation of data, for individual registration
 
@@ -267,7 +282,7 @@ public class GenericFactory {
         [EN]  Calculate the number of fields.  Separate possible registrations*/
         for (int i = 0; i < data.length; i++) {
 
-            work += data[i] + TextTools.ITEM_SEPARATOR_CHAR;
+            work += data[i] + c;
 
             /*Comprobar si la iteranción es múltiplo de la longitud total del sub-registro individual
             * [EN]  Check if the iteration is multiple of the total length of the individual sub-record*/
@@ -275,7 +290,7 @@ public class GenericFactory {
 
                 /*Si la iteración es multiplo de la longitud, se ha completado de la lectura de un regsitro. Generar objeto
                 * [EN]  If the iteration is multiple of the length, it has been completed from the reading of a regsitro.  Generate object*/
-                o = BuildSingleItem(cls, "D" + TextTools.ITEM_SEPARATOR_CHAR + work);
+                o = BuildSingleItem(cls, work, market);
                 if (o != null) {
                     result.add(o);
                 }
@@ -309,8 +324,23 @@ public class GenericFactory {
      * @param <T>      Objeto genérico [EN]  Generic object
      * @return Listado de registros del subcampo instanciados y seteados [EN]  List of subfield records instantiated and set
      */
-    public static <T> List<T> itemsBuilder(Class<T> cls, String registro, int iter, DataUploaderTask<Integer, T, List<T>> onResult){
-        return itemsBuilder(cls,registro, iter, TextTools.ITEM_SEPARATOR_SPLIT, onResult);
+    public static <T> List<T> itemsBuilder(Class<T> cls, String registro, int iter, DataUploaderTask<Integer, T, List<T>> onResult) {
+        return itemsBuilder(cls, registro, iter, TextTools.ITEM_SEPARATOR_SPLIT, onResult);
+    }
+
+    /**
+     * Lista de registros de un subcampo
+     * <p>
+     * [EN]  List of records of a subfield
+     *
+     * @param cls      Clase genérica [EN]  Generic class
+     * @param registro Cadena de texto con el resgitro de subcampo [EN]  Text string with subfield
+     * @param onResult Oyente de resultados [EN]  Listener results
+     * @param <T>      Objeto genérico [EN]  Generic object
+     * @return Listado de registros del subcampo instanciados y seteados [EN]  List of subfield records instantiated and set
+     */
+    public static <T> List<T> itemsBuilder(Class<T> cls, String registro, DataUploaderTask<Integer, T, List<T>> onResult) {
+        return itemsBuilder(cls, registro, getReadableColumnsCount(cls), TextTools.ITEM_SEPARATOR_SPLIT, onResult);
     }
 
     /**
@@ -347,5 +377,25 @@ public class GenericFactory {
             default:
                 return String.class;
         }
+    }
+
+    /**
+     * Contador de anotaciones de columna leíbles
+     * <p>
+     * [EN]  Readable column annotation counter
+     *
+     * @param cls Clase mapeada [EN]  Mapped class
+     * @return Número de columnas leibles de una clase
+     */
+    public static int getReadableColumnsCount(Class cls) {
+        int count = 0;
+
+        for (Field f : cls.getDeclaredFields()) {
+            DbColumn a = f.getAnnotation(DbColumn.class);
+            if (a != null && a.readabled()) {
+                ++count;
+            }
+        }
+        return count;
     }
 }

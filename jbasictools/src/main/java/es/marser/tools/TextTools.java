@@ -57,8 +57,10 @@ public class TextTools {
     public static final char OBJECT_SEPARATOR_CHAR = 124; //'|'
     public static final char PERCENTAJE = 37; //'%'
     public static final char ALMOHADILLA = 35; //'#'
-    public static final char COMILLA = 44; //''
+    public static final char COMILLA = 39; //''
     public static final char SPACE = 32; //" "
+    public static final char COMMA = 44; //,
+    public static final char POINT = 46; //.
 
 //1.- INDENTIFICACION DE CADENAS____________________________________________________________________________
 //1.- INDENTIFICATION OF STRINGS______________________________________________________________________________
@@ -244,7 +246,7 @@ public class TextTools {
      *
      * @param text  cadena de entrada [EN] input string
      * @param lengh longitud máxima [EN] maximum length
-     * @param marq marca de sustitución de caracteres [EN]  character replacement mark
+     * @param marq  marca de sustitución de caracteres [EN]  character replacement mark
      * @return cadena reducida con el texto de marca si se hubiere reducido [EN] reduced string with brand text if reduced
      */
     public static String limitMarqueeText(String text, int lengh, String marq) {
@@ -319,6 +321,59 @@ public class TextTools {
      */
     public static String secondChar(String in) {
         return (in != null && in.length() > 1) ? in.substring(1, 2) : "";
+    }
+
+    /**
+     * Contar el número de apariciones de un caracter en una cadena de texto
+     * <p>
+     * [EN]  Count the number of occurrences of a character in a text string
+     *
+     * @param in       Cadena de texto
+     * @param searched Caracter buscado [EN]  Character searched
+     * @return número de ocurrencias [EN]  number of occurrences
+     */
+    public static int charOccurrences(String in, char searched) {
+        int out = 0;
+        if (!isEmpty(in)) {
+            for (int i = 0; i < in.length(); ++i) {
+                if (in.charAt(i) == searched) {
+                    ++out;
+                }
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Contar el número de apariciones de un caracter en una cadena de texto
+     * <p>
+     * [EN]  Count the number of occurrences of a character in a text string
+     *
+     * @param in       Cadena de texto
+     * @param searched Cadena buscada [EN]  Search string
+     * @return número de ocurrencias [EN]  number of occurrences
+     */
+    public static int charOccurrences(String in, String searched) {
+        int out = 0;
+        String cs = "";
+        if (!isEmpty(in)) {
+            for (int i = 0; i < in.length(); ++i) {
+                /*Construcción de cadena [EN]  Chain construction*/
+                cs += in.charAt(i);
+                System.out.println(SystemColor.ANSI_YELLOW + cs);
+                /*Comprobar coincidencia [EN]  Check match*/
+                if (cs.equals(searched)) {
+                    ++out;
+                    cs = "";
+                }
+                /*Comprobar construcción correcta [EN]  Check correct construction*/
+                if(!searched.startsWith(cs)){
+
+                    cs = "";
+                }
+            }
+        }
+        return out;
     }
 
     //4.- VALIDADORES DE PATRONES_________________________________________________________________________________
@@ -413,6 +468,27 @@ public class TextTools {
     }
     //8.- Transformación vectorial______________ _________________________________________________________________________________
 //8.- Vector transformation_______________________________________________________________________________________________
+
+    /**
+     * Ajuste de los resultados la realizar split sobre un string
+     * <p>
+     * [EN]  Adjusting the split results over a string
+     *
+     * @param record Cadena de texto [EN]  String of text
+     * @param market Marca de separación [EN]  Separation mark
+     * @return Arreglo con valores separados [EN]  Array with separate values
+     */
+    public static String[] getRecordSplit(String record, String market) {
+
+        if (TextTools.isEmpty(record) || TextTools.isEmpty(market)) {
+            return new String[]{};
+        }
+        /*Eliminar espacios en blanco [EN]  Delete whitespace*/
+        record = record.trim();
+
+        /*Establecer límite en -1 para incluir los valores vacíos [EN]  Set limit to -1 to include empty values*/
+        return record.split(market, -1);//Arreglo de campos [EN]  Arrangement of fields
+    }
 
     /**
      * Proceso de rotación del texto

@@ -300,7 +300,55 @@ public abstract class MathTools {
      * @return valor mínimo de double con cadena no numérica [EN]  minimum value of double with non-numeric string
      */
     public static BigDecimal parseBigDecimal(String in) {
+        in = unFormatNumber(in);
         return TextTools.isNumeric(in) ? new BigDecimal(in) : new BigDecimal("0.0");
+    }
+
+    /**
+     * Reforma la cadena de texto a una entrada numérica válida
+     * <p>
+     * [EN]  Reforms the text string to a valid numeric entry
+     *
+     * @param in Texto numérico de entrada
+     * @return texto transformado
+     */
+    public static String unFormatNumber(String in) {
+        in = TextTools.nc(in).trim();
+        /*Comprobar si está en nomenclatura europea*/
+        int points = TextTools.charOccurrences(in, (char) 46);
+        int comma = TextTools.charOccurrences(in, (char) 44);
+        //Notación correcta y más problable [EN]  Correct and more likely
+        if (comma == 0 && (points <= 1)) {
+            return in;
+        }
+
+        /*alternativas [EN]  alternatives*/
+        //Europeo sin miles 0,00
+        if (points == 0 && comma == 1) {
+            return in.replace(TextTools.COMMA, TextTools.POINT);
+        }
+        //Uno de cada [EN]  One of each
+        if (points == 1 && comma == 1) {
+            //Notación americana [EN]  American notation
+            if (in.indexOf(String.valueOf(TextTools.POINT)) < in.indexOf(String.valueOf(TextTools.COMMA))) {
+
+                return in.replace(String.valueOf(TextTools.POINT), "").replace(TextTools.COMMA, TextTools.POINT);
+            } else {
+                return in.replace(String.valueOf(TextTools.COMMA), "");
+            }
+        }
+
+        //Multiple coma con o sin decimales [EN]  Multiple comma without decimals
+        if (points <= 1 && comma > 1) {
+            return in.replace(String.valueOf(TextTools.COMMA), "");
+        }
+
+        //Multiple puntos con o sin decimales [EN]  Multiple points with or without decimals
+        if (points > 1) {
+            return in.replace(String.valueOf(TextTools.POINT), "").replace(TextTools.COMMA, TextTools.POINT);
+        }
+
+        return in;
     }
 
     //4.- COMPARADORES________________________________________________________
@@ -805,7 +853,7 @@ public abstract class MathTools {
             }
 
             /*Eliminacion de `impurezas´ en la expresiones algebraicas [EN]  Elimination of 'impurities' in algebraic expressions*/
-           // String infix = expr.replace(" ", "");
+            // String infix = expr.replace(" ", "");
             postfix = S.toString().replaceAll("[\\]\\[,]", "");
         } catch (Exception ex) {
             System.out.println("Error en la expresión algebraica");

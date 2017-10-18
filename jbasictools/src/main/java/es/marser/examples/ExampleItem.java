@@ -4,6 +4,7 @@ package es.marser.examples;
 import java.math.BigDecimal;
 
 import es.marser.annotation.DbColumn;
+import es.marser.annotation.DbPrimaryKey;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
@@ -21,6 +22,8 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ExampleItem {
+    @DbPrimaryKey
+    private String key;
 
     @DbColumn(col_name = "tipo", indexorder = 1)
     private Integer tipo;
@@ -31,9 +34,9 @@ public class ExampleItem {
     @DbColumn(col_name = "longitud", indexorder = 4)
     private BigDecimal longitud;
     @DbColumn(col_name = "latitud", indexorder = 5)
-    private String latitud;
+    private BigDecimal latitud;
     @DbColumn(col_name = "altura", indexorder = 6)
-    private String altura;
+    private BigDecimal altura;
 
 
     public ExampleItem() {
@@ -71,19 +74,19 @@ public class ExampleItem {
         this.longitud = longitud;
     }
 
-    public String getLatitud() {
+    public BigDecimal getLatitud() {
         return latitud;
     }
 
-    public void setLatitud(String latitud) {
+    public void setLatitud(BigDecimal latitud) {
         this.latitud = latitud;
     }
 
-    public String getAltura() {
+    public BigDecimal getAltura() {
         return altura;
     }
 
-    public void setAltura(String altura) {
+    public void setAltura(BigDecimal altura) {
         this.altura = altura;
     }
 
