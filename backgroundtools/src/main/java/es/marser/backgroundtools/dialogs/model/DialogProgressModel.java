@@ -38,33 +38,6 @@ public class DialogProgressModel {
     public final ObservableField<String> error = new ObservableField<>("");//Mensaje de error [EN]  Error message
     public final ObservableField<BaseDialog.DIALOG_ICON> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
 
-
-    @BindingAdapter(value = {"iconDialog"})
-    public static void setDialogIcon(ImageView view, BaseDialog.DIALOG_ICON icon) {
-        switch (icon) {
-            case BC3_ICON:
-                view.setImageResource(R.drawable.ic_bc3);
-                break;
-            case EXCEL_ICON:
-                view.setImageResource(R.drawable.ic_xls);
-                break;
-            case PDF_ICON:
-                view.setImageResource(R.drawable.ic_pdf);
-                break;
-            case DATABASE_ICON:
-                view.setImageResource(R.drawable.ic_database);
-                break;
-            case CALC_ICON:
-                view.setImageResource(R.drawable.ic_calculator);
-                break;
-            case LOADING_ICON:
-            default:
-                view.setImageResource(R.drawable.ic_sand_clock);
-                break;
-        }
-    }
-
-
     @BindingAdapter(value = {"android:max"})
     public static void setMax(ProgressBar bar, String value) {
         bar.setMax(MathTools.parseInt(value));

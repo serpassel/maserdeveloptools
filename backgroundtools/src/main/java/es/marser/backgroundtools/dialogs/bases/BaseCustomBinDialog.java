@@ -2,12 +2,15 @@ package es.marser.backgroundtools.dialogs.bases;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.TextTools;
 
@@ -166,4 +169,48 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
         source.temp.set(TextTools.nc(msg));
         return this;
     }
+
+    @BindingAdapter(value = {"iconDialog"})
+    public static void setDialogIcon(ImageView view, BaseDialog.DIALOG_ICON icon) {
+        switch (icon) {
+            case BC3_ICON:
+                view.setImageResource(R.drawable.ic_bc3);
+                break;
+            case EXCEL_ICON:
+                view.setImageResource(R.drawable.ic_xls);
+                break;
+            case PDF_ICON:
+                view.setImageResource(R.drawable.ic_pdf);
+                break;
+            case DATABASE_ICON:
+                view.setImageResource(R.drawable.ic_database);
+                break;
+            case CALC_ICON:
+                view.setImageResource(R.drawable.ic_calculator);
+                break;
+            case WARNING_ICON:
+                view.setImageResource(R.drawable.ic_warning);
+                break;
+            case ERROR_ICON:
+                view.setImageResource(R.drawable.ic_error);
+                break;
+            case INFORMATION_ICON:
+                view.setImageResource(R.drawable.ic_information);
+                break;
+            case ADD_ICON:
+                view.setImageResource(R.drawable.ic_add);
+                break;
+            case EDIT_ICON:
+                view.setImageResource(R.drawable.ic_edit);
+                break;
+            case QUESTION_ICON:
+                view.setImageResource(R.drawable.ic_question);
+                break;
+            case LOADING_ICON:
+            default:
+                view.setImageResource(R.drawable.ic_sand_clock);
+                break;
+        }
+    }
+
 }

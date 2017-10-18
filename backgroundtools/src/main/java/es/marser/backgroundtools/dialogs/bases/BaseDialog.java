@@ -33,6 +33,9 @@ public abstract class BaseDialog extends DialogFragment {
         WARNING_ICON,
         ERROR_ICON,
         INFORMATION_ICON,
+        QUESTION_ICON,
+        ADD_ICON,
+        EDIT_ICON,
         DEFAULT_ICON
     }
 

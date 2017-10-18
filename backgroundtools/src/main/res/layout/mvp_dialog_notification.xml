@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="es.marser.backgroundtools.dialogs.model.DialogNotificationModel" />
+
+        <variable
+            name="model"
+            type="DialogNotificationModel" />
+
+        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+
+        <variable
+            name="winaction"
+            type="WindowAction" />
+
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/dialogs_base_background_tint"
+        android:orientation="vertical">
+
+        <!--HEAD-->
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/dialogs_head_background_tint"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/bt_generic_edit_image_dimen"
+                android:layout_height="@dimen/bt_generic_edit_image_dimen"
+                android:layout_margin="?attr/dialogs_default_margin"
+                app:srcCompat="@drawable/ic_question"
+                bind:ignore="VectorDrawableCompat" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_head_label"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:text="@{model.title != null ? model.title : @string/bt_dialog_notification_default_title}"
+                bind:fontText="@{@string/bt_generic_edit_head_font}" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <!--BODY-->
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+             <android.support.v7.widget.AppCompatTextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="MENSAJE DE PRUEBA"
+                 style="@style/bt_body_label"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <!--FOO-->
+        <include
+            layout="@layout/mvp_buttons_set"
+            bind:winaction="@{winaction}" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>
