@@ -21,7 +21,7 @@ import es.marser.tools.TextTools;
  *         </ul>
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class DatabaseSettings {
 
     private static String default_databasename = "database";

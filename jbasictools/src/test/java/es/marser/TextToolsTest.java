@@ -57,7 +57,7 @@ public class TextToolsTest {
     public void channel5() {
         Assert.assertFalse(!es.marser.tools.TextTools.rotateString(in.toCharArray()).equals("abeurp"));
         Assert.assertFalse(!es.marser.tools.TextTools.oddCouple(in.toCharArray()).equals("pubrea"));
-        Assert.assertFalse(!es.marser.tools.TextTools.transposetArray(inarr).equals("udRT&noRT&osRT&"));
+        Assert.assertFalse(!es.marser.tools.TextTools.transposetArray(inarr).equals("ud|no|os|"));
     }
 
 }

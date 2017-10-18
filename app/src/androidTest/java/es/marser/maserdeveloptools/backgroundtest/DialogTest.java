@@ -1,6 +1,6 @@
 package es.marser.maserdeveloptools.backgroundtest;
 
-import android.support.test.filters.MediumTest;
+import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
@@ -22,7 +22,7 @@ import es.marser.maserdeveloptools.DialogExample;
  *         Created by sergio on 8/10/17.
  *         Test de cuadros de dialogos
  */
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class DialogTest {
 

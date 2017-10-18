@@ -1,23 +1,42 @@
-package es.marser.generic;
+package es.marser.maserdeveloptools.sqltools;
 
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.LargeTest;
+import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import es.marser.examples.ExampleItem;
-import es.marser.examples.ExampleObject;
+import java.util.List;
+
+import es.marser.LOG_TAG;
+import es.marser.generic.GenericFactory;
+import es.marser.sqltools.CRUDHandler;
+import es.marser.sqltools.DatabaseSettings;
+import es.marser.sqltools.examples.ExampleObjectB;
+import es.marser.sqltools.examples.ExampleObjectD;
 import es.marser.tools.TextTools;
+
 
 /**
  * @author sergio
- *         Created by sergio on 17/10/17.
+ *         Created by sergio on 16/10/17.
  */
-public class GenericFactoryTest {
-    private String[] data;
-    private String m1, m2,m3, m4;
+@LargeTest
+@RunWith(AndroidJUnit4.class)
+public class CRUDHandlerTest2 {
+
+    private CRUDHandler crudHandler;
+
 
     @Before
     public void setUp() throws Exception {
+        Log.i(LOG_TAG.TAG, "BEFORE");
+        /*Lectura de datos*/
         String reading = "M|1#\\1.01|1\\1\\|1|\\\\1\\\\\\\\|" +
                 "~M|1#\\1.02|1\\2\\|4101.64|\\\\1.4\\623.35\\\\4.7\\|" +
                 "~M|1#\\1.03|1\\3\\|74.18|\\muro zapata\\\\\\\\\\\\muro de 4,45\\1\\36.5\\1.35\\0.6\\\\muro de 3,60\\1\\18.5\\1.1\\0.6\\\\\\1\\19.55\\1.1\\0.6\\\\zapatas\\\\\\\\\\\\P5,P6,P7,P13,P14,P15\\6\\1.2\\1.2\\0.5\\\\P9,P10,P11\\3\\1.4\\1.4\\0.5\\\\P17,P18,P19\\3\\1\\1\\0.5\\\\arranque escaleras\\\\\\\\\\\\\\4\\0.45\\1.2\\0.5\\\\viga riostra\\1\\4.36\\0.3\\0.5\\\\Muro Mikel\\2\\3.1\\1.1\\0.6\\\\\\1\\7.45\\1.1\\0.6\\|" +
@@ -42,79 +61,59 @@ public class GenericFactoryTest {
                 "~M|3#\\3.11|3\\11\\|4|\\VIVIENDA 1\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 2\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 3\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 4\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\|" +
                 "~M|3#\\3.12|3\\12\\|4|\\VIVIENDA 1\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 2\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 3\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 4\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\|" +
                 "~M|3#\\3.13|3\\13\\|4|\\\\4\\\\\\\\|";
-        data = TextTools.getRecordSplit(reading, TextTools.REG_SEPARATOR);
+        String[] data = TextTools.getRecordSplit(reading, TextTools.REG_SEPARATOR);
 
+        /*Conexión de datos*/
+        DatabaseSettings databaseSettings = new DatabaseSettings();
+        databaseSettings.setTables(ExampleObjectD.class);
+        crudHandler = new CRUDHandler(InstrumentationRegistry.getTargetContext(), databaseSettings);
+        // Log.i(LOG_TAG.TAG, "BEFORE");
+        crudHandler.deleteDatabase();
+        crudHandler.conectDatabase();
 
-        /*Comprobar valores de ejemplo*/
-        Assert.assertEquals(data.length, 24);
-        Assert.assertEquals(data[0], "M|1#\\1.01|1\\1\\|1|\\\\1\\\\\\\\|");
-        Assert.assertEquals(data[23], "M|3#\\3.13|3\\13\\|4|\\\\4\\\\\\\\|");
-        Assert.assertEquals(data[11], "M|3#\\3.01|3\\1\\|87.91|\\MURO VIVIENDA\\\\\\\\\\\\muro sótano -1\\1\\17.61\\0.3\\3.6\\\\\\1\\15.14\\0.3\\3.6\\\\\\1\\5.26\\0.3\\3.6\\\\muro sótano -2\\1\\35.1\\0.3\\4.45\\|");
+        Assert.assertTrue(crudHandler.isOpen());
 
-        /*Malformados*/
-        m1 = "M|1#\\1.01|1\\1\\|1|\\\\1\\\\\\\\| | | | | | |";//Mayor número de campos
-        m2 = "M|1#\\1.01|1";//Menor número de campos
-        m3 = "0\\muro sótano -1\\1\\17,61\\0,3\\3,6\\";//Malformación numérica
-        m4 = "0\\muro sótano -1\\1\\numero\\0,3\\3,6\\";//Error de clases
+        //Insertar registros
+        ExampleObjectD p1 = GenericFactory.BuildSingleObject(ExampleObjectD.class, data[5]);
+        ExampleObjectD p2 = GenericFactory.BuildSingleObject(ExampleObjectD.class, data[7]);
+        ExampleObjectD p3 = GenericFactory.BuildSingleObject(ExampleObjectD.class, data[10]);
 
+        Assert.assertNull(crudHandler.addRecord(p1));
+        Assert.assertNull(crudHandler.addRecord(p2));
+        Assert.assertNull(crudHandler.addRecord(p3));
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Log.i(LOG_TAG.TAG, "AFTER");
+        crudHandler.close();
     }
 
     @Test
-    public void channel1() {
-        /*Creación de registro [EN]  Registry Creation */
-        ExampleObject o1 = GenericFactory.BuildSingleObject(ExampleObject.class, data[11]);
-        Assert.assertEquals(o1.toString().substring(1), data[11] + TextTools.RETORNO_CARRO_SALTO_LINEA);
-        /*Número de campos leíbles en el registro padre [EN]  Number of readable fields in the parent record*/
-        Assert.assertEquals(4, GenericFactory.getReadableColumnsCount(ExampleObject.class));
-
-        /*Sub-campos leíbles [EN]  Readable sub-fields*/
-        Assert.assertEquals(6, GenericFactory.getReadableColumnsCount(ExampleItem.class));
-
-        int occurrences = TextTools.charOccurrences(o1.getLines(), TextTools.ITEM_SEPARATOR_CHAR);
-        int regs = occurrences / GenericFactory.getReadableColumnsCount(ExampleItem.class);
-
-        /*Número de sub-registros [EN]  Number of sub-registers*/
-        Assert.assertEquals(GenericFactory.itemsBuilder(ExampleItem.class, o1.getLines(), null).size(), regs);
+    public void dTest() {
+        Log.i(LOG_TAG.TAG, "dTest");
+        //Lectura
+        Assert.assertEquals(3, printlist(crudHandler.getAllRecords(ExampleObjectD.class)).size());
     }
 
-    @Test
-    public void channel2() {
-        //Bugs Control
-
-        /*Formación de registros vacíos [EN]  Formation of empty registers*/
-        ExampleObject o1 = GenericFactory.BuildSingleObject(ExampleObject.class, null);
-        Assert.assertNull(o1);
-        ExampleObject o2 = GenericFactory.BuildSingleObject(ExampleObject.class, "");
-        Assert.assertNull(o2);
-
-        /*Entradas vacías [EN]  Empty entries*/
-        Assert.assertEquals(0, TextTools.getRecordSplit("", null).length);
-        Assert.assertEquals(0, TextTools.getRecordSplit(null, null).length);
-        Assert.assertEquals(0, TextTools.getRecordSplit("", "").length);
-
-
-        /*Registro con más campos que los esperados [EN]  Register with more fields than expected*/
-        Assert.assertNotNull(GenericFactory.BuildSingleObject(ExampleObject.class, m1));
-        Assert.assertEquals(
-                GenericFactory.BuildSingleObject(ExampleObject.class, m1).toString(),
-                GenericFactory.BuildSingleObject(ExampleObject.class,data[0]).toString()
-        );
-
-        Assert.assertEquals("0\\1.01|1\\0.0\\0.0\\0.0\\0.0\\", GenericFactory.BuildSingleItem(ExampleItem.class, m2).toString());
-        Assert.assertEquals("0\\muro sótano -1\\1.0\\17.61\\0.3\\3.6\\", GenericFactory.BuildSingleItem(ExampleItem.class, m3).toString());
-        Assert.assertEquals("0\\muro sótano -1\\1.0\\0.0\\0.3\\3.6\\", GenericFactory.BuildSingleItem(ExampleItem.class, m4).toString());
-
-/*
-        System.out.println("M1      " + GenericFactory.BuildSingleObject(ExampleObject.class, m1).toString());
-        System.out.println("data[0] " + GenericFactory.BuildSingleObject(ExampleObject.class,data[0]).toString());
-        System.out.println("M2      " + GenericFactory.BuildSingleObject(ExampleObject.class, m2).toString());
-
-        System.out.println("lines " + GenericFactory.BuildSingleObject(ExampleObject.class, data[11]).getLines());
-        for(ExampleItem ei: GenericFactory.itemsBuilder(
-                ExampleItem.class,
-                GenericFactory.BuildSingleObject(ExampleObject.class, data[11]).getLines(), null)){
-            System.out.println("sub-reg " + ei.toString());
+    private <T> List<T> printlist(List<T> list) {
+        for (T pe : list) {
+            Log.d(LOG_TAG.TAG, "Registro " + pe.toString());
         }
-*/
+        return list;
+    }
+
+    @Test
+    public void bTest() {
+        Log.i(LOG_TAG.TAG, "bTest");
+
+        crudHandler.close();
+
+        DatabaseSettings databaseSettings = new DatabaseSettings();
+        databaseSettings.setTables(ExampleObjectB.class);
+        crudHandler = new CRUDHandler(InstrumentationRegistry.getTargetContext(), databaseSettings);
+        crudHandler.conectDatabase();
+        Assert.assertTrue(crudHandler.isOpen());
+        Assert.assertEquals(3, printlist(crudHandler.getAllRecords(ExampleObjectB.class)).size());
     }
 }

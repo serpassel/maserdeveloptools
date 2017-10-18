@@ -207,6 +207,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @return verdadero si se ha borrado la base de datos [EN]  true if the database has been deleted
      */
+    @SuppressWarnings("UnusedReturnValue")
     public boolean deleteDatabase() {
        /*Desconectar antes de borrar [EN]  Disconnect before deleting*/
         if (db != null && db.isOpen()) {
@@ -890,6 +891,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
+    @SuppressWarnings("UnusedReturnValue")
     public <T> AsyncTask getAllRecords(Class<T> cls, OnRead<T> onRead) {
         return getRecords(SQLStrings.selectAll(cls), cls, onRead);
     }

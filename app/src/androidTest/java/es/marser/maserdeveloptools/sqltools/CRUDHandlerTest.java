@@ -1,6 +1,5 @@
 package es.marser.maserdeveloptools.sqltools;
 
-import android.os.AsyncTask;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
@@ -29,7 +28,8 @@ import es.marser.sqltools.examples.PojoExample;
 public class CRUDHandlerTest {
 
     private CRUDHandler crudHandler;
-    private PojoExample p1, p2, p3;
+    private PojoExample p1;
+    private PojoExample p2;
 
 
     @Before
@@ -46,7 +46,7 @@ public class CRUDHandlerTest {
         //Insertar registros
         p1 = new PojoExample("key1", "P1", "10");
         p2 = new PojoExample("key2", "P2", "10");
-        p3 = new PojoExample("key3", "P3", "10");
+        PojoExample p3 = new PojoExample("key3", "P3", "10");
 
         Assert.assertNull(crudHandler.addRecord(p1));
         Assert.assertNull(crudHandler.addRecord(p2));
@@ -88,7 +88,7 @@ public class CRUDHandlerTest {
     public void asynchronous() {
         //Assert.assertEquals(3, printlist(crudHandler.getAllRecords(PojoExample.class)).size());
 
-        AsyncTask task = crudHandler.getAllRecords(PojoExample.class, new CRUDHandler.OnRead<PojoExample>() {
+        crudHandler.getAllRecords(PojoExample.class, new CRUDHandler.OnRead<PojoExample>() {
             @Override
             public void onStart(Void start) {
             }

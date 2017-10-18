@@ -1,10 +1,8 @@
-package es.marser;
+package es.marser.sqltools;
 
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import es.marser.generic.GenericFactoryTest;
 
 /**
  * @author sergio
@@ -14,11 +12,7 @@ import es.marser.generic.GenericFactoryTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        TextToolsTest.class,
-        DateToolsTest.class,
-        BooleanToolsTest.class,
-        MathToolsTest.class,
-        GenericFactoryTest.class
+        SQLStringsTest.class
 })
 public class StaticSuiteTest {
 
