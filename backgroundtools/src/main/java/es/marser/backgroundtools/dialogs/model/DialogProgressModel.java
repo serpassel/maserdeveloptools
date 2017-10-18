@@ -8,6 +8,7 @@ import android.databinding.ObservableField;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.tools.MathTools;
 import es.marser.backgroundtools.R;
 
@@ -28,15 +29,6 @@ import es.marser.backgroundtools.R;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DialogProgressModel {
 
-    /*Referencia a los iconos admitidos [EN]  Reference to supported icons*/
-    public static final String BC3_ICON = "bc3";
-    public static final String EXCEL_ICON = "excel";
-    public static final String PDF_ICON = "pdf";
-    public static final String DATABASE_ICON = "database_icon";
-    public static final String LOADING_ICON = "loading_icon";
-    public static final String CALC_ICON = "calc_icon";
-
-
     public final ObservableField<String> max = new ObservableField<>();//Longitud máxima de progreso [EN]  Maximum length of progress
     public final ObservableField<String> progress = new ObservableField<>();//progreso [EN]  progress
     public final ObservableBoolean indeterminate = new ObservableBoolean(true); //Barra indeterminada [EN]  Indeterminate bar
@@ -44,11 +36,11 @@ public class DialogProgressModel {
     public final ObservableField<String> progresstext = new ObservableField<>("");//Texto de progreso [EN]  Progress text
     public final ObservableField<String> title = new ObservableField<>("Cargando...");//Título de carga [EN]  Loading title
     public final ObservableField<String> error = new ObservableField<>("");//Mensaje de error [EN]  Error message
-    public final ObservableField<String> icon = new ObservableField<>("");//Icono del título [EN]  Title Icon
+    public final ObservableField<BaseDialog.DIALOG_ICON> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
 
 
     @BindingAdapter(value = {"iconDialog"})
-    public static void setDialogIcon(ImageView view, String icon) {
+    public static void setDialogIcon(ImageView view, BaseDialog.DIALOG_ICON icon) {
         switch (icon) {
             case BC3_ICON:
                 view.setImageResource(R.drawable.ic_bc3);
@@ -65,7 +57,6 @@ public class DialogProgressModel {
             case CALC_ICON:
                 view.setImageResource(R.drawable.ic_calculator);
                 break;
-
             case LOADING_ICON:
             default:
                 view.setImageResource(R.drawable.ic_sand_clock);

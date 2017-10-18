@@ -33,7 +33,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
         CustomProgressBinDialog instance = new CustomProgressBinDialog();
         instance.setContext(context);
         if (bundle == null) {
-            bundle = createBundle(DEFAULT_ICON);
+            bundle = createBundle(DIALOG_ICON.DEFAULT_ICON);
         }
         instance.setArguments(bundle);
         return instance;
@@ -53,9 +53,9 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @see DialogProgressModel#LOADING_ICON
      * @see DialogProgressModel#CALC_ICON
      */
-    public static Bundle createBundle(String icon) {
+    public static Bundle createBundle(DIALOG_ICON icon) {
         Bundle bundle = new Bundle();
-        bundle.putString(ICON_EXTRA, icon);
+        bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), icon);
         return bundle;
     }
 

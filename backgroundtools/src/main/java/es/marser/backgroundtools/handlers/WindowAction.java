@@ -30,4 +30,22 @@ public interface WindowAction<T> extends ViewHandler<T> {
      * @param v Vista pulsada [EN]  Pulsed view
      */
     void onCancel(View v);
+
+    /**
+     * Acción a configurar como opción 1
+     * <p>
+     * [EN]  Action to configure as option 1
+     *
+     * @param v Vista pulsada [EN]  Pulsed view
+     */
+    void onOption1(View v);
+
+    /**
+     * Acción a configurar como opción 2
+     * <p>
+     * [EN]  Action to configure as option 2
+     *
+     * @param v Vista pulsada [EN]  Pulsed view
+     */
+    void onOption2(View v);
 }

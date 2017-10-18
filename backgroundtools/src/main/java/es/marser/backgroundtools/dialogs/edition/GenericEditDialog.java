@@ -5,37 +5,42 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
-
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.handlers.WindowAction;
 
+import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_ACTION.NULL_ACTION;
+import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.ITEM_EXTRA;
+import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.LAYOUT_EXTRA;
+import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.STATE_EXTRA;
+
 
 /**
- * Created by Sergio on 09/03/2017.
- * Dialogo de  edicción de un elemento singular
+ * @author sergio
+ *         Created by Sergio on 09/03/2017.
+ *         Dialogo de edición de un elemento singular
+ *         <p>
+ *         [EN]  Dialog for editing a single element
  */
 
 @SuppressWarnings("unused")
 public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog implements WindowAction<T> {
 
-    public static final int EDIT_ACTION = 100;
-    public static final int ADD_ACTION = 101;
-    public static final int INSERT_ACTION = 102;
-
-
     protected OnResult<T> result;
     protected T model;
     private int layout;
 
-    public static final String ITEM_EXTRA = "item_extra";
-    public static final String STATE_EXTRA = "state_extra";
-    public static final String LAYOUT_EXTRA = "layout_extra";
+    /*enumeracion de llaves de argumentos [EN]  enumeration of argument keys */
+    public enum EDIT_DIALOG_EXTRAS {
+        ITEM_EXTRA, STATE_EXTRA, LAYOUT_EXTRA, ACTION_EXTRA
+    }
 
+    /*Enumeración de acciones [EN]  Enumeration of actions*/
+    public enum EDIT_DIALOG_ACTION {
+        NULL_ACTION, EDIT_ACTION, ADD_ACTION, INSERT_ACTION
+    }
 
     public static <T extends Parcelable> GenericEditDialog newInstance(
             @NonNull Context context,
@@ -49,23 +54,23 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
         return instance;
     }
 
-    public static <T extends Parcelable> Bundle createBundle(int layout, Integer state, @NonNull T item) {
+    public static <T extends Parcelable> Bundle createBundle(int layout, EDIT_DIALOG_ACTION action, @NonNull T item) {
         Bundle bundle = new Bundle();
-        bundle.putInt(LAYOUT_EXTRA, layout);
-        bundle.putInt(STATE_EXTRA, (state != null ? state : -1));
-        bundle.putParcelable(ITEM_EXTRA, item);
+        bundle.putInt(LAYOUT_EXTRA.name(), layout);
+        bundle.putInt(STATE_EXTRA.name(), (action != null ? action.ordinal() : 0));
+        bundle.putParcelable(ITEM_EXTRA.name(), item);
         return bundle;
     }
 
     public static <T extends Parcelable> Bundle createBundle(int layout, @NonNull T item) {
-        return createBundle(layout, -1, item);
+        return createBundle(layout, NULL_ACTION, item);
     }
 
     @Override
     protected void preBuild() {
-        this.model = getArguments().getParcelable(ITEM_EXTRA);
-        this.layout = getArguments().getInt(LAYOUT_EXTRA, -1);
-        state.set(getArguments().getInt(STATE_EXTRA, -1));
+        this.model = getArguments().getParcelable(ITEM_EXTRA.name());
+        this.layout = getArguments().getInt(LAYOUT_EXTRA.name(), -1);
+        state.set(getArguments().getInt(STATE_EXTRA.name(), 0));
     }
 
     @Override
@@ -117,9 +122,18 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
     @Override
     public void onCancel(View v) {
-        Log.i(LOG_TAG.TAG, "Cerrado");
         result.onResult(Activity.RESULT_CANCELED, model);
         close();
+    }
+
+    @Override
+    public void onOption1(View v) {
+
+    }
+
+    @Override
+    public void onOption2(View v) {
+
     }
 
     @SuppressWarnings({"EmptyMethod", "unused", "UnusedParameters"})

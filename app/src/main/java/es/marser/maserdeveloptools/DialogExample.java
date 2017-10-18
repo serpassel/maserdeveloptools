@@ -11,7 +11,6 @@ import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
 import es.marser.backgroundtools.dialogs.progress.CustomProgressBinDialog;
-import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.MathTools;
 
 /**
@@ -29,8 +28,7 @@ public class DialogExample {
         CustomInterminateBinDialog binDialog = CustomInterminateBinDialog.newInstace(context,
                 CustomInterminateBinDialog
                         .createBundle(
-                                DialogProgressModel.LOADING_ICON
-                        )
+                                BaseDialog.DIALOG_ICON.LOADING_ICON)
         );
         binDialog.setTemp("[Placeholder]");
         binDialog.show();
@@ -49,7 +47,7 @@ public class DialogExample {
                 .newInstace(context,
                         CustomProgressBinDialog
                                 .createBundle(
-                                        CustomProgressBinDialog.EXCEL_ICON
+                                        BaseDialog.DIALOG_ICON.EXCEL_ICON
                                 ));
         bar.setMax(null);
         bar.show();
@@ -64,7 +62,7 @@ public class DialogExample {
                 .newInstace(context,
                         CustomProgressBinDialog
                                 .createBundle(
-                                        CustomProgressBinDialog.EXCEL_ICON
+                                        BaseDialog.DIALOG_ICON.EXCEL_ICON
                                 ));
         bar.show();
 

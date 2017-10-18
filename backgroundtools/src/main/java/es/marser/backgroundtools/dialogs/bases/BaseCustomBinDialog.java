@@ -11,6 +11,8 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.TextTools;
 
+import static es.marser.backgroundtools.dialogs.bases.BaseDialog.DIALOG_ICON.*;
+
 /**
  * @author sergio
  *         Created by Sergio on 06/09/2017.
@@ -40,13 +42,6 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     /*Variable modelo [EN]  Model variable*/
     protected DialogProgressModel source;
 
-    /*Variables para el icono de cabecera [EN]  Variables for the header icon*/
-    public static final String BC3_ICON = DialogProgressModel.BC3_ICON;
-    public static final String EXCEL_ICON = DialogProgressModel.EXCEL_ICON;
-    public static final String PDF_ICON = DialogProgressModel.PDF_ICON;
-    public static final String LOADING_ICON = DialogProgressModel.LOADING_ICON;
-    public static final String DEFAULT_ICON = DialogProgressModel.LOADING_ICON;
-    public static final String ICON_EXTRA = "icon_extra";
 
     public BaseCustomBinDialog() {
         this.source = new DialogProgressModel();
@@ -56,7 +51,8 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     protected void createDialog() {
 
         if (getArguments() != null) {
-            source.icon.set(getArguments().getString(ICON_EXTRA, DialogProgressModel.LOADING_ICON));
+            DIALOG_ICON dialog_icon = (DIALOG_ICON) getArguments().getSerializable(ICON_EXTRA.name());
+            source.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
         }
         buildDialog();
     }

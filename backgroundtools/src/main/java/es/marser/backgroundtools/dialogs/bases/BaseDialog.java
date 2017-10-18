@@ -22,6 +22,20 @@ public abstract class BaseDialog extends DialogFragment {
     protected Dialog dialog;
     protected View view;
 
+    public enum DIALOG_ICON {
+        ICON_EXTRA,
+        BC3_ICON,
+        EXCEL_ICON,
+        PDF_ICON,
+        LOADING_ICON,
+        DATABASE_ICON,
+        CALC_ICON,
+        WARNING_ICON,
+        ERROR_ICON,
+        INFORMATION_ICON,
+        DEFAULT_ICON
+    }
+
     public BaseDialog() {
     }
 
@@ -89,6 +103,7 @@ public abstract class BaseDialog extends DialogFragment {
      * Setter de la variable de contexto
      * <p>
      * [EN]  Context Variable Setter es
+     *
      * @param context Contexto sobre el que se vincula el dialogo [EN]  Context on which the dialogue is linked
      */
     public void setContext(Context context) {

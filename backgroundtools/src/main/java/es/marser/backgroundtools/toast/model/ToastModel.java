@@ -11,6 +11,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
 
 /**
@@ -28,19 +29,13 @@ import es.marser.backgroundtools.R;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ToastModel {
 
-    /*Referencia a los iconos admitidos [EN]  Reference to supported icons*/
-    public static final String WARNING_ICON = "warning";
-    public static final String ERROR_ICON = "error";
-    public static final String INFORMATION_ICON = "info";
-
-
     public final ObservableField<String> msg = new ObservableField<>("");//Texto de progreso temporal [EN]  Temporary progress text
     public final ObservableField<String> title = new ObservableField<>("");//Título de carga [EN]  Loading title
-    public final ObservableField<String> icon = new ObservableField<>("");//Icono del título [EN]  Title Icon
+    public final ObservableField<BaseDialog.DIALOG_ICON> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
 
 
     @BindingAdapter(value = {"iconToast"})
-    public static void setToastIcon(ImageView view, String icon) {
+    public static void setToastIcon(ImageView view, BaseDialog.DIALOG_ICON icon) {
         switch (icon) {
             case WARNING_ICON:
                 view.setImageResource(R.drawable.ic_warning);
@@ -56,15 +51,15 @@ public class ToastModel {
     }
 
     @BindingAdapter(value = {"colorPrimaryToastText"})
-    public static void setPrimaryToastTextColor(TextView v, String state) {
+    public static void setPrimaryToastTextColor(TextView v, BaseDialog.DIALOG_ICON state) {
         switch (state) {
-            case ToastModel.WARNING_ICON:
+            case WARNING_ICON:
                 v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color));
                 break;
-            case ToastModel.ERROR_ICON:
+            case ERROR_ICON:
                 v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color));
                 break;
-            case ToastModel.INFORMATION_ICON:
+            case INFORMATION_ICON:
             default:
                 v.setTextColor(ContextCompat.getColor(v.getContext(),R.color.bt_information_color));
                 break;
@@ -72,15 +67,15 @@ public class ToastModel {
     }
 
     @BindingAdapter(value = {"colorSecondaryToast"})
-    public static void setSecondaryToastColor(View v, String state) {
+    public static void setSecondaryToastColor(View v, BaseDialog.DIALOG_ICON state) {
         switch (state) {
-            case ToastModel.WARNING_ICON:
+            case WARNING_ICON:
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color_light));
                 break;
-            case ToastModel.ERROR_ICON:
+            case ERROR_ICON:
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color_light));
                 break;
-            case ToastModel.INFORMATION_ICON:
+            case INFORMATION_ICON:
             default:
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(),R.color.bt_information_color_light));
                 break;

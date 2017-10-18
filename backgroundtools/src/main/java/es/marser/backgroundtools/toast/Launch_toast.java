@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.toast.model.ToastModel;
 import es.marser.tools.TextTools;
 
@@ -62,7 +63,7 @@ public class Launch_toast {
      */
     public static void informationToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(ToastModel.INFORMATION_ICON);
+        toastModel.icon.set(BaseDialog.DIALOG_ICON.INFORMATION_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[0]);
         toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
@@ -78,7 +79,7 @@ public class Launch_toast {
      */
     public static void warningToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(ToastModel.WARNING_ICON);
+        toastModel.icon.set(BaseDialog.DIALOG_ICON.WARNING_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
         toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
@@ -94,7 +95,7 @@ public class Launch_toast {
      */
     public static void errorToast(Context context, String message) {
         ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(ToastModel.ERROR_ICON);
+        toastModel.icon.set(BaseDialog.DIALOG_ICON.ERROR_ICON);
         toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
         toastModel.msg.set(TextTools.nc(message));
         launchToast(context, toastModel);
