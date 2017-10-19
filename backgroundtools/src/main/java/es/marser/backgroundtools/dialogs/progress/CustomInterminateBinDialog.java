@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
@@ -20,6 +21,8 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CustomInterminateBinDialog extends BaseCustomBinDialog {
+    private DialogProgressModel source;
+
     public static final String MODE_BOX_EXTRA = "mode_box_extra";
     public static final String MODE_SPINNER_EXTRA = "mode_spinner_extra";
 
@@ -39,9 +42,12 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
         if (bundle == null) {
             bundle = createBundle(DIALOG_ICON.DEFAULT_ICON);
         }
+        instance.setSource(new DialogProgressModel());
+        instance.setTitle(context.getResources().getString(R.string.bt_loading));
         instance.setArguments(bundle);
         return instance;
     }
+
 
     /**
      * Utilidad de creación de los argumentos de iniciales
@@ -67,16 +73,22 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
         Log.d("BACK$", "CREAR BUNDLE");
         Bundle bundle = new Bundle();
 
-        if(icon == null){
+        if (icon == null) {
             bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), DIALOG_ICON.DEFAULT_ICON);
             bundle.putString(MODE_BOX_EXTRA, MODE_SPINNER_EXTRA);
             Log.d("BACK$", "NULO");
-        }else{
+        } else {
             Log.d("BACK$", "NO NULO");
             bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), icon);
             bundle.putString(MODE_BOX_EXTRA, TextTools.notEmpty(mode, MODE_BOX_EXTRA));
         }
         return bundle;
+    }
+
+    @Override
+    protected void bindObject() {
+        viewDataBinding.setVariable(BR.model, source);
+        viewDataBinding.executePendingBindings();
     }
 
     @Override
@@ -88,5 +100,26 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
                 return R.layout.mvp_spinner;
 
         }
+    }
+
+    /**
+     * Devuelve el modelo de datos
+     *
+     * @return modelo de datos
+     */
+    public DialogProgressModel getSource() {
+        return source;
+    }
+
+    /**
+     * Insertar modelo de datos
+     * <p>
+     * [EN]  Insert data model
+     *
+     * @param source modelo de datos
+     */
+    public void setSource(DialogProgressModel source) {
+        super.setDialogModel(source);
+        this.source = source;
     }
 }

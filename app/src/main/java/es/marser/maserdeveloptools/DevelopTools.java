@@ -19,7 +19,7 @@ public class DevelopTools extends AppCompatActivity {
     }
 
     public void launch() {
-      // DialogExample.indeterminateBox(this);
+      //DialogExample.indeterminateBox(this);
       // DialogExample.indeterminateSpinner(this);
       // DialogExample.progressIndeterminateBox(this);
       // DialogExample.progressBox(this);
@@ -28,7 +28,7 @@ public class DevelopTools extends AppCompatActivity {
        //es.marser.backgroundtools.toast.Launch_toast.errorToast(this, "Mensaje de error");
        //es.marser.backgroundtools.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
-        DialogExample.editGeneric(this);
+        //DialogExample.editGeneric(this);
        // SQLExample.createDatabase(this);
     }
 }

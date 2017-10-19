@@ -3,10 +3,11 @@ package es.marser.backgroundtools.dialogs.progress;
 import android.content.Context;
 import android.os.Bundle;
 
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.tools.MathTools;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
-import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 
 /**
  * @author sergio
@@ -19,6 +20,8 @@ import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 public class CustomProgressBinDialog extends BaseCustomBinDialog {
+
+    private DialogProgressModel source;
 
     /**
      * Crear una nueva instancia del Dialogo
@@ -35,6 +38,8 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
         if (bundle == null) {
             bundle = createBundle(DIALOG_ICON.DEFAULT_ICON);
         }
+        instance.setSource(new DialogProgressModel());
+        instance.setTitle(context.getResources().getString(R.string.bt_loading));
         instance.setArguments(bundle);
         return instance;
     }
@@ -62,6 +67,12 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
     @Override
     protected int getDialogLayout() {
         return R.layout.mvp_dialog_progress;
+    }
+
+    @Override
+    protected void bindObject() {
+        viewDataBinding.setVariable(BR.model, source);
+        viewDataBinding.executePendingBindings();
     }
 
     /**
@@ -155,5 +166,27 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
         String in = source.error.get() + error + "\n";
         source.error.set(in);
         return this;
+    }
+
+    /**
+     *
+     * Devuelve el modelo de datos
+     *
+     * @return modelo de datos
+     */
+    public DialogProgressModel getSource() {
+        return source;
+    }
+
+    /**
+     * Insertar modelo de datos
+     * <p>
+     * [EN]  Insert data model
+     *
+     * @param source modelo de datos
+     */
+    public void setSource(DialogProgressModel source) {
+        super.setDialogModel(source);
+        this.source = source;
     }
 }

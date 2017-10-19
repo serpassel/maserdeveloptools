@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_margin="?attr/dialogs_default_margin"
-                android:text="@{tt.limitText(model.temp, @integer/bt_limit_text)}"
+                android:text="@{tt.limitText(model.body, @integer/bt_limit_text)}"
                 style="@style/bt_body_label" />
 
             <ProgressBar

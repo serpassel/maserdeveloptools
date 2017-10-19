@@ -27,16 +27,13 @@ import es.marser.backgroundtools.R;
         @BindingMethod(type = ProgressBar.class, attribute = "android:progress", method = "setProgress")
 })
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class DialogProgressModel {
+public class DialogProgressModel extends DialogModel{
 
     public final ObservableField<String> max = new ObservableField<>();//Longitud máxima de progreso [EN]  Maximum length of progress
     public final ObservableField<String> progress = new ObservableField<>();//progreso [EN]  progress
     public final ObservableBoolean indeterminate = new ObservableBoolean(true); //Barra indeterminada [EN]  Indeterminate bar
-    public final ObservableField<String> temp = new ObservableField<>("");//Texto de progreso temporal [EN]  Temporary progress text
     public final ObservableField<String> progresstext = new ObservableField<>("");//Texto de progreso [EN]  Progress text
-    public final ObservableField<String> title = new ObservableField<>("Cargando...");//Título de carga [EN]  Loading title
     public final ObservableField<String> error = new ObservableField<>("");//Mensaje de error [EN]  Error message
-    public final ObservableField<BaseDialog.DIALOG_ICON> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
 
     @BindingAdapter(value = {"android:max"})
     public static void setMax(ProgressBar bar, String value) {

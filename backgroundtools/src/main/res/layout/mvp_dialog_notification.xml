@@ -5,11 +5,11 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.dialogs.model.DialogNotificationModel" />
+        <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
 
         <variable
             name="model"
-            type="DialogNotificationModel" />
+            type="DialogModel" />
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
@@ -61,11 +61,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-             <android.support.v7.widget.AppCompatTextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:text="MENSAJE DE PRUEBA"
-                 style="@style/bt_body_label"/>
+                <es.marser.backgroundtools.widget.JustifiedTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{model.body}"
+                    style="@style/bt_body_label" />
             </android.support.v7.widget.LinearLayoutCompat>
 
         </android.support.v4.widget.NestedScrollView>

@@ -4,6 +4,7 @@
     <!--HEAD-->
     <dimen name="bt_image_dimen">23dp</dimen>
     <string name="bt_content">Icon</string>
+    <string name="bt_loading">Cargando…</string>
 
     <!--BODY-->
     <integer name="bt_limit_text">30</integer>

@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@{tt.limitText(model.temp, @integer/bt_limit_text)}" />
+                android:text="@{tt.limitText(model.body, @integer/bt_limit_text)}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 

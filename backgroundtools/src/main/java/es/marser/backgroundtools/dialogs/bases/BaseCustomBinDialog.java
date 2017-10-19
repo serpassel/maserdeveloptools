@@ -11,7 +11,7 @@ import android.widget.ImageView;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.backgroundtools.dialogs.model.DialogModel;
 import es.marser.tools.TextTools;
 
 import static es.marser.backgroundtools.dialogs.bases.BaseDialog.DIALOG_ICON.*;
@@ -43,11 +43,11 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     protected ViewDataBinding viewDataBinding;
 
     /*Variable modelo [EN]  Model variable*/
-    protected DialogProgressModel source;
+    protected DialogModel model;
 
 
     public BaseCustomBinDialog() {
-        this.source = new DialogProgressModel();
+        this.model = new DialogModel();
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
 
         if (getArguments() != null) {
             DIALOG_ICON dialog_icon = (DIALOG_ICON) getArguments().getSerializable(ICON_EXTRA.name());
-            source.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
+            model.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
         }
         buildDialog();
     }
@@ -109,7 +109,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      * [EN]  View link.  Required for the model variable in the view to be named model
      */
     protected void bindObject() {
-        viewDataBinding.setVariable(BR.model, source);
+        viewDataBinding.setVariable(BR.model, model);
         viewDataBinding.executePendingBindings();
     }
 
@@ -129,8 +129,8 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      *
      * @return Modelo de la vista [EN]  View model
      */
-    public DialogProgressModel getDialogProgressObject() {
-        return source;
+    public DialogModel getDialogModel() {
+        return model;
     }
 
     /**
@@ -140,8 +140,8 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      *
      * @param dialogProgressModel variable de modelo [EN]  model variable
      */
-    public void setDialogProgressObject(DialogProgressModel dialogProgressModel) {
-        this.source = dialogProgressModel;
+    public void setDialogModel(DialogModel model) {
+        this.model = model;
     }
 
     /**
@@ -153,7 +153,7 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      * @return clase actual [EN]  current class
      */
     public BaseCustomBinDialog setTitle(String msg) {
-        source.title.set(TextTools.nc(msg));
+        model.title.set(TextTools.nc(msg));
         return this;
     }
 
@@ -165,8 +165,8 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      * @param msg datos temporales [EN]  temporary data
      * @return clase actual [EN]  current class
      */
-    public BaseCustomBinDialog setTemp(String msg) {
-        source.temp.set(TextTools.nc(msg));
+    public BaseCustomBinDialog setBody(String msg) {
+        model.body.set(TextTools.nc(msg));
         return this;
     }
 

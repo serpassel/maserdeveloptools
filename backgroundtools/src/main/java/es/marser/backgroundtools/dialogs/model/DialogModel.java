@@ -23,9 +23,11 @@ import es.marser.tools.MathTools;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class DialogNotificationModel {
+public class DialogModel {
 
     public final ObservableField<String> title = new ObservableField<>("NOTIFICACION");//Título de carga [EN]  Loading title
-    public final ObservableField<String> msg = new ObservableField<>("");//Texto de progreso temporal [EN]  Temporary progress text
+    public final ObservableField<String> body= new ObservableField<>("");//Texto del cuerpo [EN]  Body text
     public final ObservableField<BaseDialog.DIALOG_ICON> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
+    public final ObservableBoolean key = new ObservableBoolean(false); //Clave de reiteración [EN]  Repeat Key
+    public final ObservableField<String> keyname= new ObservableField<>("");//Nombre de la clave de reiteración [EN]  Name of the reiteration key
 }

@@ -30,7 +30,7 @@ public class DialogExample {
                         .createBundle(
                                 BaseDialog.DIALOG_ICON.LOADING_ICON)
         );
-        binDialog.setTemp("[Placeholder]");
+        binDialog.setBody("[Placeholder]");
         binDialog.show();
 
         return binDialog;
@@ -68,7 +68,7 @@ public class DialogExample {
 
         bar.setTitle(headTitle);
         bar.setMax(max);
-        bar.setTemp("[PlaceHolder]");
+        bar.setBody("[PlaceHolder]");
 
         for (int i = 0; i < max; ++i) {
             bar.setProgress(i);
