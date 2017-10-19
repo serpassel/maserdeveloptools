@@ -8,6 +8,7 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.TextTools;
 
 /**
@@ -40,7 +41,7 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
         CustomInterminateBinDialog instance = new CustomInterminateBinDialog();
         instance.setContext(context);
         if (bundle == null) {
-            bundle = createBundle(DIALOG_ICON.DEFAULT_ICON);
+            bundle = createBundle(DialogIcon.DEFAULT_ICON);
         }
         instance.setSource(new DialogProgressModel());
         instance.setTitle(context.getResources().getString(R.string.bt_loading));
@@ -65,21 +66,21 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
      * @see #MODE_BOX_EXTRA
      * @see #MODE_SPINNER_EXTRA
      */
-    public static Bundle createBundle(DIALOG_ICON icon) {
+    public static Bundle createBundle(DialogIcon icon) {
         return createBundle(icon, MODE_BOX_EXTRA);
     }
 
-    public static Bundle createBundle(DIALOG_ICON icon, String mode) {
+    public static Bundle createBundle(DialogIcon icon, String mode) {
         Log.d("BACK$", "CREAR BUNDLE");
         Bundle bundle = new Bundle();
 
         if (icon == null) {
-            bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), DIALOG_ICON.DEFAULT_ICON);
+            bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.DEFAULT_ICON);
             bundle.putString(MODE_BOX_EXTRA, MODE_SPINNER_EXTRA);
             Log.d("BACK$", "NULO");
         } else {
             Log.d("BACK$", "NO NULO");
-            bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), icon);
+            bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
             bundle.putString(MODE_BOX_EXTRA, TextTools.notEmpty(mode, MODE_BOX_EXTRA));
         }
         return bundle;

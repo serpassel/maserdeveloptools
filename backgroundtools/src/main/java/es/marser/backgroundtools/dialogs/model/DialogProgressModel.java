@@ -1,16 +1,7 @@
 package es.marser.backgroundtools.dialogs.model;
 
-import android.databinding.BindingAdapter;
-import android.databinding.BindingMethod;
-import android.databinding.BindingMethods;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-
-import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.tools.MathTools;
-import es.marser.backgroundtools.R;
 
 
 /**
@@ -22,10 +13,6 @@ import es.marser.backgroundtools.R;
  *
  */
 
-@BindingMethods({
-        @BindingMethod(type = ProgressBar.class, attribute = "android:max", method = "setMax"),
-        @BindingMethod(type = ProgressBar.class, attribute = "android:progress", method = "setProgress")
-})
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class DialogProgressModel extends DialogModel{
 
@@ -34,14 +21,4 @@ public class DialogProgressModel extends DialogModel{
     public final ObservableBoolean indeterminate = new ObservableBoolean(true); //Barra indeterminada [EN]  Indeterminate bar
     public final ObservableField<String> progresstext = new ObservableField<>("");//Texto de progreso [EN]  Progress text
     public final ObservableField<String> error = new ObservableField<>("");//Mensaje de error [EN]  Error message
-
-    @BindingAdapter(value = {"android:max"})
-    public static void setMax(ProgressBar bar, String value) {
-        bar.setMax(MathTools.parseInt(value));
-    }
-
-    @BindingAdapter(value = {"android:progress"})
-    public static void setProgress(ProgressBar bar, String value) {
-        bar.setProgress(MathTools.parseInt(value));
-    }
 }

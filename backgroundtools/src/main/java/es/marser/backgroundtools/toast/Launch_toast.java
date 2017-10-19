@@ -10,8 +10,9 @@ import android.widget.Toast;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.toast.model.ToastModel;
+import es.marser.backgroundtools.dialogs.model.DialogModel;
+import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.viewbindingadapters.DialogBA;
 import es.marser.tools.TextTools;
 
 /**
@@ -35,12 +36,12 @@ import es.marser.tools.TextTools;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class Launch_toast {
 
-    private static void launchToast(Context context, ToastModel toastModel) {
+    private static void launchToast(Context context, DialogModel model) {
         LayoutInflater inflater = LayoutInflater.from(context);
         ViewDataBinding viewDataBinding = DataBindingUtil.inflate(inflater, R.layout.mvp_toast, null, false);
         View view = viewDataBinding.getRoot();
 
-        viewDataBinding.setVariable(BR.model, toastModel);
+        viewDataBinding.setVariable(BR.model, model);
         viewDataBinding.executePendingBindings();
 
 
@@ -62,11 +63,12 @@ public class Launch_toast {
      * @param message Mensaje de información [EN]  Message of information
      */
     public static void informationToast(Context context, String message) {
-        ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(BaseDialog.DIALOG_ICON.INFORMATION_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[0]);
-        toastModel.msg.set(TextTools.nc(message));
-        launchToast(context, toastModel);
+        
+        DialogModel source = new DialogModel();
+        source.icon.set(DialogIcon.INFORMATION_ICON);
+        source.title.set(context.getResources().getStringArray(R.array.toast_title)[0]);
+        source.body.set(TextTools.nc(message));
+        launchToast(context, source);
     }
 
     /**
@@ -78,11 +80,11 @@ public class Launch_toast {
      * @param message Mensaje de advertencia [EN]  Warning message
      */
     public static void warningToast(Context context, String message) {
-        ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(BaseDialog.DIALOG_ICON.WARNING_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
-        toastModel.msg.set(TextTools.nc(message));
-        launchToast(context, toastModel);
+        DialogModel source = new DialogModel();
+        source.icon.set(DialogIcon.WARNING_ICON);
+        source.title.set(context.getResources().getStringArray(R.array.toast_title)[1]);
+        source.body.set(TextTools.nc(message));
+        launchToast(context, source);
     }
 
     /**
@@ -94,11 +96,11 @@ public class Launch_toast {
      * @param message Mensaje de error [EN]  Error message
      */
     public static void errorToast(Context context, String message) {
-        ToastModel toastModel = new ToastModel();
-        toastModel.icon.set(BaseDialog.DIALOG_ICON.ERROR_ICON);
-        toastModel.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
-        toastModel.msg.set(TextTools.nc(message));
-        launchToast(context, toastModel);
+        DialogModel source = new DialogModel();
+        source.icon.set(DialogIcon.ERROR_ICON);
+        source.title.set(context.getResources().getStringArray(R.array.toast_title)[2]);
+        source.body.set(TextTools.nc(message));
+        launchToast(context, source);
     }
 
 }

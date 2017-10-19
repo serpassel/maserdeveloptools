@@ -22,23 +22,6 @@ public abstract class BaseDialog extends DialogFragment {
     protected Dialog dialog;
     protected View view;
 
-    public enum DIALOG_ICON {
-        ICON_EXTRA,
-        BC3_ICON,
-        EXCEL_ICON,
-        PDF_ICON,
-        LOADING_ICON,
-        DATABASE_ICON,
-        CALC_ICON,
-        WARNING_ICON,
-        ERROR_ICON,
-        INFORMATION_ICON,
-        QUESTION_ICON,
-        ADD_ICON,
-        EDIT_ICON,
-        DEFAULT_ICON
-    }
-
     public BaseDialog() {
     }
 

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.custom;
+package es.marser.backgroundtools.viewbindingadapters;
 
 import android.databinding.BindingAdapter;
 import android.databinding.BindingMethod;
@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import es.marser.backgroundtools.custom.MaskWatcher;
+
 import static com.android.databinding.library.baseAdapters.R.id;
 
 /**
@@ -50,7 +52,7 @@ import static com.android.databinding.library.baseAdapters.R.id;
         @BindingMethod(type = TextView.class, attribute = "android:onEditorAction", method = "setOnEditorActionListener"),
         @BindingMethod(type = TextView.class, attribute = "android:trueType", method = "setTrueType")
 })
-public class ViewBindingAdapter {
+public class TextViewBA {
 
     public static final int INTEGER = 0x01;
     public static final int SIGNED = 0x03;

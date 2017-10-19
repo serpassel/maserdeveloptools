@@ -4,11 +4,11 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.toast.model.ToastModel" />
+        <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
 
         <variable
             name="model"
-            type="ToastModel" />
+            type="DialogModel" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="?attr/dialogs_default_margin"
                 android:scaleType="fitXY"
-                foo:iconToast="@{model.icon}" />
+                foo:iconDialog="@{model.icon}" />
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/bt_head_toast_label"
@@ -39,14 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="@{model.title}"
-                foo:colorPrimaryToastText="@{model.icon}" />
+                foo:colorHeadText="@{model.icon}" />
         </android.support.v7.widget.LinearLayoutCompat>
         <!--Secundary-->
         <android.support.v7.widget.AppCompatTextView
             style="@style/bt_body_toast_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{model.msg}"
-            foo:colorSecondaryToast="@{model.icon}" />
+            android:text="@{model.body}"
+            foo:colorDialogBodyBackground="@{model.icon}" />
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

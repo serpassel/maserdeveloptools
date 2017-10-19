@@ -128,12 +128,10 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
     @Override
     public void onOption1(View v) {
-
     }
 
     @Override
     public void onOption2(View v) {
-
     }
 
     @SuppressWarnings({"EmptyMethod", "unused", "UnusedParameters"})

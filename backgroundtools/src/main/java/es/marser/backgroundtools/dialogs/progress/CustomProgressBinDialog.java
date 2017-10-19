@@ -6,6 +6,7 @@ import android.os.Bundle;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.MathTools;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 
@@ -36,7 +37,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
         CustomProgressBinDialog instance = new CustomProgressBinDialog();
         instance.setContext(context);
         if (bundle == null) {
-            bundle = createBundle(DIALOG_ICON.DEFAULT_ICON);
+            bundle = createBundle(DialogIcon.DEFAULT_ICON);
         }
         instance.setSource(new DialogProgressModel());
         instance.setTitle(context.getResources().getString(R.string.bt_loading));
@@ -58,9 +59,9 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @see DialogProgressModel#LOADING_ICON
      * @see DialogProgressModel#CALC_ICON
      */
-    public static Bundle createBundle(DIALOG_ICON icon) {
+    public static Bundle createBundle(DialogIcon icon) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable(DIALOG_ICON.ICON_EXTRA.name(), icon);
+        bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
         return bundle;
     }
 
