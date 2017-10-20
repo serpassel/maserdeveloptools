@@ -30,5 +30,7 @@ public class DevelopTools extends AppCompatActivity {
 
         //DialogExample.editGeneric(this);
        // SQLExample.createDatabase(this);
+
+        DialogExample.notificationInformation(this);
     }
 }

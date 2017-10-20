@@ -20,6 +20,7 @@ import es.marser.tools.MathTools;
  *         <p>
  *         [EN]  View adapters.  To use MVP data binding
  */
+@SuppressWarnings("unused")
 @BindingMethods({
         @BindingMethod(type = ProgressBar.class, attribute = "android:max", method = "setMax"),
         @BindingMethod(type = ProgressBar.class, attribute = "android:progress", method = "setProgress")

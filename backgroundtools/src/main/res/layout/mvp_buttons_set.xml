@@ -5,9 +5,16 @@
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
+        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
+
         <variable
             name="winaction"
             type="WindowAction" />
+
+        <variable
+            name="buttonsetmodel"
+            type="ButtonsSetModel" />
+
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -21,15 +28,29 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="2" />
+            android:layout_weight="1" />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/bt_option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/bt_transparent"
+            android:onClick="@{winaction::onOption}"
+            android:text="@{buttonsetmodel.option_name}"
+            android:theme="@style/bt_buttons_set" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/bt_ok"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{winaction::onOk}"
             android:background="@color/bt_transparent"
-            android:text="@string/bt_ACTION_OK"
+            android:onClick="@{winaction::onOk}"
+            android:text="@{buttonsetmodel.ok_name}"
             android:theme="@style/bt_buttons_set" />
 
         <View
@@ -41,9 +62,9 @@
             android:id="@+id/bt_cancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{winaction::onCancel}"
             android:background="@color/bt_transparent"
-            android:text="@string/bt_ACTION_CANCEL"
+            android:onClick="@{winaction::onCancel}"
+            android:text="@{buttonsetmodel.cancel_name}"
             android:theme="@style/bt_buttons_set" />
 
     </android.support.v7.widget.LinearLayoutCompat>

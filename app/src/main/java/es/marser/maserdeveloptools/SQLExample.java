@@ -17,6 +17,7 @@ import es.marser.tools.DateTools;
  *         [EN]  Data management
  */
 
+@SuppressWarnings("unused")
 public class SQLExample {
 
     public static void createDatabase(Context context) {

@@ -17,6 +17,12 @@
             name="winaction"
             type="WindowAction" />
 
+        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel"/>
+
+        <variable
+            name="buttonsetmodel"
+            type="ButtonsSetModel"/>
+
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -59,13 +65,15 @@
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="?attr/box_default_hight_margin"
                 android:orientation="vertical">
 
-                <es.marser.backgroundtools.widget.JustifiedTextView
+                <es.marser.backgroundtools.widget.AppCompatJustifiedTextView
+                    style="@style/bt_body_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{model.body}"
-                    style="@style/bt_body_label" />
+                    android:textColor="?attr/dialogs_body_text_color" />
             </android.support.v7.widget.LinearLayoutCompat>
 
         </android.support.v4.widget.NestedScrollView>
@@ -73,7 +81,8 @@
         <!--FOO-->
         <include
             layout="@layout/mvp_buttons_set"
-            bind:winaction="@{winaction}" />
+            bind:winaction="@{winaction}"
+            bind:buttonsetmodel="@{buttonsetmodel}"/>
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

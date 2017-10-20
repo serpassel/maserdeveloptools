@@ -23,6 +23,7 @@ import es.marser.sqltools.examples.PojoExample;
  * @author sergio
  *         Created by sergio on 16/10/17.
  */
+@SuppressWarnings("unused")
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CRUDHandlerTest {

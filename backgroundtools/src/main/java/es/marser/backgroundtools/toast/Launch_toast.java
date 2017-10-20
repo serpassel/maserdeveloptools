@@ -12,7 +12,6 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.DialogModel;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.viewbindingadapters.DialogBA;
 import es.marser.tools.TextTools;
 
 /**

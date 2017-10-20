@@ -8,7 +8,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.dialogs.model.ButtonsSetModel;
 import es.marser.backgroundtools.dialogs.model.DialogModel;
+import es.marser.backgroundtools.dialogs.model.StatusModel;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.TextTools;
 
@@ -44,9 +46,17 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     /*Variable modelo [EN]  Model variable*/
     protected DialogModel model;
 
+    /*Variable modelo de configurador de botonera [EN]  Variable button configurator model*/
+    protected ButtonsSetModel buttonsSetModel;
+
+    /*Variable modelo de estado de vistas [EN]  View State Model Variable*/
+    protected StatusModel statusModel;
+
 
     public BaseCustomBinDialog() {
         this.model = new DialogModel();
+        this.buttonsSetModel = new ButtonsSetModel();
+        this.statusModel = new StatusModel();
     }
 
     @Override
@@ -110,6 +120,12 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
     protected void bindObject() {
         viewDataBinding.setVariable(BR.model, model);
         viewDataBinding.executePendingBindings();
+
+        viewDataBinding.setVariable(BR.buttonsetmodel, buttonsSetModel);
+        viewDataBinding.executePendingBindings();
+
+        viewDataBinding.setVariable(BR.statusmodel, statusModel);
+        viewDataBinding.executePendingBindings();
     }
 
     /**
@@ -141,6 +157,28 @@ public abstract class BaseCustomBinDialog extends BaseDialog {
      */
     public void setDialogModel(DialogModel model) {
         this.model = model;
+    }
+
+    /**
+     * Recuperar la variable de configuración de la botonera
+     * <p>
+     * [EN]  Retrieve the button configuration variable
+     *
+     * @return Modelo de la botonera [EN]  Model of the keypad
+     */
+    public ButtonsSetModel getButtonsSetModel() {
+        return buttonsSetModel;
+    }
+
+    /**
+     * Introducir la variable de modelo de botonera
+     * <p>
+     * [EN]  Enter the button model variable
+     *
+     * @param buttonsSetModel Variable de modelo de botonera [EN]  Keyboard model variable
+     */
+    public void setButtonsSetModel(ButtonsSetModel buttonsSetModel) {
+        this.buttonsSetModel = buttonsSetModel;
     }
 
     /**

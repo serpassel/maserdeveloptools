@@ -318,6 +318,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  List of CRUD actions
      */
+    @SuppressWarnings("unused")
     enum CrudAction {
         INSERT_OR_IGNORE, INSERT_OR_REPLACE, DELETE, UPDATE
     }
@@ -420,6 +421,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  Class for asynchronous CRUD handling
      */
+    @SuppressWarnings("unused")
     private abstract class AsyncUD extends AsyncTask<Object, Throwable, Boolean> {
         private OnChanged onResult;
 
@@ -673,6 +675,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param <T> Objeto genérico a instanciar [EN]  Generic object to instantiate
      */
+    @SuppressWarnings("unused")
     private abstract class AsyncSingleCRUD<T> extends AsyncTask<String, Throwable, T> {
         protected OnSingleRead<T> onRead;
 
@@ -790,6 +793,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param <T> Objeto genérico a instanciar [EN]  Generic object to instantiate
      */
+    @SuppressWarnings("unused")
     private abstract class AsyncListCRUD<T> extends AsyncTask<String, AsyncPublishObject<T>, Void> {
 
         protected OnRead<T> onRead;
@@ -936,6 +940,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  Asynchronous Block Recording Subclass
      */
+    @SuppressWarnings("unused")
     public class AddSyncList extends AsyncTask<List<Object>, Integer, Void> {
         protected OnBlockSaved onBlockSaved;
 

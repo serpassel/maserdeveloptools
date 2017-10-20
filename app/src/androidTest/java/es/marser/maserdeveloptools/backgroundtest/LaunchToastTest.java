@@ -17,6 +17,7 @@ import es.marser.maserdeveloptools.DevelopTools;
  *         Created by sergio on 8/10/17.
  *         Test de cuadros de dialogos
  */
+@SuppressWarnings("unused")
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class LaunchToastTest {

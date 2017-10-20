@@ -11,17 +11,27 @@
         <!--MODELO de objeto de lista [EN]  List object model-->
         <variable
             name="item"
-            type="es.marser.backgroundtools.dialogs.model.ExampleModelObject"/>
+            type="es.marser.backgroundtools.dialogs.model.ExampleModelObject" />
 
         <!--MODELO manejador de eventos de la vista [EN]  MODEL view event handler-->
         <variable
             name="handler"
-            type="es.marser.backgroundtools.handlers.ViewHandler"/>
+            type="es.marser.backgroundtools.handlers.ViewHandler" />
 
         <!--MODELO manejador de eventos de ventana [EN]  MODEL window event handler-->
         <variable
             name="winaction"
-            type="es.marser.backgroundtools.handlers.WindowAction"/>
+            type="es.marser.backgroundtools.handlers.WindowAction" />
+
+        <!--MODELO configurador de botonera [EN]  MODEL button configurator-->
+        <variable
+            name="buttonsetmodel"
+            type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
+
+        <!--MODELO de estado de la vista [EN]  View state MODEL-->
+        <variable
+            name="statusmodel"
+            type="es.marser.backgroundtools.dialogs.model.StatusModel" />
 
     </data>
 
@@ -30,5 +40,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|center_horizontal"
         android:background="@color/bt_transparent"
-        android:keepScreenOn="true"/>
+        android:keepScreenOn="true" />
 </layout>

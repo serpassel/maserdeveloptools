@@ -17,6 +17,12 @@
             name="winaction"
             type="WindowAction" />
 
+        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel"/>
+
+        <variable
+            name="buttonsetmodel"
+            type="ButtonsSetModel"/>
+
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -109,7 +115,8 @@
         <!--FOO-->
         <include
             layout="@layout/mvp_buttons_set"
-            bind:winaction="@{winaction}" />
+            bind:winaction="@{winaction}"
+            bind:buttonsetmodel="@{buttonsetmodel}"/>
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

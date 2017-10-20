@@ -212,6 +212,7 @@ class Justify {
         }
     }
 
+    @SuppressWarnings("unused")
     interface Justified {
 
         /**

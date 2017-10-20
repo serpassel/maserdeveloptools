@@ -11,8 +11,8 @@ import android.view.View;
  * @see es.marser.backgroundtools.handlers.ViewHandler
  */
 
-@SuppressWarnings("unused")
-public interface WindowAction<T> extends ViewHandler<T> {
+@SuppressWarnings({"unused", "EmptyMethod"})
+public interface WindowAction {
     /**
      * Acción aceptar
      * <p>
@@ -32,20 +32,11 @@ public interface WindowAction<T> extends ViewHandler<T> {
     void onCancel(View v);
 
     /**
-     * Acción a configurar como opción 1
+     * Acción en opción
      * <p>
-     * [EN]  Action to configure as option 1
+     * [EN] Action in option
      *
      * @param v Vista pulsada [EN]  Pulsed view
      */
-    void onOption1(View v);
-
-    /**
-     * Acción a configurar como opción 2
-     * <p>
-     * [EN]  Action to configure as option 2
-     *
-     * @param v Vista pulsada [EN]  Pulsed view
-     */
-    void onOption2(View v);
+    void onOption(View v);
 }

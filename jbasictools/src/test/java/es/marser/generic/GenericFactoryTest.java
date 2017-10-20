@@ -12,6 +12,7 @@ import es.marser.tools.TextTools;
  * @author sergio
  *         Created by sergio on 17/10/17.
  */
+@SuppressWarnings("unused")
 public class GenericFactoryTest {
     private String[] data;
     private String m1, m2,m3, m4;

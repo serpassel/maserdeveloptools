@@ -7,6 +7,7 @@ import android.view.View;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.dialogs.confirmation.NotificationDialog;
 import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
@@ -121,5 +122,16 @@ public class DialogExample {
 
         gene.show();
         return gene;
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
+    public static BaseDialog notificationInformation(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createBundle(DialogIcon.INFORMATION_ICON)
+                );
+        dialog.show();
+        return dialog;
     }
 }

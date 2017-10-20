@@ -58,7 +58,7 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
      * @param icon Nombre de icono [EN]  Arguments creation utility
      * @return Bundle construido [EN]  Built Bundle
      * @see DialogProgressModel#BC3_ICON
-     * @see DialogProgressModel#PDF_ICON
+     * @see DialogProgressModel#PDF_ICONCustomInterminateBinDialog
      * @see DialogProgressModel#EXCEL_ICON
      * @see DialogProgressModel#DATABASE_ICON
      * @see DialogProgressModel#LOADING_ICON

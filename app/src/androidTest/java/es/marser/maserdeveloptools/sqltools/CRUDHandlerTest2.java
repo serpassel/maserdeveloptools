@@ -26,6 +26,7 @@ import es.marser.tools.TextTools;
  * @author sergio
  *         Created by sergio on 16/10/17.
  */
+@SuppressWarnings("unused")
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class CRUDHandlerTest2 {

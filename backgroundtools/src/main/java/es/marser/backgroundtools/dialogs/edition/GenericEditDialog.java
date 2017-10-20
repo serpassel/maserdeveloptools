@@ -8,7 +8,9 @@ import android.support.annotation.NonNull;
 import android.view.View;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
+import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.handlers.WindowAction;
 
 import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_ACTION.NULL_ACTION;
@@ -26,18 +28,20 @@ import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_D
  */
 
 @SuppressWarnings("unused")
-public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog implements WindowAction<T> {
+public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog implements WindowAction, ViewHandler<T> {
 
     protected OnResult<T> result;
     protected T model;
     private int layout;
 
     /*enumeracion de llaves de argumentos [EN]  enumeration of argument keys */
+    @SuppressWarnings("unused")
     public enum EDIT_DIALOG_EXTRAS {
         ITEM_EXTRA, STATE_EXTRA, LAYOUT_EXTRA, ACTION_EXTRA
     }
 
     /*Enumeración de acciones [EN]  Enumeration of actions*/
+    @SuppressWarnings("unused")
     public enum EDIT_DIALOG_ACTION {
         NULL_ACTION, EDIT_ACTION, ADD_ACTION, INSERT_ACTION
     }
@@ -70,7 +74,11 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
     protected void preBuild() {
         this.model = getArguments().getParcelable(ITEM_EXTRA.name());
         this.layout = getArguments().getInt(LAYOUT_EXTRA.name(), -1);
-        state.set(getArguments().getInt(STATE_EXTRA.name(), 0));
+        statusModel.state.set(getArguments().getInt(STATE_EXTRA.name(), 0));
+
+        //Configurar botones [EN]  Configure buttons
+        buttonsSetModel.ok_name.set(context.getResources().getString(R.string.bt_ACTION_SAVE));
+        buttonsSetModel.cancel_name.set(context.getResources().getString(R.string.bt_ACTION_CANCEL));
     }
 
     @Override
@@ -87,7 +95,11 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
         viewDataBinding.setVariable(BR.winaction, this);
         viewDataBinding.executePendingBindings();
-    }
+
+        viewDataBinding.setVariable(BR.handler, this);
+        viewDataBinding.executePendingBindings();
+
+     }
 
     @Override
     protected int getDialogLayout() {
@@ -127,11 +139,8 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
     }
 
     @Override
-    public void onOption1(View v) {
-    }
+    public void onOption(View v) {
 
-    @Override
-    public void onOption2(View v) {
     }
 
     @SuppressWarnings({"EmptyMethod", "unused", "UnusedParameters"})

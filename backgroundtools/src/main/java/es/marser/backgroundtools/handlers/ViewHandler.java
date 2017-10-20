@@ -1,7 +1,5 @@
 package es.marser.backgroundtools.handlers;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableInt;
 import android.view.View;
 
 /**
@@ -14,19 +12,6 @@ import android.view.View;
 
 @SuppressWarnings({"unused", "EmptyMethod", "SameReturnValue"})
 public interface ViewHandler<T> {
-    /**
-     * Variable para bloqueo de accions
-     * <p>
-     * [EN]  Variable for stock blocking
-     */
-    ObservableBoolean blockAction = new ObservableBoolean(false);
-
-    /**
-     * Variable de definición de estado de la vista
-     * <p>
-     * [EN]  Event handler model in MVP views
-     */
-    ObservableInt state = new ObservableInt(0);
 
     /**
      * Pulsación corta sobre una vista

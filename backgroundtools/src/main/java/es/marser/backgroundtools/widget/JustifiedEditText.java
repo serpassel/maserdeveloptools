@@ -27,6 +27,7 @@ import android.widget.TextView;
  * The TextView has a ScrollingMovementMethod by default. You can change the MovementMethod,
  * but you should not set it to null.
  */
+@SuppressWarnings("unused")
 public class JustifiedEditText extends android.support.v7.widget.AppCompatEditText implements Justify.Justified {
 
     @SuppressWarnings("unused")
