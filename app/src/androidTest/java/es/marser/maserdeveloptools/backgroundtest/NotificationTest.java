@@ -25,7 +25,7 @@ import es.marser.maserdeveloptools.DialogExample;
 @SuppressWarnings("unused")
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class DialogTest {
+public class NotificationTest {
 
     @Rule
     public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
@@ -34,85 +34,83 @@ public class DialogTest {
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(
             DevelopTools.class);
 
-
     @Test
-    public void dialog1() {
+    public void dialog6() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BaseDialog bd1;
-                //1
-                bd1 = DialogExample.indeterminateBox(mActivityRule.getActivity());
-                Assert.assertTrue(bd1.isShowing());
-                Log.i(LOG_TAG.TAG, "BaseDialog 1");
-                bd1.close();
+                BaseDialog bd6;
+                //6
+                bd6 = DialogExample.notificationInformation(mActivityRule.getActivity());
+                Assert.assertTrue(bd6.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 6");
+                bd6.close();
             }
         });
         mActivityRule.getActivity().finish();
     }
 
     @Test
-    public void dialog2() {
+    public void dialog7() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BaseDialog bd2;
-                //2
-                bd2 = DialogExample.indeterminateBox(mActivityRule.getActivity());
-                Assert.assertTrue(bd2.isShowing());
-                Log.i(LOG_TAG.TAG, "BaseDialog 2");
-                bd2.close();
+                BaseDialog bd7;
+                //7
+                bd7 = DialogExample.notificationError(mActivityRule.getActivity());
+                Assert.assertTrue(bd7.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 7");
+                bd7.close();
             }
         });
         mActivityRule.getActivity().finish();
     }
 
     @Test
-    public void dialog3() {
+    public void dialog8() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BaseDialog bd3;
-                //3
-                bd3 = DialogExample.progressIndeterminateBox(mActivityRule.getActivity());
-                Assert.assertTrue(bd3.isShowing());
-                Log.i(LOG_TAG.TAG, "BaseDialog 3");
-                bd3.close();
+                BaseDialog bd8;
+                //8
+                bd8 = DialogExample.notificationWarning(mActivityRule.getActivity());
+                Assert.assertTrue(bd8.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 8");
+                bd8.close();
             }
         });
         mActivityRule.getActivity().finish();
     }
 
     @Test
-    public void dialog4() {
+    public void dialog9() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BaseDialog bd4;
-                //4
-                bd4 = DialogExample.progressBox(mActivityRule.getActivity());
-                Assert.assertTrue(bd4.isShowing());
-                Log.i(LOG_TAG.TAG, "BaseDialog 4");
-                bd4.close();
+                BaseDialog bd9;
+                //9
+                bd9 = DialogExample.notificationHelp(mActivityRule.getActivity());
+                Assert.assertTrue(bd9.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 9");
+                bd9.close();
             }
         });
         mActivityRule.getActivity().finish();
     }
 
     @Test
-    public void dialog5() {
+    public void dialog10() {
         mActivityRule.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                BaseDialog bd5;
-                //5
-                bd5 = DialogExample.editGeneric(mActivityRule.getActivity());
-                Assert.assertTrue(bd5.isShowing());
-                Log.i(LOG_TAG.TAG, "BaseDialog 5");
-                bd5.close();
+                BaseDialog bd10;
+                //10
+                bd10 = DialogExample.notificationConfirmation(mActivityRule.getActivity());
+                Assert.assertTrue(bd10.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 10");
+                bd10.close();
             }
         });
         mActivityRule.getActivity().finish();
     }
-
 }

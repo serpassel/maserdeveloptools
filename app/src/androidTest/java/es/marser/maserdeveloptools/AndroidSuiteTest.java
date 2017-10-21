@@ -8,6 +8,8 @@ import org.junit.runners.Suite;
 
 import es.marser.maserdeveloptools.backgroundtest.DialogTest;
 import es.marser.maserdeveloptools.backgroundtest.LaunchToastTest;
+import es.marser.maserdeveloptools.backgroundtest.NotificationTest;
+import es.marser.maserdeveloptools.backgroundtest.NotificationTest2;
 import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest;
 import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest2;
 
@@ -21,7 +23,9 @@ import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest2;
         DialogTest.class,
         LaunchToastTest.class,
         CRUDHandlerTest.class,
-        CRUDHandlerTest2.class
+        CRUDHandlerTest2.class,
+        NotificationTest.class,
+        NotificationTest2.class
 })
 public class AndroidSuiteTest {
 

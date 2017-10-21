@@ -179,6 +179,17 @@ public class DialogExample {
         return dialog;
     }
 
+    public static BaseDialog notificationConfirmationKey(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createConfirmationBundle(context, body_example)
+                );
+        dialog.setKeyName("Test_key");
+        dialog.show();
+        return dialog;
+    }
+
     public static BaseDialog notificationOkCancelError(Context context) {
         NotificationDialog dialog =
                 NotificationDialog.newInstace(
@@ -198,4 +209,15 @@ public class DialogExample {
         dialog.show();
         return dialog;
     }
+
+    public static BaseDialog notificationDeleteRecords(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createDeleteRecordsBundle(context)
+                );
+        dialog.show();
+        return dialog;
+    }
+
 }

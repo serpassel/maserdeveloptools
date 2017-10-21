@@ -68,13 +68,34 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
         NotificationDialog instance = new NotificationDialog();
         instance.setContext(context);
         if (bundle == null) {
-            bundle = createBundle(DialogIcon.DEFAULT_ICON);
+            bundle = createBundle(DialogIcon.DEFAULT_ICON,
+                    null,
+                    null,
+                    null,
+                    null,
+                    context.getResources().getString(R.string.bt_ACTION_CLOSE),
+                    null
+            );
         }
         instance.setArguments(bundle);
         instance.setResult(result);
         return instance;
     }
 
+    /**
+     * Creador de argumentos del cuadro de dialogo
+     * <p>
+     * [EN]  Dialog Box Argument Creator
+     *
+     * @param icon Icono para la barra de título [EN]  Icon for the title bar
+     * @param title Título de la barra [EN]  Title of the bar
+     * @param body Cuerpo del mensaje [EN]  Message body
+     * @param option Texto del botón de opciones [EN]  Option Button Text
+     * @param ok Texto de botón aceptar [EN]  Accept button text
+     * @param cancel Texto de botón cancelar [EN]  Cancel button text
+     * @param key_name Nombre de la clave de vinculación (Shared), si existiese [EN]  key_name Name of the link key (Shared), if it exists
+     * @return Bundle argumentado [EN]  Bundle argued
+     */
     public static Bundle createBundle(DialogIcon icon, String title, String body, String option, String ok, String cancel, String key_name) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
@@ -83,12 +104,9 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
         bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
         bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
         bundle.putString(DialogExtras.OPTION_EXTRA.name(), TextTools.nc(option));
+        bundle.putString(DialogExtras.KEY_EXTRA.name(), key_name);
 
         return bundle;
-    }
-
-    public static Bundle createBundle(DialogIcon icon) {
-        return null;//createBundle(icon, "Notificación", "");
     }
 
     /**
@@ -258,6 +276,12 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
         buttonsSetModel.ok_name.set(getArguments().getString(DialogExtras.OK_EXTRA.name()));
         buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
 
+        String key = getArguments().getString(DialogExtras.KEY_EXTRA.name());
+
+        if (!TextTools.isEmpty(key)) {
+            model.keyname.set(key);
+            model.key.set(SharedPreferenceTools.getBoolean(getContext(), false, sharedBox(getContext()), key));
+        }
     }
 
     /**
