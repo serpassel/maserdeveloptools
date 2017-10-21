@@ -205,8 +205,8 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
     public static Bundle createDeleteRecordsBundle(Context context) {
         return createBundle(
                 DialogIcon.QUESTION_ICON,
+                context.getResources().getString(R.string.bt_dialog_confirmation_title),
                 context.getResources().getString(R.string.bt_dialog_deleterecords_msg),
-                context.getResources().getString(R.string.bt_ACTION_OK),
                 null,
                 context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL), null);
