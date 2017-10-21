@@ -3,6 +3,10 @@
 
     <data>
 
+        <import
+            alias="v"
+            type="android.view.View" />
+
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
         <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
@@ -37,7 +41,8 @@
             android:background="@color/bt_transparent"
             android:onClick="@{winaction::onOption}"
             android:text="@{buttonsetmodel.option_name}"
-            android:theme="@style/bt_buttons_set" />
+            android:theme="@style/bt_buttons_set"
+            android:visibility="@{buttonsetmodel.option_name == `` ? v.GONE : v.VISIBLE }"/>
 
         <View
             android:layout_width="0dp"
@@ -51,6 +56,7 @@
             android:background="@color/bt_transparent"
             android:onClick="@{winaction::onOk}"
             android:text="@{buttonsetmodel.ok_name}"
+            android:visibility="@{buttonsetmodel.ok_name == `` ? v.GONE : v.VISIBLE }"
             android:theme="@style/bt_buttons_set" />
 
         <View
@@ -65,7 +71,8 @@
             android:background="@color/bt_transparent"
             android:onClick="@{winaction::onCancel}"
             android:text="@{buttonsetmodel.cancel_name}"
-            android:theme="@style/bt_buttons_set" />
+            android:theme="@style/bt_buttons_set"
+            android:visibility="@{buttonsetmodel.cancel_name == `` ? v.GONE : v.VISIBLE }" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

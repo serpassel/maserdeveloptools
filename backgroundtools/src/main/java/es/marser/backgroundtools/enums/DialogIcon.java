@@ -18,6 +18,7 @@ public enum DialogIcon {
     ERROR_ICON,
     INFORMATION_ICON,
     QUESTION_ICON,
+    HELP_ICON,
     ADD_ICON,
     EDIT_ICON,
     DEFAULT_ICON

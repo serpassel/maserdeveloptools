@@ -8,8 +8,8 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
+import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -23,9 +23,6 @@ import es.marser.tools.TextTools;
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class CustomInterminateBinDialog extends BaseCustomBinDialog {
     private DialogProgressModel source;
-
-    public static final String MODE_BOX_EXTRA = "mode_box_extra";
-    public static final String MODE_SPINNER_EXTRA = "mode_spinner_extra";
 
     /**
      * Crear una nueva instancia del Dialogo
@@ -57,31 +54,23 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
      *
      * @param icon Nombre de icono [EN]  Arguments creation utility
      * @return Bundle construido [EN]  Built Bundle
-     * @see DialogProgressModel#BC3_ICON
-     * @see DialogProgressModel#PDF_ICONCustomInterminateBinDialog
-     * @see DialogProgressModel#EXCEL_ICON
-     * @see DialogProgressModel#DATABASE_ICON
-     * @see DialogProgressModel#LOADING_ICON
-     * @see DialogProgressModel#CALC_ICON
-     * @see #MODE_BOX_EXTRA
-     * @see #MODE_SPINNER_EXTRA
      */
     public static Bundle createBundle(DialogIcon icon) {
-        return createBundle(icon, MODE_BOX_EXTRA);
+        return createBundle(icon, DialogExtras.MODE_BOX_EXTRAS);
     }
 
-    public static Bundle createBundle(DialogIcon icon, String mode) {
+    public static Bundle createBundle(DialogIcon icon, DialogExtras mode) {
         Log.d("BACK$", "CREAR BUNDLE");
         Bundle bundle = new Bundle();
 
         if (icon == null) {
             bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.DEFAULT_ICON);
-            bundle.putString(MODE_BOX_EXTRA, MODE_SPINNER_EXTRA);
+            bundle.putSerializable(DialogExtras.MODE_EXTRA.name(), DialogExtras.MODE_SPINNER_EXTRAS);
             Log.d("BACK$", "NULO");
         } else {
             Log.d("BACK$", "NO NULO");
             bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-            bundle.putString(MODE_BOX_EXTRA, TextTools.notEmpty(mode, MODE_BOX_EXTRA));
+            bundle.putSerializable(DialogExtras.MODE_EXTRA.name(), DialogExtras.MODE_BOX_EXTRAS);
         }
         return bundle;
     }
@@ -94,8 +83,16 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
 
     @Override
     protected int getDialogLayout() {
-        switch (getArguments().getString(MODE_BOX_EXTRA, MODE_BOX_EXTRA)) {
-            case MODE_BOX_EXTRA:
+        DialogExtras mode = null;
+        try {
+            mode = (DialogExtras) getArguments().getSerializable(DialogExtras.MODE_EXTRA.name());
+        } catch (ClassCastException ignored) {}
+        if (mode == null) {
+            mode = DialogExtras.MODE_SPINNER_EXTRAS;
+        }
+
+        switch (mode) {
+            case MODE_BOX_EXTRAS:
                 return R.layout.mvp_dialog_indeterminate;
             default:
                 return R.layout.mvp_spinner;

@@ -14,7 +14,8 @@ import android.databinding.ObservableField;
 
 @SuppressWarnings({"WeakerAccess", "unused"})
 public class ButtonsSetModel {
-    public final ObservableField<String> ok_name = new ObservableField<>("ACEPTAR");//Título de carga [EN]  Loading title
-    public final ObservableField<String> cancel_name= new ObservableField<>("CANCELAR");//Texto del cuerpo [EN]  Body text
+    public final ObservableField<String> ok_name = new ObservableField<>();//Título de carga [EN]  Loading title
+    public final ObservableField<String> cancel_name= new ObservableField<>();//Texto del cuerpo [EN]  Body text
     public final ObservableField<String> option_name= new ObservableField<>();//Nombre de la clave de reiteración [EN]  Name of the reiteration key
-}
+    }
+

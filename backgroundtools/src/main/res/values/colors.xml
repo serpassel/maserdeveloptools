@@ -20,6 +20,7 @@
     <color name="bt_error_color_light">#ffebee</color>
     <color name="bt_information_color_light">#e8f5e9</color>
     <color name="bt_warning_color_light">#fff8e1</color>
+    <color name="bt_question_color_light">#f3e5f5</color>
 
 
     <!--OPACITY-->

@@ -1,6 +1,5 @@
 package es.marser.backgroundtools.dialogs.edition;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -10,13 +9,14 @@ import android.view.View;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
+import es.marser.backgroundtools.dialogs.task.OnResult;
+import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.handlers.WindowAction;
-
-import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_ACTION.NULL_ACTION;
-import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.ITEM_EXTRA;
-import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.LAYOUT_EXTRA;
-import static es.marser.backgroundtools.dialogs.edition.GenericEditDialog.EDIT_DIALOG_EXTRAS.STATE_EXTRA;
+import static es.marser.backgroundtools.enums.DialogExtras.ITEM_EXTRA;
+import static es.marser.backgroundtools.enums.DialogExtras.LAYOUT_EXTRA;
+import static es.marser.backgroundtools.enums.DialogExtras.NULL_ACTION;
+import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
 
 
 /**
@@ -34,18 +34,6 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
     protected T model;
     private int layout;
 
-    /*enumeracion de llaves de argumentos [EN]  enumeration of argument keys */
-    @SuppressWarnings("unused")
-    public enum EDIT_DIALOG_EXTRAS {
-        ITEM_EXTRA, STATE_EXTRA, LAYOUT_EXTRA, ACTION_EXTRA
-    }
-
-    /*Enumeración de acciones [EN]  Enumeration of actions*/
-    @SuppressWarnings("unused")
-    public enum EDIT_DIALOG_ACTION {
-        NULL_ACTION, EDIT_ACTION, ADD_ACTION, INSERT_ACTION
-    }
-
     public static <T extends Parcelable> GenericEditDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
@@ -58,7 +46,7 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
         return instance;
     }
 
-    public static <T extends Parcelable> Bundle createBundle(int layout, EDIT_DIALOG_ACTION action, @NonNull T item) {
+    public static <T extends Parcelable> Bundle createBundle(int layout, DialogExtras action, @NonNull T item) {
         Bundle bundle = new Bundle();
         bundle.putInt(LAYOUT_EXTRA.name(), layout);
         bundle.putInt(STATE_EXTRA.name(), (action != null ? action.ordinal() : 0));
@@ -128,26 +116,20 @@ public class GenericEditDialog<T extends Parcelable> extends BaseCustomBinDialog
 
     @Override
     public void onOk(View v) {
-        result.onResult(Activity.RESULT_OK, model);
+        result.onResult(DialogExtras.OK_EXTRA, model);
         close();
     }
 
     @Override
     public void onCancel(View v) {
-        result.onResult(Activity.RESULT_CANCELED, model);
+        result.onResult(DialogExtras.CANCEL_EXTRA, model);
         close();
     }
 
     @Override
     public void onOption(View v) {
-
-    }
-
-    @SuppressWarnings({"EmptyMethod", "unused", "UnusedParameters"})
-    public interface OnResult<T> {
-        void onResult(int result, T value);
-
-        void onClick(View v, T value);
+        result.onResult(DialogExtras.OPTION_EXTRA, model);
+        close();
     }
 
     public OnResult<T> getResult() {

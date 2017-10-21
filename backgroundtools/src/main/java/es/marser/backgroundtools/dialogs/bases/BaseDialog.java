@@ -22,7 +22,7 @@ public abstract class BaseDialog extends DialogFragment {
     protected Dialog dialog;
     protected View view;
 
-    public BaseDialog() {
+    public BaseDialog(){
     }
 
     /**

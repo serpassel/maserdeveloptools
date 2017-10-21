@@ -46,8 +46,10 @@ public class DialogBA {
                 v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color));
                 break;
             case INFORMATION_ICON:
-            default:
                 v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_information_color));
+                break;
+            default:
+                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_primary_light));
                 break;
         }
     }
@@ -62,8 +64,10 @@ public class DialogBA {
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color_light));
                 break;
             case INFORMATION_ICON:
-            default:
                 v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_information_color_light));
+                break;
+            default:
+                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_primary_light));
                 break;
         }
     }
@@ -94,6 +98,9 @@ public class DialogBA {
                 break;
             case INFORMATION_ICON:
                 view.setImageResource(R.drawable.ic_information);
+                break;
+            case HELP_ICON:
+                view.setImageResource(R.drawable.ic_help);
                 break;
             case ADD_ICON:
                 view.setImageResource(R.drawable.ic_add);

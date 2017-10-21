@@ -1,4 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!--Dimensión de la imagen-->
+    <dimen name="bt_dialog_notification_image_dimen">@dimen/m_image</dimen>
+
+    <!--Títulos-->
     <string name="bt_dialog_notification_default_title">Notificación</string>
+    <string name="bt_dialog_information_title">Información</string>
+    <string name="bt_dialog_error_title">Error</string>
+    <string name="bt_dialog_warning_title">Advertencia</string>
+    <string name="bt_dialog_help_title">Ayuda</string>
+    <string name="bt_dialog_confirmation_title">Confirmación</string>
+
+    <!--Mensajes-->
+    <string name="bt_dialog_dont_show_again">No volver a mostrar</string>
+    <string name="bt_dialog_deleterecords_msg">¿Desea eliminar los registros indicados?</string>
+
+    <!--FUNCIONALITY PREFERENCES-->
+    <string name="bt_dialog_functionality_preferences">functionality</string>
+
 </resources>

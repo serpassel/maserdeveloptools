@@ -1,6 +1,5 @@
 package es.marser.maserdeveloptools;
 
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +11,8 @@ import es.marser.backgroundtools.dialogs.edition.GenericEditDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
 import es.marser.backgroundtools.dialogs.progress.CustomProgressBinDialog;
+import es.marser.backgroundtools.dialogs.task.OnResult;
+import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.MathTools;
 
@@ -88,12 +89,12 @@ public class DialogExample {
                         context,
                         GenericEditDialog
                                 .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
-                        new GenericEditDialog.OnResult<ExampleModelObject>() {
+                        new OnResult<ExampleModelObject>() {
                             @Override
-                            public void onResult(int result, ExampleModelObject value) {
+                            public void onResult(DialogExtras result, ExampleModelObject value) {
                                 Log.w(LOG_TAG.TAG, "Resultado");
 
-                                if (result == Activity.RESULT_OK) {
+                                if (result == DialogExtras.OK_EXTRA) {
                                     Log.i(LOG_TAG.TAG, "Aceptar");
                                 } else {
                                     Log.i(LOG_TAG.TAG, "Cancelar");
@@ -111,7 +112,7 @@ public class DialogExample {
         return gene;
     }
 
-    public static BaseDialog editGeneric(Context context, GenericEditDialog.OnResult<ExampleModelObject> result) {
+    public static BaseDialog editGeneric(Context context, OnResult<ExampleModelObject> result) {
         GenericEditDialog gene =
                 GenericEditDialog.newInstance(
                         context,
@@ -124,12 +125,75 @@ public class DialogExample {
         return gene;
     }
 
+
+    private static String body_example = "Android Open Source UI textview android justifiedtextview Android UI textview ufo22940268 android justifiedtextview htm Android Open Source UI textview android justifiedtextview Android Open Source UI textview justify textview android Android UI textview nikoo28 justify textview android htm Android Open Source UI textview justify textview android This is a simple implementation to get text in justified manner in any android application";
+
     @SuppressWarnings("UnusedReturnValue")
     public static BaseDialog notificationInformation(Context context) {
         NotificationDialog dialog =
                 NotificationDialog.newInstace(
                         context,
-                        NotificationDialog.createBundle(DialogIcon.INFORMATION_ICON)
+                        NotificationDialog.createInformationBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationError(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createErrorBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationWarning(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createWarningBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationHelp(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createHelpBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationConfirmation(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createConfirmationBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationOkCancelError(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createOkCancelErrorBundle(context, body_example)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog notificationYesNoCancelConfirmation(Context context) {
+        NotificationDialog dialog =
+                NotificationDialog.newInstace(
+                        context,
+                        NotificationDialog.createYesNoCancelConfirmationBundle(context, body_example)
                 );
         dialog.show();
         return dialog;

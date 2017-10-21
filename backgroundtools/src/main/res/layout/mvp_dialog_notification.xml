@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:foo="http://schemas.android.com/tools">
 
     <data>
+
+        <import
+            alias="v"
+            type="android.view.View" />
 
         <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
 
@@ -17,33 +21,34 @@
             name="winaction"
             type="WindowAction" />
 
-        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel"/>
+        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
 
         <variable
             name="buttonsetmodel"
-            type="ButtonsSetModel"/>
+            type="ButtonsSetModel" />
 
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/dialogs_base_background_tint"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        foo:colorDialogBodyBackground="@{model.icon}">
 
         <!--HEAD-->
         <android.support.v7.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="?attr/box_default_medium_margin"
             android:background="?attr/dialogs_head_background_tint"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/bt_generic_edit_image_dimen"
-                android:layout_height="@dimen/bt_generic_edit_image_dimen"
+                android:layout_width="@dimen/bt_dialog_notification_image_dimen"
+                android:layout_height="@dimen/bt_dialog_notification_image_dimen"
                 android:layout_margin="?attr/dialogs_default_margin"
-                app:srcCompat="@drawable/ic_question"
-                bind:ignore="VectorDrawableCompat" />
+                bind:ignore="VectorDrawableCompat"
+                foo:iconDialog="@{model.icon}" />
 
             <android.support.v7.widget.AppCompatTextView
                 style="@style/bt_head_label"
@@ -78,11 +83,28 @@
 
         </android.support.v4.widget.NestedScrollView>
 
+        <!--KEY-->
+        <android.support.v7.widget.ContentFrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="@{model.keyname == `` ? v.GONE :v.VISIBLE}">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/bt_dialog_dont_show_again"
+                android:textColor="?attr/colorControlNormal"
+                android:textSize="12sp" />
+        </android.support.v7.widget.ContentFrameLayout>
+
+
         <!--FOO-->
         <include
             layout="@layout/mvp_buttons_set"
-            bind:winaction="@{winaction}"
-            bind:buttonsetmodel="@{buttonsetmodel}"/>
+            bind:buttonsetmodel="@{buttonsetmodel}"
+            bind:winaction="@{winaction}" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

@@ -20,17 +20,21 @@ public class DevelopTools extends AppCompatActivity {
 
     public void launch() {
       //DialogExample.indeterminateBox(this);
-      // DialogExample.indeterminateSpinner(this);
+      //DialogExample.indeterminateSpinner(this);
       //DialogExample.progressIndeterminateBox(this);
-      // DialogExample.progressBox(this);
+      //DialogExample.progressBox(this);
 
        //es.marser.backgroundtools.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
        //es.marser.backgroundtools.toast.Launch_toast.errorToast(this, "Mensaje de error");
        //es.marser.backgroundtools.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
-        //DialogExample.editGeneric(this);
-       // SQLExample.createDatabase(this);
+       //DialogExample.editGeneric(this);
+       //SQLExample.createDatabase(this);
 
-        DialogExample.notificationInformation(this);
+        //DialogExample.notificationInformation(this);
+        //DialogExample.notificationError(this);
+        //DialogExample.notificationWarning(this);
+        //DialogExample.notificationHelp(this);
+        DialogExample.notificationConfirmation(this);
     }
 }

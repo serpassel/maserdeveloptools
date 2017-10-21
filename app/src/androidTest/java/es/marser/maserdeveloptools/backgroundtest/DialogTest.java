@@ -114,4 +114,116 @@ public class DialogTest {
         });
         mActivityRule.getActivity().finish();
     }
+
+    @Test
+    public void dialog6() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd6;
+                //6
+                bd6 = DialogExample.notificationInformation(mActivityRule.getActivity());
+                Assert.assertTrue(bd6.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 6");
+                bd6.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog7() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd7;
+                //7
+                bd7 = DialogExample.notificationError(mActivityRule.getActivity());
+                Assert.assertTrue(bd7.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 7");
+                bd7.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog8() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd8;
+                //8
+                bd8 = DialogExample.notificationWarning(mActivityRule.getActivity());
+                Assert.assertTrue(bd8.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 8");
+                bd8.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog9() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd9;
+                //9
+                bd9 = DialogExample.notificationHelp(mActivityRule.getActivity());
+                Assert.assertTrue(bd9.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 9");
+                bd9.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog10() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd10;
+                //10
+                bd10 = DialogExample.notificationConfirmation(mActivityRule.getActivity());
+                Assert.assertTrue(bd10.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 10");
+                bd10.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog11() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd11;
+                //11
+                bd11 = DialogExample.notificationOkCancelError(mActivityRule.getActivity());
+                Assert.assertTrue(bd11.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 11");
+                bd11.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
+
+    @Test
+    public void dialog12() {
+        mActivityRule.getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                BaseDialog bd12;
+                //12
+                bd12 = DialogExample.notificationYesNoCancelConfirmation(mActivityRule.getActivity());
+                Assert.assertTrue(bd12.isShowing());
+                Log.i(LOG_TAG.TAG, "BaseDialog 12");
+                bd12.close();
+            }
+        });
+        mActivityRule.getActivity().finish();
+    }
 }
