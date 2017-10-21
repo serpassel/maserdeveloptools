@@ -4,6 +4,8 @@ package es.marser.backgroundtools.systemtools;
 import android.net.Uri;
 import android.webkit.URLUtil;
 
+import es.marser.backgroundtools.enums.SystemExtras;
+
 /**
  * @author sergio
  *         Created by Sergio on 28/03/2017.
@@ -11,10 +13,6 @@ import android.webkit.URLUtil;
 
 @SuppressWarnings({"unused", "WeakerAccess"})
 public class UriTools {
-    public static final int FROM_GMAIL = 0;
-    public static final int FROM_STORAGE = 1;
-    public static final int FROM_UNKNOW = 2;
-
     /**
      * Comprobar origen de una URI
      * <p>
@@ -23,13 +21,13 @@ public class UriTools {
      * @param uri Ruta de origen [EN]  Route of origin
      * @return Véase variables estáticas [EN]  See static variables
      */
-    public static int locateUriProvider(Uri uri) {
+    public static SystemExtras locateUriProvider(Uri uri) {
         if (uri.toString().contains("//storage")) {
-            return FROM_STORAGE;
+            return SystemExtras.URI_FROM_STORAGE;
         } else if (uri.toString().contains("//gmail")) {
-            return FROM_GMAIL;
+            return SystemExtras.URI_FROM_GMAIL;
         } else {
-            return FROM_UNKNOW;
+            return SystemExtras.URI_FROM_UNKNOW;
         }
     }
 
