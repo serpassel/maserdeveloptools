@@ -61,7 +61,6 @@ public abstract class EncryptBytesTools {
      * @param hash hash de codificación [EN]  hash encoding
      * @return Cadena de bytes procesada [EN]  Processed byte string
      */
-
     public static byte[] cipher(byte[] data, int mode, String hash) {
         Cipher aes = null;
         try {
