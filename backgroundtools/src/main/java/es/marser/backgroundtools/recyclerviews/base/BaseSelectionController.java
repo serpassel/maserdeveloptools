@@ -31,10 +31,9 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>Access to variables</il>
  *         <il>Action Events</il>
  *         </ul>
- *
- *         @see es.marser.backgroundtools.handlers.ViewItemHandler
- *         @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
- *         @see es.marser.backgroundtools.enums.ListExtra
+ * @see es.marser.backgroundtools.handlers.ViewItemHandler
+ * @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.enums.ListExtra
  */
 
 @SuppressWarnings("unused")
@@ -340,13 +339,15 @@ public abstract class BaseSelectionController<T> {
     }
 
     //ACTION EVENTS_______________________________________________________________________________________________
+/*Los eventos se activan desde la vista holder del elemento [EN]  Events are activated from the view of the item*/
+/*Traslado del elemento de la vista a la manejador de eventos [EN]  Moving the view element to the event handler*/
 
     /**
      * Pulsación sencilla en un elemento
      * <p>
      * [EN]  Single click on an element
      *
-     * @param view Vista pulsada [EN]  Pulsed view
+     * @param view     Vista pulsada [EN]  Pulsed view
      * @param position Posición de la vista pulsada [EN]  Position of the pulsed view
      */
     public void onClick(View view, int position) {
@@ -374,7 +375,6 @@ public abstract class BaseSelectionController<T> {
                         onSelectionChanged.onItemChaged(lastposition);
                         onSelectionChanged.onItemChaged(position);
                     }
-
                 }
 
                 selectedItems.put(position, !view.isSelected());
@@ -411,7 +411,7 @@ public abstract class BaseSelectionController<T> {
      * <p>
      * [EN]  Long press on an element
      *
-     * @param view Vista pulsada [EN]  Pulsed view
+     * @param view     Vista pulsada [EN]  Pulsed view
      * @param position Posición de la vista pulsada [EN]  Position of the pulsed view
      */
     @SuppressWarnings("SameReturnValue")

@@ -12,7 +12,7 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         [EN]  Keystroke events on the main view in a list of items
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public interface ViewItemHandler<T> {
     //Eventos
 

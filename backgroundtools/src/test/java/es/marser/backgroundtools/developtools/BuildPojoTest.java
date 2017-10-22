@@ -9,6 +9,7 @@ import java.util.Date;
  * @author sergio
  *         Created by sergio on 21/10/17.
  */
+@SuppressWarnings("unused")
 public class BuildPojoTest {
 
     @Test

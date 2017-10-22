@@ -30,7 +30,7 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         </ul>
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class ArrayListController<T> extends ArrayList<T> {
 
     /*Variable oyente de modificaciones de slección*/
@@ -68,9 +68,9 @@ public class ArrayListController<T> extends ArrayList<T> {
     //ELEMENT MANAGEMENT____________________________________________________________________________________
 
     /**
-     * Agrega una liats de elementos
+     * Agrega una lista de elementos
      * <p>
-     * [EN]  Add a slip of elements
+     * [EN]  Add a list of items
      *
      * @param items lista de elementos [EN]  list of elements
      */

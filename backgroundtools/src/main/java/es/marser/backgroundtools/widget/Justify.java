@@ -41,6 +41,7 @@ class Justify {
      * @param textViewSpanStarts a preallocated array that will hold the span start positions.
      * @param textViewSpans a preallocated array that will hold the spans.
      */
+    @SuppressWarnings("ConstantConditions")
     @SuppressLint("Assert")
     static void setupScaleSpans(final @NotNull Justified justified,
                                 final @NotNull int[] textViewSpanStarts,

@@ -12,6 +12,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
  *         [EN]  Result for dialogues
  */
 
+@SuppressWarnings("EmptyMethod")
 public interface OnResult<T> {
     void onResult(DialogExtras result, T value);
 

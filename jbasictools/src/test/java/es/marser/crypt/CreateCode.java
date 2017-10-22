@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@SuppressWarnings("unused")
 public class CreateCode {
     @Test
     public void addition_isCorrect() throws Exception {
