@@ -19,6 +19,9 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>View Expansion and Contraction Operations</il>
  *         <il>Access to variables</il>
  *         </ul>
+ *
+ *         @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
+ *         @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
  */
 
 @SuppressWarnings("unused")

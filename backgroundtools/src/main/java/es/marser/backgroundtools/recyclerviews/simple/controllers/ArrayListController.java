@@ -28,6 +28,8 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>Element management</il>
  *         <il>Access to variables</il>
  *         </ul>
+ *
+ *         @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})

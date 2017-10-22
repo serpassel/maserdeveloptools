@@ -13,6 +13,7 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         [EN]  Simple List Controller
  * @see es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController
  * @see BaseSelectionController
+ * @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
  */
 
 @SuppressWarnings("unused")

@@ -25,20 +25,29 @@ import es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding;
  *         <ul>
  *         <il>Eventos de acción</il>
  *         <il>Sobreescritura de métodos de superclase</il>
- *          <il>Sobre escritura de métodos de ineterface</il>
- *         <p>
+ *          <il>Sobre escritura de métodos de interface</il>
  *         <il>Oyentes de modificación de elementos</il>
  *         <il>Acceso a variables</il>
  *         <p>
  *         [EN]  Generic class for recycler view Adapter
  *         <ul>
- *         <il>Methods of overwriting</il>
  *         <il>Action Events</il>
- *         <p>
+ *         <il>Superclass methods overwriting</il>
+ *          <il>About Writing Interface Methods</il>
  *         <il>Element modification listeners</il>
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
+ *
+ *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.SelectionController
+ *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController
+ *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ExpandController
+ *
+ *
+ *         @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
+ *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController
+ *
+ *         @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
