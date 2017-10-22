@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="RESUM_EXPANDABLE_VIEW">primary_expandable_view</string>
-    <string name="EXPANDABLE_VIEW">secondary_expandable_view</string>
-    <string name="EXPAN_VIEW_CHEVERON">expandable_view_cheveron</string>
-    <string name="EXCLUDE_ITEM_ACTIONS">exclude_item_actions</string>
-    <string name="INCLUDE_ITEM_ACTIONS">include_item_actions</string>
+
+    <!--TAGS PARA VISTAS DE ELEMENTOS DE LISTA VINCULADOS-->
+    <!--TAGS FOR VIEWS OF LINKED LIST ELEMENTS-->
+
+    <!--TAGS DE EXPANSIÓN [EN]  EXPANSION TAGS-->
+    <string name="PRIMARY_EXPANDABLE_VIEW">primary_expandable_view</string>
+    <string name="SECONDARY_EXPANDABLE_VIEW">secondary_expandable_view</string>
+    <string name="EXPANDABLE_VIEW_TIGGER">expandable_view_tigger</string>
+
+    <!--TAGS DE ACCION [EN]  TAGS OF ACTION-->
+    <string name="TOUCHABLE_VIEW_ACTIONABLE">touchable_view_actionable</string>
 </resources>

@@ -18,6 +18,9 @@ import static android.view.animation.Animation.RELATIVE_TO_SELF;
  *         Objeto de vinculación de datos reciclable  para adaptadores de vistas
  *         <p>
  *         [EN]  Recyclable Data Binding Object for View Adapters
+ * @see es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController
+ * @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
+ * @see es.marser.backgroundtools.res tag_item_view.xml
  */
 
 @SuppressWarnings({"UnusedReturnValue", "unused"})
@@ -38,11 +41,13 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
     /*Vista expandida [EN]  Expanded view*/
     private View expandAreaView;
     /*Activador de expansión [EN]  Expansion Trigger*/
-    private View expandchevron;
+    private View expandtigger;
 
-
+    //CONSTRUCTORS____________________________________________________________________________________________
     public ViewHolderBinding(
-            ViewDataBinding itemViewBindable, ViewHolderController<T> viewHolderController) {
+            ViewDataBinding itemViewBindable,
+            ViewHolderController<T> viewHolderController) {
+
         super(itemViewBindable.getRoot());
 
         /*Variables de control [EN]  Control variables*/
@@ -61,29 +66,47 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
         expandAreaView = itemView.findViewWithTag(
                 itemView
                         .getResources()
-                        .getString(R.string.EXPANDABLE_VIEW));
+                        .getString(R.string.SECONDARY_EXPANDABLE_VIEW));
 
         /*Colapsada [EN]  Collapsed*/
         collapsresumView = itemView.findViewWithTag(
                 itemView
                         .getResources()
-                        .getString(R.string.RESUM_EXPANDABLE_VIEW));
+                        .getString(R.string.PRIMARY_EXPANDABLE_VIEW));
 
         /*Actuador de expansión [EN]  Expansion actuator*/
-        expandchevron = itemView.findViewWithTag(
+        expandtigger = itemView.findViewWithTag(
                 itemView
                         .getResources()
-                        .getString(R.string.EXPAN_VIEW_CHEVERON));
+                        .getString(R.string.EXPANDABLE_VIEW_TIGGER));
     }
 
+    //ADJUNTAR MODELOS Y MANEJADORES_______________________________________________________________________
+
+    /**
+     * Vinculación del modelo de datos con la vista
+     * <p>
+     * [EN]  Linking the Data Model to the View
+     *
+     * @param item modelo de datos [EN]  data model
+     * @return Class principal para seteos conscutivos [EN]  Main class for conspicuous settings
+     */
     public ViewHolderBinding bind(T item) {
-        //R se tiene que llamar item la variable
+        //+++++++++++IMPORTANTE [EN]  IMPORTANT---------------------------------------/
+        /*La variable de datos en el modelo se debe nombrar como 'item' 
+        [EN]  The data variable in the model must be named as an item*/
         itemViewBindable.setVariable(BR.item, item);
         itemViewBindable.executePendingBindings();
-        //Si no es seleccionable quitamos la selección
         return this;
     }
 
+    /**
+     * Adjuntar manejador de eventos de pulsación sobre las vistas secundarias
+     * <p>
+     * [EN]  Attach event handler over secondary views
+     *
+     * @param handler manejador [EN]  manager
+     */
     public void attachTouchableViewHandler(final TouchableViewHandler<T> handler) {
         if (handler == null) {
             return;
@@ -91,7 +114,7 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
 
         for (View v : itemView.getTouchables()) {
 
-            if (v.getTag() != null && v.getTag().equals(v.getContext().getResources().getString(R.string.INCLUDE_ITEM_ACTIONS))) {
+            if (v.getTag() != null && v.getTag().equals(v.getContext().getResources().getString(R.string.TOUCHABLE_VIEW_ACTIONABLE))) {
 
                 v.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -117,8 +140,8 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
                     }
                 });
             }
-            if (expandchevron != null) {
-                expandchevron.setOnClickListener(new View.OnClickListener() {
+            if (expandtigger != null) {
+                expandtigger.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         handler.onClick(
@@ -129,7 +152,7 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
                         );
                     }
                 });
-                expandchevron.setOnLongClickListener(new View.OnLongClickListener() {
+                expandtigger.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
                         handler.onLongClick(
@@ -145,11 +168,22 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
         }
     }
 
+//ACTIONS_______________________________________________________________________________________________________
 
+    /**
+     * Marcar selección
+     * <p>
+     * [EN]  Mark Selection
+     */
     public void setSelected() {
         itemView.setSelected(viewHolderController.isSelected(getAdapterPosition()));
     }
 
+    /**
+     * Marcar expansión
+     * <p>
+     * [EN]  Mark Expansion
+     */
     public void setExpanded() {
         if (expandAreaView != null) {
             if (viewHolderController.isExpaned(getAdapterPosition())) {
@@ -168,26 +202,35 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
         }
     }
 
+    /**
+     * Acción de expandir
+     * <p>
+     * [EN]  Action to expand
+     */
     public void expand() {
-        if (expandchevron != null) {
+        if (expandtigger != null) {
             RotateAnimation rotate =
                     new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
             rotate.setDuration(300);
             rotate.setFillAfter(true);
-            expandchevron.setAnimation(rotate);
+            expandtigger.setAnimation(rotate);
         }
     }
 
+    /**
+     * Acción de colapsar
+     * <p>
+     * [EN]  Collapse action
+     */
     public void collapse() {
         if (expandAreaView != null) {
             RotateAnimation rotate =
                     new RotateAnimation(180, 360, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
             rotate.setDuration(300);
             rotate.setFillAfter(true);
-            expandchevron.setAnimation(rotate);
+            expandtigger.setAnimation(rotate);
         }
     }
-
 
     @Override
     public void onClick(View view) {

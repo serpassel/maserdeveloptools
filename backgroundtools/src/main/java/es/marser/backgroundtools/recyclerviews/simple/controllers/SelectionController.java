@@ -3,7 +3,6 @@ package es.marser.backgroundtools.recyclerviews.simple.controllers;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.recyclerviews.base.BaseSelectionController;
 
 
 /**
@@ -13,7 +12,7 @@ import es.marser.backgroundtools.recyclerviews.base.BaseSelectionController;
  *         <p>
  *         [EN]  Simple List Controller
  * @see es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController
- * @see es.marser.backgroundtools.recyclerviews.base.BaseSelectionController
+ * @see BaseSelectionController
  */
 
 @SuppressWarnings("unused")

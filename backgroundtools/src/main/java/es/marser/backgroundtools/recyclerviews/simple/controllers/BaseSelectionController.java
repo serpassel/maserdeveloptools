@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.base;
+package es.marser.backgroundtools.recyclerviews.simple.controllers;
 
 import android.util.SparseBooleanArray;
 import android.view.View;

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.adpaters;
+package es.marser.backgroundtools.recyclerviews.simple.adapters;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
