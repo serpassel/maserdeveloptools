@@ -276,13 +276,13 @@ public class GenericFactory {
         }
         char c = market.charAt(0);
         T o;
-        String work = "";//Variable de acumulación de datos, para registro individual [EN]  Variable of accumulation of data, for individual registration
+        StringBuilder work = new StringBuilder();//Variable de acumulación de datos, para registro individual [EN]  Variable of accumulation of data, for individual registration
 
         /*Calcular el número de campos. Separar los posibles registros
         [EN]  Calculate the number of fields.  Separate possible registrations*/
         for (int i = 0; i < data.length; i++) {
 
-            work += data[i] + c;
+            work.append(data[i]).append(c);
 
             /*Comprobar si la iteranción es múltiplo de la longitud total del sub-registro individual
             * [EN]  Check if the iteration is multiple of the total length of the individual sub-record*/
@@ -290,7 +290,7 @@ public class GenericFactory {
 
                 /*Si la iteración es multiplo de la longitud, se ha completado de la lectura de un regsitro. Generar objeto
                 * [EN]  If the iteration is multiple of the length, it has been completed from the reading of a regsitro.  Generate object*/
-                o = BuildSingleItem(cls, work, market);
+                o = BuildSingleItem(cls, work.toString(), market);
                 if (o != null) {
                     result.add(o);
                 }
@@ -301,7 +301,7 @@ public class GenericFactory {
 
                 /*Borrar variable de acumulación de datos
                 [EN]  Clear data accumulation variable*/
-                work = "";
+                work = new StringBuilder();
             }
         }
         /*Publicar finalización de lectura

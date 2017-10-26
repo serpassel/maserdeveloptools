@@ -1,8 +1,8 @@
-package es.marser.backgroundtools.recyclerviews.simple.controllers;
+package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.util.SparseBooleanArray;
 
-import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 /**
  * @author sergio
@@ -19,9 +19,8 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>View Expansion and Contraction Operations</il>
  *         <il>Access to variables</il>
  *         </ul>
- *
- *         @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
- *         @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
+ * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
 
 @SuppressWarnings("unused")
@@ -68,11 +67,11 @@ public class ExpandController {
      * <p>
      * [EN]  Check the status of a position
      *
-     * @param id posición
+     * @param position posición
      * @return verdadero si está expandido [EN]  true if expanded
      */
-    public boolean isExpaned(int id) {
-        return get(id);
+    public boolean isExpaned(int position) {
+        return position > -1 && position < expandItems.size() && get(position);
     }
 
 
@@ -104,7 +103,10 @@ public class ExpandController {
      * @param position posición a eliminar [EN]  position to be deleted
      */
     public void delete(int position) {
-        expandItems.delete(position);
+        try {
+            expandItems.delete(position);
+        } catch (Exception ignored) {
+        }
     }
 
     /**
@@ -144,6 +146,7 @@ public class ExpandController {
 //ACCESS TO VARIABLES_________________________________________________________________________________________
 
     /*Métodos de acceso de los datos de la variable [EN]  Methods of accessing the variable data */
+
     /**
      * Estado de expansión de una posición
      * <p>

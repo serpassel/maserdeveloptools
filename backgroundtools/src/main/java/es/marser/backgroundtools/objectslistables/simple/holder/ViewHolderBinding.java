@@ -1,104 +1,54 @@
-package es.marser.backgroundtools.recyclerviews.simple.holder;
+package es.marser.backgroundtools.objectslistables.simple.holder;
 
 import android.databinding.ViewDataBinding;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.RotateAnimation;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController;
-
-import static android.view.animation.Animation.RELATIVE_TO_SELF;
-
+import es.marser.backgroundtools.objectslistables.base.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
 /**
  * @author sergio
  *         Created by sergio on 22/10/17.
  *         Objeto de vinculación de datos reciclable  para adaptadores de vistas
  *         <p>
  *         [EN]  Recyclable Data Binding Object for View Adapters
- * @see es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController
- * @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
+ * @see BaseListAdapter
  * @see es.marser.backgroundtools.res tag_item_view.xml
  */
 
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
-        implements View.OnClickListener, View.OnLongClickListener {
+public class ViewHolderBinding<T> extends BaseViewHolder<T> {
 
     /*Variables de control [EN]  Control variables*/
-    public ViewHolderController<T> viewHolderController;
+    protected ViewHolderController<T> viewHolderController;
 
-    /*Variables de vistas [EN]  View Variables*/
-    /*Vista vinculada [EN]  Linked view*/
-    private ViewDataBinding itemViewBindable;
-    /*Vista raíz [EN]  Root view*/
-    private View itemView;
-
-    /*Vista comprimida [EN]  Collapsed view*/
-    private View collapsresumView;
-    /*Vista expandida [EN]  Expanded view*/
-    private View expandAreaView;
-    /*Activador de expansión [EN]  Expansion Trigger*/
-    private View expandtigger;
+    /**
+     * Tipo de vista
+     * <p>
+     * [EN]  Type of view
+     *
+     * @return Valor entero del tipo de vista
+     */
+    public Integer getIndexTypeView() {
+        return null;
+    }
 
     //CONSTRUCTORS____________________________________________________________________________________________
     public ViewHolderBinding(
             ViewDataBinding itemViewBindable,
             ViewHolderController<T> viewHolderController) {
 
-        super(itemViewBindable.getRoot());
+        super(itemViewBindable);
 
         /*Variables de control [EN]  Control variables*/
         this.viewHolderController = viewHolderController;
-
-        /*Variables de vistas [EN]  View Variables*/
-        this.itemViewBindable = itemViewBindable;
-        this.itemView = itemViewBindable.getRoot();
-
-        /*Ajuste de eventos de pulsación [EN]  Adjusting pulse events*/
-        itemView.setOnClickListener(this);
-        itemView.setOnLongClickListener(this);
-
-        /*Definición de áreas expandibles [EN]  Definition of expandable areas*/
-        /*Expandida [EN]  Expanded*/
-        expandAreaView = itemView.findViewWithTag(
-                itemView
-                        .getResources()
-                        .getString(R.string.SECONDARY_EXPANDABLE_VIEW));
-
-        /*Colapsada [EN]  Collapsed*/
-        collapsresumView = itemView.findViewWithTag(
-                itemView
-                        .getResources()
-                        .getString(R.string.PRIMARY_EXPANDABLE_VIEW));
-
-        /*Actuador de expansión [EN]  Expansion actuator*/
-        expandtigger = itemView.findViewWithTag(
-                itemView
-                        .getResources()
-                        .getString(R.string.EXPANDABLE_VIEW_TIGGER));
     }
+
 
     //ADJUNTAR MODELOS Y MANEJADORES_______________________________________________________________________
-
-    /**
-     * Vinculación del modelo de datos con la vista
-     * <p>
-     * [EN]  Linking the Data Model to the View
-     *
-     * @param item modelo de datos [EN]  data model
-     * @return Class principal para seteos conscutivos [EN]  Main class for conspicuous settings
-     */
-    public ViewHolderBinding bind(T item) {
-        //+++++++++++IMPORTANTE [EN]  IMPORTANT---------------------------------------/
-        /*La variable de datos en el modelo se debe nombrar como 'item' 
-        [EN]  The data variable in the model must be named as an item*/
-        itemViewBindable.setVariable(BR.item, item);
-        itemViewBindable.executePendingBindings();
-        return this;
-    }
 
     /**
      * Adjuntar manejador de eventos de pulsación sobre las vistas secundarias
@@ -170,11 +120,7 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
 
 //ACTIONS_______________________________________________________________________________________________________
 
-    /**
-     * Marcar selección
-     * <p>
-     * [EN]  Mark Selection
-     */
+    @Override
     public void setSelected() {
         itemView.setSelected(viewHolderController.isSelected(getAdapterPosition()));
     }
@@ -202,39 +148,12 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
         }
     }
 
-    /**
-     * Acción de expandir
-     * <p>
-     * [EN]  Action to expand
-     */
-    public void expand() {
-        if (expandtigger != null) {
-            RotateAnimation rotate =
-                    new RotateAnimation(360, 180, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(300);
-            rotate.setFillAfter(true);
-            expandtigger.setAnimation(rotate);
-        }
-    }
-
-    /**
-     * Acción de colapsar
-     * <p>
-     * [EN]  Collapse action
-     */
-    public void collapse() {
-        if (expandAreaView != null) {
-            RotateAnimation rotate =
-                    new RotateAnimation(180, 360, RELATIVE_TO_SELF, 0.5f, RELATIVE_TO_SELF, 0.5f);
-            rotate.setDuration(300);
-            rotate.setFillAfter(true);
-            expandtigger.setAnimation(rotate);
-        }
-    }
 
     @Override
     public void onClick(View view) {
-        viewHolderController.onClick(view, getAdapterPosition());
+        if (viewHolderController != null) {
+            viewHolderController.onClick(view, getAdapterPosition());
+        }
     }
 
     /**
@@ -245,7 +164,9 @@ public class ViewHolderBinding<T> extends RecyclerView.ViewHolder
      */
     @Override
     public boolean onLongClick(View v) {
-        viewHolderController.onLongClick(v, getAdapterPosition());
+        if (viewHolderController != null) {
+            viewHolderController.onLongClick(v, getAdapterPosition());
+        }
         return true;
     }
 }

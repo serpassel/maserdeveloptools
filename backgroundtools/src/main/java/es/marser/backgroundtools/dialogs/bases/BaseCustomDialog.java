@@ -29,7 +29,9 @@ public abstract class BaseCustomDialog extends BaseDialog {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setCancelable(false);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = inflater.inflate(getDialogLayout(), null);
+        if (inflater != null) {
+            view = inflater.inflate(getDialogLayout(), null);
+        }
         builder.setView(view);
         dialog = builder.create();
 

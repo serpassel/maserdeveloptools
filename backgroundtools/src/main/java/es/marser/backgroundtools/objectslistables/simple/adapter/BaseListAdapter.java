@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.adapters;
+package es.marser.backgroundtools.objectslistables.simple.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -11,12 +11,13 @@ import android.view.ViewGroup;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController;
-import es.marser.backgroundtools.recyclerviews.simple.controllers.ExpandController;
-import es.marser.backgroundtools.recyclerviews.simple.controllers.SelectionController;
-import es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController;
-import es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding;
+import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.simple.controller.ExpandController;
+import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
+import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
+
 
 /**
  * @author sergio
@@ -39,21 +40,24 @@ import es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding;
  *         <p>
  *         </ul>
  *
- *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.SelectionController
- *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController
- *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ExpandController
+ *         @see es.marser.backgroundtools.objectslistables.simple.controller.SelectionController
+ *         @see es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController
+ *         @see es.marser.backgroundtools.objectslistables.simple.controller.ExpandController
  *
  *
  *         @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
- *         @see es.marser.backgroundtools.recyclerviews.simple.controllers.ViewHolderController
+ *         @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
  *
- *         @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
+ *         @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class BaseBindAdapterList<T>
-        extends RecyclerView.Adapter<ViewHolderBinding<T>>
-        implements OnItemChangedListener, ViewHolderController<T> {
+public abstract class BaseListAdapter<T>
+        extends
+        RecyclerView.Adapter<ViewHolderBinding<T>>
+        implements
+        OnItemChangedListener,
+        ViewHolderController<T> {
 
     /*Variables de control [EN]  Control variables*/
     public SelectionController<T> selectionController;
@@ -61,13 +65,14 @@ public abstract class BaseBindAdapterList<T>
     public ExpandController expandController;
 
     //CONSTRUCTORS____________________________________________________________________________________________
-    public BaseBindAdapterList() {
+    public BaseListAdapter() {
 
         /*Nueva instancia de controladores [EN]  New controller instance*/
         arrayListController = new ArrayListController<>();
         selectionController = new SelectionController<>(
                 arrayListController,
                 ListExtra.SINGLE_SELECTION_MODE);
+
         expandController = new ExpandController(this);
 
         /*Definición de oyentes a los controladores [EN]  Definition of listeners to the controllers*/
@@ -126,7 +131,7 @@ public abstract class BaseBindAdapterList<T>
 
 
     //ELEMENT MODIFICATION LISTENERS_______________________________________________________________
-    /*Sobreescritura de OnItemChangedListener [EN]  OnItemChangedListener Overwrite*/
+    /** {@link OnItemChangedListener}*/
     @Override
     public void onSelectionChanged() {
         notifyDataSetChanged();
@@ -172,7 +177,7 @@ public abstract class BaseBindAdapterList<T>
         notifyDataSetChanged();
     }
 
-    /*Sobreescritura de ViewHolderController [EN]  Overwrite ViewHolderController*/
+    /**{@link ViewHolderController}*/
     @Override
     public boolean isExpaned(int position) {
         return expandController.get(position);

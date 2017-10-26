@@ -53,7 +53,7 @@ public class NetWorkTools {
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
-        NetworkInfo actNetInfo = connectivityManager.getActiveNetworkInfo();
+        NetworkInfo actNetInfo = connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null;
 
         return (actNetInfo != null && actNetInfo.isConnected());
     }

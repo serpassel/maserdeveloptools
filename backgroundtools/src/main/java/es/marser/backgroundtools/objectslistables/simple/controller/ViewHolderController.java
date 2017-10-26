@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.controllers;
+package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.view.View;
 
@@ -18,6 +18,7 @@ public interface ViewHolderController<T> {
      * <p>
      * [EN]  Indicates if the view is expanded
      *
+     * @param position posición de la vista [EN]  position of the view
      * @return verdadero si la vista está expandida [EN]  true if the view is expanded
      */
     boolean isExpaned(int position);
@@ -27,6 +28,7 @@ public interface ViewHolderController<T> {
      * <p>
      * [EN]  Indicates whether the view is selected
      *
+     * @param position posición de la vista [EN]  position of the view
      * @return verdadero si la vista está seleccionada [EN]  true if the view is selected
      */
     boolean isSelected(int position);

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.controllers;
+package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.support.annotation.NonNull;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 /**
  * @author sergio
@@ -28,8 +28,7 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>Element management</il>
  *         <il>Access to variables</il>
  *         </ul>
- *
- *         @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
+ * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
@@ -115,11 +114,12 @@ public class ArrayListController<T> extends ArrayList<T> {
      * @return Objeto genérico en la posición indicado [EN]  Generic object in the indicated position
      */
     public T getItemAt(int position) {
-
-        if (position < 0) {
-            return null;
+ /*Si la posición está fuera de rango terminamos el proceso
+ [EN]  If the position is out of range we finish the process*/
+        if ((position > -1 && position < size())) {
+            return get(position);
         }
-        return get(position);
+        return null;
     }
 
     /**
@@ -141,19 +141,18 @@ public class ArrayListController<T> extends ArrayList<T> {
      * <p>
      * [EN]  Delete an item by its position
      *
-     * @param itemId posicion del elemento [EN]  position of the element
+     * @param position posicion del elemento [EN]  position of the element
      */
-    public void removeItem(int itemId) {
-        try {
-            /*Eliminar elemento [EN]  Delete item*/
-            remove(itemId);
+    public void removeItem(int position) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((position > -1 && position < size())) {
+         /*Eliminar elemento [EN]  Delete item*/
+            remove(position);
 
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (onChangedListListener != null) {
-                onChangedListListener.onRemoveItem(itemId);
+                onChangedListListener.onRemoveItem(position);
             }
-        } catch (IndexOutOfBoundsException ignored) {
-
         }
     }
 
@@ -181,18 +180,18 @@ public class ArrayListController<T> extends ArrayList<T> {
      * <p>
      * [EN]  Add a record in a defined position
      *
-     * @param index posición para insertar elemento [EN]  position to insert element
-     * @param item  Nuevo elemento a insertar [EN]  New item to insert
+     * @param position posición para insertar elemento [EN]  position to insert element
+     * @param item     Nuevo elemento a insertar [EN]  New item to insert
      */
-    public void insertItem(int index, T item) {
-
-        if (item != null) {
+    public void insertItem(int position, T item) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((position > -1 && position < size()) || item == null) {
         /*Agregar elemento [EN]  Add Item*/
-            add(index, item);
+            add(position, item);
 
         /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (onChangedListListener != null) {
-                onChangedListListener.onAddItem(index);
+                onChangedListListener.onAddItem(position);
             }
         }
     }
@@ -208,7 +207,7 @@ public class ArrayListController<T> extends ArrayList<T> {
     public void updateItem(Integer position, T item) {
 
    /*Validar entrada [EN]  Validate entry*/
-        if (position != null && item != null) {
+        if (position != null && item != null && position > -1 && position < size()) {
             /*Actualizar registro [EN]  Update record*/
             set(position, item);
        /*Notificar cambios de selección [EN]  Notify selection changes*/

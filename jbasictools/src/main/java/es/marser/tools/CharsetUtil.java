@@ -465,10 +465,7 @@ public class CharsetUtil {
 
         try {
             return java.nio.charset.Charset.forName(charsetName);
-        } catch (IllegalCharsetNameException e) {
-            // Use default charset on exception
-            return java.nio.charset.Charset.forName(defaultCharset);
-        } catch (UnsupportedCharsetException ex) {
+        } catch (IllegalCharsetNameException | UnsupportedCharsetException e) {
             // Use default charset on exception
             return java.nio.charset.Charset.forName(defaultCharset);
         }
@@ -487,10 +484,7 @@ public class CharsetUtil {
             case "Cp437":
                 try {
                     return java.nio.charset.Charset.forName("IBM437").newDecoder();
-                } catch (IllegalCharsetNameException e) {
-                    // Use default charset on exception
-                    return defaultCharset;
-                } catch (UnsupportedCharsetException ex) {
+                } catch (IllegalCharsetNameException | UnsupportedCharsetException e) {
                     // Use default charset on exception
                     return defaultCharset;
                 }
@@ -499,10 +493,7 @@ public class CharsetUtil {
             case "Cp850":
                 try {
                     return java.nio.charset.Charset.forName("IBM850").newDecoder();
-                } catch (IllegalCharsetNameException e) {
-                    // Use default charset on exception
-                    return defaultCharset;
-                } catch (UnsupportedCharsetException ex) {
+                } catch (IllegalCharsetNameException | UnsupportedCharsetException e) {
                     // Use default charset on exception
                     return defaultCharset;
                 }

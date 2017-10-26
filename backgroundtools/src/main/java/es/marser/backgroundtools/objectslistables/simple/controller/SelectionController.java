@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.controllers;
+package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import java.util.List;
 
@@ -11,9 +11,9 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         Controlador de selección para listas simples
  *         <p>
  *         [EN]  Simple List Controller
- * @see es.marser.backgroundtools.recyclerviews.simple.controllers.ArrayListController
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController
  * @see BaseSelectionController
- * @see es.marser.backgroundtools.recyclerviews.simple.adapters.BaseBindAdapterList
+ * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
 
 @SuppressWarnings("unused")

@@ -28,9 +28,11 @@ public abstract class KeyGenerator {
      * @throws UnsupportedEncodingException Error de codicación del hash [EN]  Hash coding error
      */
     public static Key keyGenerator(String hash) throws UnsupportedEncodingException {
-        while (hash.getBytes().length < 20) {
-            hash += "J";
+        StringBuilder hashBuilder = new StringBuilder(hash);
+        while (hashBuilder.toString().getBytes().length < 20) {
+            hashBuilder.append("J");
         }
+        hash = hashBuilder.toString();
         return new SecretKeySpec(hash.getBytes("UTF-8"), 0, 16, "AES");
     }
 

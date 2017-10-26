@@ -11,6 +11,7 @@ import es.marser.tools.TextTools;
  *         [EN]  Tool for mapping pojos
  */
 
+@SuppressWarnings({"SameParameterValue", "StringConcatenationInLoop"})
 public class BuildPojo {
 
     private String tablename;

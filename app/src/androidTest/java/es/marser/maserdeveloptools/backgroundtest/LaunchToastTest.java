@@ -2,7 +2,6 @@ package es.marser.maserdeveloptools.backgroundtest;
 
 import android.support.test.filters.LargeTest;
 import android.support.test.rule.ActivityTestRule;
-import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import org.junit.Rule;
@@ -21,9 +20,6 @@ import es.marser.maserdeveloptools.DevelopTools;
 @LargeTest
 @RunWith(AndroidJUnit4.class)
 public class LaunchToastTest {
-
-    @Rule
-    public UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
     @Rule
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(

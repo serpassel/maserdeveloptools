@@ -514,17 +514,17 @@ public abstract class MathTools {
      * @return Texto formateado [EN]  Formatted text
      */
     public static String format(BigDecimal input, int round) {
-        String stylus = "#,##0";
+        StringBuilder stylus = new StringBuilder("#,##0");
 
         if (round > 0) {
-            stylus = stylus + ".";
+            stylus.append(".");
             for (int i = 0; i < round; ++i) {
-                stylus = stylus + "0";
+                stylus.append("0");
             }
         } else {
-            stylus = "#,###.#";
+            stylus = new StringBuilder("#,###.#");
         }
-        return new DecimalFormat(stylus).format(round(input, round));
+        return new DecimalFormat(stylus.toString()).format(round(input, round));
     }
 
     /**
@@ -563,13 +563,13 @@ public abstract class MathTools {
      * @return ej 00001 para (1,5) [EN]  00001 for (1,5)
      */
     public static String formatCifra(Integer input, int round) {
-        String stylus = "0";
+        StringBuilder stylus = new StringBuilder("0");
         if (round > 0) {
             for (int i = 1; i < round; ++i) {
-                stylus = stylus + "0";
+                stylus.append("0");
             }
         }
-        return new DecimalFormat(stylus).format(Math.abs(notNaN(input)));
+        return new DecimalFormat(stylus.toString()).format(Math.abs(notNaN(input)));
     }
 
     /**
@@ -596,17 +596,17 @@ public abstract class MathTools {
      * @return Texto formateado % [EN]  Formatted text %
      */
     public static String formatPercentaje(BigDecimal input, int round) {
-        String stylus = "##0";
+        StringBuilder stylus = new StringBuilder("##0");
         if (round > 0) {
-            stylus = stylus + ".";
+            stylus.append(".");
             for (int i = 0; i < round; ++i) {
-                stylus = stylus + "0";
+                stylus.append("0");
             }
         } else {
-            stylus = "#,###.#";
+            stylus = new StringBuilder("#,###.#");
         }
-        stylus = stylus + "%";
-        return new DecimalFormat(stylus).format(round(input, round + 2));
+        stylus.append("%");
+        return new DecimalFormat(stylus.toString()).format(round(input, round + 2));
     }
 
     /**
@@ -854,7 +854,7 @@ public abstract class MathTools {
 
             /*Eliminacion de `impurezas´ en la expresiones algebraicas [EN]  Elimination of 'impurities' in algebraic expressions*/
             // String infix = expr.replace(" ", "");
-            postfix = S.toString().replaceAll("[\\]\\[,]", "");
+            postfix = S.toString().replaceAll("[]\\[,]", "");
         } catch (Exception ex) {
             System.out.println("Error en la expresión algebraica");
             System.err.println(ex.toString());
@@ -873,15 +873,15 @@ public abstract class MathTools {
         s = s.replaceAll("\\s+", ""); //Elimina espacios en blanco
         s = "(" + s + ")";
         String simbols = "^+-*/()";
-        String str = "";
+        StringBuilder str = new StringBuilder();
 
         //Deja espacios entre operadores
         for (int i = 0; i < s.length(); i++) {
             if (simbols.contains("" + s.charAt(i))) {
-                str += " " + s.charAt(i) + " ";
-            } else str += s.charAt(i);
+                str.append(" ").append(s.charAt(i)).append(" ");
+            } else str.append(s.charAt(i));
         }
-        return str.replaceAll("\\s+", " ").trim();
+        return str.toString().replaceAll("\\s+", " ").trim();
     }
 
     /**

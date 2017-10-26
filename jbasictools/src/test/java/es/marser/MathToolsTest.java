@@ -55,10 +55,10 @@ public class MathToolsTest {
     }
 
     @Test
-    @SuppressWarnings("deprecation")
     public void channel5(){
         Assert.assertEquals(true, es.marser.tools.MathTools.format(new BigDecimal("100254.325658"), 2).equals("100.254,33"));
         Assert.assertEquals(true, es.marser.tools.MathTools.format("100254.325658", 2).equals("100.254,33"));
+        //noinspection deprecation
         Assert.assertEquals(true, es.marser.tools.MathTools.format(100254.325658, 2).equals("100.254,33"));
         Assert.assertEquals(true, es.marser.tools.MathTools.formatCifra(1, 2).equals("01"));
         Assert.assertEquals(true, es.marser.tools.MathTools.formatCifra(-1, 2).equals("01"));

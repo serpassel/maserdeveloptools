@@ -24,7 +24,7 @@ import java.util.GregorianCalendar;
  *         4.- Calculations with dates.
  *         5.- Predefined ranges
  */
-@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue", "MagicConstant"})
 public abstract class DateTools {
 
     public static final String comparativeFormatting = "ddMMyyyy"; //Variable de formateo comparativo [EN]  Comparative Format Variable
@@ -532,14 +532,14 @@ public abstract class DateTools {
             Pair pair,
             GregorianCalendar[] list) {
 
-        String out = "";
+        StringBuilder out = new StringBuilder();
         /*Ordenar fechas y resetar horas [EN]  Sort dates and reset hours es*/
         for (GregorianCalendar gc : list) {
             if (betweenTwoDate(pair.start, pair.end, gc)) {
-                out += formatComparative(gc) + DateTools.separatorMark;
+                out.append(formatComparative(gc)).append(DateTools.separatorMark);
             }
         }
-        return out;
+        return out.toString();
     }
 
     /**
@@ -552,14 +552,14 @@ public abstract class DateTools {
             Pair pair,
             GregorianCalendar[] list) {
 
-        String out = "";
+        StringBuilder out = new StringBuilder();
         /*Ordenar fechas y resetar horas [EN]  Sort dates and reset hours es*/
         for (GregorianCalendar gc : list) {
             if (betweenTwoDate(pair.start, pair.end, gc) && isBusinessDay(gc)) {
-                out += formatComparative(gc) + DateTools.separatorMark;
+                out.append(formatComparative(gc)).append(DateTools.separatorMark);
             }
         }
-        return out;
+        return out.toString();
     }
 
 

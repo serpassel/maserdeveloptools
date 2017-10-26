@@ -116,11 +116,11 @@ public abstract class EncryptStringTools {
      * @return valor en hexadecimal [EN]  value in hexadecimal
      */
     public static String bytesToHexString(byte[] in) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         for (byte b : in) {
-            out += Integer.toHexString(0xFF & b);
+            out.append(Integer.toHexString(0xFF & b));
         }
-        return out;
+        return out.toString();
     }
 
 }

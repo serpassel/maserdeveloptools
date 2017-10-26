@@ -17,7 +17,9 @@ public interface ViewItemHandler<T> {
     //Eventos
 
     /**
-     * Sobreeescribir el método en el FragmentList
+     * Pulsación corta sobre vista del elemento
+     * <p>
+     * [EN]  Short press on element view
      *
      * @param v        vista principal
      * @param item     Objeto de datos
@@ -27,8 +29,10 @@ public interface ViewItemHandler<T> {
     void onClickItem(View v, T item, int position, ListExtra mode);
 
     /**
-     * Sobreeescribir el método en el FragmentList
-     *
+     *  Pulsación larga sobre vista del elemento
+     * <p>
+     * [EN]  Long press on element view
+
      * @param v        vista principal
      * @param item     Objeto de datos
      * @param position posición de datos

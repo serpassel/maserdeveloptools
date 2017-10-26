@@ -43,7 +43,9 @@ public abstract class BaseDialog extends DialogFragment {
         if (view != null) {
             view.clearFocus();
             InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
         }
         //Eliminamos los oyentes de las clases abstractas
         if (!isShowing()) {

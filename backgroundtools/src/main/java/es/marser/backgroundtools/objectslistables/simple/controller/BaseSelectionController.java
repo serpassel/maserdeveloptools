@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.recyclerviews.simple.controllers;
+package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -8,7 +8,7 @@ import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 
 /**
@@ -31,8 +31,10 @@ import es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener;
  *         <il>Access to variables</il>
  *         <il>Action Events</il>
  *         </ul>
+ *         Tigger by {@link ViewItemHandler}
+ *
  * @see es.marser.backgroundtools.handlers.ViewItemHandler
- * @see es.marser.backgroundtools.recyclerviews.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
  * @see es.marser.backgroundtools.enums.ListExtra
  */
 
@@ -120,9 +122,15 @@ public abstract class BaseSelectionController<T> {
      *                 [EN]  selection position
      */
     public void delete(int position) {
-        selectedItems.delete(position);
-        this.position = -1;
-        this.lastposition = -1;
+        if (position > -1) {
+            try {
+                selectedItems.delete(position);
+                this.position = -1;
+                this.lastposition = -1;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
