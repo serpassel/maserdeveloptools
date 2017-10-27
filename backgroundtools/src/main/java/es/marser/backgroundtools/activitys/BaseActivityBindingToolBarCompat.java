@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.mvp;
+package es.marser.backgroundtools.activitys;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
