@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 /**
@@ -13,10 +12,108 @@ import android.support.v4.content.ContextCompat;
  *         Clase chequeadora de permisos disponibles
  *         <p>
  *         [EN]  Permissions checker class available
+ *         <ul>
+ *         <il>CALENDAR</il>
+ *         </ul>
  */
 
 @SuppressWarnings("unused")
-public class CheckPermission extends Fragment {
+@Deprecated
+public class CheckPermission {
+
+    //CALENDAR________________________________________________________________________________________
+
+    public static boolean checkPermit(Context context, String permit) {
+        if (permit == null) {
+            return false;
+        }
+
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        int result = ContextCompat.checkSelfPermission(context, permit);
+        switch (result) {
+            case PackageManager.PERMISSION_GRANTED:
+                return true;
+            case PackageManager.PERMISSION_DENIED:
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Permite que una aplicación lea los datos del calendario de los usuarios
+     * <p>
+     * [EN]  Allows an application to read the user's calendar data
+     *
+     * @param context contexto de aplicación [EN]  application context
+     * @return verdadero para permisos habilitados [EN]  true for enabled permissions
+     */
+    public static boolean checkReadCalendar(Context context) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.READ_CALENDAR);
+        switch (result) {
+            case PackageManager.PERMISSION_GRANTED:
+                return true;
+            case PackageManager.PERMISSION_DENIED:
+                return false;
+            default:
+                return false;
+        }
+    }
+
+
+    /**
+     * Permite que una aplicación escriba los datos del calendario de los usuarios
+     * <p>
+     * [EN]  Allows an application to write the user's calendar data.
+     *
+     * @param context contexto de aplicación [EN]  application context
+     * @return verdadero para permisos habilitados [EN]  true for enabled permissions
+     */
+    public static boolean checkWriteCalendar(Context context) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR);
+        switch (result) {
+            case PackageManager.PERMISSION_GRANTED:
+                return true;
+            case PackageManager.PERMISSION_DENIED:
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    //CAMERA_______________________________________________________________________________________
+
+    /**
+     * Permiso de acceso a la camara
+     * <p>
+     * [EN]  Permission to access the camera
+     *
+     * @param context contexto de aplicación [EN]  application context
+     * @return verdadero para permisos habilitados [EN]  true for enabled permissions
+     */
+    public static boolean checkCamera(Context context) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP) {
+            return true;
+        }
+        int result = ContextCompat.checkSelfPermission(context, Manifest.permission.CAMERA);
+        switch (result) {
+            case PackageManager.PERMISSION_GRANTED:
+                return true;
+            case PackageManager.PERMISSION_DENIED:
+                return false;
+            default:
+                return false;
+        }
+    }
+
 
     /**
      * Comprobar si hay permisos de lectura  del disco
@@ -65,9 +162,9 @@ public class CheckPermission extends Fragment {
     }
 
     /**
-     * Permiso de acceso a internet. El usuario no puede revocarlo
+     * Permiso de para consultar es estado del acceso a internet.
      * <p>
-     * [EN]  Permission to access the internet.  [EN]  The user can not revoke it
+     * [EN]  Permission to consult is internet access status
      *
      * @param context contexto de aplicación [EN]  application context
      * @return verdadero para permisos habilitados [EN]  true for enabled permissions

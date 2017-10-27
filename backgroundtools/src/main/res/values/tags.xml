@@ -11,4 +11,7 @@
 
     <!--TAGS DE ACCION [EN]  TAGS OF ACTION-->
     <string name="TOUCHABLE_VIEW_ACTIONABLE">touchable_view_actionable</string>
+
+    <!--TAGS FRAGMENTS-->
+    <string name="FRAMENT_PAGER">fragment_pager</string>
 </resources>
