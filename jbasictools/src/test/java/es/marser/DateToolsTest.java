@@ -39,22 +39,22 @@ public class DateToolsTest {
 
     @Before
     public void init() {
-        in.set(2010, 0, 1, 12, 20, 1);//01-ene-2010 12:20:01
-        in4.set(2010, 0, 1, 0, 0, 0);//01-ene-2010 00:00:00
+        in.set(2010, Calendar.JANUARY, 1, 12, 20, 1);//01-ene-2010 12:20:01
+        in4.set(2010, Calendar.JANUARY, 1, 0, 0, 0);//01-ene-2010 00:00:00
 
         timeMil = in.getTimeInMillis() + "";
 
-        in2.set(2011, 8, 15, 14, 21, 1);//15-sep-2011 14:21:01
-        in3.set(2011, 8, 15, 14, 27, 1);//15-sep-2011 14:27:01
+        in2.set(2011, Calendar.SEPTEMBER, 15, 14, 21, 1);//15-sep-2011 14:21:01
+        in3.set(2011, Calendar.SEPTEMBER, 15, 14, 27, 1);//15-sep-2011 14:27:01
 
-        in5.set(2011, 8, 1, 0, 0, 0);//01-sep-2011 00:00:00
-        in6.set(2011, 8, 30, 0, 0, 0);//01-sep-2011 00:00:00
+        in5.set(2011, Calendar.SEPTEMBER, 1, 0, 0, 0);//01-sep-2011 00:00:00
+        in6.set(2011, Calendar.SEPTEMBER, 30, 0, 0, 0);//01-sep-2011 00:00:00
 
-        in7.set(2017, 8, 1, 0, 0, 0);//01-sep-2011 00:00:00
-        in8.set(2017, 8, 30, 0, 0, 0);//01-sep-2011 00:00:00
-        in9.set(2017, 8, 15, 0, 0, 0);//01-sep-2011 00:00:00
-        in10.set(2017, 5, 15, 0, 0, 0);//01-sep-2011 00:00:00
-        in11.set(2017, 9, 15, 0, 0, 0);//01-sep-2011 00:00:00
+        in7.set(2017, Calendar.SEPTEMBER, 1, 0, 0, 0);//01-sep-2011 00:00:00
+        in8.set(2017, Calendar.SEPTEMBER, 30, 0, 0, 0);//01-sep-2011 00:00:00
+        in9.set(2017, Calendar.SEPTEMBER, 15, 0, 0, 0);//01-sep-2011 00:00:00
+        in10.set(2017, Calendar.JUNE, 15, 0, 0, 0);//01-sep-2011 00:00:00
+        in11.set(2017, Calendar.OCTOBER, 15, 0, 0, 0);//01-sep-2011 00:00:00
     }
 
     /**

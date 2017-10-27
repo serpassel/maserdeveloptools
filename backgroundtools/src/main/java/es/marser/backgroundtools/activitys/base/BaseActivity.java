@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys;
+package es.marser.backgroundtools.activitys.base;
 
 import android.Manifest;
 import android.app.Activity;
@@ -12,7 +12,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -26,6 +28,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  * @author sergio
  *         Base de construcción de Actividades
  *         <ul>
+ *         <il>Soporte de Toolbar</il>
  *         <il>Dialogos de carga</il>
  *         <il>Estado de teclado</il>
  *         <il>Soporte para fragments</il>
@@ -34,6 +37,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         <p>
  *         [EN]  Activities building base
  *         <ul>
+ *         <il>Toolbar support</il>
  *         <il>Loading Dialogs</il>
  *         <il>Keyboard status</il>
  *         <il>Support for fragments</il>
@@ -58,9 +62,10 @@ import es.marser.backgroundtools.enums.DialogIcon;
 public class BaseActivity extends AppCompatActivity {
 
     protected Result<Boolean> checkresult;
+    protected Toolbar toolbar;
+
     @VisibleForTesting
     public CustomInterminateBinDialog mProgressDialog;
-
 
     @Override
     public void onStop() {
@@ -72,6 +77,34 @@ public class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideInputMode();
+    }
+
+
+    //TOOLBAR SUPPORT__________________________________________________________________________________
+
+    /**
+     * Método para inicio de la barra de herramientas
+     * <p>
+     * [EN]  Method for starting the toolbar
+     */
+    protected void initToolbar() {
+
+        toolbar = findViewById(R.id.app_toolbar);
+        toolbar.setTitle("");
+
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
     }
 
     //LOADING DIALOGS_____________________________________________________________________________________
@@ -412,6 +445,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 /*SENSORS*/
+
     /**
      * Permite que una aplicación acceda a los datos de los sensores
      * que usa el usuario para medir lo que está sucediendo dentro de su cuerpo,
@@ -429,6 +463,7 @@ public class BaseActivity extends AppCompatActivity {
 
 
 /*SMS*/
+
     /**
      * Permite que una aplicación envíe mensajes SMS.
      * <p>
@@ -461,6 +496,7 @@ public class BaseActivity extends AppCompatActivity {
     public void checkReadSms(@NonNull Result<Boolean> checkresult) {
         checkPermission(Manifest.permission.READ_SMS, checkresult);
     }
+
     /**
      * Permite que una aplicación reciba mensajes WAP push.
      * <p>
@@ -471,6 +507,7 @@ public class BaseActivity extends AppCompatActivity {
     public void checkReceiveWapPush(@NonNull Result<Boolean> checkresult) {
         checkPermission(Manifest.permission.RECEIVE_WAP_PUSH, checkresult);
     }
+
     /**
      * Permite que una aplicación monitoree los mensajes MMS entrantes.
      * <p>
@@ -483,6 +520,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /*STORAGE*/
+
     /**
      * Permite que una aplicación lea desde el almacenamiento externo.
      * Cualquier aplicación que declare el permiso WRITE_EXTERNAL_STORAGE recibe implícitamente este permiso.
@@ -495,7 +533,7 @@ public class BaseActivity extends AppCompatActivity {
     public void checkReadExternalStorage(@NonNull Result<Boolean> checkresult) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             checkPermission(Manifest.permission.READ_EXTERNAL_STORAGE, checkresult);
-        }else{
+        } else {
             checkresult.onResult(true);
         }
     }
@@ -512,6 +550,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     /*NETWORK*/
+
     /**
      * Permite que las aplicaciones accedan a información sobre redes.
      * <p>
