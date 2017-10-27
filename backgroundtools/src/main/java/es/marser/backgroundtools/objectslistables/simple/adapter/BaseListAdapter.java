@@ -26,7 +26,7 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  *         <ul>
  *         <il>Eventos de acción</il>
  *         <il>Sobreescritura de métodos de superclase</il>
- *          <il>Sobre escritura de métodos de interface</il>
+ *         <il>Sobre escritura de métodos de interface</il>
  *         <il>Oyentes de modificación de elementos</il>
  *         <il>Acceso a variables</il>
  *         <p>
@@ -34,21 +34,17 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  *         <ul>
  *         <il>Action Events</il>
  *         <il>Superclass methods overwriting</il>
- *          <il>About Writing Interface Methods</il>
+ *         <il>About Writing Interface Methods</il>
  *         <il>Element modification listeners</il>
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- *
- *         @see es.marser.backgroundtools.objectslistables.simple.controller.SelectionController
- *         @see es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController
- *         @see es.marser.backgroundtools.objectslistables.simple.controller.ExpandController
- *
- *
- *         @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
- *         @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
- *
- *         @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.SelectionController
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.ExpandController
+ * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
+ * @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
+ * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
@@ -83,17 +79,33 @@ public abstract class BaseListAdapter<T>
 
     //ACTION EVENTS_______________________________________________________________________________________________
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
+
+    /**
+     * Variable de oyente para pulsacione de las vistas anidadas a la vista raiz del item
+     * <p>
+     * [EN]  Listener variable for clicking nested views to the root view of the item
+     *
+     * @return Variable de oyente de tipo {@link TouchableViewHandler}
+     */
     public TouchableViewHandler<T> getTouchableViewHandler() {
         return null;
     }
 
-    /*Oyente de enlace e la*/
+    /**
+     * Variable de oyente para las pulsaciones sobre la vista raíz
+     * <p>
+     * [EN]  Listener variable for the keystrokes on the root view
+     *
+     * @return Variable de oyente de tipo {@link ViewItemHandler}
+     */
     public ViewItemHandler<T> getItemHandler() {
         return null;
     }
 
     /**
-     * Indicar la R.layout.xxxx-xxxxx
+     * Vista del item
+     * <p>
+     * [EN]  Item view
      *
      * @return variable de vista de los elementos [EN]  variable view of the elements
      */
@@ -131,7 +143,10 @@ public abstract class BaseListAdapter<T>
 
 
     //ELEMENT MODIFICATION LISTENERS_______________________________________________________________
-    /** {@link OnItemChangedListener}*/
+
+    /**
+     * {@link OnItemChangedListener}
+     */
     @Override
     public void onSelectionChanged() {
         notifyDataSetChanged();
@@ -177,14 +192,16 @@ public abstract class BaseListAdapter<T>
         notifyDataSetChanged();
     }
 
-    /**{@link ViewHolderController}*/
+    /**
+     * {@link ViewHolderController}
+     */
     @Override
     public boolean isExpaned(int position) {
         return expandController.get(position);
     }
 
     @Override
-    public boolean isSelected(int position){
+    public boolean isSelected(int position) {
         return selectionController.get(position);
     }
 
@@ -199,7 +216,7 @@ public abstract class BaseListAdapter<T>
     }
 
     @Override
-    public T getItemAt(int position){
+    public T getItemAt(int position) {
         return arrayListController.getItemAt(position);
     }
 }
