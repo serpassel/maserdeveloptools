@@ -9,8 +9,20 @@ package es.marser.backgroundtools.enums;
  */
 
 public enum EventsExtras {
+    /*Posición de desplazamiento [EN]  Position of displacement*/
     SLIDE_RIGHT,
     SLIDE_LEFT,
     SLIDE_LEFT_END,
-    SLIDE_RIGHT_END
+    SLIDE_RIGHT_END,
+    /*Desplazamiento de gestual de la pantalla [EN]  Offset gesture of the screen*/
+    SWIPE_UP,
+    SWIPE_DOWN,
+    SWIPE_LEFT,
+    SWIPE_RIGHT,
+
+    MODE_TRANSPARENT,
+    MODE_SOLID,
+    MODE_DYNAMIC
+
+
 }
