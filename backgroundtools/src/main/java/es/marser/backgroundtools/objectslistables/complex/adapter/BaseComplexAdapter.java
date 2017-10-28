@@ -4,7 +4,6 @@ import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
@@ -20,10 +19,29 @@ import es.marser.backgroundtools.objectslistables.complex.listeners.ExpandCollap
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition;
+import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
 
 
 /**
- * Created by Sergio on 28/04/2017.
+ * @author sergio
+ *         Created by Sergio on 28/04/2017.
+ *         Clase generica para recycler view Adapter Complex
+ *         <ul>
+ *         <il>Eventos de acción</il>
+ *         <il>Sobreescritura de métodos de superclase</il>
+ *         <il>Sobre escritura de métodos de interface</il>
+ *         <il>Oyentes de modificación de elementos</il>
+ *         <il>Acceso a variables</il>
+ *         <p>
+ *         [EN]  Generic class for recycler view Adapter Complex
+ *         <ul>
+ *         <il>Action Events</il>
+ *         <il>Superclass methods overwriting</il>
+ *         <il>About Writing Interface Methods</il>
+ *         <il>Element modification listeners</il>
+ *         <il>Access to variables</il>
+ *         <p>
+ *         </ul>
  */
 
 @SuppressWarnings("ALL")
@@ -47,7 +65,7 @@ public abstract class BaseComplexAdapter<
 
     public BaseComplexAdapter() {
         /*Inicio de variables de listas [EN]  Start List Variables*/
-        this.groups = new ArrayList<>();
+        this.groups = new ArrayListController<>();
         this.expandableList = new ExpandableList<>(groups);
 
         /*Inicio de controladores [EN]  Controllers startup*/
@@ -256,9 +274,20 @@ public abstract class BaseComplexAdapter<
      *
      * @param group nuevo grupo [EN]  new group
      */
-    public void addItem(X group) {
+    public void addGroup(X group) {
         groups.add(group);
-        notifyDataSetChanged();
+        notifyItemInserted(groups.size() - 1);
+    }
+
+    public void insertGroup(int index, X group) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((index > -1 && index < groups.size()) || group != null) {
+        /*Agregar elemento [EN]  Add Item*/
+            groups.add(index, group);
+
+        /*Notificar cambios de selección [EN]  Notify selection changes*/
+            notifyItemInserted(index);
+        }
     }
 
     /**
@@ -270,10 +299,10 @@ public abstract class BaseComplexAdapter<
      *              [EN]  position of the group to update
      * @param group grupo actualizado [EN]  updated group
      */
-    public void updateItem(int index, X group) {
+    public void updateGroup(int index, X group) {
         if (index > -1 && index < groups.size()) {
             groups.set(index, group);
-            notifyDataSetChanged();
+            notifyItemChanged(index);
         }
     }
 
@@ -285,11 +314,27 @@ public abstract class BaseComplexAdapter<
      * @param index posición del grupo a remover
      *              [EN]  group position to remove
      */
-    public void removeItem(int index) {
+    public void removeGroup(int index) {
         if (index > -1 && index < groups.size()) {
             groups.remove(index);
-            notifyDataSetChanged();
+            complexSelectionController.clearSelecteds();
+            notifyItemRemoved(index);
         }
+    }
+
+
+    /**
+     * Reemplaza todos los grupos
+     * <p>
+     * [EN]  Replace all groups
+     *
+     * @param groups listado de grupos [EN]  group list
+     */
+    public void replaceAllGroups(List<X> groups) {
+        groups.clear();
+        groups.addAll(groups);
+        complexSelectionController.clearSelecteds();
+        notifyDataSetChanged();
     }
 
     /**
@@ -354,5 +399,43 @@ public abstract class BaseComplexAdapter<
      */
     public boolean toggleGroup(X group) {
         return expandCollapseController.toggleGroup(group);
+    }
+
+    //ACCESS TO VARIABLES_______________________________________________________________________
+
+    /**
+     * Recuperar la lista de objetos
+     * <p>
+     * [EN]  Retrieve the object list
+     *
+     * @return Recupera la lista de objetos expandibles {@link ExpandableList}
+     * [EN]  Retrieve the list of expandable objects {@link ExpandableList}
+     */
+    public ExpandableList<X, T> getExpandableList() {
+        return expandableList;
+    }
+
+    /**
+     * Controlador de selección
+     * <p>
+     * [EN]  Selection controller
+     *
+     * @return Controlador de selección {@link ComplexSelectionController}
+     * [EN]  Selection controller {@link ComplexSelectionController}
+     */
+    public ComplexSelectionController<X, T> getComplexSelectionController() {
+        return complexSelectionController;
+    }
+
+    /**
+     * Controlador de expansión
+     * <p>
+     * [EN]  Expansion controller
+     *
+     * @return Controlador de expansión {@link ComplexExpandController}
+     * [EN]  Expansion controller {@link ComplexExpandController}
+     */
+    public ComplexExpandController<X, T> getExpandCollapseController() {
+        return expandCollapseController;
     }
 }

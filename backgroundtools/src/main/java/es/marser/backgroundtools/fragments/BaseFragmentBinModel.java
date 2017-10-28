@@ -130,7 +130,7 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
 
     @Override
     public boolean onLongClick(View v, T item) {
-        return false;
+        return true;
     }
 
 }

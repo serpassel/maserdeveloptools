@@ -117,7 +117,7 @@ public class ExpandController {
      * @param id posición a invertir [EN]  position to invest
      * @return valor del nuevo estado de la posición [EN]  value of the new status of the position
      */
-    public boolean inversedExpand(int id) {
+    public boolean toggleExpand(int id) {
        /*Invertir estado de expansión [EN]  Invert Expanding State*/
         expandItems.put(id, !isExpaned(id));
 

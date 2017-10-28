@@ -1,5 +1,6 @@
 package es.marser.backgroundtools.fragments;
 
+import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,47 +11,43 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.fragments.base.BaseFragment;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
-import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
+import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
+import es.marser.backgroundtools.handlers.ViewComplexHandler;
+import es.marser.backgroundtools.objectslistables.complex.adapter.ComplexAdapter;
+import es.marser.backgroundtools.objectslistables.complex.controller.ComplexExpandController;
+import es.marser.backgroundtools.objectslistables.complex.controller.ComplexSelectionController;
+import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
+import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 
 /**
  * @author sergio
- *         Created by Sergio on 31/03/2017.
- *         Base de construcción de fragments con lista de objetos enlazados
- *         <ul>
- *         <il>Inicio de variables</il>
- *         <il>Métodos abstractos de configuración</il>
- *         <il>Manejadores de eventos de las vistas</il>
- *         <il>Control de elementos</il>
- *         <il>Oyentes del cambio en fragments</il>
- *         </ul>
+ *         Created by Sergio on 28/04/2017.
+ *         Base para listas expandibles con objetos enlazados
  *         <p>
- *         [EN]  Fragments building base with list of linked objects
+ *         [EN]  Base for expandable lists with linked objects
+ *         <p>
  *         <ul>
  *         <il>Variable start</il>
  *         <il>Abstract Methods of Configuration</il>
  *         <il>View event handlers</il>
  *         <il>Control of items</il>
  *         <il>Change listeners in fragments</il>
- *         <il>Item Decorator</il>
  *         </ul>
  */
 
-@SuppressWarnings({"JavaDoc", "unused"})
-public abstract class BaseFragmentBinList<T>
-        extends BaseFragment
-        implements
-        TouchableViewHandler<T>,
-        ViewItemHandler<T> {
-
+@SuppressWarnings("unused")
+public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C extends Parcelable>
+        extends BaseFragment implements ComplexTouchabeViewHandler<G, C>, ViewComplexHandler<G, C> {
 
     protected RecyclerView recyclerView;
-    protected BaseListAdapter<T> adapter;
+    protected ComplexAdapter<G, C> adapter;
 
     protected Integer lastScroll;
+
+    @Override
+    protected void instaceVariables() {
+
+    }
 
     //VARIABLE START____________________________________________________________________________________
     @Override
@@ -73,7 +70,9 @@ public abstract class BaseFragmentBinList<T>
      *
      * @return R.layout.XXXX Vista de los items [EN]  View items
      */
-    protected abstract int getHolderLayout();
+    protected abstract int getGroupLayoutHolder();//{return 0;}
+
+    protected abstract int getChildLayoutHolder();//{return 0;}
 
     @Override
     protected int getFragmentLayout() {
@@ -146,53 +145,82 @@ public abstract class BaseFragmentBinList<T>
      * [EN]  List adapter link
      */
     protected void bindAdapter() {
-        adapter = new BaseListAdapter<T>() {
-
+        adapter = new ComplexAdapter<G, C>() {
             @Override
-            public TouchableViewHandler<T> getTouchableViewHandler() {
-                return BaseFragmentBinList.this;
+            protected int getGroupLayoutHolder() {
+                return BaseFragmentBinComplexList.this.getGroupLayoutHolder();
             }
 
             @Override
-            public ViewItemHandler<T> getItemHandler() {
-                return BaseFragmentBinList.this;
+            protected int getChildLayoutHolder() {
+                return BaseFragmentBinComplexList.this.getChildLayoutHolder();
             }
 
             @Override
-            protected int getHolderLayout() {
-                return BaseFragmentBinList.this.getHolderLayout();
+            public ComplexTouchabeViewHandler<G, C> getComplexTouchabeViewHandler() {
+                return BaseFragmentBinComplexList.this;
+            }
+
+            @Override
+            public ViewComplexHandler<G, C> getViewComplexHandler() {
+                return BaseFragmentBinComplexList.this;
             }
         };
+
         recyclerView.setAdapter(adapter);
-
-        adapter.selectionController.setSelectionMode(getInitialSelectionMode());
     }
-
 
     //VIEW EVENT HANDLERS_____________________________________________________________________________
 
-    /*{@link TouchableViewHandler}*/
-    /*Eventos de pulsación sobre la vista raiz
-    [EN]  Pulsation Events on the Root View*/
+    /*{@link ComplexTouchabeViewHandler}*/
     @Override
-    public void onClickItem(View v, T item, int position, ListExtra mode) {
+    public void onGroupClick(View v, int flap, View root, int index, G group) {
+
     }
 
     @Override
-    public boolean onLongClickItem(View v, T item, int position, ListExtra mode) {
+    public boolean onGroupLongClick(View v, int flap, View root, int index, G group) {
+        return false;
+    }
+
+    @Override
+    public void onChildClick(View v, int flap, View root, int groupid, G group, int childid, C child) {
+
+    }
+
+    @Override
+    public boolean onChildLongClick(View v, int flap, View root, int groupid, G group, int childid, C child) {
         return true;
     }
 
-    /*{@link ViewItemHandler}*/
-    /*Eventos de pulsación en las vistas anidadas sobre la vista principal
-    [EN]  Pulsation events in nested views over the main view*/
+    /*{@link ViewComplexHandler}*/
     @Override
-    public void onClick(View v, int position, T item, View root) {
+    public void onGroupExpanded(G group) {
 
     }
 
     @Override
-    public boolean onLongClick(View v, int position, T item, View root) {
+    public void onGroupCollapsed(G group) {
+
+    }
+
+    @Override
+    public void onClickGroupItem(int grouppos, G group, int flatpos, ListExtra selectionmode) {
+
+    }
+
+    @Override
+    public boolean onLongClickGroupItem(int grouppos, G group, int flatpos, ListExtra selectionmode) {
+        return true;
+    }
+
+    @Override
+    public void onClickChildItem(int grouppos, int childpos, C child, int flatpos, ListExtra selectionmode) {
+
+    }
+
+    @Override
+    public boolean onLongClickChildItem(int grouppos, int childpos, C child, int flatpos, ListExtra selectionmode) {
         return true;
     }
 
@@ -204,10 +232,11 @@ public abstract class BaseFragmentBinList<T>
      * <p>
      * [EN]  Access to the items Adapter Selection Controller
      *
-     * @return Controlador de selección {@link SelectionController} [EN]  Selection controller {@link SelectionController}
+     * @return Controlador de selección {@link ComplexSelectionController}
+     * [EN]  Selection controller {@link ComplexSelectionController}
      */
-    public SelectionController<T> getSelectionController() {
-        return adapter.selectionController;
+    public ComplexSelectionController<G, C> getSelectionController() {
+        return adapter.getComplexSelectionController();
     }
 
     /**
@@ -215,11 +244,23 @@ public abstract class BaseFragmentBinList<T>
      * <p>
      * [EN]  Access to list items
      *
-     * @return Controlador de la lista de elementos {@link ArrayListController}
-     * [EN]  Item List Controller {@link ArrayListController}
+     * @return Lista expansible de elementos {@link ExpandableList}
+     * [EN]  Expandable list of items {@link ExpandableList}
      */
-    public ArrayListController<T> getArrayListController() {
-        return adapter.arrayListController;
+    public ExpandableList<G, C> getExpandableList() {
+        return adapter.getExpandableList();
+    }
+
+    /**
+     * Controlador de expansión de grupos
+     * <p>
+     * [EN]  Group Expansion Controller
+     *
+     * @return Controlador de expansión de grupos {@link ComplexSelectionController}
+     * [EN]  Group Expansion Controller {@link ComplexSelectionController}
+     */
+    public ComplexExpandController<G, C> getExpandController() {
+        return adapter.getExpandCollapseController();
     }
 
     /**
@@ -229,9 +270,9 @@ public abstract class BaseFragmentBinList<T>
      *
      * @param items Lista de elementos de tipo genérico [EN]  List of elements of generic type
      */
-    public void setItems(ArrayList<T> items) {
-        if (items != null) {
-            adapter.arrayListController.replaceAllItems(items);
+    public void setGroups(ArrayList<G> groups) {
+        if (groups != null) {
+            adapter.replaceAllGroups(groups);
         }
     }
 
@@ -242,7 +283,7 @@ public abstract class BaseFragmentBinList<T>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.arrayListController.removeAllITems();
+        adapter.removeAllGroups();
     }
 
     /**
@@ -263,9 +304,9 @@ public abstract class BaseFragmentBinList<T>
      *
      * @param item Objeto genérico nuevo [EN]  New Generic Object
      */
-    public void addItem(T item) {
+    public void addGroup(G item) {
         if (item != null) {
-            adapter.arrayListController.addItem(item);
+            adapter.addGroup(item);
         }
     }
 
@@ -277,9 +318,9 @@ public abstract class BaseFragmentBinList<T>
      * @param id   posición donde inserta el nuevo elemento [EN]  position where you insert the new item
      * @param item Objeto genérico nuevo [EN]  New Generic Object
      */
-    public void insertItem(int id, T item) {
+    public void insertGroup(int id, G item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.arrayListController.insertItem(id, item);
+            adapter.insertGroup(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -293,9 +334,9 @@ public abstract class BaseFragmentBinList<T>
      * @param id   posición del elemento en el adapter [EN]  position of the element in the adapter
      * @param item elemento actualizado [EN]  item updated
      */
-    public void updateItem(int id, T item) {
+    public void updateGroup(int id, G item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.arrayListController.updateItem(id, item);
+            adapter.updateGroup(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -309,10 +350,9 @@ public abstract class BaseFragmentBinList<T>
      * @param id posición del elemento a eliminar
      *           [EN]  position of the item to be deleted
      */
-    public void deleteItem(int id) {
+    public void deleteGroup(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.arrayListController.removeItem(id);
-            adapter.selectionController.clear();
+            adapter.removeGroup(id);
             scrollToId(id);
             savedScroll();
         }
@@ -327,7 +367,7 @@ public abstract class BaseFragmentBinList<T>
      * [EN]  true if there are no elements
      */
     public boolean isEmpty() {
-        return adapter.arrayListController.isEmpty();
+        return adapter.getGroups().isEmpty();
     }
 
     /**
@@ -346,7 +386,7 @@ public abstract class BaseFragmentBinList<T>
      * <p>
      * [EN]  Position the view in the indicated position
      *
-     * @param position
+     * @param position posición para recibir el foco [EN]  position to receive focus
      */
     public void scrollToId(int position) {
         if (position > -1 && position < getItemCount()) {
@@ -404,25 +444,27 @@ public abstract class BaseFragmentBinList<T>
     }
 
 //ITEM DECORATOR___________________________________________________________________________________
+
     /**
      * Añadir un separador de elementos
      * <p>
      * [EN]  Add an element separator
      *
-     * @param itemDecoration
+     * @param itemDecoration elemento de separación [EN]  separation element
      */
     protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration) {
         recyclerView.addItemDecoration(itemDecoration);
     }
 
     /**
-     * Añadir separador de elementos según
+     * Añadir separador de elementos e indicar su orden de aplicación
+     * <p>
+     * [EN]  Add element separator and indicate its order of application
      *
-     * @param itemDecoration
-     * @param index
+     * @param itemDecoration elementos de separación [EN]  separation elements
+     * @param index          order del separador [EN]  order of the separator
      */
     protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
         recyclerView.addItemDecoration(itemDecoration, index);
     }
-
 }

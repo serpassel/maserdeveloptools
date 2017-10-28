@@ -56,6 +56,12 @@ public abstract class BaseFragment extends Fragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initActivityCreated();
+    }
+
     /**
      * Traslado de argumentos a variables
      * <p>

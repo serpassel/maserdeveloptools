@@ -185,7 +185,7 @@ public class ArrayListController<T> extends ArrayList<T> {
      */
     public void insertItem(int position, T item) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < size()) || item == null) {
+        if ((position > -1 && position < size()) || item != null) {
         /*Agregar elemento [EN]  Add Item*/
             add(position, item);
 
