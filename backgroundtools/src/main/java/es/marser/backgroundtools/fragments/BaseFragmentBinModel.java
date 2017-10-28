@@ -3,7 +3,6 @@ package es.marser.backgroundtools.fragments;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,29 +10,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.ViewHandler;
-
 
 /**
  * @author sergio
- *         Created by Sergio on 06/04/2017.
- *         Base de construcción de fragments con lista y cabecera de objetos enlazados
+ *         Created by Sergio on 05/04/2017.
+ *         Base de fragment para un único modelo con MVP
  *         <p>
- *         [EN]  Basis of constructing fragments with list and header of linked objects
- *         <p>
+ *         [EN]  Fragment basis for a single model with MVP
  *         <ul>
  *         <il>Instantiate variables</il>
  *         <il>Link Variables</il>
  *         <il>Definition of interfaces</il>
  *         </ul>
  */
-
 @SuppressWarnings("unused")
-public abstract class MVPBaseFragmentHeadList<T extends Parcelable, X extends Parcelable>
-        extends MVPBaseFragmentList<X>
-        implements ViewHandler<T> {
+public abstract class BaseFragmentBinModel<T> extends BaseFragment implements ViewHandler<T> {
 
-    private ViewDataBinding viewDataBinding;
+    protected ViewDataBinding viewDataBinding;
     private T model;
 
     @Override
@@ -74,6 +69,7 @@ public abstract class MVPBaseFragmentHeadList<T extends Parcelable, X extends Pa
      */
     protected @NonNull
     abstract T getNewModelInstance();
+
 
     //LINK VARIABLES______________________________________________________________________________________
 
@@ -125,7 +121,7 @@ public abstract class MVPBaseFragmentHeadList<T extends Parcelable, X extends Pa
         return model;
     }
 
-//DEFINITION OF INTERFACES_____________________________________________________________________________
+    //DEFINITION OF INTERFACES_____________________________________________________________________________
     /*{@link ViewHandler}*/
     @Override
     public void onClick(View v, T item) {
@@ -136,4 +132,5 @@ public abstract class MVPBaseFragmentHeadList<T extends Parcelable, X extends Pa
     public boolean onLongClick(View v, T item) {
         return false;
     }
+
 }

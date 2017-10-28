@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
@@ -43,7 +43,7 @@ import es.marser.backgroundtools.objectslistables.simple.controller.SelectionCon
  */
 
 @SuppressWarnings({"JavaDoc", "unused"})
-public abstract class MVPBaseFragmentList<T>
+public abstract class BaseFragmentBinList<T>
         extends BaseFragment
         implements
         TouchableViewHandler<T>,
@@ -52,8 +52,6 @@ public abstract class MVPBaseFragmentList<T>
 
     protected RecyclerView recyclerView;
     protected BaseListAdapter<T> adapter;
-
-    protected FragmentAction<T> fragmentAction;
 
     protected Integer lastScroll;
 
@@ -74,8 +72,8 @@ public abstract class MVPBaseFragmentList<T>
         recyclerView = getActivity().findViewById(getRecyclerviewId());
         recyclerView.setHasFixedSize(hasFixedSize());
         recyclerView.setLayoutManager(getLayoutManager());
-        bindAdapter();
         initActivityCreated();
+        bindAdapter();
     }
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
@@ -151,15 +149,6 @@ public abstract class MVPBaseFragmentList<T>
     /*Inicio de métodos [EN]  Start of methods*/
 
     /**
-     * Utilizar para configurar datos. Se aplica cuando el fragment ha sido cargado por la actividad
-     * <p>
-     * [EN]  Use to configure data.  Applies when the fragment has been loaded by the activity
-     */
-    @SuppressWarnings("EmptyMethod")
-    protected void initActivityCreated() {
-    }
-
-    /**
      * Modo de selección inicial de la lista. Por defecto Mode de selección sencilla
      * <p>
      * [EN]  Initial selection mode of the list.  Default Simple selection mode.
@@ -182,17 +171,17 @@ public abstract class MVPBaseFragmentList<T>
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {
-                return MVPBaseFragmentList.this;
+                return BaseFragmentBinList.this;
             }
 
             @Override
             public ViewItemHandler<T> getItemHandler() {
-                return MVPBaseFragmentList.this;
+                return BaseFragmentBinList.this;
             }
 
             @Override
             protected int getHolderLayout() {
-                return MVPBaseFragmentList.this.getHolderLayout();
+                return BaseFragmentBinList.this.getHolderLayout();
             }
         };
         recyclerView.setAdapter(adapter);
@@ -457,23 +446,4 @@ public abstract class MVPBaseFragmentList<T>
         recyclerView.addItemDecoration(itemDecoration, index);
     }
 
-    //CHANGE LISTENERS IN FRAGMENTS_____________________________________________________________________
-
-    /**
-     * Establecer el oyente de tipo {@link FragmentAction}
-     * <p>
-     * [EN]  Set type listener {@link FragmentAction}
-     *
-     * @param fragmentAction
-     */
-    public void setFragmentAction(FragmentAction<T> fragmentAction) {
-        this.fragmentAction = fragmentAction;
-    }
-
-    /**
-     * @param fragmentAction
-     */
-    public void removeFragmentAction(FragmentAction<T> fragmentAction) {
-        this.fragmentAction = fragmentAction;
-    }
 }

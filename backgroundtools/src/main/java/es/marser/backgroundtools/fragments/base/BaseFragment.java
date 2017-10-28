@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.fragments;
+package es.marser.backgroundtools.fragments.base;
 
 import android.Manifest;
 import android.content.Context;
@@ -21,6 +21,7 @@ import es.marser.async.Result;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.activitys.base.BaseActivity;
 import es.marser.backgroundtools.enums.EventsExtras;
+import es.marser.backgroundtools.fragments.listeners.FragmentAction;
 
 /**
  * @author sergio
@@ -41,21 +42,17 @@ import es.marser.backgroundtools.enums.EventsExtras;
  */
 
 @SuppressWarnings("unused")
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
+
+    protected FragmentAction fragmentAction;
+
 
     //ARGUMENTS________________________________________________________________________________________
-
-    public static BaseFragment newInstance(Bundle bundle) throws Exception {
-        BaseFragment fragment = new BaseFragment();
-        fragment.setArguments(bundle);
-        /*Comprobar la validad de los argumentos [EN]  Check the validity of the arguments*/
-        return fragment;
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         resolveArgs();
+        instaceVariables();
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
@@ -65,8 +62,31 @@ public class BaseFragment extends Fragment {
      * [EN]  Moving arguments to variables
      */
     @SuppressWarnings("EmptyMethod")
-    protected void resolveArgs(){
+    protected void resolveArgs() {
     }
+
+    /**
+     * Instanciar variables
+     * <p>
+     * [EN]  Instanciar variables
+     */
+    protected abstract void instaceVariables();
+
+    /**
+     * Utilizar para configurar datos. Se aplica cuando el fragment ha sido cargado por la actividad
+     * <p>
+     * [EN]  Use to configure data.  Applies when the fragment has been loaded by the activity
+     */
+    protected abstract void initActivityCreated();
+
+    /**
+     * Definición de la vista del fragment. Valor por defecto {@link R.layout#mvc_frag_simple_list}
+     * <p>
+     * [EN]  Fragment view definition
+     *
+     * @return R.layout.XXXXX Vista del fragment [EN]  View of the fragment
+     */
+    protected  abstract int getFragmentLayout();
 
     //EVENTS OF ACTIVITY___________________________________________________________________________________
 
@@ -101,11 +121,11 @@ public class BaseFragment extends Fragment {
      * @param checkresult Variable de resultado [EN]  Result variable
      */
     public void checkPermission(@NonNull String permit, @NonNull Result<Boolean> checkresult) {
-       if(getBaseActivity() != null){
-           getBaseActivity().checkPermission(permit, checkresult);
-       }else{
-           throw new ClassCastException("The activity on which the fragment is attached must be a instance of BaseActivity");
-       }
+        if (getBaseActivity() != null) {
+            getBaseActivity().checkPermission(permit, checkresult);
+        } else {
+            throw new ClassCastException("The activity on which the fragment is attached must be a instance of BaseActivity");
+        }
     }
 
       /*CALENDAR*/
@@ -505,5 +525,29 @@ public class BaseFragment extends Fragment {
         if (v != null) {
             v.startAnimation(animation);
         }
+    }
+
+    //CHANGE LISTENERS IN FRAGMENTS_____________________________________________________________________
+
+    /**
+     * Establecer el oyente de tipo {@link FragmentAction}
+     * <p>
+     * [EN]  Set type listener {@link FragmentAction}
+     *
+     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
+     */
+    public void setFragmentAction(FragmentAction fragmentAction) {
+        this.fragmentAction = fragmentAction;
+    }
+
+    /**
+     * Elimina el oyente de acciones de fragment
+     * <p>
+     * [EN]  Delete the listener of fragment actions
+     *
+     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
+     */
+    public void removeFragmentAction(FragmentAction fragmentAction) {
+        this.fragmentAction = fragmentAction;
     }
 }

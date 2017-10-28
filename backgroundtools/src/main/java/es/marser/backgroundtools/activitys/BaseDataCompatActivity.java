@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.activitys.base.BaseActivity;
-import es.marser.backgroundtools.fragments.BaseFragment;
+import es.marser.backgroundtools.fragments.base.BaseFragment;
 
 /**
  * @author sergio

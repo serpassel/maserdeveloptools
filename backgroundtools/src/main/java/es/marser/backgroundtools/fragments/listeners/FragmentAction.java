@@ -1,7 +1,7 @@
 package es.marser.backgroundtools.fragments.listeners;
 
 @SuppressWarnings("unused")
-public interface FragmentAction<T> {
+public interface FragmentAction {
 
     /**
      * Inicio de carga de datos

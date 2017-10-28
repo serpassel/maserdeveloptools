@@ -19,13 +19,13 @@ import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup
  */
 
 @SuppressWarnings("unused")
-public abstract class ComplexBindingAdapter<X extends ExpandableGroup<T>, T extends Parcelable>
+public abstract class ComplexAdapter<X extends ExpandableGroup<T>, T extends Parcelable>
         extends BaseComplexAdapter<
         GroupViewHolderBinding<X, T>,
         ChildViewHolderBinding<X, T>, X, T> {
 
 
-    protected ComplexBindingAdapter() {
+    protected ComplexAdapter() {
         super();
     }
 
