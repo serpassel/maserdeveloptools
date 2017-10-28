@@ -322,7 +322,6 @@ public abstract class BaseComplexAdapter<
         }
     }
 
-
     /**
      * Reemplaza todos los grupos
      * <p>
