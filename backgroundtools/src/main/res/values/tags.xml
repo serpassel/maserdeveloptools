@@ -14,4 +14,5 @@
 
     <!--TAGS FRAGMENTS-->
     <string name="FRAGMENT_PAGER">fragment_pager</string>
+    <string name="FRAGMENT_PREFERENCE">fragment_preference</string>
 </resources>

@@ -92,7 +92,14 @@ public abstract class BaseFragment extends Fragment {
      *
      * @return R.layout.XXXXX Vista del fragment [EN]  View of the fragment
      */
-    protected  abstract int getFragmentLayout();
+    protected abstract int getFragmentLayout();
+
+    /**
+     * Método para carga datos en el adapter
+     * <p>
+     * [EN]  Method for loading data into the adapter
+     */
+    protected abstract void load();
 
     //EVENTS OF ACTIVITY___________________________________________________________________________________
 
