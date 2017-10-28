@@ -1,10 +1,9 @@
-package es.marser.backgroundtools.activitys;
+package es.marser.backgroundtools.activitys.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.activitys.base.BaseActivity;
 import es.marser.backgroundtools.fragments.base.BaseFragment;
 
 /**
@@ -12,7 +11,7 @@ import es.marser.backgroundtools.fragments.base.BaseFragment;
  *         Created by Sergio on 08/04/2017.
  */
 
-public abstract class BaseDataCompatActivity extends BaseActivity {
+public abstract class BaseActivityFragment extends BaseActivity {
 
     protected BaseFragment baseFragment;
 
@@ -20,22 +19,19 @@ public abstract class BaseDataCompatActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getActivityLayout());
-
-        initVar();
     }
 
-    protected void initVar() {
+    @Override
+    protected void instaceVariables() {
         baseFragment = instanceFragment();
         if (baseFragment != null) {
             insertFragment(baseFragment);
         } else {
-
             baseFragment = (BaseFragment) getSupportFragmentManager()
                     .findFragmentByTag(getResources()
                             .getString(R.string.FRAGMENT_PAGER));
         }
-
-    }
+}
 
     protected int getActivityLayout() {
         return R.layout.ac_frag;

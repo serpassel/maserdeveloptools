@@ -1,40 +1,39 @@
-package es.marser.backgroundtools.activitys;
+package es.marser.backgroundtools.activitys.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.activitys.base.BaseActivity;
-
-
 /**
- * Created by Sergio on 08/04/2017.
- * Actividad con barra de acciones
+ * @author sergio
+ *         Created by sergio on 28/10/17.
+ *         Base de creación de actividades con patrón de diseño MVP
+ *         <p>
+ *         [EN]  MVP design pattern activity creation base
  */
 
-public abstract class BaseActivityBindingToolBarCompat extends BaseActivity {
-
+public abstract class BaseBinActivity extends BaseActivity {
     /*Variable de presentador de vistas [EN]  View Presenter Variable*/
     protected ViewDataBinding viewDataBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         viewDataBinding = DataBindingUtil.setContentView(this, getActivityLayout());
+    }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         /*Enlazar variables modelo [EN]  Link model variables*/
         bindObjects();
-        /*Activar toolbar [EN]  Activar toolbar*/
-        initToolbar();
     }
 
+    /**
+     * Método para enlace de variables a las vistas
+     * <p>
+     * [EN]  Method for linking variables to views
+     */
     protected abstract void bindObjects();
-
-    protected int getActivityLayout() {
-        return R.layout.ac_frag_toolbar;
-    }
-
 }

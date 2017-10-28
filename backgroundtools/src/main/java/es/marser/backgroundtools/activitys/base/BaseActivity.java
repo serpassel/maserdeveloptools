@@ -5,7 +5,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
@@ -59,7 +61,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  */
 
 @SuppressWarnings("unused")
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     protected Result<Boolean> checkresult;
     protected Toolbar toolbar;
@@ -79,6 +81,41 @@ public class BaseActivity extends AppCompatActivity {
         hideInputMode();
     }
 
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        /*Instanciar variables [EN]  Instanciar variables*/
+        instaceVariables();
+        /*Activar toolbar [EN]  Activar toolbar*/
+        if (activeToolbarSupport()) {
+            initToolbar();
+        }
+    }
+
+    /**
+     * Métodos pre-inicio de variables
+     * <p>
+     * [EN]  Pre-start methods of variables
+     */
+    protected abstract void preinstaceVariables();
+
+    /**
+     * Instanciar variables
+     * <p>
+     * [EN]  Instanciar variables
+     */
+    protected abstract void instaceVariables();
+
+    /**
+     * Métodos post-inicio de variables
+     * <p>
+     * [EN]  Post-start methods of variables
+     */
+    protected abstract void postinstaceVariables();
+
+    protected int getActivityLayout() {
+        return R.layout.ac_frag_toolbar;
+    }
 
     //TOOLBAR SUPPORT__________________________________________________________________________________
 
@@ -105,6 +142,18 @@ public class BaseActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return false;
+    }
+
+    /**
+     * Activa el soporte de la barra de herramientas
+     * <p>
+     * [EN]  Enable toolbar support
+     *
+     * @return verdadero si se debe de incluir barra de herramientas
+     * [EN]  true if toolbar should be included
+     */
+    public boolean activeToolbarSupport() {
+        return true;
     }
 
     //LOADING DIALOGS_____________________________________________________________________________________
