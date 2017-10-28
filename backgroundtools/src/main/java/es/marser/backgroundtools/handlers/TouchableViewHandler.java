@@ -23,7 +23,7 @@ import android.view.View;
  *         <p>
  */
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings("ALL")
 public interface TouchableViewHandler<T> {
     /**
      * Manejador de eventos de pulsación sencilla en elementos pulsables

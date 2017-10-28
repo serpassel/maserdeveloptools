@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.fragments;
+package es.marser.backgroundtools.containers.fragments;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.fragments.base.BaseFragment;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;

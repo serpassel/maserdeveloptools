@@ -8,6 +8,7 @@ package es.marser.backgroundtools.enums;
  *         [EN]  Enumeration for Event Results
  */
 
+@SuppressWarnings("ALL")
 public enum EventsExtras {
     /*Posición de desplazamiento [EN]  Position of displacement*/
     SLIDE_RIGHT,

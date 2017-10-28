@@ -26,7 +26,7 @@ import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup
  *         <p>
  */
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings("ALL")
 public interface ComplexTouchabeViewHandler<X extends ExpandableGroup<T>, T extends Parcelable> {
     /**
      * * Manejador de eventos de pulsación sencilla en elementos pulsables

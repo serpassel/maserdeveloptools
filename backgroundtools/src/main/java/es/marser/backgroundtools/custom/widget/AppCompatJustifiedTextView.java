@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.widget;
+package es.marser.backgroundtools.custom.widget;
 
 import android.content.Context;
 import android.graphics.Canvas;

@@ -1,75 +1,103 @@
-package es.marser.backgroundtools.fragments.base;
+package es.marser.backgroundtools.containers.activitys.base;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.VisibleForTesting;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.activitys.base.BaseActivity;
-import es.marser.backgroundtools.enums.EventsExtras;
-import es.marser.backgroundtools.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
+import es.marser.backgroundtools.enums.DialogIcon;
 
 /**
  * @author sergio
- *         Created by Sergio on 18/03/2017.
- *         Base de construcción de Fragments
+ *         Base de construcción de Actividades
  *         <ul>
- *         <il>Argumentos</il>
- *         <il>Eventos de actividad</il>
- *         <il>Métodos para fragments adjuntos en instancias de BaseActivity</il>
+ *         <il>Soporte de Toolbar</il>
+ *         <il>Dialogos de carga</il>
+ *         <il>Estado de teclado</il>
+ *         <il>Soporte para fragments</il>
+ *         <il>Chequeador de permisos</il>
  *         </ul>
  *         <p>
- *         [EN]  Fragments building base
+ *         [EN]  Activities building base
  *         <ul>
- *         <il>Arguments</il>
- *         <il>Events of activity</il>
- *         <il>Methods for Attachment Fragments on BaseActivity Instances</il>
+ *         <il>Toolbar support</il>
+ *         <il>Loading Dialogs</il>
+ *         <il>Keyboard status</il>
+ *         <il>Support for fragments</il>
+ *         <il>Permit Checker</il>
+ *         </ul>
+ *         <p>
+ *         <ul>
+ *         <il>CALENDAR</il>
+ *         <il>CAMERA</il>
+ *         <il>CONTACTS</il>
+ *         <il>LOCATION</il>
+ *         <il>MICROPHONE</il>
+ *         <il>PHONE</il>
+ *         <il>SENSORS</il>
+ *         <il>SMS</il>
+ *         <il>STORAGE</il>
+ *         <il>NETWORK</il>
  *         </ul>
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseActivity extends AppCompatActivity {
 
-    protected FragmentAction fragmentAction;
+    protected Result<Boolean> checkresult;
+    protected Toolbar toolbar;
 
+    @VisibleForTesting
+    public CustomInterminateBinDialog mProgressDialog;
 
-    //ARGUMENTS________________________________________________________________________________________
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        resolveArgs();
-        instaceVariables();
-        return super.onCreateView(inflater, container, savedInstanceState);
+    public void onStop() {
+        super.onStop();
+        hideProgressDialog();
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initActivityCreated();
+    protected void onResume() {
+        super.onResume();
+        hideInputMode();
+    }
+
+    @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        /*Instanciar variables [EN]  Instanciar variables*/
+        instaceVariables();
+        /*Activar toolbar [EN]  Activar toolbar*/
+        if (activeToolbarSupport()) {
+            initToolbar();
+        }
     }
 
     /**
-     * Traslado de argumentos a variables
+     * Métodos pre-inicio de variables
      * <p>
-     * [EN]  Moving arguments to variables
+     * [EN]  Pre-start methods of variables
      */
-    @SuppressWarnings("EmptyMethod")
-    protected void resolveArgs() {
-    }
+    protected abstract void preinstaceVariables();
 
     /**
      * Instanciar variables
@@ -79,51 +107,168 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void instaceVariables();
 
     /**
-     * Utilizar para configurar datos. Se aplica cuando el fragment ha sido cargado por la actividad
+     * Métodos post-inicio de variables
      * <p>
-     * [EN]  Use to configure data.  Applies when the fragment has been loaded by the activity
+     * [EN]  Post-start methods of variables
      */
-    protected abstract void initActivityCreated();
+    protected abstract void postinstaceVariables();
 
-    /**
-     * Definición de la vista del fragment. Valor por defecto {@link R.layout#mvc_frag_simple_list}
-     * <p>
-     * [EN]  Fragment view definition
-     *
-     * @return R.layout.XXXXX Vista del fragment [EN]  View of the fragment
-     */
-    protected abstract int getFragmentLayout();
-
-    /**
-     * Método para carga datos en el adapter
-     * <p>
-     * [EN]  Method for loading data into the adapter
-     */
-    protected abstract void load();
-
-    //EVENTS OF ACTIVITY___________________________________________________________________________________
-
-    /**
-     * Llamado cuando se lanza una actividad en espera de su resultado
-     * <p>
-     * [EN]  Called when an activity is launched waiting for its result
-     *
-     * @param requestCode Código identificador del envío [EN]  Shipping ID
-     * @param resultCode  Código del resultado [EN]  Result code
-     * @param data        datos de resultado [EN]  result data
-     */
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    protected int getActivityLayout() {
+        return R.layout.ac_frag_toolbar;
     }
 
-    //METHODS FOR ATTACHMENT FRAGMENTS ON BASEACTIVITY INSTANCES______________________________________
+    //TOOLBAR SUPPORT__________________________________________________________________________________
 
-    protected BaseActivity getBaseActivity() {
-        if (getActivity() != null && getActivity() instanceof BaseActivity) {
-            return (BaseActivity) getActivity();
+    /**
+     * Método para inicio de la barra de herramientas
+     * <p>
+     * [EN]  Method for starting the toolbar
+     */
+    protected void initToolbar() {
+
+        toolbar = findViewById(R.id.app_toolbar);
+        toolbar.setTitle("");
+
+        setSupportActionBar(toolbar);
+
+        ActionBar actionBar = getSupportActionBar();
+
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        return null;
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return false;
+    }
+
+    /**
+     * Activa el soporte de la barra de herramientas
+     * <p>
+     * [EN]  Enable toolbar support
+     *
+     * @return verdadero si se debe de incluir barra de herramientas
+     * [EN]  true if toolbar should be included
+     */
+    public boolean activeToolbarSupport() {
+        return true;
+    }
+
+    //LOADING DIALOGS_____________________________________________________________________________________
+
+    /**
+     * Muestra un cuadro de dialogo de carga de datos
+     * <p>
+     * [EN]  Displays a data load dialog box
+     */
+    public void showProgressDialog() {
+        if (mProgressDialog == null) {
+            mProgressDialog = CustomInterminateBinDialog
+                    .newInstace(this, CustomInterminateBinDialog
+                            .createBundle(DialogIcon.LOADING_ICON));
+            mProgressDialog.setBody("Espere...");
+        }
+        mProgressDialog.show();
+    }
+
+    /**
+     * Oculta el cuadro de dialogo de carga de datos
+     * <p>
+     * [EN]  Hide the data load dialog box
+     */
+    public void hideProgressDialog() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()) {
+            mProgressDialog.close();
+        }
+    }
+
+
+    //KEYBOARD STATUS____________________________________________________________________________
+
+    /**
+     * Mantiene el teclado oculto por defecto
+     * <p>
+     * [EN]  Keeps the keyboard hidden by default
+     */
+    public void hideInputMode() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+
+    /**
+     * Mantiene el teclado visible por defecto
+     * <p>
+     * [EN]  Keeps the keyboard visible by default
+     */
+    public void showInputMode() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
+
+    /**
+     * Oculta el teclado
+     * <p>
+     * [EN]  Hide keyboard
+     *
+     * @param context contexto de aplicación [EN]  application context
+     */
+    public static void forceHiddeKeyboard(Activity context) {
+        if (context == null || context.isFinishing()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                if (context != null) {
+                    context.isDestroyed();
+                }
+                return;
+            }
+            return;
+        }
+        View view = context.getCurrentFocus();
+        if (view != null) {
+            view.clearFocus();
+            InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
+            if (imm != null) {
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        }
+    }
+
+
+    //SUPPORT FOR FRAGMENTS______________________________________________________________________
+
+    /**
+     * Inserta un fragment
+     * <p>
+     * [EN]  Insert a fragment it
+     *
+     * @param fragment {@link android.support.v4.app.Fragment}
+     */
+    protected void insertFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        if (fragment != null && fragmentManager != null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.pager, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    /**
+     * Reemplaza un fragment
+     * <p>
+     * [EN]  Replaces a fragment
+     *
+     * @param fragment {@link android.support.v4.app.Fragment}
+     */
+    protected void replaceFragment(Fragment fragment) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragment != null && fragmentManager != null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.pager, fragment);
+            fragmentTransaction.commit();
+        }
+    }
+
+    //PERMISSION CHECKER____________________________________________________________________________________
 
     /**
      * Chequear un permiso o solicitarlo
@@ -134,14 +279,21 @@ public abstract class BaseFragment extends Fragment {
      * @param checkresult Variable de resultado [EN]  Result variable
      */
     public void checkPermission(@NonNull String permit, @NonNull Result<Boolean> checkresult) {
-        if (getBaseActivity() != null) {
-            getBaseActivity().checkPermission(permit, checkresult);
+        this.checkresult = checkresult;
+
+        if (checkPermission(this, permit)) {
+            checkresult.onResult(true);
         } else {
-            throw new ClassCastException("The activity on which the fragment is attached must be a instance of BaseActivity");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                requestPermissions(new String[]
+                        {permit}, 1001);
+            } else {
+                checkresult.onResult(false);
+            }
         }
     }
 
-      /*CALENDAR*/
+    /*CALENDAR*/
 
     /**
      * Permite que una aplicación lea los datos del calendario de los usuarios
@@ -484,83 +636,15 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    /**
-     * Muestra un cuadro de dialogo de carga de datos
-     * <p>
-     * [EN]  Displays a data load dialog box
-     */
-    public void showProgressDialog() {
-        if (getBaseActivity() != null) {
-            getBaseActivity().showProgressDialog();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (this.checkresult != null) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                this.checkresult.onResult(true);
+            } else {
+                this.checkresult.onResult(false);
+            }
         }
-    }
-
-    /**
-     * Oculta el cuadro de dialogo de carga de datos
-     * <p>
-     * [EN]  Hide the data load dialog box
-     */
-    public void hideProgressDialog() {
-        if (getBaseActivity() != null) {
-            getBaseActivity().hideProgressDialog();
-        }
-    }
-
-
-    /**
-     * Animación de movimiento para fragment
-     * <p>
-     * [EN]  Motion animation for fragment
-     *
-     * @param events tipo de desplazamiento según {@link EventsExtras}
-     *               [EN]  displacement type according to {@link EventsExtras}
-     */
-    public void animLayout(EventsExtras events) {
-        View v = this.getView();
-        Animation animation;
-        switch (events) {
-            case SLIDE_RIGHT:
-                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_right);
-                break;
-            case SLIDE_LEFT:
-                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left);
-                break;
-            case SLIDE_RIGHT_END:
-                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_right_end);
-                break;
-            case SLIDE_LEFT_END:
-                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_left_end);
-                break;
-            default:
-                animation = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_right);
-                break;
-        }
-        if (v != null) {
-            v.startAnimation(animation);
-        }
-    }
-
-    //CHANGE LISTENERS IN FRAGMENTS_____________________________________________________________________
-
-    /**
-     * Establecer el oyente de tipo {@link FragmentAction}
-     * <p>
-     * [EN]  Set type listener {@link FragmentAction}
-     *
-     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
-     */
-    public void setFragmentAction(FragmentAction fragmentAction) {
-        this.fragmentAction = fragmentAction;
-    }
-
-    /**
-     * Elimina el oyente de acciones de fragment
-     * <p>
-     * [EN]  Delete the listener of fragment actions
-     *
-     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
-     */
-    public void removeFragmentAction(FragmentAction fragmentAction) {
-        this.fragmentAction = fragmentAction;
     }
 }

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.animations;
+package es.marser.backgroundtools.containers.activitys.animations;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;

@@ -1,8 +1,9 @@
-package es.marser.backgroundtools.fragments;
+package es.marser.backgroundtools.containers.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -10,25 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import es.marser.backgroundtools.BR;
-import es.marser.backgroundtools.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.ViewHandler;
+
 
 /**
  * @author sergio
- *         Created by Sergio on 05/04/2017.
- *         Base de fragment para un único modelo con MVP
+ *         Created by Sergio on 06/04/2017.
+ *         Base de construcción de fragments con lista y cabecera de objetos enlazados
  *         <p>
- *         [EN]  Fragment basis for a single model with MVP
+ *         [EN]  Basis of constructing fragments with list and header of linked objects
+ *         <p>
  *         <ul>
  *         <il>Instantiate variables</il>
  *         <il>Link Variables</il>
  *         <il>Definition of interfaces</il>
  *         </ul>
  */
-@SuppressWarnings("unused")
-public abstract class BaseFragmentBinModel<T> extends BaseFragment implements ViewHandler<T> {
 
-    protected ViewDataBinding viewDataBinding;
+@SuppressWarnings("unused")
+public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends Parcelable>
+        extends BaseFragmentBinList<X>
+        implements ViewHandler<T> {
+
+    private ViewDataBinding viewDataBinding;
     private T model;
 
     @Override
@@ -69,7 +74,6 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
      */
     protected @NonNull
     abstract T getNewModelInstance();
-
 
     //LINK VARIABLES______________________________________________________________________________________
 
@@ -121,7 +125,7 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
         return model;
     }
 
-    //DEFINITION OF INTERFACES_____________________________________________________________________________
+//DEFINITION OF INTERFACES_____________________________________________________________________________
     /*{@link ViewHandler}*/
     @Override
     public void onClick(View v, T item) {
@@ -130,7 +134,6 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
 
     @Override
     public boolean onLongClick(View v, T item) {
-        return true;
+        return false;
     }
-
 }

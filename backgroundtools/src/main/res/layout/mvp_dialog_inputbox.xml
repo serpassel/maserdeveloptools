@@ -73,7 +73,7 @@
                 android:layout_margin="?attr/box_default_hight_margin"
                 android:orientation="vertical">
 
-                <es.marser.backgroundtools.widget.AppCompatJustifiedTextView
+                <es.marser.backgroundtools.custom.widget.AppCompatJustifiedTextView
                     style="@style/bt_body_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -20,7 +20,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 
 import es.marser.async.DataUploaderTask;
-import es.marser.backgroundtools.toast.Launch_toast;
+import es.marser.backgroundtools.dialogs.toast.Launch_toast;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
@@ -57,7 +57,7 @@ import es.marser.tools.TextTools;
  *         /<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
  */
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public abstract class FilePathUtil {
     public static final String MIME_TYPE_EXCEL = "application/vnd.ms-excel";
     public static final String MIME_TYPE_WORD = "application/vnd.ms-word";

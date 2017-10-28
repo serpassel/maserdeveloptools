@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.base;
+package es.marser.backgroundtools.containers.activitys.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
  *         [EN]  MVP design pattern activity creation base
  */
 
+@SuppressWarnings("ALL")
 public abstract class BaseBinActivity extends BaseActivity {
     /*Variable de presentador de vistas [EN]  View Presenter Variable*/
     protected ViewDataBinding viewDataBinding;

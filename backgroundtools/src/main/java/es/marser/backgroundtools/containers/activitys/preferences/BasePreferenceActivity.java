@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.preferences;
+package es.marser.backgroundtools.containers.activitys.preferences;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -8,7 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.activitys.base.BaseActivity;
+import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 
 
 /**

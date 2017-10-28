@@ -1,10 +1,10 @@
-package es.marser.backgroundtools.activitys.base;
+package es.marser.backgroundtools.containers.activitys.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.fragments.base.BaseFragment;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 
 /**
  * @author sergio

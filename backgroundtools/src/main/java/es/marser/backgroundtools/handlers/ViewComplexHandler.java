@@ -13,7 +13,7 @@ import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup
  *         [EN]  Nested view click events in a list of expandable elements
  */
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings("ALL")
 public interface ViewComplexHandler<X extends ExpandableGroup<T>, T extends Parcelable> {
 
     /**

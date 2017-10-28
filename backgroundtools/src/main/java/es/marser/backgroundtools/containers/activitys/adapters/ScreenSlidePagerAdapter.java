@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.adapters;
+package es.marser.backgroundtools.containers.activitys.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

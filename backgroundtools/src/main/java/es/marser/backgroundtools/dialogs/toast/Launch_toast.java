@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.toast;
+package es.marser.backgroundtools.dialogs.toast;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -32,7 +32,7 @@ import es.marser.tools.TextTools;
  *         }
  */
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public class Launch_toast {
 
     private static void launchToast(Context context, DialogModel model) {

@@ -1,11 +1,11 @@
-package es.marser.backgroundtools.activitys.base;
+package es.marser.backgroundtools.containers.activitys.base;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.activitys.adapters.ScreenSlidePagerAdapter;
-import es.marser.backgroundtools.activitys.animations.DepthPageTransformer;
+import es.marser.backgroundtools.containers.activitys.adapters.ScreenSlidePagerAdapter;
+import es.marser.backgroundtools.containers.activitys.animations.DepthPageTransformer;
 
 /**
  * @author sergio
@@ -15,6 +15,7 @@ import es.marser.backgroundtools.activitys.animations.DepthPageTransformer;
  *         [EN]  Activity base with fragments page adapter
  */
 
+@SuppressWarnings("ALL")
 public abstract class BaseActivityViewPager extends BaseActivity {
     protected ViewPager mPager;
     protected TabLayout tabLayout;

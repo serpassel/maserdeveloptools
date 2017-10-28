@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.activitys.animations;
+package es.marser.backgroundtools.containers.activitys.animations;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -11,6 +11,7 @@ import android.view.View;
  *         [EN]  Transition of adapters for ViewPager
  */
 
+@SuppressWarnings("ALL")
 public class ZoomOutPageTransformer implements ViewPager.PageTransformer {
     private static final float MIN_SCALE = 0.85f;
     private static final float MIN_ALPHA = 0.5f;
