@@ -23,7 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.progress.CustomInterminateBinDialog;
+import es.marser.backgroundtools.dialogs.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
 
 /**
@@ -67,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected Toolbar toolbar;
 
     @VisibleForTesting
-    public CustomInterminateBinDialog mProgressDialog;
+    public BinIndeterminateDialog mProgressDialog;
 
     @Override
     public void onStop() {
@@ -165,8 +165,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = CustomInterminateBinDialog
-                    .newInstace(this, CustomInterminateBinDialog
+            mProgressDialog = BinIndeterminateDialog
+                    .newInstace(this, BinIndeterminateDialog
                             .createBundle(DialogIcon.LOADING_ICON));
             mProgressDialog.setBody("Espere...");
         }

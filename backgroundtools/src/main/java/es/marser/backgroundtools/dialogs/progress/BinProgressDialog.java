@@ -8,7 +8,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.MathTools;
-import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinModel;
 
 /**
  * @author sergio
@@ -16,11 +16,11 @@ import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
  *         Cuadro de progreso personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Progress Box
- * @see es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog
+ * @see BaseDialogBinModel
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class CustomProgressBinDialog extends BaseCustomBinDialog {
+public class BinProgressDialog extends BaseDialogBinModel {
 
     private DialogProgressModel source;
 
@@ -33,8 +33,8 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @return nueva instancia
      * @see #createBundle(String)
      */
-    public static CustomProgressBinDialog newInstace(Context context, Bundle bundle) {
-        CustomProgressBinDialog instance = new CustomProgressBinDialog();
+    public static BinProgressDialog newInstace(Context context, Bundle bundle) {
+        BinProgressDialog instance = new BinProgressDialog();
         instance.setContext(context);
         if (bundle == null) {
             bundle = createBundle(DialogIcon.DEFAULT_ICON);
@@ -84,7 +84,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @param max valor máximo [EN]  maximum value
      * @return this
      */
-    public CustomProgressBinDialog setMax(Integer max) {
+    public BinProgressDialog setMax(Integer max) {
         if (max == null || max < 0) {
             indeterminate(true);
         } else {
@@ -100,7 +100,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @param value verdadero indeterminada [EN]  true indeterminate
      * @return this
      */
-    public CustomProgressBinDialog indeterminate(boolean value) {
+    public BinProgressDialog indeterminate(boolean value) {
         source.indeterminate.set(value);
         return this;
     }
@@ -113,7 +113,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @param value valor absoluto del progreso [EN]  absolute value of progress
      * @return this
      */
-    public CustomProgressBinDialog setProgress(Integer value) {
+    public BinProgressDialog setProgress(Integer value) {
         if (!source.indeterminate.get()) {
             if (value != null) {
                 source.progress.set(String.valueOf(value));
@@ -131,7 +131,8 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @param value valor a incrementar el progreso [EN]  value to increase progress
      * @return this
      */
-    public CustomProgressBinDialog increment(Integer value) {
+    @SuppressWarnings("SameParameterValue")
+    public BinProgressDialog increment(Integer value) {
 
         if (value != null) {
             int actual = MathTools.parseInt(source.progress.get()) + value;
@@ -150,7 +151,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      *
      * @return this
      */
-    public CustomProgressBinDialog autoIncrement() {
+    public BinProgressDialog autoIncrement() {
         increment(1);
         return this;
     }
@@ -163,7 +164,7 @@ public class CustomProgressBinDialog extends BaseCustomBinDialog {
      * @param error Texto de error a mostrar [EN]  Error Text to Display
      * @return this
      */
-    public CustomProgressBinDialog addError(String error) {
+    public BinProgressDialog addError(String error) {
         String in = source.error.get() + error + "\n";
         source.error.set(in);
         return this;

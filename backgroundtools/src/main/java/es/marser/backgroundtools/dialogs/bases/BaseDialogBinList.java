@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.fragments;
+package es.marser.backgroundtools.dialogs.bases;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
@@ -18,34 +17,18 @@ import es.marser.backgroundtools.objectslistables.simple.controller.SelectionCon
 
 /**
  * @author sergio
- *         Created by Sergio on 31/03/2017.
- *         Base de construcción de fragments con lista de objetos enlazados
- *         <ul>
- *         <il>Inicio de variables</il>
- *         <il>Métodos abstractos de configuración</il>
- *         <il>Manejadores de eventos de las vistas</il>
- *         <il>Control de elementos</il>
- *         <il>Oyentes del cambio en fragments</il>
- *         </ul>
+ *         Created by sergio on 29/10/17.
+ *         Base de construccion de dialogos de lista
  *         <p>
- *         [EN]  Fragments building base with list of linked objects
- *         <ul>
- *         <il>Variable start</il>
- *         <il>Abstract Methods of Configuration</il>
- *         <il>View event handlers</il>
- *         <il>Control of items</il>
- *         <il>Change listeners in fragments</il>
- *         <il>Item Decorator</il>
- *         </ul>
+ *         [EN]  Basis of constructing list dialogs
  */
 
-@SuppressWarnings({"JavaDoc", "unused"})
-public abstract class BaseFragmentBinList<T>
-        extends BaseFragment
+@SuppressWarnings("unused")
+public abstract class BaseDialogBinList<T>
+        extends BaseDialogBinModel
         implements
         TouchableViewHandler<T>,
         ViewItemHandler<T> {
-
 
     protected RecyclerView recyclerView;
     protected BaseListAdapter<T> adapter;
@@ -54,8 +37,8 @@ public abstract class BaseFragmentBinList<T>
 
     //VARIABLE START____________________________________________________________________________________
     @Override
-    protected void initActivityCreated() {
-        lastScroll = null;
+    protected void postBuild() {
+        super.postBuild();
         recyclerView = getActivity().findViewById(getRecyclerviewId());
         recyclerView.setHasFixedSize(hasFixedSize());
         recyclerView.setLayoutManager(getLayoutManager());
@@ -74,11 +57,6 @@ public abstract class BaseFragmentBinList<T>
      * @return R.layout.XXXX Vista de los items [EN]  View items
      */
     protected abstract int getHolderLayout();
-
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.mvc_frag_simple_list;
-    }
 
     /*Vistas de componentes [EN]  Component views*/
 
@@ -150,17 +128,17 @@ public abstract class BaseFragmentBinList<T>
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {
-                return BaseFragmentBinList.this;
+                return BaseDialogBinList.this;
             }
 
             @Override
             public ViewItemHandler<T> getItemHandler() {
-                return BaseFragmentBinList.this;
+                return BaseDialogBinList.this;
             }
 
             @Override
             protected int getHolderLayout() {
-                return BaseFragmentBinList.this.getHolderLayout();
+                return BaseDialogBinList.this.getHolderLayout();
             }
         };
         recyclerView.setAdapter(adapter);
@@ -346,7 +324,7 @@ public abstract class BaseFragmentBinList<T>
      * <p>
      * [EN]  Position the view in the indicated position
      *
-     * @param position
+     * @param position posición en el adapter
      */
     public void scrollToId(int position) {
         if (position > -1 && position < getItemCount()) {
@@ -404,6 +382,7 @@ public abstract class BaseFragmentBinList<T>
     }
 
 //ITEM DECORATOR___________________________________________________________________________________
+
     /**
      * Añadir un separador de elementos
      * <p>
@@ -426,5 +405,4 @@ public abstract class BaseFragmentBinList<T>
     protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
         recyclerView.addItemDecoration(itemDecoration, index);
     }
-
 }

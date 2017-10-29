@@ -7,7 +7,7 @@ import android.view.View;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 
-import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinModel;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -24,8 +24,8 @@ import es.marser.tools.TextTools;
  *         [EN]  Notifications dialogs
  */
 
-@SuppressWarnings("unused")
-public class NotificationDialog extends BaseCustomBinDialog implements WindowAction {
+@SuppressWarnings({"unused", "SameParameterValue"})
+public class NotificationDialogBinModel extends BaseDialogBinModel implements WindowAction {
 
     /**
      * Nombre del buzón de preferencias para llaves de acceso a variables de preferencias de dialogos
@@ -51,7 +51,7 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
      * @param result Variable de resultados [EN]  Variable of results
      * @return nueva instancia [EN]  new instance
      */
-    public static NotificationDialog newInstace(Context context, Bundle bundle) {
+    public static NotificationDialogBinModel newInstace(Context context, Bundle bundle) {
         return newInstace(context, bundle, null);
     }
 
@@ -64,8 +64,8 @@ public class NotificationDialog extends BaseCustomBinDialog implements WindowAct
      * @param result Variable de resultados [EN]  Variable of results
      * @return nueva instancia [EN]  new instance
      */
-    public static NotificationDialog newInstace(Context context, Bundle bundle, OnResult<Void> result) {
-        NotificationDialog instance = new NotificationDialog();
+    public static NotificationDialogBinModel newInstace(Context context, Bundle bundle, OnResult<Void> result) {
+        NotificationDialogBinModel instance = new NotificationDialogBinModel();
         instance.setContext(context);
         if (bundle == null) {
             bundle = createBundle(DialogIcon.DEFAULT_ICON,

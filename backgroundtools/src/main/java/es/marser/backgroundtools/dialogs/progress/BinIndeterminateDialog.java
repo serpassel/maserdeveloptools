@@ -6,7 +6,7 @@ import android.util.Log;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinModel;
 import es.marser.backgroundtools.dialogs.model.DialogProgressModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -17,11 +17,11 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         Cuadro de progreso indeterminado personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Indeterminate Progress Chart
- * @see es.marser.backgroundtools.dialogs.bases.BaseCustomBinDialog
+ * @see BaseDialogBinModel
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class CustomInterminateBinDialog extends BaseCustomBinDialog {
+public class BinIndeterminateDialog extends BaseDialogBinModel {
     private DialogProgressModel source;
 
     /**
@@ -34,8 +34,8 @@ public class CustomInterminateBinDialog extends BaseCustomBinDialog {
      * @see #createBundle(String)
      */
 
-    public static CustomInterminateBinDialog newInstace(Context context, Bundle bundle) {
-        CustomInterminateBinDialog instance = new CustomInterminateBinDialog();
+    public static BinIndeterminateDialog newInstace(Context context, Bundle bundle) {
+        BinIndeterminateDialog instance = new BinIndeterminateDialog();
         instance.setContext(context);
         if (bundle == null) {
             bundle = createBundle(DialogIcon.DEFAULT_ICON);

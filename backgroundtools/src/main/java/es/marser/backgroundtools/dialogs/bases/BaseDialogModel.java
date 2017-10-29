@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseCustomDialog extends BaseDialog {
+public abstract class BaseDialogModel extends BaseDialog {
 
     @Override
     protected void createDialog() {
