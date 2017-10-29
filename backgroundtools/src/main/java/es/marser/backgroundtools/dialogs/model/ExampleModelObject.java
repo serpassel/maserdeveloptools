@@ -13,7 +13,7 @@ import es.marser.backgroundtools.BR;
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class ExampleModelObject extends BaseObservable implements Parcelable {
+public class    ExampleModelObject extends BaseObservable implements Parcelable {
 
     private String name;
     private String subname;
