@@ -32,5 +32,9 @@ public enum DialogExtras {
     NULL_ACTION,
     EDIT_ACTION,
     ADD_ACTION,
-    INSERT_ACTION
+    INSERT_ACTION,
+    /*Mostrar ocultos [EN]  Show hidden*/
+    HIDDEN_EXTRAS,
+    /*File args*/
+    FILTER_EXTRAS
 }

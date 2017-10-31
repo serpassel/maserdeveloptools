@@ -33,7 +33,7 @@ public class BinProgressDialog extends BaseDialogBinModel {
      * @return nueva instancia
      * @see #createBundle(String)
      */
-    public static BinProgressDialog newInstace(Context context, Bundle bundle) {
+    public static BinProgressDialog newInstance(Context context, Bundle bundle) {
         BinProgressDialog instance = new BinProgressDialog();
         instance.setContext(context);
         if (bundle == null) {

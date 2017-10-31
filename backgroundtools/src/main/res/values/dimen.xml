@@ -11,4 +11,8 @@
     <dimen name="ms_image">20dp</dimen>
     <dimen name="s_image">16dp</dimen>
 
+    <dimen name="m_radius">3dp</dimen>
+    <dimen name="m_padding">2dp</dimen>
+    <dimen name="m_stroke">1dp</dimen>
+
 </resources>

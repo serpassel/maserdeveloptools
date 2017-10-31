@@ -9,7 +9,9 @@ import android.os.Parcelable;
 import java.io.File;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
+
 
 /**
  * @author sergio
@@ -42,6 +44,10 @@ public class FileModel extends BaseObservable implements Parcelable {
     public void setFile(File file) {
         this.file = file;
         notifyPropertyChanged(BR.file);
+        notifyPropertyChanged(BR.relativePath);
+        notifyPropertyChanged(BR.name);
+        notifyPropertyChanged(BR.ext);
+        notifyPropertyChanged(BR.fileIcon);
     }
 
     @Bindable
@@ -77,7 +83,116 @@ public class FileModel extends BaseObservable implements Parcelable {
         return rute.substring(rute.indexOf(FilePathUtil.getAndroidPath().toString()));
     }
 
+    @Bindable
+    public DialogIcon getFileIcon() {
+        if(isDirectory()){
+            return DialogIcon.FOLDER_ICON;
+        }
+        switch (getExt().toLowerCase()) {
+            case "bc3":
+                return DialogIcon.BC3_ICON;
+            case "ods":
+            case "xls":
+            case "xlsx":
+            case "xlsm":
+            case "xltx":
+            case "xltm":
+            case "xlam":
+                return DialogIcon.EXCEL_ICON;
+            case "pdf":
+                return DialogIcon.PDF_ICON;
+            case "jpg":
+            case "jpeg":
+                return DialogIcon.JPG_ICON;
+            case "png":
+                return DialogIcon.PNG_ICON;
+            case "wpd":
+            case "wps":
+            case "doc":
+            case "docm":
+            case "docx":
+            case "dot":
+            case "dotx":
+            case "dotm":
+                return DialogIcon.DOC_ICON;
+            case "htm":
+            case "html":
+                return DialogIcon.HTML_ICON;
+            case "ppt":
+            case "pptx":
+            case "pptm":
+            case "potx":
+            case "pot":
+            case "potm":
+            case "ppam":
+            case "pps":
+            case "ppsx":
+            case "ppsm":
+                return DialogIcon.PPT_ICON;
+            case "xml":
+                return DialogIcon.XML_ICON;
+            case "zip":
+            case "gzip":
+                return DialogIcon.ZIP_ICON;
+            case "jar":
+            case "rar":
+            case "tar":
+            case "tgz":
+            case "ace":
+            case "sitx":
+            case "7z":
+            case "gz":
+                return DialogIcon.PACKED_ICON;
+            case "mp3":
+                return DialogIcon.MP3_ICON;
+            case "txt":
+                return DialogIcon.TXT_ICON;
+            case "json":
+                return DialogIcon.JSON_ICON;
+            case "csv":
+                return DialogIcon.CSV_ICON;
+            case "psd":
+                return DialogIcon.PSD_ICON;
+            case "mp4":
+            case "mkv":
+            case "mpg":
+            case "mpeg":
+                return DialogIcon.MP4_ICON;
+            case "avi":
+            case "divx":
+            case "mov":
+            case "rm":
+            case "3gp":
+            case "3g2":
+            case "3gpp":
+            case "asf":
+                return DialogIcon.AVI_ICON;
+            case "rtf":
+                return DialogIcon.RTF_ICON;
+            case "dwg":
+            case "dxf":
+            return DialogIcon.DWG_ICON;
+            case "css":
+            return DialogIcon.CSS_ICON;
+            case "js":
+            return DialogIcon.JS_ICON;
+            case "ai":
+                return DialogIcon.AI_ICON;
+            case "exe":
+                return DialogIcon.EXE_ICON;
+            case "iso":
+                return DialogIcon.ISO_ICON;
+            case "dbf":
+            return DialogIcon.DBF_ICON;
+            case "fla":
+            return DialogIcon.FLA_ICON;
+            default:
+                return DialogIcon.FILE_ICON;
+        }
+    }
+
     //TRANSFORMATIONS______________________________________________________________________________
+
     /**
      * Optener la Uri de un archivo
      * <p>
@@ -91,6 +206,7 @@ public class FileModel extends BaseObservable implements Parcelable {
     }
 
 //FLAGS___________________________________________________________________________________________
+
     /**
      * Comprobar si el archivo es un archivo png o jpg
      * <p>

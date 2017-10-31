@@ -4,10 +4,12 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -121,6 +123,7 @@ public abstract class BaseListAdapter<T>
 
     @Override
     public ViewHolderBinding<T> onCreateViewHolder(ViewGroup parent, int viewType) {
+      //  Log.d(LOG_TAG.TAG, "CREATE HOLDER");
        /*Recuperar inflador de vistas [EN]  Recover view inflator*/
         LayoutInflater layoutInflater = LayoutInflater.from((parent.getContext()));
         /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
@@ -131,6 +134,7 @@ public abstract class BaseListAdapter<T>
 
     @Override
     public void onBindViewHolder(ViewHolderBinding<T> holder, int position) {
+        //Log.d(LOG_TAG.TAG, "BIN HOLDER");
         /*Ajustar selección [EN]  Adjust selection*/
         holder.setSelected();
         /*Ajustar expansión [EN]  Adjust expansion*/
@@ -189,6 +193,7 @@ public abstract class BaseListAdapter<T>
 
     @Override
     public void onAllChanged() {
+       // Log.i(LOG_TAG.TAG, "Notificar cambios totales");
         notifyDataSetChanged();
     }
 

@@ -35,6 +35,8 @@
 
         <!--field box-->
         <item name="box_container">@drawable/box_container</item>
+        <!--file item-->
+        <item name="item_file_container">@drawable/item_file_container</item>
 
         <!--edittext-->
         <item name="dialogs_edittext_hint_color">@color/bt_primary_dark</item>

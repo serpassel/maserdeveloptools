@@ -51,8 +51,8 @@ public class NotificationDialogBinModel extends BaseDialogBinModel implements Wi
      * @param result Variable de resultados [EN]  Variable of results
      * @return nueva instancia [EN]  new instance
      */
-    public static NotificationDialogBinModel newInstace(Context context, Bundle bundle) {
-        return newInstace(context, bundle, null);
+    public static NotificationDialogBinModel newInstance(Context context, Bundle bundle) {
+        return newInstance(context, bundle, null);
     }
 
     /**
@@ -64,7 +64,7 @@ public class NotificationDialogBinModel extends BaseDialogBinModel implements Wi
      * @param result Variable de resultados [EN]  Variable of results
      * @return nueva instancia [EN]  new instance
      */
-    public static NotificationDialogBinModel newInstace(Context context, Bundle bundle, OnResult<Void> result) {
+    public static NotificationDialogBinModel newInstance(Context context, Bundle bundle, OnResult<Void> result) {
         NotificationDialogBinModel instance = new NotificationDialogBinModel();
         instance.setContext(context);
         if (bundle == null) {

@@ -11,6 +11,8 @@
     <string name="bt_dialog_warning_title">Advertencia</string>
     <string name="bt_dialog_help_title">Ayuda</string>
     <string name="bt_dialog_confirmation_title">Confirmación</string>
+    <string name="bt_dialog_select_title">Seleccionar</string>
+    <string name="bt_dialog_null_title"> </string>
 
     <!--Mensajes-->
     <string name="bt_dialog_dont_show_again">No volver a mostrar</string>

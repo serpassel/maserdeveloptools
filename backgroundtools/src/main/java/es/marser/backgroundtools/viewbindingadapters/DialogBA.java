@@ -153,6 +153,9 @@ public class DialogBA {
             case FLA_ICON:
                 view.setImageResource(R.drawable.ic_fla);
                 break;
+            case PACKED_ICON:
+                view.setImageResource(R.drawable.ic_packed);
+                break;
             case FILE_ICON:
                 view.setImageResource(R.drawable.ic_file);
                 break;

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <import
+            alias="v"
+            type="android.view.View" />
+
+        <import
+            alias="fpu"
+            type="es.marser.backgroundtools.systemtools.FilePathUtil" />
+
+        <!--HEADMODEL-->
+        <import type="es.marser.backgroundtools.dialogs.model.FileModel" />
+
+        <variable
+            name="headmodel"
+            type="FileModel" />
+
+        <!--HANDLERS-->
+        <import type="es.marser.backgroundtools.handlers.ViewHandler" />
+
+        <variable
+            name="handler"
+            type="ViewHandler" />
+
+        <!--DIALOGS-->
+        <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
+
+        <variable
+            name="model"
+            type="DialogModel" />
+
+        <!--FOO BUTTONS-->
+        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+
+        <variable
+            name="winaction"
+            type="WindowAction" />
+
+        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
+
+        <variable
+            name="buttonsetmodel"
+            type="ButtonsSetModel" />
+
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="?attr/dialogs_base_background_tint"
+        android:orientation="vertical">
+
+        <!--HEAD-->
+        <include
+            layout="@layout/mvp_dialog_head_title"
+            bind:model="@{model}" />
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/path_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="?attr/dialogs_default_margin"
+            android:onClick="@{(v)->handler.onClick(v, null)}"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="@dimen/lm_image"
+                android:layout_height="@dimen/lm_image"
+                app:srcCompat="@drawable/ic_folder_up" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_body_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@{model.body}"
+                android:textSize="11sp"
+                android:textColor="?attr/dialogs_body_text_color"
+                bind:ignore="SmallSp" />
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <!--LIST-->
+        <include
+            android:id="@+id/id_recyclerview"
+            layout="@layout/com_recyclerview" />
+
+        <!--FOO-->
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/bt_body_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:text="@{headmodel.name}"
+            android:textColor="?attr/dialogs_body_text_color" />
+
+        <include
+            layout="@layout/mvp_buttons_set"
+            bind:buttonsetmodel="@{buttonsetmodel}"
+            bind:winaction="@{winaction}" />
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

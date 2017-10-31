@@ -36,6 +36,7 @@ public enum DialogIcon {
     DBF_ICON,
     FLA_ICON,
     FILE_ICON,
+    PACKED_ICON,
     SEARCH_ICON,
 
     FOLDER_ICON,

@@ -8,6 +8,7 @@ import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.dialogs.edition.EditDialogBinModel;
+import es.marser.backgroundtools.dialogs.file.FileChooserDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.dialogs.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.dialogs.progress.BinProgressDialog;
@@ -28,7 +29,7 @@ import es.marser.tools.MathTools;
 public class DialogExample {
 
     public static BaseDialog indeterminateBox(Context context) {
-        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstace(context,
+        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstance(context,
                 BinIndeterminateDialog
                         .createBundle(
                                 DialogIcon.LOADING_ICON)
@@ -40,14 +41,14 @@ public class DialogExample {
     }
 
     public static BaseDialog indeterminateSpinner(Context context) {
-        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstace(context, BinIndeterminateDialog.createBundle(null));
+        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstance(context, BinIndeterminateDialog.createBundle(null));
         binDialog.show();
         return binDialog;
     }
 
     public static BaseDialog progressIndeterminateBox(Context context) {
         BinProgressDialog bar = BinProgressDialog
-                .newInstace(context,
+                .newInstance(context,
                         BinProgressDialog
                                 .createBundle(
                                         DialogIcon.EXCEL_ICON
@@ -62,7 +63,7 @@ public class DialogExample {
         String headTitle = "Leyendo xls...";
 
         BinProgressDialog bar = BinProgressDialog
-                .newInstace(context,
+                .newInstance(context,
                         BinProgressDialog
                                 .createBundle(
                                         DialogIcon.EXCEL_ICON
@@ -131,7 +132,7 @@ public class DialogExample {
     @SuppressWarnings("UnusedReturnValue")
     public static BaseDialog notificationInformation(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createInformationBundle(context, body_example)
                 );
@@ -141,7 +142,7 @@ public class DialogExample {
 
     public static BaseDialog notificationError(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createErrorBundle(context, body_example)
                 );
@@ -151,7 +152,7 @@ public class DialogExample {
 
     public static BaseDialog notificationWarning(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createWarningBundle(context, body_example)
                 );
@@ -161,7 +162,7 @@ public class DialogExample {
 
     public static BaseDialog notificationHelp(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createHelpBundle(context, body_example)
                 );
@@ -171,7 +172,7 @@ public class DialogExample {
 
     public static BaseDialog notificationConfirmation(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createConfirmationBundle(context, body_example)
                 );
@@ -181,7 +182,7 @@ public class DialogExample {
 
     public static BaseDialog notificationConfirmationKey(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createConfirmationBundle(context, body_example)
                 );
@@ -192,7 +193,7 @@ public class DialogExample {
 
     public static BaseDialog notificationOkCancelError(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createOkCancelErrorBundle(context, body_example)
                 );
@@ -202,7 +203,7 @@ public class DialogExample {
 
     public static BaseDialog notificationYesNoCancelConfirmation(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createYesNoCancelConfirmationBundle(context, body_example)
                 );
@@ -212,9 +213,20 @@ public class DialogExample {
 
     public static BaseDialog notificationDeleteRecords(Context context) {
         NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstace(
+                NotificationDialogBinModel.newInstance(
                         context,
                         NotificationDialogBinModel.createDeleteRecordsBundle(context)
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog fileSelector(Context context) {
+        FileChooserDialog dialog =
+                FileChooserDialog.newInstance(
+                        context,
+                        FileChooserDialog.createBundle(context),
+                        null
                 );
         dialog.show();
         return dialog;

@@ -8,6 +8,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
@@ -198,6 +199,13 @@ public abstract class BaseFragmentBinList<T>
 
 
     //CONTROL OF ITEMS____________________________________________________________________________
+
+    /**
+     * Método de carga de datos
+     * <p>
+     * [EN]  Data Upload Method
+     */
+    public abstract void load(FragmentAction fragmentAction);
 
     /**
      * Acceso al controlador de selección del adaptador de elementos
@@ -404,6 +412,7 @@ public abstract class BaseFragmentBinList<T>
     }
 
 //ITEM DECORATOR___________________________________________________________________________________
+
     /**
      * Añadir un separador de elementos
      * <p>

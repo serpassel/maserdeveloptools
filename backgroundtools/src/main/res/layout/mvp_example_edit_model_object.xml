@@ -8,7 +8,7 @@
         <import type="es.marser.backgroundtools.dialogs.model.ExampleModelObject" />
 
         <variable
-            name="model"
+            name="headmodel"
             type="ExampleModelObject" />
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
@@ -52,7 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{model.name != null ? model.name : @string/bt_generic_edit_head_font}"
+                android:text="@{headmodel.name != null ? headmodel.name : @string/bt_generic_edit_head_font}"
                 bind:fontText="@{@string/bt_generic_edit_head_font}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
@@ -83,7 +83,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@={model.name}"
+                        android:text="@={headmodel.name}"
                         android:textColor="?attr/dialogs_edittext_text_color" />
                 </android.support.design.widget.TextInputLayout>
 
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
-                        android:text="@={model.subname}"
+                        android:text="@={headmodel.subname}"
                         android:textColor="?attr/dialogs_edittext_text_color" />
                 </android.support.design.widget.TextInputLayout>
 

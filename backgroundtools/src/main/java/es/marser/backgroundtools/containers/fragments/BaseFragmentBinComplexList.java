@@ -9,6 +9,7 @@ import android.view.View;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
@@ -226,6 +227,12 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
 
 
     //CONTROL OF ITEMS____________________________________________________________________________
+    /**
+     * Método de carga de datos
+     * <p>
+     * [EN]  Data Upload Method
+     */
+    public abstract void load(FragmentAction fragmentAction);
 
     /**
      * Acceso al controlador de selección del adaptador de elementos

@@ -35,6 +35,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
 
     public BaseViewHolder(ViewDataBinding itemViewBindable) {
         super(itemViewBindable.getRoot());
+        this.itemViewBindable = itemViewBindable;
         this.itemView = itemViewBindable.getRoot();
 
          /*Ajuste de eventos de pulsación [EN]  Adjusting pulse events*/

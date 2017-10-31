@@ -34,7 +34,7 @@ public class BinIndeterminateDialog extends BaseDialogBinModel {
      * @see #createBundle(String)
      */
 
-    public static BinIndeterminateDialog newInstace(Context context, Bundle bundle) {
+    public static BinIndeterminateDialog newInstance(Context context, Bundle bundle) {
         BinIndeterminateDialog instance = new BinIndeterminateDialog();
         instance.setContext(context);
         if (bundle == null) {

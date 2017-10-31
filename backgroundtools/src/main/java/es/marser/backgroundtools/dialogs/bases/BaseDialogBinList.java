@@ -39,7 +39,7 @@ public abstract class BaseDialogBinList<T>
     @Override
     protected void postBuild() {
         super.postBuild();
-        recyclerView = getActivity().findViewById(getRecyclerviewId());
+        recyclerView = view.findViewById(getRecyclerviewId());
         recyclerView.setHasFixedSize(hasFixedSize());
         recyclerView.setLayoutManager(getLayoutManager());
         bindAdapter();
@@ -65,10 +65,10 @@ public abstract class BaseDialogBinList<T>
      * <p>
      * [EN]  Definition of the view of recyclerview
      *
-     * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
+     * @return R.id.xxxxxx, por defecto {@link R.id#id_recyclerview} [EN]  default {@link R.id#id_recyclerview}
      */
     protected int getRecyclerviewId() {
-        return R.id.com_recyclerview;
+        return R.id.id_recyclerview;
     }
 
     /*Configuración de recyclerview [EN]  Configuring recyclerview*/
@@ -141,6 +141,7 @@ public abstract class BaseDialogBinList<T>
                 return BaseDialogBinList.this.getHolderLayout();
             }
         };
+
         recyclerView.setAdapter(adapter);
 
         adapter.selectionController.setSelectionMode(getInitialSelectionMode());
@@ -176,6 +177,13 @@ public abstract class BaseDialogBinList<T>
 
 
     //CONTROL OF ITEMS____________________________________________________________________________
+
+    /**
+     * Método de carga de datos
+     * <p>
+     * [EN]  Data Upload Method
+     */
+    protected abstract void load(boolean result);
 
     /**
      * Acceso al controlador de selección del adaptador de elementos
@@ -405,4 +413,6 @@ public abstract class BaseDialogBinList<T>
     protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
         recyclerView.addItemDecoration(itemDecoration, index);
     }
+
+
 }

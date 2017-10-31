@@ -36,31 +36,9 @@
         foo:colorDialogBodyBackground="@{model.icon}">
 
         <!--HEAD-->
-        <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="?attr/box_default_medium_margin"
-            android:background="?attr/dialogs_head_background_tint"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/bt_dialog_notification_image_dimen"
-                android:layout_height="@dimen/bt_dialog_notification_image_dimen"
-                android:layout_margin="?attr/dialogs_default_margin"
-                bind:ignore="VectorDrawableCompat"
-                foo:iconDialog="@{model.icon}" />
-
-            <android.support.v7.widget.AppCompatTextView
-                style="@style/bt_head_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@{model.title != null ? model.title : @string/bt_dialog_notification_default_title}"
-                bind:fontText="@{@string/bt_generic_edit_head_font}" />
-
-        </android.support.v7.widget.LinearLayoutCompat>
+        <include
+            layout="@layout/mvp_dialog_head_title"
+            bind:model="@{model}" />
 
         <!--BODY-->
         <android.support.v4.widget.NestedScrollView

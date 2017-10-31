@@ -13,6 +13,11 @@
             name="item"
             type="es.marser.backgroundtools.dialogs.model.ExampleModelObject" />
 
+        <!--MODELO de objeto de datos individual [EN]  [EN]  Individual Data Object Model-->
+        <variable
+            name="headmodel"
+            type="es.marser.backgroundtools.dialogs.model.ExampleModelObject" />
+
         <!--MODELO manejador de eventos de la vista [EN]  MODEL view event handler-->
         <variable
             name="handler"

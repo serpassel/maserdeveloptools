@@ -40,5 +40,7 @@ public class DevelopTools extends AppCompatActivity {
         //DialogExample.notificationYesNoCancelConfirmation(this);
         //DialogExample.notificationDeleteRecords(this);
         //DialogExample.notificationConfirmationKey(this);
+
+        DialogExample.fileSelector(this);
     }
 }

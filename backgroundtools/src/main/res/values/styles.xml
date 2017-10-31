@@ -126,7 +126,7 @@
         <item name="android:maxHeight">20dip</item>
     </style>
 
-    <!--BASE_DIALOG UNUSED-->
+    <!--BASE_ACTIVITY_DIALOG UNUSED-->
     <style name="BaseDialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowBackground">@android:color/transparent</item>

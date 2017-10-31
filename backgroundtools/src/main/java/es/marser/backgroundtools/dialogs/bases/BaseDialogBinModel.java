@@ -6,12 +6,14 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
+import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.dialogs.model.ButtonsSetModel;
 import es.marser.backgroundtools.dialogs.model.DialogModel;
 import es.marser.backgroundtools.dialogs.model.StatusModel;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.tools.TextTools;
 
 import static es.marser.backgroundtools.enums.DialogIcon.DEFAULT_ICON;
@@ -39,7 +41,10 @@ import static es.marser.backgroundtools.enums.DialogIcon.ICON_EXTRA;
  */
 
 @SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
-public abstract class BaseDialogBinModel extends BaseDialog {
+public abstract class BaseDialogBinModel
+        extends BaseDialog
+        implements WindowAction{
+
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
 
@@ -51,6 +56,7 @@ public abstract class BaseDialogBinModel extends BaseDialog {
 
     /*Variable modelo de estado de vistas [EN]  View State Model Variable*/
     protected StatusModel statusModel;
+
 
 
     public BaseDialogBinModel() {
@@ -119,6 +125,9 @@ public abstract class BaseDialogBinModel extends BaseDialog {
      */
     protected void bindObject() {
         viewDataBinding.setVariable(BR.model, model);
+        viewDataBinding.executePendingBindings();
+
+        viewDataBinding.setVariable(BR.winaction, this);
         viewDataBinding.executePendingBindings();
 
         viewDataBinding.setVariable(BR.buttonsetmodel, buttonsSetModel);
@@ -205,5 +214,20 @@ public abstract class BaseDialogBinModel extends BaseDialog {
     public BaseDialogBinModel setBody(String msg) {
         model.body.set(TextTools.nc(msg));
         return this;
+    }
+
+    @Override
+    public void onOk(View v) {
+
+    }
+
+    @Override
+    public void onCancel(View v) {
+
+    }
+
+    @Override
+    public void onOption(View v) {
+
     }
 }

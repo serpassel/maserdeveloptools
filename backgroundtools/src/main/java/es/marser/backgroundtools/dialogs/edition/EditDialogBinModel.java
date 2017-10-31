@@ -12,7 +12,7 @@ import es.marser.backgroundtools.dialogs.bases.BaseDialogBinModel;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.handlers.ViewHandler;
-import es.marser.backgroundtools.handlers.WindowAction;
+
 import static es.marser.backgroundtools.enums.DialogExtras.ITEM_EXTRA;
 import static es.marser.backgroundtools.enums.DialogExtras.LAYOUT_EXTRA;
 import static es.marser.backgroundtools.enums.DialogExtras.NULL_ACTION;
@@ -28,10 +28,12 @@ import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
  */
 
 @SuppressWarnings("unused")
-public class EditDialogBinModel<T extends Parcelable> extends BaseDialogBinModel implements WindowAction, ViewHandler<T> {
+public class EditDialogBinModel<T extends Parcelable>
+        extends BaseDialogBinModel
+        implements ViewHandler<T> {
 
     protected OnResult<T> result;
-    protected T model;
+    protected T headmodel;
     private int layout;
 
     public static <T extends Parcelable> EditDialogBinModel newInstance(
@@ -71,23 +73,21 @@ public class EditDialogBinModel<T extends Parcelable> extends BaseDialogBinModel
 
     @Override
     protected void postBuild() {
-        if (model instanceof Editable) {
-            ((Editable) model).setEditing(true);
+        if (headmodel instanceof Editable) {
+            ((Editable) headmodel).setEditing(true);
         }
     }
 
     @Override
     public void bindObject() {
-        viewDataBinding.setVariable(BR.model, model);
-        viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.winaction, this);
+        super.bindObject();
+        viewDataBinding.setVariable(BR.headmodel, headmodel);
         viewDataBinding.executePendingBindings();
 
         viewDataBinding.setVariable(BR.handler, this);
         viewDataBinding.executePendingBindings();
 
-     }
+    }
 
     @Override
     protected int getDialogLayout() {
@@ -96,8 +96,8 @@ public class EditDialogBinModel<T extends Parcelable> extends BaseDialogBinModel
 
     @Override
     public void close() {
-        if (model instanceof Editable) {
-            ((Editable) model).setEditing(false);
+        if (headmodel instanceof Editable) {
+            ((Editable) headmodel).setEditing(false);
         }
         super.close();
     }
@@ -116,19 +116,19 @@ public class EditDialogBinModel<T extends Parcelable> extends BaseDialogBinModel
 
     @Override
     public void onOk(View v) {
-        result.onResult(DialogExtras.OK_EXTRA, model);
+        result.onResult(DialogExtras.OK_EXTRA, headmodel);
         close();
     }
 
     @Override
     public void onCancel(View v) {
-        result.onResult(DialogExtras.CANCEL_EXTRA, model);
+        result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
         close();
     }
 
     @Override
     public void onOption(View v) {
-        result.onResult(DialogExtras.OPTION_EXTRA, model);
+        result.onResult(DialogExtras.OPTION_EXTRA, headmodel);
         close();
     }
 

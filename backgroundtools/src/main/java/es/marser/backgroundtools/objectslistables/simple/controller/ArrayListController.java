@@ -1,11 +1,13 @@
 package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 /**
@@ -76,7 +78,9 @@ public class ArrayListController<T> extends ArrayList<T> {
      * @param items lista de elementos [EN]  list of elements
      */
     public void addAllItems(List<T> items) {
+       // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
         if (items != null) {
+         //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
             /*Agregar la lista de registros [EN]  Add the list of records*/
             addAll(items);
 

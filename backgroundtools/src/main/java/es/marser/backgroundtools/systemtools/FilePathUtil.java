@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.dialogs.toast.Launch_toast;
 import es.marser.tools.MathTools;
@@ -59,9 +61,6 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue"})
 public abstract class FilePathUtil {
-    public static final String MIME_TYPE_EXCEL = "application/vnd.ms-excel";
-    public static final String MIME_TYPE_WORD = "application/vnd.ms-word";
-    public static final String MIME_TYPE_PDF = "application/pdf";
 
     //EXTERNAL CARD STATUS FLAGS___________________________________________________________________________
 
@@ -135,14 +134,15 @@ public abstract class FilePathUtil {
      * @return Ruta relativa [EN]  Relative path
      */
     public static String getRelativeAppPath(String absolutedPath) {
-        if (absolutedPath == null) {
-            return "";
+        String out = "";
+        if (absolutedPath != null) {
+            
+            int index = getAndroidPath().toString().length();
+            out = (absolutedPath.length() < index || TextTools.isEmpty(absolutedPath))
+                    ? ""
+                    : absolutedPath.substring(getAndroidPath().toString().length());
         }
-        int index = getAndroidPath().toString().length();
-        if (absolutedPath.length() < index || TextTools.isEmpty(absolutedPath)) {
-            return "";
-        }
-        return absolutedPath.substring(getAndroidPath().toString().length());
+        return TextTools.isEmpty(out) ? File.separator : out;
     }
 
     /**
@@ -154,6 +154,16 @@ public abstract class FilePathUtil {
      */
     public static File getDownloadPath() {
         return Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+    }
+
+    /**
+     * Carpeta de Raíz
+     * <p>
+     *     [EN]  Root Folder
+     * @return Ruta de la carpeta raíz [EN]  Root folder path
+     */
+    public static File getRootPath(){
+        return Environment.getRootDirectory();
     }
 
     //FILE NAME HANDLING____________________________________________________________________________________
@@ -399,10 +409,18 @@ public abstract class FilePathUtil {
         }
 
         @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (taskLoadingResult != null) {
+                taskLoadingResult.onStart(null);
+            }
+        }
+
+        @Override
         protected Void doInBackground(FileLoader... params) {
             FileLoader fileLoader = params[0];
 
-            if (fileLoader != null && fileLoader.path != null) {
+            if (fileLoader != null && fileLoader.path != null && fileLoader.getPathFiles() !=null) {
 
                 for (File file : fileLoader.getPathFiles()) {
 
@@ -462,6 +480,22 @@ public abstract class FilePathUtil {
                 }
             }
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (taskLoadingResult != null) {
+                taskLoadingResult.onFinish(aVoid);
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            super.onCancelled();
+            if (taskLoadingResult != null) {
+                taskLoadingResult.onFinish(null);
+            }
+        }
     }
 
     /**
@@ -511,6 +545,11 @@ public abstract class FilePathUtil {
             if (path == null || !path.exists()) {
                 return new File[]{};
             }
+
+           File file = path.getParentFile();
+
+            Log.d(LOG_TAG.TAG, "PATH PARENT: " + (file == null));
+
             return path.isDirectory() ? path.listFiles(getFilenameFilter()) : path.getParentFile().listFiles(getFilenameFilter());
         }
 
