@@ -10,6 +10,7 @@ import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
+import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.dialogs.toast.Launch_toast;
 import es.marser.tools.MathTools;
@@ -367,8 +369,8 @@ public abstract class FilePathUtil {
      * @param filter Filter de objetos por nombre [EN]  Filter objects by name
      * @param task   Oyente de resultados [EN]  Listener results
      */
-    public static void getAsyncFiles(File path, String filter, DataUploaderTask<Void, File, Void> task) {
-        new AsyncLoadFilesPath(task).execute(new FileLoader(filter, path));
+    public static void getAsyncFiles(File path, String[] filter, DataUploaderTask<Void, File, Void> task) {
+        new AsyncLoadFilesPath(task).execute(new FileLoader(path, filter));
     }
 
     /**
@@ -380,8 +382,8 @@ public abstract class FilePathUtil {
      * @param filter Filter de objetos por nombre [EN]  Filter objects by name
      * @return Arreglo de objetos file en la ruta [EN]  Array of objects file in the path
      */
-    public static File[] getUnSyncFiles(File path, String filter) {
-        FileLoader fileLoader = new FileLoader(filter, path);
+    public static File[] getUnSyncFiles(File path, String[] filter) {
+        FileLoader fileLoader = new FileLoader(path, filter);
         return fileLoader.getPathFiles();
     }
 
@@ -504,28 +506,31 @@ public abstract class FilePathUtil {
      */
     @SuppressWarnings({"CanBeFinal", "unused"})
     public static class FileLoader implements Parcelable {
-        private String filter;
+        private String[] filter;
         private File path;
         public boolean showHidden;
 
         public FileLoader() {
-            this(null, null);
+            this(null, new String[]{});
         }
 
 
-        public FileLoader(String filter) {
-            this(filter, null);
+        public FileLoader(String... filter) {
+            this(null, filter);
         }
 
         public FileLoader(File path) {
-            this(null, path);
+            this(path, new String[]{});
         }
 
-        public FileLoader(String filter, File path) {
-            this(filter, path, false);
+        public FileLoader(File path, String... filter) {
+            this(path, false, filter);
         }
 
-        public FileLoader(String filter, File path, boolean showHidden) {
+        public FileLoader(File path, boolean showHidden, String... filter) {
+            if (filter == null) {
+                filter = new String[]{};
+            }
             this.filter = filter;
             this.path = path;
             this.showHidden = showHidden;
@@ -543,7 +548,23 @@ public abstract class FilePathUtil {
             return new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
-                    return name.contains(TextTools.nc(filter));
+                    boolean result = false;
+                    int i = 0;
+
+                    for (String s : filter) {
+                        result = name.toLowerCase().endsWith(s);
+
+                        if (result) {
+                            break;
+                        }
+                    }
+
+                    if(!result){
+                        File f =new File(dir,name);
+                        result = f.exists() && f.isDirectory();
+                    }
+                  //  Log.i(LOG_TAG.TAG, "Comprobación " + name + " " + result);
+                    return result;
                 }
             };
         }
@@ -584,14 +605,14 @@ public abstract class FilePathUtil {
         }
 
         protected FileLoader(Parcel in) {
-            filter = in.readString();
+            in.readStringArray(filter);
             showHidden = in.readByte() != 0;
             path = (File) in.readSerializable();
         }
 
         @Override
         public void writeToParcel(Parcel dest, int flags) {
-            dest.writeString(filter);
+            dest.writeStringArray(filter);
             dest.writeByte((byte) (showHidden ? 1 : 0));
             dest.writeSerializable(path);
         }

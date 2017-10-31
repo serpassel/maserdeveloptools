@@ -9,9 +9,9 @@
     <color name="bt_white">#FFFFFF</color>
 
     <!--Material Desing 700-->
-    <color name="bt_view_selected_color">#d32f2f</color>
+    <color name="bt_view_selected_color">#80f8bbd0</color>
     <!--Material Desing 700-->
-    <color name="bt_view_pressed_color">#388e3c</color>
+    <color name="bt_view_pressed_color">#33607d8b</color>
     <!--Material Desing 700-->
     <color name="bt_view_default_color">@color/bt_transparent</color>
 

@@ -48,6 +48,7 @@ public class SharedPreferenceTools {
      * @param preferences  tabla personalizada de preferencias [EN]  custom preferences table
      * @return valor sin nulos [EN]  value without nulls
      */
+    @SuppressWarnings("all")
     public static boolean getBoolean(Context context, boolean defaultValue, String preferences, String key) {
         return context.getSharedPreferences(preferences, Context.MODE_PRIVATE)
                 .getBoolean(

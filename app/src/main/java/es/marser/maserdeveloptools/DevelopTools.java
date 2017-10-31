@@ -1,6 +1,8 @@
 package es.marser.maserdeveloptools;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.multidex.MultiDex;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
@@ -48,11 +50,20 @@ public class DevelopTools extends BaseActivity {
         //DialogExample.notificationDeleteRecords(this);
         //DialogExample.notificationConfirmationKey(this);
 
+        /*
         checkReadExternalStorage(new Result<Boolean>() {
             @Override
             public void onResult(Boolean result) {
 
                     DialogExample.fileSelector(DevelopTools.this, result);
+            }
+        });
+*/
+        checkReadExternalStorage(new Result<Boolean>() {
+            @Override
+            public void onResult(Boolean result) {
+
+                DialogExample.filefilterSelector(DevelopTools.this, result);
             }
         });
     }

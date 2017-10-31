@@ -1,10 +1,8 @@
-package es.marser.backgroundtools;
+package es.marser.maserdeveloptools.backgroundtest;
 
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-
-import es.marser.backgroundtools.systemtools.UriToolsTest;
 
 /**
  * @author sergio

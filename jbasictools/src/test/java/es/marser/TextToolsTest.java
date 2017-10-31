@@ -3,6 +3,7 @@ package es.marser;
 import org.junit.Assert;
 import org.junit.Test;
 
+import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
 
 /**
@@ -10,7 +11,7 @@ import es.marser.tools.TextTools;
  *         Created by sergio on 23/09/17.
  *         Funcional de clase estática
  */
-@SuppressWarnings({"CanBeFinal", "unused","WeakerAccess"})
+@SuppressWarnings({"CanBeFinal", "unused", "WeakerAccess"})
 public class TextToolsTest {
 
     private String in = "prueba";
@@ -35,7 +36,7 @@ public class TextToolsTest {
         Assert.assertFalse(!es.marser.tools.TextTools.lastText(in, 3).equals("eba"));
         Assert.assertFalse(!es.marser.tools.TextTools.limitMarqueeText(in, 2, "...").equals("pr..."));
         Assert.assertFalse(!es.marser.tools.TextTools.limitMarqueeText(in, 10, "...").equals(in));
-        Assert.assertFalse(!es.marser.tools.TextTools.marqueeText(in, 10, ".").equals(in+"...."));
+        Assert.assertFalse(!es.marser.tools.TextTools.marqueeText(in, 10, ".").equals(in + "...."));
         Assert.assertFalse(!es.marser.tools.TextTools.firstChar(in).equals("p"));
         Assert.assertFalse(!es.marser.tools.TextTools.secondChar(in).equals("r"));
         Assert.assertEquals(3, TextTools.charOccurrences("nhj|iijj|kjijih|", TextTools.OBJECT_SEPARATOR_CHAR));
@@ -60,4 +61,14 @@ public class TextToolsTest {
         Assert.assertFalse(!es.marser.tools.TextTools.transposetArray(inarr).equals("ud|no|os|"));
     }
 
+    @Test
+    public void channel6() {
+        String brand = ", ";
+        String text = "PASS";
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < 4; ++i) {
+            builder.append(text).append(brand);
+        }
+        Assert.assertEquals(TextTools.deleteLastBrand(builder, brand),"PASS, PASS, PASS, PASS");
+    }
 }

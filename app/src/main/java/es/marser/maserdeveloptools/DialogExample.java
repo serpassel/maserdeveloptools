@@ -235,4 +235,17 @@ public class DialogExample {
         return dialog;
     }
 
+    public static BaseDialog filefilterSelector(Context context, boolean readeable) {
+
+        FileChooserDialog dialog =
+                FileChooserDialog.newInstance(
+                        context,
+                        FileChooserDialog.createBundle(context, new String[]{".bc3"}),
+                        readeable,
+                        null
+                );
+        dialog.show();
+        return dialog;
+    }
+
 }

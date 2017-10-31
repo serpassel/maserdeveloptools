@@ -28,6 +28,7 @@ public class FileModel extends BaseObservable implements Parcelable {
 
     //CONSTRUCTORS______________________________________________________________________
     public FileModel() {
+        this.file = new File("");
     }
 
     public FileModel(File file) {

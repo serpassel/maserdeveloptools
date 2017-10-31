@@ -48,6 +48,8 @@ public class FileChooserDialog
     protected boolean readablepermission;
     protected FileModel headmodel;
 
+    protected String[] filter;
+
     /**
      * Nueva instancia {@link FileChooserDialog}
      *
@@ -56,7 +58,7 @@ public class FileChooserDialog
      * @param result  Variable de resultados [EN]  Variable of results
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
-    @SuppressWarnings("NullableProblems")
+    @SuppressWarnings("All")
     public static FileChooserDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
@@ -79,21 +81,51 @@ public class FileChooserDialog
      *
      * @param icon   Icono para la barra de título [EN]  Icon for the title bar
      * @param title  Título de la barra [EN]  Title of the bar
-     * @param body   Cuerpo del mensaje [EN]  Message body
+     * @param path   Directorio de búsqueda [EN]  Search directory
      * @param ok     Texto de botón aceptar [EN]  Accept button text
      * @param cancel Texto de botón cancelar [EN]  Cancel button text
+     * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    @SuppressWarnings("NullableProblems")
-    public static Bundle createBundle(DialogIcon icon, String title, String path, String filter, String ok, String cancel) {
+    @SuppressWarnings("All")
+    public static Bundle createBundle(DialogIcon icon, String title, String path, String ok, String cancel, String[] filter) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
         bundle.putString(DialogExtras.BODY_EXTRA.name(), TextTools.nc(path));
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(filter));
+        bundle.putStringArray(DialogExtras.FILTER_EXTRAS.name(), filter);
         bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
         bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
         return bundle;
+    }
+
+    /**
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param path   Directorio de búsqueda [EN]  Search directory
+     * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
+     * @return Bundle argumentado [EN]  Bundle argued
+     */
+    public static Bundle createBundle(Context context, String path, String[] filter) {
+        return createBundle(
+                DialogIcon.SEARCH_ICON,
+                context.getResources().getString(R.string.bt_dialog_select_title),
+                path,
+                context.getResources().getString(R.string.bt_ACTION_OPEN),
+                context.getResources().getString(R.string.bt_ACTION_CANCEL), filter
+        );
+    }
+
+    /**
+     * Valores de prueba por defecto
+     * <p>
+     * [EN]  Default test values
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
+     * @return Bundle argumentado [EN]  Bundle argued
+     */
+    public static Bundle createBundle(Context context, String[] filter) {
+        return createBundle(context, FilePathUtil.getDownloadPath().getAbsolutePath(),filter);
     }
 
     /**
@@ -105,29 +137,37 @@ public class FileChooserDialog
      * @return Bundle argumentado [EN]  Bundle argued
      */
     public static Bundle createBundle(Context context) {
-        return createBundle(
-                DialogIcon.SEARCH_ICON,
-                context.getResources().getString(R.string.bt_dialog_select_title),
-                FilePathUtil.getDownloadPath().getAbsolutePath(),
-                null,
-                context.getResources().getString(R.string.bt_ACTION_OPEN),
-                context.getResources().getString(R.string.bt_ACTION_CANCEL));
+        return createBundle(context, new String[]{});
     }
 
     @Override
     public void show() {
-        if(readablepermission){
+        if (readablepermission) {
             super.show();
         }
     }
 
     @Override
     protected void preBuild() {
+        headmodel = new FileModel();
+
         model.body.set(getArguments().getString(DialogExtras.BODY_EXTRA.name(), ""));
         model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
 
         buttonsSetModel.ok_name.set(getArguments().getString(DialogExtras.OK_EXTRA.name()));
         buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
+
+        filter = getArguments().getStringArray(DialogExtras.FILTER_EXTRAS.name());
+
+        StringBuilder builder = new StringBuilder("");
+
+        if (filter != null) {
+            for (String s : filter) {
+                builder.append(s).append(", ");
+            }
+        }
+
+        model.keyname.set(TextTools.deleteLastBrand(builder, ", "));
     }
 
     @Override
@@ -176,11 +216,10 @@ public class FileChooserDialog
         final List<FileModel> directory = new ArrayList<>();
         final List<FileModel> file = new ArrayList<>();
         final Comparator<FileModel> comparator = new FileModelOrderByName();
-        String filter = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
         File path = model.body.get() != null ? new File(model.body.get()) : null;
 
-        FilePathUtil.getAsyncFiles(path, filter, new DataUploaderTask<Void, File, Void>() {
+        FilePathUtil.getAsyncFiles(path, filter != null ? filter : new String[]{}, new DataUploaderTask<Void, File, Void>() {
             @Override
             public void onStart(Void start) {
                 clear();
@@ -269,6 +308,7 @@ public class FileChooserDialog
         File path = model.body.get() != null ? new File(model.body.get()) : null;
 
         if (path != null && !path.equals(FilePathUtil.getRootPath())) {
+            headmodel.setFile(new File(""));
             model.body.set(path.getParent());
             load();
         }
@@ -288,12 +328,13 @@ public class FileChooserDialog
             /*Bajar si es directorio [EN]  Download if it is directory*/
             if (path.isDirectory()) {
 
+                headmodel.setFile(new File(""));
                 model.body.set(path.getAbsolutePath());
                 load();
 
             } else {
                 /*Fijar archivo selecionado [EN]  Set selected file*/
-                if (item.isFile() && result != null) {
+                if (item.isFile()) {
                     headmodel.setFile(item.getFile());
                 }
             }
@@ -316,7 +357,7 @@ public class FileChooserDialog
 
     /**
      * Fijar la bandera indicadora del permiso de lectura
-     * <p>
+     * <p>tring[]{}
      * [EN]  Set the flag reading permission
      *
      * @param readablepermission indicar si se dispone del permiso de lectura

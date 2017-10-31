@@ -367,7 +367,7 @@ public class TextTools {
                     cs = "";
                 }
                 /*Comprobar construcción correcta [EN]  Check correct construction*/
-                if(!searched.startsWith(cs)){
+                if (!searched.startsWith(cs)) {
 
                     cs = "";
                 }
@@ -466,6 +466,25 @@ public class TextTools {
             stringBuilder.delete(0, stringBuilder.length());
         }
     }
+
+    /**
+     * Tras una construcción de una cadena con marcadores elimina la última marca
+     * <p>
+     * [EN]  After a construction of a chain with markers eliminates the last mark
+     *
+     * @param builder StringBuilder construido [EN]  StringBuilder built
+     * @param brand   marca de separación [EN]  separation mark
+     */
+    public static String deleteLastBrand(StringBuilder builder, String brand) {
+        String out = "";
+        if (builder != null) {
+            if (brand != null && brand.length() > 0 && builder.toString().contains(brand)) {
+                out = builder.toString().substring(0, builder.toString().lastIndexOf(brand));
+            }
+        }
+        return out;
+    }
+
     //8.- Transformación vectorial______________ _________________________________________________________________________________
 //8.- Vector transformation_______________________________________________________________________________________________
 
