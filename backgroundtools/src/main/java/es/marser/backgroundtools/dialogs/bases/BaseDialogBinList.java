@@ -183,7 +183,7 @@ public abstract class BaseDialogBinList<T>
      * <p>
      * [EN]  Data Upload Method
      */
-    protected abstract void load(boolean result);
+    protected abstract void load();
 
     /**
      * Acceso al controlador de selección del adaptador de elementos

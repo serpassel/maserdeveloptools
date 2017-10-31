@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -20,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.dialogs.toast.Launch_toast;
 import es.marser.tools.MathTools;
@@ -136,7 +134,7 @@ public abstract class FilePathUtil {
     public static String getRelativeAppPath(String absolutedPath) {
         String out = "";
         if (absolutedPath != null) {
-            
+
             int index = getAndroidPath().toString().length();
             out = (absolutedPath.length() < index || TextTools.isEmpty(absolutedPath))
                     ? ""
@@ -159,11 +157,12 @@ public abstract class FilePathUtil {
     /**
      * Carpeta de Raíz
      * <p>
-     *     [EN]  Root Folder
+     * [EN]  Root Folder
+     *
      * @return Ruta de la carpeta raíz [EN]  Root folder path
      */
-    public static File getRootPath(){
-        return Environment.getRootDirectory();
+    public static File getRootPath() {
+        return new File(File.separator);
     }
 
     //FILE NAME HANDLING____________________________________________________________________________________
@@ -420,7 +419,7 @@ public abstract class FilePathUtil {
         protected Void doInBackground(FileLoader... params) {
             FileLoader fileLoader = params[0];
 
-            if (fileLoader != null && fileLoader.path != null && fileLoader.getPathFiles() !=null) {
+            if (fileLoader != null && fileLoader.path != null && fileLoader.getPathFiles() != null) {
 
                 for (File file : fileLoader.getPathFiles()) {
 
@@ -532,6 +531,14 @@ public abstract class FilePathUtil {
             this.showHidden = showHidden;
         }
 
+        /**
+         * Crear un filtro por nombre para listar un directorio
+         * <p>
+         * [EN]  Create a filter by name to list a directory
+         *
+         * @return Filtro para listado de archivos y directorios {@link FilenameFilter}
+         * [EN]  Filter for listing files and directories {@link FilenameFilter}
+         */
         public FilenameFilter getFilenameFilter() {
             return new FilenameFilter() {
                 @Override
@@ -541,16 +548,21 @@ public abstract class FilePathUtil {
             };
         }
 
+        /**
+         * Arhivos y directorios del directorio según el filtro
+         * <p>
+         * [EN]  Arhivos and directory of the directory according to the filter
+         *
+         * @return arrglo de ficheros y directorios [EN]  files and directories
+         */
         public File[] getPathFiles() {
             if (path == null || !path.exists()) {
                 return new File[]{};
             }
 
-           File file = path.getParentFile();
+            File out = path.isDirectory() ? path : path.getParentFile();
 
-            Log.d(LOG_TAG.TAG, "PATH PARENT: " + (file == null));
-
-            return path.isDirectory() ? path.listFiles(getFilenameFilter()) : path.getParentFile().listFiles(getFilenameFilter());
+            return (out != null && out.exists()) ? out.listFiles(getFilenameFilter()) : new File[]{};
         }
 
         //IMPLEMENTATION PARCELABLE______________________________________________________________________________

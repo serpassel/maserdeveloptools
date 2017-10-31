@@ -1,13 +1,11 @@
 package es.marser.backgroundtools.objectslistables.simple.controller;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 /**

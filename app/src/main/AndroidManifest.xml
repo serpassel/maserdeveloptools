@@ -4,6 +4,8 @@
     package="es.marser.maserdeveloptools">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"

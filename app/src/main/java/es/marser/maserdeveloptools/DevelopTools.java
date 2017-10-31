@@ -1,10 +1,12 @@
 package es.marser.maserdeveloptools;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
+import es.marser.async.Result;
+import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
-public class DevelopTools extends AppCompatActivity {
+public class DevelopTools extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,21 +17,26 @@ public class DevelopTools extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-       launch();
+        launch();
+    }
+
+    @Override
+    public boolean activeToolbarSupport() {
+        return false;
     }
 
     public void launch() {
-      //DialogExample.indeterminateBox(this);
-      //DialogExample.indeterminateSpinner(this);
-      //DialogExample.progressIndeterminateBox(this);
-      //DialogExample.progressBox(this);
+        //DialogExample.indeterminateBox(this);
+        //DialogExample.indeterminateSpinner(this);
+        //DialogExample.progressIndeterminateBox(this);
+        //DialogExample.progressBox(this);
 
-       //es.marser.backgroundtools.dialogs.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
-       //es.marser.backgroundtools.dialogs.toast.Launch_toast.errorToast(this, "Mensaje de error");
-       //es.marser.backgroundtools.dialogs.toast.Launch_toast.informationToast(this, "Mensaje de información");
+        //es.marser.backgroundtools.dialogs.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
+        //es.marser.backgroundtools.dialogs.toast.Launch_toast.errorToast(this, "Mensaje de error");
+        //es.marser.backgroundtools.dialogs.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
-       //DialogExample.editGeneric(this);
-       //SQLExample.createDatabase(this);
+        //DialogExample.editGeneric(this);
+        //SQLExample.createDatabase(this);
 
         //DialogExample.notificationInformation(this);
         //DialogExample.notificationError(this);
@@ -41,6 +48,27 @@ public class DevelopTools extends AppCompatActivity {
         //DialogExample.notificationDeleteRecords(this);
         //DialogExample.notificationConfirmationKey(this);
 
-        DialogExample.fileSelector(this);
+        checkReadExternalStorage(new Result<Boolean>() {
+            @Override
+            public void onResult(Boolean result) {
+
+                    DialogExample.fileSelector(DevelopTools.this, result);
+            }
+        });
+    }
+
+    @Override
+    protected void preinstaceVariables() {
+
+    }
+
+    @Override
+    protected void instaceVariables() {
+
+    }
+
+    @Override
+    protected void postinstaceVariables() {
+
     }
 }

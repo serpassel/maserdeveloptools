@@ -3,9 +3,10 @@ package es.marser.backgroundtools.dialogs.file;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import java.io.File;
@@ -14,7 +15,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.Result;
 import es.marser.backgroundtools.BR;
@@ -45,7 +45,7 @@ public class FileChooserDialog
         implements ViewHandler<Void> {
 
     protected OnResult<FileModel> result;
-
+    protected boolean readablepermission;
     protected FileModel headmodel;
 
     /**
@@ -56,11 +56,19 @@ public class FileChooserDialog
      * @param result  Variable de resultados [EN]  Variable of results
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
-    public static FileChooserDialog newInstance(Context context, Bundle bundle, OnResult<FileModel> result) {
+    @SuppressWarnings("NullableProblems")
+    public static FileChooserDialog newInstance(
+            @NonNull Context context,
+            @NonNull Bundle bundle,
+            @NonNull boolean readablepermission,
+            @Nullable OnResult<FileModel> result
+    ) {
+
         FileChooserDialog instace = new FileChooserDialog();
         instace.setContext(context);
         instace.setArguments(bundle);
         instace.setResult(null);
+        instace.setReadablepermission(readablepermission);
         return instace;
     }
 
@@ -76,11 +84,13 @@ public class FileChooserDialog
      * @param cancel Texto de botón cancelar [EN]  Cancel button text
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    public static Bundle createBundle(DialogIcon icon, String title, String body, String ok, String cancel) {
+    @SuppressWarnings("NullableProblems")
+    public static Bundle createBundle(DialogIcon icon, String title, String path, String filter, String ok, String cancel) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-        bundle.putString(DialogExtras.BODY_EXTRA.name(), TextTools.nc(body));
+        bundle.putString(DialogExtras.BODY_EXTRA.name(), TextTools.nc(path));
+        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(filter));
         bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
         bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
         return bundle;
@@ -99,8 +109,16 @@ public class FileChooserDialog
                 DialogIcon.SEARCH_ICON,
                 context.getResources().getString(R.string.bt_dialog_select_title),
                 FilePathUtil.getDownloadPath().getAbsolutePath(),
+                null,
                 context.getResources().getString(R.string.bt_ACTION_OPEN),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL));
+    }
+
+    @Override
+    public void show() {
+        if(readablepermission){
+            super.show();
+        }
     }
 
     @Override
@@ -125,21 +143,7 @@ public class FileChooserDialog
     @Override
     protected void postBuild() {
         super.postBuild();
-
-        checkReadExternalStorage(new Result<Boolean>() {
-            @Override
-            public void onResult(Boolean result) {
-                if (!result) {
-                    Launch_toast.errorToast(FileChooserDialog.this.getContext(),
-                            FileChooserDialog.this.getContext()
-                                    .getResources().
-                                    getString(R.string.external_storage_readable_permission_request));
-
-                }
-
-                load(result);
-            }
-        });
+        load();
     }
 
     /*{@link BaseDialogBinList}*/
@@ -168,25 +172,15 @@ public class FileChooserDialog
     }
 
     @Override
-    protected void load(boolean launch) {
-        if (!launch) {
-           onCancel(view);
-           /*
-            if (result != null) {
-                result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
-            }
-            close();*/
-            return;
-        }
-
-
+    protected void load() {
         final List<FileModel> directory = new ArrayList<>();
         final List<FileModel> file = new ArrayList<>();
         final Comparator<FileModel> comparator = new FileModelOrderByName();
+        String filter = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
         File path = model.body.get() != null ? new File(model.body.get()) : null;
 
-        FilePathUtil.getAsyncFiles(path, "", new DataUploaderTask<Void, File, Void>() {
+        FilePathUtil.getAsyncFiles(path, filter, new DataUploaderTask<Void, File, Void>() {
             @Override
             public void onStart(Void start) {
                 clear();
@@ -249,18 +243,7 @@ public class FileChooserDialog
     @Override
     public void onClick(View v, Void item) {
         if (v.getId() == R.id.path_up) {
-            File path = model.body.get() != null ? new File(model.body.get()) : null;
-
-            Log.d(LOG_TAG.TAG, "Root " + FilePathUtil.getRootPath().toString());
-
-            if (path != null
-                    && !path.equals(FilePathUtil.getRootPath())) {
-
-                model.body.set(path.getParent());
-                Log.d(LOG_TAG.TAG, "Parent " + model.body.get());
-
-                load(true);
-            }
+            upPath();
         }
     }
 
@@ -274,26 +257,73 @@ public class FileChooserDialog
     @Override
     public void onClickItem(View v, FileModel item, int position, ListExtra mode) {
         super.onClickItem(v, item, position, mode);
-        if (item != null && item.getFile() != null) {
+        downPath(item);
+    }
 
+    /**
+     * Subir un nivel de directorio
+     * <p>
+     * [EN]  Upload a directory level
+     */
+    private void upPath() {
+        File path = model.body.get() != null ? new File(model.body.get()) : null;
+
+        if (path != null && !path.equals(FilePathUtil.getRootPath())) {
+            model.body.set(path.getParent());
+            load();
+        }
+    }
+
+    /**
+     * Bajar un nivel de directorio
+     * <p>
+     * [EN]  Download a directory level
+     *
+     * @param item item pulsado [EN]  item pulsed
+     */
+    private void downPath(FileModel item) {
+        if (item != null && item.getFile() != null) {
             File path = item.getFile();
 
+            /*Bajar si es directorio [EN]  Download if it is directory*/
             if (path.isDirectory()) {
 
                 model.body.set(path.getAbsolutePath());
-                load(true);
+                load();
 
             } else {
+                /*Fijar archivo selecionado [EN]  Set selected file*/
                 if (item.isFile() && result != null) {
-
                     headmodel.setFile(item.getFile());
-
-                    /*
-                    result.onResult(DialogExtras.OK_EXTRA, item);
-                    close();
-                    */
                 }
             }
         }
+
+    }
+
+    //PROPERTIES_______________________________________________________________________________
+
+    /**
+     * Indica si tenemos los permisos de lectura del disco
+     * <p>
+     * [EN]  Indicates whether we have the disk read permissions
+     *
+     * @return verdadero si disponemos de permisos de lectura [EN]  true if we have read permissions
+     */
+    public boolean isReadablepermission() {
+        return readablepermission;
+    }
+
+    /**
+     * Fijar la bandera indicadora del permiso de lectura
+     * <p>
+     * [EN]  Set the flag reading permission
+     *
+     * @param readablepermission indicar si se dispone del permiso de lectura
+     *                           [EN]  indicate if reading permission is available
+     *                           {@link es.marser.backgroundtools.containers.PermissionChecker#checkReadExternalStorage(Result)}
+     */
+    public void setReadablepermission(boolean readablepermission) {
+        this.readablepermission = readablepermission;
     }
 }

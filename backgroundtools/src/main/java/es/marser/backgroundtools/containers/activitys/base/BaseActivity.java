@@ -17,10 +17,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
+import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.PermissionChecker;
@@ -61,7 +63,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         </ul>
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod"})
 public abstract class BaseActivity extends AppCompatActivity implements PermissionChecker{
 
     protected Toolbar toolbar;
@@ -279,6 +281,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
             checkresult.onResult(true);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+               Log.d(LOG_TAG.TAG, "Pedir permiso " + permit);
                 requestPermissions(new String[]
                         {permit}, 1001);
             } else {
@@ -467,6 +470,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        Log.d(LOG_TAG.TAG, "PERMISO DEVUELTO ");
+
         if (this.checkresult != null) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 this.checkresult.onResult(true);

@@ -25,7 +25,7 @@ import es.marser.tools.MathTools;
  *         [EN]  Example of custom dialogs
  */
 
-@SuppressWarnings({"WeakerAccess", "unused"})
+@SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public class DialogExample {
 
     public static BaseDialog indeterminateBox(Context context) {
@@ -221,11 +221,14 @@ public class DialogExample {
         return dialog;
     }
 
-    public static BaseDialog fileSelector(Context context) {
+    public static BaseDialog fileSelector(Context context, boolean readeable) {
+
+
         FileChooserDialog dialog =
                 FileChooserDialog.newInstance(
                         context,
                         FileChooserDialog.createBundle(context),
+                        readeable,
                         null
                 );
         dialog.show();
