@@ -6,7 +6,7 @@
     <data>
 
         <import
-            alias="v"
+            alias="v_fc"
             type="android.view.View" />
 
         <import
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="?attr/dialogs_default_margin"
             android:layout_marginBottom="?attr/box_default_medium_margin"
-            android:onClick="@{(v)->handler.onClick(v, null)}"
+            android:onClick="@{(v)->handler.onClick(v, headmodel)}"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageView

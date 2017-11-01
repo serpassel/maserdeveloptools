@@ -16,7 +16,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 public interface OnResult<T> {
     void onResult(DialogExtras result, T value);
 
-    void onClick(View v, T value);
+    void onClick(View view, T value);
 }
 
 

@@ -254,7 +254,7 @@ public class FileChooserDialog
 
     /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
     @Override
-    public void onOk(View v) {
+    public void onOk(View view) {
         if (result != null) {
             result.onResult(DialogExtras.OK_EXTRA, headmodel);
         }
@@ -262,7 +262,7 @@ public class FileChooserDialog
     }
 
     @Override
-    public void onCancel(View v) {
+    public void onCancel(View view) {
         if (result != null) {
             result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
         }
@@ -280,22 +280,22 @@ public class FileChooserDialog
 
     /* {@link ViewHandler}*/
     @Override
-    public void onClick(View v, Void item) {
-        if (v.getId() == R.id.path_up) {
+    public void onClick(View view, Void item) {
+        if (view.getId() == R.id.path_up) {
             upPath();
         }
     }
 
     @Override
-    public boolean onLongClick(View v, Void item) {
+    public boolean onLongClick(View view, Void item) {
         return true;
     }
 
 
     /* {@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
     @Override
-    public void onClickItem(View v, FileModel item, int position, ListExtra mode) {
-        super.onClickItem(v, item, position, mode);
+    public void onClickItem(View view, FileModel item, int position, ListExtra mode) {
+        super.onClickItem(view, item, position, mode);
         downPath(item);
     }
 

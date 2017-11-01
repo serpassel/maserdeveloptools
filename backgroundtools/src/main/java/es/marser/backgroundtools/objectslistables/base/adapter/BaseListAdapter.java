@@ -131,7 +131,7 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
         /*Ajustar expansión [EN]  Adjust expansion*/
         holder.setExpanded();
         /*Introducir la variable de modelo de datos [EN]  Enter the data model variable*/
-        holder.bind(arrayListController.getItemAt(position));
+        holder.bind(getItemAt(position));
         /*Adjuntar el  manejador de eventos de elementos de la vista [EN]  Attach event handler to view items*/
         onBindVH((VH) holder, position);
     }
@@ -141,6 +141,17 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
         return ViewHolderType.SIMPLE.ordinal();
     }
 
+    /**
+     * Devuelve el elemento de una posición determinada
+     * <p>
+     * [EN]  Returns the element of a given position
+     *
+     * @param position posición [EN]  position
+     * @return elemento genérico [EN]  generic element
+     */
+    public T getItemAtPosition(int position) {
+        return arrayListController.getItemAt(position);
+    }
 
     /**
      * Añadir enlaces adicionales de la vista con el modelo de datos

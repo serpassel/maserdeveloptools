@@ -4,7 +4,7 @@
     <data>
 
         <import
-            alias="v"
+            alias="v_bt"
             type="android.view.View" />
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
@@ -42,7 +42,7 @@
             android:onClick="@{winaction::onOption}"
             android:text="@{buttonsetmodel.option_name}"
             android:theme="@style/bt_buttons_set"
-            android:visibility="@{buttonsetmodel.option_name == `` ? v.GONE : v.VISIBLE }"/>
+            android:visibility="@{buttonsetmodel.option_name == `` ? v_bt.GONE : v_bt.VISIBLE }"/>
 
         <View
             android:layout_width="0dp"
@@ -56,7 +56,7 @@
             android:background="@color/bt_transparent"
             android:onClick="@{winaction::onOk}"
             android:text="@{buttonsetmodel.ok_name}"
-            android:visibility="@{buttonsetmodel.ok_name == `` ? v.GONE : v.VISIBLE }"
+            android:visibility="@{buttonsetmodel.ok_name == `` ? v_bt.GONE : v_bt.VISIBLE }"
             android:theme="@style/bt_buttons_set" />
 
         <View
@@ -72,7 +72,7 @@
             android:onClick="@{winaction::onCancel}"
             android:text="@{buttonsetmodel.cancel_name}"
             android:theme="@style/bt_buttons_set"
-            android:visibility="@{buttonsetmodel.cancel_name == `` ? v.GONE : v.VISIBLE }" />
+            android:visibility="@{buttonsetmodel.cancel_name == `` ? v_bt.GONE : v_bt.VISIBLE }" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>

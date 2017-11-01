@@ -36,7 +36,7 @@ public interface TouchableViewHandler<T> {
      * @param item     objeto de datos [EN]  data object
      * @param root     Vista grupal [EN]  Group view
      */
-    void onClick(View v, int position, T item, View root);
+    void onClick(View view, int position, T item, View root);
 
     /**
      * Manejador de eventos de pulsación prolongada en elementos pulsables
@@ -50,5 +50,5 @@ public interface TouchableViewHandler<T> {
      * @param item     objeto de datos [EN]  data object
      * @param root     Vista grupal [EN]  Group view
      */
-    boolean onLongClick(View v, int position, T item, View root);
+    boolean onLongClick(View view, int position, T item, View root);
 }

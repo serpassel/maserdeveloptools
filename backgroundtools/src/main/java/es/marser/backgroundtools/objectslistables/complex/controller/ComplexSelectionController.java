@@ -458,7 +458,7 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
     }
 
 
-    private void onChildClick(View v, int flatPos) {
+    private void onChildClick(View view, int flatPos) {
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
 
@@ -493,7 +493,7 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
         }
     }
 
-    private void onChildLongClick(View v, int flatPos) {
+    private void onChildLongClick(View view, int flatPos) {
         /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
@@ -529,7 +529,7 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
 
     }
 
-    private void onGroupClick(View v, int flatPos) {
+    private void onGroupClick(View view, int flatPos) {
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
             viewComplexHandler.onClickGroupItem(
@@ -541,7 +541,7 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
         }
     }
 
-    private void onGroupLongClick(View v, int flatPos) {
+    private void onGroupLongClick(View view, int flatPos) {
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
             viewComplexHandler.onLongClickGroupItem(

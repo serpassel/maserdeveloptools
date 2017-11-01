@@ -176,11 +176,11 @@ public abstract class BaseFragmentBinList<T>
     /*Eventos de pulsación sobre la vista raiz
     [EN]  Pulsation Events on the Root View*/
     @Override
-    public void onClickItem(View v, T item, int position, ListExtra mode) {
+    public void onClickItem(View view, T item, int position, ListExtra mode) {
     }
 
     @Override
-    public boolean onLongClickItem(View v, T item, int position, ListExtra mode) {
+    public boolean onLongClickItem(View view, T item, int position, ListExtra mode) {
         return true;
     }
 
@@ -188,12 +188,12 @@ public abstract class BaseFragmentBinList<T>
     /*Eventos de pulsación en las vistas anidadas sobre la vista principal
     [EN]  Pulsation events in nested views over the main view*/
     @Override
-    public void onClick(View v, int position, T item, View root) {
+    public void onClick(View view, int position, T item, View root) {
 
     }
 
     @Override
-    public boolean onLongClick(View v, int position, T item, View root) {
+    public boolean onLongClick(View view, int position, T item, View root) {
         return true;
     }
 

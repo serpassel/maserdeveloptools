@@ -14,12 +14,12 @@ import android.view.View;
 public class ViewHandlerAdapter<T> implements ViewHandler<T> {
 
     @Override
-    public void onClick(View v, T item) {
+    public void onClick(View view, T item) {
 
     }
 
     @Override
-    public boolean onLongClick(View v, T item) {
+    public boolean onLongClick(View view, T item) {
         return false;
     }
 

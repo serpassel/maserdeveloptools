@@ -103,14 +103,14 @@ public class EditDialogBinModel<T extends Parcelable>
     }
 
     @Override
-    public void onClick(View v, T value) {
+    public void onClick(View view, T value) {
         if (result != null) {
-            result.onClick(v, value);
+            result.onClick(view, value);
         }
     }
 
     @Override
-    public boolean onLongClick(View v, T model) {
+    public boolean onLongClick(View view, T model) {
         return false;
     }
 

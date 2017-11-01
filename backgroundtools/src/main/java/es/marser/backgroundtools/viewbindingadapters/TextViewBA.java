@@ -38,7 +38,7 @@ import static com.android.databinding.library.baseAdapters.R.id;
  *         [EN]  Link Adapters
  */
 
-@SuppressWarnings({"unused", "WeakerAccess"})
+@SuppressWarnings({"unused"})//, "WeakerAccess"})
 @BindingMethods({
         @BindingMethod(type = TextView.class, attribute = "android:autoLink", method = "setAutoLinkMask"),
         @BindingMethod(type = TextView.class, attribute = "android:drawablePadding", method = "setCompoundDrawablePadding"),

@@ -6,7 +6,7 @@
     <data>
 
         <import
-            alias="v"
+            alias="v_ib"
             type="android.view.View" />
 
         <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
@@ -88,7 +88,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="@{model.keyname == `` ? v.GONE :v.VISIBLE}">
+            android:visibility="@{model.keyname == `` ? v_ib.GONE :v_ib.VISIBLE}">
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checked"

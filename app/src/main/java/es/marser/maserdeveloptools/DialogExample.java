@@ -103,7 +103,7 @@ public class DialogExample {
                             }
 
                             @Override
-                            public void onClick(View v, ExampleModelObject value) {
+                            public void onClick(View view, ExampleModelObject value) {
 
                             }
                         }
@@ -221,6 +221,7 @@ public class DialogExample {
         return dialog;
     }
 
+    @SuppressWarnings("All")
     public static BaseDialog fileSelector(Context context, boolean readeable) {
 
 

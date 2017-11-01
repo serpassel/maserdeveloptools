@@ -37,37 +37,37 @@ public class DialogBA {
     }
 
     @BindingAdapter(value = {"colorHeadText"})
-    public static void setDialogHeadTextColor(TextView v, DialogIcon state) {
+    public static void setDialogHeadTextColor(TextView view, DialogIcon state) {
         switch (state) {
             case WARNING_ICON:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color));
+                view.setTextColor(ContextCompat.getColor(view.getContext(), R.color.bt_warning_color));
                 break;
             case ERROR_ICON:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color));
+                view.setTextColor(ContextCompat.getColor(view.getContext(), R.color.bt_error_color));
                 break;
             case INFORMATION_ICON:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_information_color));
+                view.setTextColor(ContextCompat.getColor(view.getContext(), R.color.bt_information_color));
                 break;
             default:
-                v.setTextColor(ContextCompat.getColor(v.getContext(), R.color.bt_primary_light));
+                view.setTextColor(ContextCompat.getColor(view.getContext(), R.color.bt_primary_light));
                 break;
         }
     }
 
     @BindingAdapter(value = {"colorDialogBodyBackground"})
-    public static void setSecondaryToastColor(View v, DialogIcon state) {
+    public static void setSecondaryToastColor(View view, DialogIcon state) {
         switch (state) {
             case WARNING_ICON:
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_warning_color_light));
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.bt_warning_color_light));
                 break;
             case ERROR_ICON:
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_error_color_light));
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.bt_error_color_light));
                 break;
             case INFORMATION_ICON:
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_information_color_light));
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.bt_information_color_light));
                 break;
             default:
-                v.setBackgroundColor(ContextCompat.getColor(v.getContext(), R.color.bt_primary_light));
+                view.setBackgroundColor(ContextCompat.getColor(view.getContext(), R.color.bt_primary_light));
                 break;
         }
     }

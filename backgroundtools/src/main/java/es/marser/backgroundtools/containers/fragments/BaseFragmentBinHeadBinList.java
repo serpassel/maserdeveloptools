@@ -128,12 +128,12 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
 //DEFINITION OF INTERFACES_____________________________________________________________________________
     /*{@link ViewHandler}*/
     @Override
-    public void onClick(View v, T item) {
+    public void onClick(View view, T item) {
 
     }
 
     @Override
-    public boolean onLongClick(View v, T item) {
+    public boolean onLongClick(View view, T item) {
         return false;
     }
 }

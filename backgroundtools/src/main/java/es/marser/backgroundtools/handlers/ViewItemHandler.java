@@ -26,7 +26,7 @@ public interface ViewItemHandler<T> {
      * @param position posición de datos
      * @param mode     modo de pulsación en el adapter
      */
-    void onClickItem(View v, T item, int position, ListExtra mode);
+    void onClickItem(View view, T item, int position, ListExtra mode);
 
     /**
      *  Pulsación larga sobre vista del elemento
@@ -39,5 +39,5 @@ public interface ViewItemHandler<T> {
      * @param mode     modo de pulsación en el adapter
      * @return devolver true si está activado
      */
-    boolean onLongClickItem(View v, T item, int position, ListExtra mode);
+    boolean onLongClickItem(View view, T item, int position, ListExtra mode);
 }

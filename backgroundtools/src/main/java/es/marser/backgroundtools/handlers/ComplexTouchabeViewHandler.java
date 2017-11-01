@@ -40,7 +40,7 @@ public interface ComplexTouchabeViewHandler<X extends ExpandableGroup<T>, T exte
      * @param index posición del grupoen la lista [EN]  position of the group in the list
      * @param group Objeto generico de tipo {@link ExpandableGroup} [EN]  Generic type object {@link ExpandableGroup}
      */
-    void onGroupClick(View v, int flap, View root, int index, X group);
+    void onGroupClick(View view, int flap, View root, int index, X group);
 
     /**
      * Manejador de eventos de pulsación prolongada en elementos pulsables
@@ -55,7 +55,7 @@ public interface ComplexTouchabeViewHandler<X extends ExpandableGroup<T>, T exte
      * @param index posición del grupoen la lista [EN]  position of the group in the list
      * @param group Objeto generico de tipo {@link ExpandableGroup} [EN]  Generic type object {@link ExpandableGroup}
      */
-    boolean onGroupLongClick(View v, int flap, View root, int index, X group);
+    boolean onGroupLongClick(View view, int flap, View root, int index, X group);
 
     /**
      * * Manejador de eventos de pulsación sencilla en elementos pulsables
@@ -71,7 +71,7 @@ public interface ComplexTouchabeViewHandler<X extends ExpandableGroup<T>, T exte
      * @param childid posición del hijo en el grupo
      * @param child   Objeto generico hijo
      */
-    void onChildClick(View v, int flap, View root, int groupid, X group, int childid, T child);
+    void onChildClick(View view, int flap, View root, int groupid, X group, int childid, T child);
 
     /**
      * Manejador de eventos de pulsación prolongada en elementos pulsables
@@ -88,5 +88,5 @@ public interface ComplexTouchabeViewHandler<X extends ExpandableGroup<T>, T exte
      * @param childid posición del hijo en el grupo
      * @param child   Objeto generico hijo
      */
-    boolean onChildLongClick(View v, int flap, View root, int groupid, X group, int childid, T child);
+    boolean onChildLongClick(View view, int flap, View root, int groupid, X group, int childid, T child);
 }

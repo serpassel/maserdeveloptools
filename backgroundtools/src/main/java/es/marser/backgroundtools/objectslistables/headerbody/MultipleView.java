@@ -10,6 +10,5 @@ package es.marser.backgroundtools.objectslistables.headerbody;
 
 public interface MultipleView<T> {
     int viewType();
-
     T getElement();
 }

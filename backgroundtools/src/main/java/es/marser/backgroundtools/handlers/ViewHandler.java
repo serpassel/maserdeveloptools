@@ -23,7 +23,7 @@ public interface ViewHandler<T> {
      * @param v    Vista pulsada [EN]  Press view
      * @param item modelo de datos de clase genérica [EN]  generic class data model
      */
-    void onClick(View v, T item);
+    void onClick(View view, T item);
 
     /**
      * Pulsación larga sobre una vista
@@ -36,6 +36,6 @@ public interface ViewHandler<T> {
      * @param item modelo de datos de clase genérica [EN]  generic class data model
      * @return verdadero si está activada la pulsación larga [EN]  true if long press is activated
      */
-    boolean onLongClick(View v, T item);
+    boolean onLongClick(View view, T item);
 
 }

@@ -175,22 +175,22 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
 
     /*{@link ComplexTouchabeViewHandler}*/
     @Override
-    public void onGroupClick(View v, int flap, View root, int index, G group) {
+    public void onGroupClick(View view, int flap, View root, int index, G group) {
 
     }
 
     @Override
-    public boolean onGroupLongClick(View v, int flap, View root, int index, G group) {
+    public boolean onGroupLongClick(View view, int flap, View root, int index, G group) {
         return false;
     }
 
     @Override
-    public void onChildClick(View v, int flap, View root, int groupid, G group, int childid, C child) {
+    public void onChildClick(View view, int flap, View root, int groupid, G group, int childid, C child) {
 
     }
 
     @Override
-    public boolean onChildLongClick(View v, int flap, View root, int groupid, G group, int childid, C child) {
+    public boolean onChildLongClick(View view, int flap, View root, int groupid, G group, int childid, C child) {
         return true;
     }
 
