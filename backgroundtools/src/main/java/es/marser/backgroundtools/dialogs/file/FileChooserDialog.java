@@ -217,7 +217,6 @@ public class FileChooserDialog
         final List<FileModel> directory = new ArrayList<>();
         final List<FileModel> file = new ArrayList<>();
         final Comparator<FileModel> comparator = new FileModelOrderByName();
-
         File path = model.body.get() != null ? new File(model.body.get()) : null;
 
         FilePathUtil.getAsyncFiles(path, filter != null ? filter : new String[]{}, new DataUploaderTask<Void, File, Void>() {

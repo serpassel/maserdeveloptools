@@ -1,7 +1,5 @@
 package es.marser.backgroundtools.containers.fragments;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -248,31 +246,6 @@ public abstract class BaseFragmentBinList<T>
      */
     public void notifyChangedData() {
         adapter.notifyDataSetChanged();
-    }
-
-//ITEM DECORATOR___________________________________________________________________________________
-
-    /**
-     * Añadir un separador de elementos
-     * <p>
-     * [EN]  Add an element separator
-     *
-     * @param itemDecoration separador de elementos [EN]  element separator
-     */
-    protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration) {
-        recyclerView.addItemDecoration(itemDecoration);
-    }
-
-    /**
-     * Añadir separador de elementos según
-     * <p>
-     * [EN]  Add item separator according
-     *
-     * @param itemDecoration separador de elementos [EN]  element separator
-     * @param index          índice del separador [EN]  index of the separator
-     */
-    protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
-        recyclerView.addItemDecoration(itemDecoration, index);
     }
 
 }

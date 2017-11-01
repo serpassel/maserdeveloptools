@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.fragments.base;
+package es.marser.backgroundtools.dialogs.bases;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,31 +10,76 @@ import es.marser.backgroundtools.enums.ListExtra;
 /**
  * @author sergio
  *         Created by sergio on 1/11/17.
- *         Base para la construcción de fragmentos con lista reciclable
+ *          Base para creación de dialogos personalizados con listas.
+ *         Mantener un constructor vacío para evitar problemas de compilación
  *         <p>
- *         [EN]  Base for the construction of fragments with recyclable list
+ *         [EN]  Base for creating custom dialogs with lists
+ *         Keep an empty constructor to avoid compilation problems
+
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragmentList extends BaseFragment {
+public abstract  class BaseDialogList extends BaseDialogBinModel {
 
     protected RecyclerView recyclerView;
 
     protected Integer lastScroll;
 
+    //VARIABLE START____________________________________________________________________________________
+    @Override
+    protected void postBuild() {
+        super.postBuild();
+        recyclerView = view.findViewById(getRecyclerviewId());
+        recyclerView.setHasFixedSize(hasFixedSize());
+        recyclerView.setLayoutManager(getLayoutManager());
+        bindAdapter();
+    }
 
-     /*Vistas de componentes [EN]  Component views*/
+    //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
+
+    /*Vistas [EN] Views*/
+
+    protected abstract void bindAdapter();
+
+    /**
+     * Número de registros en la lista
+     * <p>
+     * [EN]  Number of records in the list
+     *
+     * @return Número de registros en la lista [EN]  Number of records in the list
+     */
+    public abstract int getItemCount();
+
+    /**
+     * Comprueba si la lista tiene registros
+     * <p>
+     * [EN]  Check if the list has records
+     *
+     * @return verdadero si no hay registros en la lista [EN]  true if there are no records in the list
+     */
+    public abstract boolean isEmpty();
+
+    /**
+     * Método de carga de datos
+     * <p>
+     * [EN]  Data Upload Method
+     */
+    protected abstract void load();
+
+    /*Vistas de componentes [EN]  Component views*/
 
     /**
      * Definición de la vista del recyclerview
      * <p>
      * [EN]  Definition of the view of recyclerview
      *
-     * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
+     * @return R.id.xxxxxx, por defecto {@link R.id#id_recyclerview} [EN]  default {@link R.id#id_recyclerview}
      */
     protected int getRecyclerviewId() {
-        return R.id.com_recyclerview;
+        return R.id.id_recyclerview;
     }
+
+    /*Configuración de recyclerview [EN]  Configuring recyclerview*/
 
     /**
      * Definición del gestor del layout de la lista. Por defecto se utilizará el lineal
@@ -81,45 +126,6 @@ public abstract class BaseFragmentList extends BaseFragment {
         return ListExtra.SINGLE_SELECTION_MODE;
     }
 
-    @Override
-    protected void initActivityCreated() {
-        lastScroll = null;
-        recyclerView = getActivity().findViewById(getRecyclerviewId());
-        recyclerView.setHasFixedSize(hasFixedSize());
-        recyclerView.setLayoutManager(getLayoutManager());
-        bindAdapter();
-    }
-
-    /**
-     * Enlazar el adapter con la lista {@link RecyclerView}, y oyentes del adapter,
-     * el método es llamado tras definir la lista {@link RecyclerView} en el método {@link BaseFragment#initActivityCreated()}
-     * <p>
-     * [EN] Link the adapter with the list {@link RecyclerView}, and listeners of the adapter
-     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
-     * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
-     * <p>
-     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
-     * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
-     */
-    protected abstract void bindAdapter();
-
-    /**
-     * Número de registros en la lista
-     * <p>
-     * [EN]  Number of records in the list
-     *
-     * @return Número de registros en la lista [EN]  Number of records in the list
-     */
-    public abstract int getItemCount();
-
-    /**
-     * Comprueba si la lista tiene registros
-     * <p>
-     * [EN]  Check if the list has records
-     *
-     * @return verdadero si no hay registros en la lista [EN]  true if there are no records in the list
-     */
-    public abstract boolean isEmpty();
 
     //MOVEMENT_______________________________________________________________________________________
 
@@ -184,10 +190,10 @@ public abstract class BaseFragmentList extends BaseFragment {
      */
     public void scrollToLast() {
         scrollToId(getItemCount() - 1);
-
     }
 
-    //ITEM DECORATOR___________________________________________________________________________________
+
+//ITEM DECORATOR___________________________________________________________________________________
 
     /**
      * Añadir un separador de elementos
@@ -211,6 +217,4 @@ public abstract class BaseFragmentList extends BaseFragment {
     protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
         recyclerView.addItemDecoration(itemDecoration, index);
     }
-
-
 }
