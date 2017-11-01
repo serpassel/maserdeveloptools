@@ -1,6 +1,5 @@
 package es.marser.backgroundtools.containers.fragments;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -8,15 +7,14 @@ import android.view.View;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
-import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragmentList;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 
 /**
  * @author sergio
@@ -43,26 +41,13 @@ import es.marser.backgroundtools.objectslistables.base.controller.SelectionContr
 
 @SuppressWarnings({"JavaDoc", "unused"})
 public abstract class BaseFragmentBinList<T>
-        extends BaseFragment
+        extends BaseFragmentList
         implements
         TouchableViewHandler<T>,
         ViewItemHandler<T> {
 
 
-    protected RecyclerView recyclerView;
     protected SimpleListAdapter<T> adapter;
-
-    protected Integer lastScroll;
-
-    //VARIABLE START____________________________________________________________________________________
-    @Override
-    protected void initActivityCreated() {
-        lastScroll = null;
-        recyclerView = getActivity().findViewById(getRecyclerviewId());
-        recyclerView.setHasFixedSize(hasFixedSize());
-        recyclerView.setLayoutManager(getLayoutManager());
-        bindAdapter();
-    }
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
 
@@ -82,71 +67,7 @@ public abstract class BaseFragmentBinList<T>
         return R.layout.mvc_frag_simple_list;
     }
 
-    /*Vistas de componentes [EN]  Component views*/
-
-    /**
-     * Definición de la vista del recyclerview
-     * <p>
-     * [EN]  Definition of the view of recyclerview
-     *
-     * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
-     */
-    protected int getRecyclerviewId() {
-        return R.id.com_recyclerview;
-    }
-
-    /*Configuración de recyclerview [EN]  Configuring recyclerview*/
-
-    /**
-     * Definición del gestor del layout de la lista. Por defecto se utilizará el lineal
-     * <p>
-     * [EN]  Definition of the layout manager of the list.  By default the linear
-     *
-     * @return gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Opcional puede ser {@link GridLayoutManager}
-     * [EN]  gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Optional can be {@link GridLayoutManager}
-     */
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-    }
-
-    /**
-     * Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * <p>
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     *
-     * @return Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected boolean hasFixedSize() {
-        return true;
-    }
-
-    /*Inicio de métodos [EN]  Start of methods*/
-
-    /**
-     * Modo de selección inicial de la lista. Por defecto Mode de selección sencilla
-     * <p>
-     * [EN]  Initial selection mode of the list.  Default Simple selection mode.
-     *
-     * @return Modo de selección sencilla {@link ListExtra#SINGLE_SELECTION_MODE}
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected ListExtra getInitialSelectionMode() {
-        return ListExtra.SINGLE_SELECTION_MODE;
-    }
-
-    /**
-     * Enlace del adaptador de la lista
-     * <p>
-     * [EN]  List adapter link
-     */
+    @Override
     protected void bindAdapter() {
         adapter = new SimpleListAdapter<T>() {
 
@@ -165,11 +86,11 @@ public abstract class BaseFragmentBinList<T>
                 return BaseFragmentBinList.this.getHolderLayout();
             }
         };
+
         recyclerView.setAdapter(adapter);
 
         adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
     }
-
 
     //VIEW EVENT HANDLERS_____________________________________________________________________________
 
@@ -200,13 +121,6 @@ public abstract class BaseFragmentBinList<T>
 
 
     //CONTROL OF ITEMS____________________________________________________________________________
-
-    /**
-     * Método de carga de datos
-     * <p>
-     * [EN]  Data Upload Method
-     */
-    public abstract void load(FragmentAction fragmentAction);
 
     /**
      * Acceso al controlador de selección del adaptador de elementos
