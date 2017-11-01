@@ -31,9 +31,9 @@ public class DevelopTools extends BaseActivity {
         //DialogExample.progressIndeterminateBox(this);
         //DialogExample.progressBox(this);
 
-        //es.marser.backgroundtools.dialogs.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
-        //es.marser.backgroundtools.dialogs.toast.Launch_toast.errorToast(this, "Mensaje de error");
-        //es.marser.backgroundtools.dialogs.toast.Launch_toast.informationToast(this, "Mensaje de información");
+        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
+        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.errorToast(this, "Mensaje de error");
+        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
         //DialogExample.editGeneric(this);
         //SQLExample.createDatabase(this);

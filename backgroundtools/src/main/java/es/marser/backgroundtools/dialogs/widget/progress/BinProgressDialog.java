@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs.progress;
+package es.marser.backgroundtools.dialogs.widget.progress;
 
 import android.content.Context;
 import android.os.Bundle;

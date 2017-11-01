@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs.file;
+package es.marser.backgroundtools.dialogs.widget.file;
 
 import java.util.Comparator;
 import java.util.List;

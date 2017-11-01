@@ -26,7 +26,7 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.PermissionChecker;
-import es.marser.backgroundtools.dialogs.progress.BinIndeterminateDialog;
+import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
 
 /**

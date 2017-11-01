@@ -6,12 +6,12 @@ import android.view.View;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.dialogs.confirmation.NotificationDialogBinModel;
-import es.marser.backgroundtools.dialogs.edition.EditDialogBinModel;
-import es.marser.backgroundtools.dialogs.file.FileChooserDialog;
+import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
+import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
+import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
-import es.marser.backgroundtools.dialogs.progress.BinIndeterminateDialog;
-import es.marser.backgroundtools.dialogs.progress.BinProgressDialog;
+import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
+import es.marser.backgroundtools.dialogs.widget.progress.BinProgressDialog;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs.file;
+package es.marser.backgroundtools.dialogs.widget.file;
 
 import android.content.Context;
 import android.os.Build;
@@ -22,7 +22,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.dialogs.model.FileModel;
 import es.marser.backgroundtools.dialogs.task.OnResult;
-import es.marser.backgroundtools.dialogs.toast.Launch_toast;
+import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;

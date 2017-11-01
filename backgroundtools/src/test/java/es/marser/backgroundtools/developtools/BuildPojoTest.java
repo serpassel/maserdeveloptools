@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author sergio
@@ -31,5 +32,24 @@ public class BuildPojoTest {
         buildPojo.print(true);
     }
 
+    @Test
+    public void buildCalendarModel(){
+        String tablename = "P";
+
+        String nameclass = "CalendarObservable";
+
+        BuildPojo.FieldBuilder[] list = {
+                BuildPojo.newfb("year", int.class),
+                BuildPojo.newfb("month", int.class),
+                BuildPojo.newfb("day", int.class),
+                BuildPojo.newfb("hour", int.class),
+                BuildPojo.newfb("minute", int.class),
+                BuildPojo.newfb("second", int.class),
+                BuildPojo.newfb("calendar", GregorianCalendar.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(tablename,nameclass,list);
+        buildPojo.print(true);
+    }
 
 }
