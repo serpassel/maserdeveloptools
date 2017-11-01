@@ -1,14 +1,14 @@
-package es.marser.backgroundtools.objectslistables.simple.controller;
+package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.util.SparseBooleanArray;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 
 
 /**
@@ -34,7 +34,7 @@ import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChanged
  *         Tigger by {@link ViewItemHandler}
  *
  * @see es.marser.backgroundtools.handlers.ViewItemHandler
- * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener
  * @see es.marser.backgroundtools.enums.ListExtra
  */
 
@@ -358,14 +358,14 @@ public abstract class BaseSelectionController<T> {
      * @param view     Vista pulsada [EN]  Pulsed view
      * @param position Posición de la vista pulsada [EN]  Position of the pulsed view
      */
-    public void onClick(View view, int position) {
+    public void onClick(BaseViewHolder<T> holder, int position) {
         /*Actualizar las variables de posición [EN]  Update position variables*/
         this.lastposition = this.position;
         this.position = position;
 
         /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
         if (itemHandler != null) {
-            itemHandler.onClickItem(view, getItemAt(position), position, selectionmode);
+            itemHandler.onClickItem(holder, getItemAt(position), position, selectionmode);
         }
 
         switch (selectionmode) {
@@ -385,7 +385,7 @@ public abstract class BaseSelectionController<T> {
                     }
                 }
 
-                selectedItems.put(position, !view.isSelected());
+                selectedItems.put(position, !holder.getItemView().isSelected());
 
                 /*Notificar cambios de selección [EN]  Notify selection changes*/
                 if (onSelectionChanged != null) {
@@ -396,7 +396,7 @@ public abstract class BaseSelectionController<T> {
             case ONLY_MULTIPLE_SELECTION_MODE:
             case MULTIPLE_SELECTION_MODE:
 
-                selectedItems.put(position, !view.isSelected());
+                selectedItems.put(position, !holder.getItemView().isSelected());
 
                 /*Notificar cambios de selección [EN]  Notify selection changes*/
                 if (onSelectionChanged != null) {
@@ -423,14 +423,14 @@ public abstract class BaseSelectionController<T> {
      * @param position Posición de la vista pulsada [EN]  Position of the pulsed view
      */
     @SuppressWarnings("SameReturnValue")
-    public boolean onLongClick(View view, int position) {
+    public boolean onLongClick(BaseViewHolder<T> holder, int position) {
         //Actualizamos el indice de posicion
         this.lastposition = this.position;
         this.position = position;
 
                 /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
         if (itemHandler != null) {
-            itemHandler.onLongClickItem(view, getItemAt(position), position, selectionmode);
+            itemHandler.onLongClickItem(holder, getItemAt(position), position, selectionmode);
         }
 
         switch (selectionmode) {

@@ -44,11 +44,14 @@ public abstract class SimpleListAdapter<T> extends BaseListAdapter<T, ViewHolder
 
     @Override
     public void onBindVH(ViewHolderBinding<T> holder, int position) {
+        /*Introducir la variable de modelo de datos [EN]  Enter the data model variable*/
+        holder.bind(globalController.getItemAt(position));
+        /*Manejador de eventos de las subvistas  [EN]  Event manager of subviews*/
         holder.attachTouchableViewHandler(getTouchableViewHandler());
     }
 
     @Override
     public ViewHolderBinding<T> onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
-        return new ViewHolderBinding<>(dataBinding, this);
+        return new ViewHolderBinding<>(dataBinding, globalController);
     }
 }

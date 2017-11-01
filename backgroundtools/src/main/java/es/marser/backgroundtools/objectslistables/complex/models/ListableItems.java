@@ -5,7 +5,7 @@ import android.databinding.BaseObservable;
 import java.util.List;
 
 import es.marser.async.TaskLoadingResult;
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 
 /**
  * @author sergio
@@ -84,6 +84,7 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @param onResult Variable de recuparación de datos asíncrona [EN]  Asynchronous Data Recovering Variable
      * @return Lista de elementos anidados [EN]  List of nested elements
      */
+    @SuppressWarnings("All")
     public List<T> getItems(TaskLoadingResult<T> onResult) {
         if (onResult != null) {
             onResult.onStart(null);

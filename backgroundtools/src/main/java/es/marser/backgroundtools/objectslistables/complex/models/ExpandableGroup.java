@@ -7,7 +7,7 @@ import android.util.SparseBooleanArray;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 
 /**
  * @author sergio

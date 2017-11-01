@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="?attr/dialogs_default_margin"
             android:layout_marginBottom="?attr/box_default_medium_margin"
-            android:onClick="@{(v)->handler.onClick(v, headmodel)}"
+            android:onClick="@{(v)->handler.onClick(v, null)}"
             android:orientation="horizontal">
 
             <android.support.v7.widget.AppCompatImageView

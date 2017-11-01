@@ -7,14 +7,14 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
-import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
+import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
 /**
  * @author sergio
  *         Created by sergio on 22/10/17.
  *         Objeto de vinculación de datos reciclable  para adaptadores de vistas
  *         <p>
  *         [EN]  Recyclable Data Binding Object for View Adapters
- * @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
+ * @see es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController
  * @see es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter
  * @see es.marser.backgroundtools.res tag_item_view.xml
  */
@@ -32,6 +32,7 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
      *
      * @return Valor entero del tipo de vista
      */
+    @Override
     public int getIndexTypeView() {
         return ViewHolderType.SIMPLE.ordinal();
     }
@@ -152,7 +153,7 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
     @Override
     public void onClick(View view) {
         if (viewHolderController != null) {
-            viewHolderController.onClick(view, getAdapterPosition());
+            viewHolderController.onClick(this, getAdapterPosition());
         }
     }
 
@@ -163,10 +164,12 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
      * @return true if the callback consumed the long click, false otherwise.
      */
     @Override
-    public boolean onLongClick(View v) {
+    public boolean onLongClick(View view) {
         if (viewHolderController != null) {
-            viewHolderController.onLongClick(v, getAdapterPosition());
+            viewHolderController.onLongClick(this, getAdapterPosition());
         }
         return true;
     }
+
+
 }

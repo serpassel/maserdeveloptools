@@ -11,9 +11,10 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
-import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
 
 /**
  * @author sergio
@@ -144,7 +145,7 @@ public abstract class BaseDialogBinList<T>
 
         recyclerView.setAdapter(adapter);
 
-        adapter.selectionController.setSelectionMode(getInitialSelectionMode());
+        adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
     }
 
 
@@ -154,11 +155,11 @@ public abstract class BaseDialogBinList<T>
     /*Eventos de pulsación sobre la vista raiz
     [EN]  Pulsation Events on the Root View*/
     @Override
-    public void onClickItem(View view, T item, int position, ListExtra mode) {
+    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
     }
 
     @Override
-    public boolean onLongClickItem(View view, T item, int position, ListExtra mode) {
+    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
         return true;
     }
 
@@ -193,7 +194,7 @@ public abstract class BaseDialogBinList<T>
      * @return Controlador de selección {@link SelectionController} [EN]  Selection controller {@link SelectionController}
      */
     public SelectionController<T> getSelectionController() {
-        return adapter.selectionController;
+        return adapter.globalController.selectionController;
     }
 
     /**
@@ -205,7 +206,7 @@ public abstract class BaseDialogBinList<T>
      * [EN]  Item List Controller {@link ArrayListController}
      */
     public ArrayListController<T> getArrayListController() {
-        return adapter.arrayListController;
+        return adapter.globalController.arrayListController;
     }
 
     /**
@@ -217,7 +218,7 @@ public abstract class BaseDialogBinList<T>
      */
     public void setItems(ArrayList<T> items) {
         if (items != null) {
-            adapter.arrayListController.replaceAllItems(items);
+            adapter.globalController.arrayListController.replaceAllItems(items);
         }
     }
 
@@ -228,7 +229,7 @@ public abstract class BaseDialogBinList<T>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.arrayListController.removeAllITems();
+        adapter.globalController.arrayListController.removeAllITems();
     }
 
     /**
@@ -251,7 +252,7 @@ public abstract class BaseDialogBinList<T>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.arrayListController.addItem(item);
+            adapter.globalController.arrayListController.addItem(item);
         }
     }
 
@@ -265,7 +266,7 @@ public abstract class BaseDialogBinList<T>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.arrayListController.insertItem(id, item);
+            adapter.globalController.arrayListController.insertItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -281,7 +282,7 @@ public abstract class BaseDialogBinList<T>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.arrayListController.updateItem(id, item);
+            adapter.globalController.arrayListController.updateItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -297,8 +298,8 @@ public abstract class BaseDialogBinList<T>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.arrayListController.removeItem(id);
-            adapter.selectionController.clear();
+            adapter.globalController.arrayListController.removeItem(id);
+            adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();
         }
@@ -313,7 +314,7 @@ public abstract class BaseDialogBinList<T>
      * [EN]  true if there are no elements
      */
     public boolean isEmpty() {
-        return adapter.arrayListController.isEmpty();
+        return adapter.globalController.arrayListController.isEmpty();
     }
 
     /**

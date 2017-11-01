@@ -1,6 +1,6 @@
-package es.marser.backgroundtools.objectslistables.simple.controller;
+package es.marser.backgroundtools.objectslistables.base.controller;
 
-import android.view.View;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 
 /**
  * @author sergio
@@ -41,7 +41,7 @@ public interface ViewHolderController<T> {
      * @param view     vista pulsada [EN]  pulsed view
      * @param position posición de la vista en el adapter [EN]  position of the view on the adapter
      */
-    void onClick(View view, int position);
+    void onClick(BaseViewHolder<T> holder, int position);
 
     /**
      * Pulsación prolongada sobre un elemento
@@ -51,7 +51,7 @@ public interface ViewHolderController<T> {
      * @param view     vista pulsada [EN]  pulsed view
      * @param position posición de la vista en el adapter [EN]  position of the view on the adapter
      */
-    boolean onLongClick(View view, int position);
+    boolean onLongClick(BaseViewHolder<T> view, int position);
 
     /**
      * Recupera el objeto generíco de un elemento de la lista para una posición

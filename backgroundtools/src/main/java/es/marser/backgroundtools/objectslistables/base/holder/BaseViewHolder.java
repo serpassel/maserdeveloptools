@@ -89,7 +89,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
     //ADJUNTAR MODELOS Y MANEJADORES_______________________________________________________________________
 
     /**
-     * Tipeo de vista
+     * Tipo de vista
      * <p>
      * [EN]  Type of view
      *

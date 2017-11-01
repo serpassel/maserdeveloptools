@@ -1,8 +1,7 @@
 package es.marser.backgroundtools.handlers;
 
-import android.view.View;
-
 import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 
 /**
  * @author sergio
@@ -26,7 +25,7 @@ public interface ViewItemHandler<T> {
      * @param position posición de datos
      * @param mode     modo de pulsación en el adapter
      */
-    void onClickItem(View view, T item, int position, ListExtra mode);
+    void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode);
 
     /**
      *  Pulsación larga sobre vista del elemento
@@ -39,5 +38,5 @@ public interface ViewItemHandler<T> {
      * @param mode     modo de pulsación en el adapter
      * @return devolver true si está activado
      */
-    boolean onLongClickItem(View view, T item, int position, ListExtra mode);
+    boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode);
 }

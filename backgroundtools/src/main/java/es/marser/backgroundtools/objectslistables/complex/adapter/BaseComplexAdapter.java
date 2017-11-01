@@ -20,7 +20,7 @@ import es.marser.backgroundtools.objectslistables.complex.listeners.ExpandCollap
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition;
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 
 
 /**

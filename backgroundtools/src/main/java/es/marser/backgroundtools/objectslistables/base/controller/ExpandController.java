@@ -1,8 +1,8 @@
-package es.marser.backgroundtools.objectslistables.simple.controller;
+package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.util.SparseBooleanArray;
 
-import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 
 /**
  * @author sergio
@@ -19,7 +19,7 @@ import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChanged
  *         <il>View Expansion and Contraction Operations</il>
  *         <il>Access to variables</il>
  *         </ul>
- * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener
  * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
 
@@ -53,6 +53,7 @@ public class ExpandController {
      * @param id    posición [EN]  position
      * @param value verdadero expandida [EN]  true expanded
      */
+    @SuppressWarnings("All")
     public void setExpand(int id, boolean value) {
         expandItems.put(id, value);
 
@@ -170,6 +171,7 @@ public class ExpandController {
 
 
     /*Variables de oyentes [EN]  Listener Variables*/
+    @SuppressWarnings("UnusedReturnValue")
     public ExpandController setOnSelectionChanged(OnItemChangedListener onSelectionChanged) {
         this.onSelectionChanged = onSelectionChanged;
         return this;

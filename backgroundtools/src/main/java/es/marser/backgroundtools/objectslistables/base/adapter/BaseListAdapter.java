@@ -2,22 +2,21 @@ package es.marser.backgroundtools.objectslistables.base.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
-import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
+import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
+import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
-import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
-import es.marser.backgroundtools.objectslistables.simple.controller.ExpandController;
-import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
-import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
-import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
+import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 
 
 /**
@@ -51,31 +50,21 @@ import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChanged
 @SuppressWarnings({"SameReturnValue", "unused"})
 public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
         extends
-        RecyclerView.Adapter<BaseViewHolder<T>>
+        RecyclerView.Adapter<VH>
         implements
-        OnItemChangedListener,
-        ViewHolderController<T> {
+        AdapterNotifier {
 
     /*Variables de control [EN]  Control variables*/
-    public SelectionController<T> selectionController;
-    public ArrayListController<T> arrayListController;
-    public ExpandController expandController;
+
+    public GlobalController<T> globalController;
 
     //CONSTRUCTORS____________________________________________________________________________________________
     public BaseListAdapter() {
 
-        /*Nueva instancia de controladores [EN]  New controller instance*/
-        arrayListController = new ArrayListController<>();
-        selectionController = new SelectionController<>(
-                arrayListController,
-                ListExtra.SINGLE_SELECTION_MODE);
+        globalController = new GlobalController<>();
 
-        expandController = new ExpandController(this);
-
-        /*Definición de oyentes a los controladores [EN]  Definition of listeners to the controllers*/
-        arrayListController.setOnChangedListListener(this);
-        selectionController.setOnSelectionChanged(this);
-        selectionController.setItemHandler(getItemHandler());
+        globalController.setChangedListener(this);
+        globalController.setViewItemHandler(getItemHandler());
     }
 
     //ACTION EVENTS_______________________________________________________________________________________________
@@ -108,49 +97,33 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
     /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
     @Override
     public int getItemCount() {
-        return arrayListController.size();
+        return globalController.getItemCount();
     }
 
+
     @Override
-    public BaseViewHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
-        //  Log.d(LOG_TAG.TAG, "CREATE HOLDER");
-       /*Recuperar inflador de vistas [EN]  Recover view inflator*/
+    public VH onCreateViewHolder(ViewGroup parent, int viewType) {
+    /*Recuperar inflador de vistas [EN]  Recover view inflator*/
         LayoutInflater layoutInflater = LayoutInflater.from((parent.getContext()));
-        /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
+    /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
         ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, sparseHolderLayout().get(viewType), parent, false);
         /*Nueva instancia de la vista [EN]  New view instance*/
         return onCreateViewHolder(dataBinding, viewType);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(BaseViewHolder<T> holder, int position) {
-        //Log.d(LOG_TAG.TAG, "BIN HOLDER");
-        /*Ajustar selección [EN]  Adjust selection*/
+    public void onBindViewHolder(VH holder, int position) {
+     /*Ajustar selección [EN]  Adjust selection*/
         holder.setSelected();
         /*Ajustar expansión [EN]  Adjust expansion*/
         holder.setExpanded();
-        /*Introducir la variable de modelo de datos [EN]  Enter the data model variable*/
-        holder.bind(getItemAt(position));
-        /*Adjuntar el  manejador de eventos de elementos de la vista [EN]  Attach event handler to view items*/
-        onBindVH((VH) holder, position);
+    /*Adjuntar el  manejador de eventos de elementos de la vista [EN]  Attach event handler to view items*/
+        onBindVH(holder, position);
     }
 
     @Override
     public int getItemViewType(int position) {
         return ViewHolderType.SIMPLE.ordinal();
-    }
-
-    /**
-     * Devuelve el elemento de una posición determinada
-     * <p>
-     * [EN]  Returns the element of a given position
-     *
-     * @param position posición [EN]  position
-     * @return elemento genérico [EN]  generic element
-     */
-    public T getItemAtPosition(int position) {
-        return arrayListController.getItemAt(position);
     }
 
     /**
@@ -174,83 +147,58 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
      */
     public abstract VH onCreateViewHolder(ViewDataBinding dataBinding, int viewType);
 
-
-    //ELEMENT MODIFICATION LISTENERS_______________________________________________________________
-
     /**
-     * {@link OnItemChangedListener}
+     * Utilizar para cuando existen varias listas
+     * Recupera la posición la posición de un índice partiendo de la posción en la lista global
+     * <p>
+     * [EN]  Use for when there are several lists
+     * [EN]  Retrieves the position the position of an index starting from the position in the global list
+     *
+     * @param indexPos índice en la vistas de referencia [EN]  index in the reference views
+     * @param viewType Tipo de vista [EN]  Type of view
+     * @return Posición plana en el adapter [EN]  Flat position on the adapter
      */
     @Override
-    public void onSelectionChanged() {
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public void onItemChaged(int position) {
-        notifyItemChanged(position);
-    }
-
-    @Override
-    public void onAddItem(int position) {
-        expandController.clear();
-        notifyItemInserted(position);
-    }
-
-    @Override
-    public void onRemoveItem(int position) {
-        expandController.delete(position);
-        selectionController.delete(position);
-        notifyItemRemoved(position);
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    expandController.collapseAll();
-                } catch (Exception ignored) {
-                }
-            }
-        });
-    }
-
-    @Override
-    public void removeAllItems() {
-        // Log.i(MainCRUD.TAG, "Eliminados todos los registros;");
-        selectionController.clear();
-        expandController.clear();
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public void onAllChanged() {
-        // Log.i(LOG_TAG.TAG, "Notificar cambios totales");
-        notifyDataSetChanged();
+    public int flatPos(int indexPos, int viewType) {
+        return indexPos;
     }
 
     /**
-     * {@link ViewHolderController}
+     * Utilizar para cuando existen varias listas
+     * Recupera la posición en una lista partiendo de la posición plana
+     * <p>
+     * [EN]  Use for when there are several lists
+     * Retrieve the position in a list starting from the flat position
+     *
+     * @param flaPos   posición plana en el adapter [EN]  flat position on the adapter
+     * @param viewType Tipo de vista [EN]  Type of view
+     * @return Posición en la lista de referencia [EN]  Position in the reference list
      */
     @Override
-    public boolean isExpaned(int position) {
-        return expandController.get(position);
+    public int indexPos(int flaPos, int viewType) {
+        return flaPos;
+    }
+
+    /*{@link AdapterNotifier}*/
+
+    @Override
+    public void notifyDataSetChanged(int viewType) {
+        notifyDataSetChanged();
     }
 
     @Override
-    public boolean isSelected(int position) {
-        return selectionController.get(position);
+    public void notifyItemRemoved(int index, int viewType) {
+        notifyItemRemoved(flatPos(index, viewType));
     }
 
     @Override
-    public void onClick(View view, int position) {
-        selectionController.onClick(view, position);
+    public void notifyItemChanged(int index, int viewType) {
+        notifyItemChanged(flatPos(index, viewType));
     }
 
     @Override
-    public boolean onLongClick(View view, int position) {
-        return selectionController.onLongClick(view, position);
+    public void notifyItemInserted(int index, int viewType) {
+        notifyItemInserted(flatPos(index, viewType));
     }
 
-    @Override
-    public T getItemAt(int position) {
-        return arrayListController.getItemAt(position);
-    }
 }

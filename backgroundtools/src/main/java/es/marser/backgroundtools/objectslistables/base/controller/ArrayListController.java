@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.simple.controller;
+package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.support.annotation.NonNull;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 
 /**
  * @author sergio

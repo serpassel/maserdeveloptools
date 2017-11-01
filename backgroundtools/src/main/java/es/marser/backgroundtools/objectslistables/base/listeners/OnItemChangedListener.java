@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.simple.listeners;
+package es.marser.backgroundtools.objectslistables.base.listeners;
 
 /**
  * @author sergio

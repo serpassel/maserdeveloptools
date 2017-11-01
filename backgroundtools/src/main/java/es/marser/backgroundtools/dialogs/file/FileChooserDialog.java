@@ -27,6 +27,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
 import es.marser.tools.TextTools;
 
@@ -241,8 +242,8 @@ public class FileChooserDialog
             public void onFinish(Void finish) {
                 Collections.sort(directory, comparator);
                 Collections.sort(file, comparator);
-                adapter.arrayListController.addAllItems(directory);
-                adapter.arrayListController.addAllItems(file);
+                adapter.globalController.arrayListController.addAllItems(directory);
+                adapter.globalController.arrayListController.addAllItems(file);
             }
 
             @Override
@@ -294,8 +295,8 @@ public class FileChooserDialog
 
     /* {@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
     @Override
-    public void onClickItem(View view, FileModel item, int position, ListExtra mode) {
-        super.onClickItem(view, item, position, mode);
+    public void onClickItem(BaseViewHolder<FileModel> holder, FileModel item, int position, ListExtra mode) {
+        super.onClickItem(holder, item, position, mode);
         downPath(item);
     }
 
