@@ -65,6 +65,8 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
 
         globalController.setChangedListener(this);
         globalController.setViewItemHandler(getItemHandler());
+
+        SparseIntArray sparseIntArray = new SparseIntArray();
     }
 
     //ACTION EVENTS_______________________________________________________________________________________________

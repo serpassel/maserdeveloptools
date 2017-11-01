@@ -15,6 +15,7 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         [EN]  Base for the construction of fragments with recyclable list
  */
 
+@SuppressWarnings("unused")
 public abstract class BaseFragmentList extends BaseFragment {
 
     protected RecyclerView recyclerView;
@@ -93,13 +94,96 @@ public abstract class BaseFragmentList extends BaseFragment {
      * Enlazar el adapter con la lista {@link RecyclerView}, y oyentes del adapter,
      * el método es llamado tras definir la lista {@link RecyclerView} en el método {@link BaseFragment#initActivityCreated()}
      * <p>
-     *[EN] Link the adapter with the list {@link RecyclerView}, and listeners of the adapter
-     *  ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
+     * [EN] Link the adapter with the list {@link RecyclerView}, and listeners of the adapter
+     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
      * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
      * <p>
-     *  ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
+     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
      * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
      */
     protected abstract void bindAdapter();
+
+    /**
+     * Número de registros en la lista
+     * <p>
+     * [EN]  Number of records in the list
+     *
+     * @return Número de registros en la lista [EN]  Number of records in the list
+     */
+    public abstract int getItemCount();
+
+    /**
+     * Comprueba si la lista tiene registros
+     * <p>
+     * [EN]  Check if the list has records
+     *
+     * @return verdadero si no hay registros en la lista [EN]  true if there are no records in the list
+     */
+    public abstract boolean isEmpty();
+    //Movement
+
+    /**
+     * Posiciona la vista en el prier elemento de la lista
+     * <p>
+     * [EN]  Position the view on the first item in the list
+     */
+    public void scrollToFirst() {
+        if (!isEmpty()) {
+            scrollToId(0);
+        }
+    }
+
+    /**
+     * Posicionar la vista en la posición señalada
+     * <p>
+     * [EN]  Position the view in the indicated position
+     *
+     * @param position posición plana en el adaptador [EN]  flat position on the adapter
+     */
+    public void scrollToId(int position) {
+        if (position > -1 && position < getItemCount()) {
+            try {
+                recyclerView.scrollToPosition(position);
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /**
+     * Guarda la posición del pimer elemento visible
+     * <p>
+     * [EN]  Save the position of the visible element pimer
+     */
+    public void savedScroll() {
+        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
+            lastScroll = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        } else {
+            lastScroll = 0;
+        }
+    }
+
+    /**
+     * Posiciona la vista en a útlima posición guardada
+     * <p>
+     * [EN]  Position the view in the last saved position
+     */
+    public void restoreScroll() {
+        if (lastScroll != null && lastScroll < recyclerView.getAdapter().getItemCount() && lastScroll > -1) {
+            try {
+                recyclerView.scrollToPosition(lastScroll);
+            } catch (Exception ignored) {
+            }
+        }
+    }
+
+    /**
+     * Posiciona el foco en la última posición de la lista de elementos
+     * <p>
+     * [EN]  Position the focus in the last position in the list of elements
+     */
+    public void scrollToLast() {
+        scrollToId(getItemCount() - 1);
+
+    }
 
 }

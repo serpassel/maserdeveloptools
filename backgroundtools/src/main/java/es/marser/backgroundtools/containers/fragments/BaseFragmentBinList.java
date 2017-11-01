@@ -92,6 +92,17 @@ public abstract class BaseFragmentBinList<T>
         adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
     }
 
+    @Override
+    public boolean isEmpty() {
+        return adapter.globalController.arrayListController.isEmpty();
+    }
+
+    @Override
+    public int getItemCount() {
+        return adapter.getItemCount();
+    }
+
+
     //VIEW EVENT HANDLERS_____________________________________________________________________________
 
     /*{@link TouchableViewHandler}*/
@@ -169,17 +180,6 @@ public abstract class BaseFragmentBinList<T>
     }
 
     /**
-     * Número de elementos en la lista
-     * <p>
-     * [EN]  Number of items in the list
-     *
-     * @return número de elementos de la lista [EN]  number of items in the list
-     */
-    public int getItemCount() {
-        return adapter.getItemCount();
-    }
-
-    /**
      * Agregar un elemento no nulo al final de la lista
      * <p>
      * [EN]  Add a non-null element to the end of the list
@@ -239,82 +239,6 @@ public abstract class BaseFragmentBinList<T>
             scrollToId(id);
             savedScroll();
         }
-    }
-
-    /**
-     * Comprobar si hay elementos en el adapter
-     * <p>
-     * [EN]  Check for items in the adapter
-     *
-     * @return verdadero si no hay elementos
-     * [EN]  true if there are no elements
-     */
-    public boolean isEmpty() {
-        return adapter.globalController.arrayListController.isEmpty();
-    }
-
-    /**
-     * Posiciona la vista en el prier elemento de la lista
-     * <p>
-     * [EN]  Position the view on the first item in the list
-     */
-    public void scrollToFirst() {
-        if (!isEmpty()) {
-            scrollToId(0);
-        }
-    }
-
-    /**
-     * Posicionar la vista en la posición señalada
-     * <p>
-     * [EN]  Position the view in the indicated position
-     *
-     * @param position
-     */
-    public void scrollToId(int position) {
-        if (position > -1 && position < getItemCount()) {
-            try {
-                recyclerView.scrollToPosition(position);
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    /**
-     * Guarda la posición del pimer elemento visible
-     * <p>
-     * [EN]  Save the position of the visible element pimer
-     */
-    public void savedScroll() {
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            lastScroll = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        } else {
-            lastScroll = 0;
-        }
-    }
-
-    /**
-     * Posiciona la vista en a útlima posición guardada
-     * <p>
-     * [EN]  Position the view in the last saved position
-     */
-    public void restoreScroll() {
-        if (lastScroll != null && lastScroll < recyclerView.getAdapter().getItemCount() && lastScroll > -1) {
-            try {
-                recyclerView.scrollToPosition(lastScroll);
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    /**
-     * Posiciona el foco en la última posición de la lista de elementos
-     * <p>
-     * [EN]  Position the focus in the last position in the list of elements
-     */
-    public void scrollToLast() {
-        scrollToId(adapter.getItemCount() - 1);
-
     }
 
     /**
