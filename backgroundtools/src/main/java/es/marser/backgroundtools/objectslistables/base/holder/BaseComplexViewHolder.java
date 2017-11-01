@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.base;
+package es.marser.backgroundtools.objectslistables.base.holder;
 
 import android.databinding.ViewDataBinding;
 import android.os.Parcelable;

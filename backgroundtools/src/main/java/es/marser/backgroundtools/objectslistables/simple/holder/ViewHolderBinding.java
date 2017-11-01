@@ -5,8 +5,8 @@ import android.view.View;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.objectslistables.base.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
 /**
  * @author sergio
@@ -15,7 +15,7 @@ import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderCo
  *         <p>
  *         [EN]  Recyclable Data Binding Object for View Adapters
  * @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
- * @see BaseListAdapter
+ * @see es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter
  * @see es.marser.backgroundtools.res tag_item_view.xml
  */
 
@@ -32,8 +32,8 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
      *
      * @return Valor entero del tipo de vista
      */
-    public Integer getIndexTypeView() {
-        return null;
+    public int getIndexTypeView() {
+        return ViewHolderType.SIMPLE.ordinal();
     }
 
     //CONSTRUCTORS____________________________________________________________________________________________

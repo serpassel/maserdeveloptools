@@ -11,7 +11,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.simple.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
 
@@ -31,7 +31,7 @@ public abstract class BaseDialogBinList<T>
         ViewItemHandler<T> {
 
     protected RecyclerView recyclerView;
-    protected BaseListAdapter<T> adapter;
+    protected SimpleListAdapter<T> adapter;
 
     protected Integer lastScroll;
 
@@ -124,7 +124,7 @@ public abstract class BaseDialogBinList<T>
      * [EN]  List adapter link
      */
     protected void bindAdapter() {
-        adapter = new BaseListAdapter<T>() {
+        adapter = new SimpleListAdapter<T>() {
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {

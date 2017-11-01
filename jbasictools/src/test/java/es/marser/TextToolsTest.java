@@ -3,7 +3,6 @@ package es.marser;
 import org.junit.Assert;
 import org.junit.Test;
 
-import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
 
 /**

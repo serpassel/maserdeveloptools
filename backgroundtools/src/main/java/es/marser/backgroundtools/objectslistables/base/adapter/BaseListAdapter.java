@@ -1,22 +1,23 @@
-package es.marser.backgroundtools.objectslistables.simple.adapter;
+package es.marser.backgroundtools.objectslistables.base.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.AsyncTask;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.simple.controller.ExpandController;
 import es.marser.backgroundtools.objectslistables.simple.controller.SelectionController;
 import es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController;
-import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
+import es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener;
 
 
 /**
@@ -39,18 +40,18 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- * @see es.marser.backgroundtools.objectslistables.simple.controller.SelectionController
- * @see es.marser.backgroundtools.objectslistables.simple.controller.ArrayListController
- * @see es.marser.backgroundtools.objectslistables.simple.controller.ExpandController
+ * @see SelectionController
+ * @see ArrayListController
+ * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
- * @see es.marser.backgroundtools.objectslistables.simple.controller.ViewHolderController
- * @see es.marser.backgroundtools.objectslistables.simple.listeners.OnItemChangedListener
+ * @see ViewHolderController
+ * @see OnItemChangedListener
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class BaseListAdapter<T>
+public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
         extends
-        RecyclerView.Adapter<ViewHolderBinding<T>>
+        RecyclerView.Adapter<BaseViewHolder<T>>
         implements
         OnItemChangedListener,
         ViewHolderController<T> {
@@ -81,17 +82,6 @@ public abstract class BaseListAdapter<T>
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
 
     /**
-     * Variable de oyente para pulsacione de las vistas anidadas a la vista raiz del item
-     * <p>
-     * [EN]  Listener variable for clicking nested views to the root view of the item
-     *
-     * @return Variable de oyente de tipo {@link TouchableViewHandler}
-     */
-    public TouchableViewHandler<T> getTouchableViewHandler() {
-        return null;
-    }
-
-    /**
      * Variable de oyente para las pulsaciones sobre la vista raíz
      * <p>
      * [EN]  Listener variable for the keystrokes on the root view
@@ -103,13 +93,15 @@ public abstract class BaseListAdapter<T>
     }
 
     /**
-     * Vista del item
+     * Selector de vista.
+     * La clave conicidente con el el viewType y el valor la vista la layout del ViewHolder
      * <p>
-     * [EN]  Item view
+     * [EN]  View selector
+     * The key conicidente with the the viewType and the value the view the layout of the ViewHolder
      *
-     * @return variable de vista de los elementos [EN]  variable view of the elements
+     * @return key, R.layout.XXXXX
      */
-    protected abstract int getHolderLayout();
+    protected abstract SparseIntArray sparseHolderLayout();
 
     //OVERRIDE SUPERCLASS__________________________________________________________________________
 
@@ -120,18 +112,19 @@ public abstract class BaseListAdapter<T>
     }
 
     @Override
-    public ViewHolderBinding<T> onCreateViewHolder(ViewGroup parent, int viewType) {
-      //  Log.d(LOG_TAG.TAG, "CREATE HOLDER");
+    public BaseViewHolder<T> onCreateViewHolder(ViewGroup parent, int viewType) {
+        //  Log.d(LOG_TAG.TAG, "CREATE HOLDER");
        /*Recuperar inflador de vistas [EN]  Recover view inflator*/
         LayoutInflater layoutInflater = LayoutInflater.from((parent.getContext()));
         /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, getHolderLayout(), parent, false);
+        ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, sparseHolderLayout().get(viewType), parent, false);
         /*Nueva instancia de la vista [EN]  New view instance*/
-        return new ViewHolderBinding<>(dataBinding, this);
+        return onCreateViewHolder(dataBinding, viewType);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public void onBindViewHolder(ViewHolderBinding<T> holder, int position) {
+    public void onBindViewHolder(BaseViewHolder<T> holder, int position) {
         //Log.d(LOG_TAG.TAG, "BIN HOLDER");
         /*Ajustar selección [EN]  Adjust selection*/
         holder.setSelected();
@@ -140,8 +133,35 @@ public abstract class BaseListAdapter<T>
         /*Introducir la variable de modelo de datos [EN]  Enter the data model variable*/
         holder.bind(arrayListController.getItemAt(position));
         /*Adjuntar el  manejador de eventos de elementos de la vista [EN]  Attach event handler to view items*/
-        holder.attachTouchableViewHandler(getTouchableViewHandler());
+        onBindVH((VH) holder, position);
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return ViewHolderType.SIMPLE.ordinal();
+    }
+
+
+    /**
+     * Añadir enlaces adicionales de la vista con el modelo de datos
+     * <p>
+     * [EN]  Add additional links of the view with the data model
+     *
+     * @param holder   Holder de tipo generíco [EN]  Generic type holder
+     * @param position posición de datos [EN]  data position
+     */
+    public abstract void onBindVH(VH holder, int position);
+
+    /**
+     * Creación del MVP de la vista definida
+     * <p>
+     * [EN]  Creation of the MVP of the defined view
+     *
+     * @param dataBinding Objeto de enlace [EN]  Link object
+     * @param viewType    Tipo de vista por defecto {@link ViewHolderType#SIMPLE}
+     * @return Modelo de vista {@link ViewDataBinding}
+     */
+    public abstract VH onCreateViewHolder(ViewDataBinding dataBinding, int viewType);
 
 
     //ELEMENT MODIFICATION LISTENERS_______________________________________________________________
@@ -191,7 +211,7 @@ public abstract class BaseListAdapter<T>
 
     @Override
     public void onAllChanged() {
-       // Log.i(LOG_TAG.TAG, "Notificar cambios totales");
+        // Log.i(LOG_TAG.TAG, "Notificar cambios totales");
         notifyDataSetChanged();
     }
 

@@ -9,7 +9,8 @@ import java.util.List;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.handlers.ViewComplexHandler;
-import es.marser.backgroundtools.objectslistables.base.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.complex.controller.ComplexExpandController;
 import es.marser.backgroundtools.objectslistables.complex.controller.ComplexSelectionController;
 import es.marser.backgroundtools.objectslistables.complex.controller.ComplexViewHolderController;
@@ -44,7 +45,7 @@ import es.marser.backgroundtools.objectslistables.simple.controller.ArrayListCon
  *         </ul>
  */
 
-@SuppressWarnings("ALL")
+@SuppressWarnings("unused")
 public abstract class BaseComplexAdapter<
         G extends GroupViewHolderBinding<X, T>,
         C extends ChildViewHolderBinding<X, T>,
@@ -71,7 +72,6 @@ public abstract class BaseComplexAdapter<
         /*Inicio de controladores [EN]  Controllers startup*/
         this.complexSelectionController = new ComplexSelectionController<>(expandableList, ListExtra.SINGLE_SELECTION_MODE);
         this.complexSelectionController.setViewComplexHandler(getViewComplexHandler());
-
 
         this.expandCollapseController = new ComplexExpandController<>(expandableList, this);
     }
@@ -125,11 +125,15 @@ public abstract class BaseComplexAdapter<
         return expandableList.getUnflattenedPosition(flatPos).type;
     }
 
+    @Override
     public BaseViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case ExpandableListPosition.GROUP:
+
+        ViewHolderType viewHolderType = ViewHolderType.values()[viewType];
+
+        switch (viewHolderType) {
+            case GROUP:
                 return onCreateGroupViewHolder(parent, viewType);
-            case ExpandableListPosition.CHILD:
+            case CHILD:
                 return onCreateChildViewHolder(parent, viewType);
             default:
                 throw new IllegalArgumentException("viewType is not valid");
@@ -137,12 +141,16 @@ public abstract class BaseComplexAdapter<
     }
 
 
+    @SuppressWarnings("unchecked")
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         ExpandableListPosition listPos = expandableList.getUnflattenedPosition(position);
         X group = expandableList.getExpandableGroup(listPos);
-        switch (listPos.type) {
-            case ExpandableListPosition.GROUP:
+
+        ViewHolderType viewHolderType = ViewHolderType.values()[listPos.type];
+
+        switch (viewHolderType) {
+            case GROUP:
                 onBindGroupViewHolder((G) holder, position, group);
 
                 if (isGroupExpanded(group)) {
@@ -152,7 +160,7 @@ public abstract class BaseComplexAdapter<
                 }
                 break;
 
-            case ExpandableListPosition.CHILD:
+            case CHILD:
                 onBindChildViewHolder((C) holder, position, group, listPos.childPos);
                 holder.setSelected();
                 break;
@@ -246,8 +254,9 @@ public abstract class BaseComplexAdapter<
      * <p>
      * [EN]  Returns a group from its index
      *
-     * @param index
-     * @return
+     * @param index índice del grupo [EN]  group index
+     * @return Objeto {@link ExpandableGroup} asociado al índice o nulo si no existe la asciación
+     * [EN]  Object {@link ExpandableGroup} associated with the index or null if the asciation does not exist
      */
     public ExpandableGroup<T> getGroup(int index) {
         if (index > -1 && index < groups.size()) {
@@ -330,8 +339,8 @@ public abstract class BaseComplexAdapter<
      * @param groups listado de grupos [EN]  group list
      */
     public void replaceAllGroups(List<X> groups) {
-        groups.clear();
-        groups.addAll(groups);
+        this.groups.clear();
+        this.groups.addAll(groups);
         complexSelectionController.clearSelecteds();
         notifyDataSetChanged();
     }

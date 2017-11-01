@@ -1,8 +1,6 @@
 package es.marser.maserdeveloptools;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.multidex.MultiDex;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;

@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
-import android.util.Log;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -20,7 +19,6 @@ import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
 
-import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.dialogs.toast.Launch_toast;
 import es.marser.tools.MathTools;

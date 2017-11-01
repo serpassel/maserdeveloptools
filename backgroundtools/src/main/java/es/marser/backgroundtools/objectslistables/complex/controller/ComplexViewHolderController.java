@@ -2,7 +2,7 @@ package es.marser.backgroundtools.objectslistables.complex.controller;
 
 import android.os.Parcelable;
 
-import es.marser.backgroundtools.objectslistables.base.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
 
 /**

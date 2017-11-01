@@ -5,6 +5,8 @@ import android.util.SparseBooleanArray;
 
 import java.util.List;
 
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+
 /**
  * @author sergio
  *         <p>
@@ -134,9 +136,9 @@ public class ExpandableList<X extends ExpandableGroup<T>, T extends Parcelable> 
         for (int i = 0; i < groups.size(); i++) {
             groupItemCount = numberOfVisibleItemsInGroup(i);
             if (adapted == 0) {
-                return ExpandableListPosition.obtain(ExpandableListPosition.GROUP, i, -1, flPos);
+                return ExpandableListPosition.obtain(ViewHolderType.GROUP.ordinal(), i, -1, flPos);
             } else if (adapted < groupItemCount) {
-                return ExpandableListPosition.obtain(ExpandableListPosition.CHILD, i, adapted - 1, flPos);
+                return ExpandableListPosition.obtain(ViewHolderType.CHILD.ordinal(), i, adapted - 1, flPos);
             }
             adapted -= groupItemCount;
         }

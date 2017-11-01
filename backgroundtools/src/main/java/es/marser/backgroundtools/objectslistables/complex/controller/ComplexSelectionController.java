@@ -9,13 +9,11 @@ import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewComplexHandler;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.complex.listeners.OnItemComplexChangedListener;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition;
-
-import static es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition.CHILD;
-import static es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition.GROUP;
 
 /**
  * @author sergio
@@ -387,7 +385,9 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
     @SuppressWarnings("UnusedParameters")
     public void onClick(View view, int flatPos, int viewType) {
 
-        switch (viewType) {
+        ViewHolderType viewHolderType = ViewHolderType.values()[viewType];
+
+        switch (viewHolderType) {
             case CHILD:
                 onChildClick(view, flatPos);
                 break;
@@ -411,7 +411,8 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(position);
 
-            switch (viewType) {
+            ViewHolderType viewHolderType = ViewHolderType.values()[viewType];
+            switch (viewHolderType) {
                 case CHILD:
                     viewComplexHandler.onLongClickChildItem(
                             listPosition.groupPos,

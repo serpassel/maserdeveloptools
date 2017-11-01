@@ -4,6 +4,8 @@ import android.widget.ExpandableListView;
 
 import java.util.ArrayList;
 
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+
 /**
  * Copia exacta de android.widget.ExpandableListPosition porque
  * android.widget.ExpandableListPosition tiene alcance local del paquete
@@ -35,21 +37,6 @@ public class ExpandableListPosition {
     private static final int MAX_POOL_SIZE = 5;
     private static final ArrayList<ExpandableListPosition> sPool =
             new ArrayList<>(MAX_POOL_SIZE);
-
-    /**
-     * Este tipo de datos representa una posición de niño
-     * <p>
-     * [EN] This data type represents a child position
-     */
-    public final static int CHILD = 1;
-
-    /**
-     *
-     * Este tipo de datos representa una posición de grupo
-     * <p>
-     * [EN] This data type represents a group position
-     */
-    public final static int GROUP = 2;
 
     /**
      * La posición del grupo al que se hace referencia o al padre
@@ -94,7 +81,7 @@ public class ExpandableListPosition {
     }
 
     public long getPackedPosition() {
-        if (type == CHILD) {
+        if (type == ViewHolderType.CHILD.ordinal()) {
             return ExpandableListView.getPackedPositionForChild(groupPos, childPos);
         } else {
             return ExpandableListView.getPackedPositionForGroup(groupPos);
@@ -102,11 +89,11 @@ public class ExpandableListPosition {
     }
 
     static ExpandableListPosition obtainGroupPosition(int groupPosition) {
-        return obtain(GROUP, groupPosition, 0, 0);
+        return obtain(ViewHolderType.GROUP.ordinal(), groupPosition, 0, 0);
     }
 
     static ExpandableListPosition obtainChildPosition(int groupPosition, int childPosition) {
-        return obtain(CHILD, groupPosition, childPosition, 0);
+        return obtain(ViewHolderType.CHILD.ordinal(), groupPosition, childPosition, 0);
     }
 
     static ExpandableListPosition obtainPosition(long packedPosition) {
@@ -118,10 +105,10 @@ public class ExpandableListPosition {
         elp.groupPos = ExpandableListView.getPackedPositionGroup(packedPosition);
         if (ExpandableListView.getPackedPositionType(packedPosition) ==
                 ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-            elp.type = CHILD;
+            elp.type = ViewHolderType.CHILD.ordinal();
             elp.childPos = ExpandableListView.getPackedPositionChild(packedPosition);
         } else {
-            elp.type = GROUP;
+            elp.type = ViewHolderType.GROUP.ordinal();
         }
         return elp;
     }

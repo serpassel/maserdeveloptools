@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.base;
+package es.marser.backgroundtools.objectslistables.base.holder;
 
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
@@ -95,7 +95,7 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
      *
      * @return Índice de la vista [EN]  View index
      */
-    public abstract Integer getIndexTypeView();
+    public abstract int getIndexTypeView();
 
     /**
      * Vinculación del modelo de datos con la vista
@@ -116,11 +116,18 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
     }
 
     /**
-     * Marcar selección
+     * Fija el estado de selección
      * <p>
-     * [EN]  Mark Selection
+     * [EN]  Set the selection status
      */
     public abstract void setSelected();
+
+    /**
+     * Fija el estado de expansión
+     * <p>
+     * [EN]  Set the expansion state
+     */
+    public abstract void setExpanded();
 
 //ACTIONS_______________________________________________________________________________________________________
 

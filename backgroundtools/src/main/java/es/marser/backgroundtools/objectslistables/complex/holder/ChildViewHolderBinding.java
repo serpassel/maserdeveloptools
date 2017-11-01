@@ -6,11 +6,10 @@ import android.view.View;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
-import es.marser.backgroundtools.objectslistables.base.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.complex.controller.ComplexViewHolderController;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
-
-import static es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition.GROUP;
 
 /**
  * @author sergio
@@ -41,8 +40,8 @@ public class ChildViewHolderBinding<X extends ExpandableGroup<T>, T extends Parc
     protected ComplexViewHolderController<X, T> viewHolderController;
 
     @Override
-    public Integer getIndexTypeView() {
-        return GROUP;
+    public int getIndexTypeView() {
+        return ViewHolderType.CHILD.ordinal();
     }
 
     //CONSTRUCTORS____________________________________________________________________________________________
@@ -110,6 +109,11 @@ public class ChildViewHolderBinding<X extends ExpandableGroup<T>, T extends Parc
         if (viewHolderController != null) {
             itemView.setSelected(viewHolderController.isChildSelected(getAdapterPosition()));
         }
+    }
+
+    @Override
+    public void setExpanded() {
+
     }
 
 
