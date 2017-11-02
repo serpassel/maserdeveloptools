@@ -195,6 +195,16 @@ public class DialogBA {
             case QUESTION_ICON:
                 view.setImageResource(R.drawable.ic_question);
                 break;
+            case CALENDAR_ICON:
+                view.setImageResource(R.drawable.ic_calendar);
+                break;
+            case CALENDAR_1_ICON:
+                view.setImageResource(R.drawable.ic_calendar_1);
+                break;
+            case CALENDAR_2_ICON:
+                view.setImageResource(R.drawable.ic_calendar_2);
+                break;
+
             case LOADING_ICON:
             default:
                 view.setImageResource(R.drawable.ic_sand_clock);

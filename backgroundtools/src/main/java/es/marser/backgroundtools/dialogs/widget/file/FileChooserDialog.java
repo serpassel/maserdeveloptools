@@ -54,9 +54,10 @@ public class FileChooserDialog
     /**
      * Nueva instancia {@link FileChooserDialog}
      *
-     * @param context contexto de la aplicación [EN]  application context
-     * @param bundle  Argumentos de inicio [EN]  Start arguments
-     * @param result  Variable de resultados [EN]  Variable of results
+     * @param context            contexto de la aplicación [EN]  application context
+     * @param bundle             Argumentos de inicio [EN]  Start arguments
+     * @param readablepermission estado de permisos de lectura del disco [EN]  disk read permissions state
+     * @param result             Variable de resultados [EN]  Variable of results
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
@@ -85,7 +86,7 @@ public class FileChooserDialog
      * @param path   Directorio de búsqueda [EN]  Search directory
      * @param ok     Texto de botón aceptar [EN]  Accept button text
      * @param cancel Texto de botón cancelar [EN]  Cancel button text
-     * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
+     * @param filter Listado de extensiones válidas [EN]  List of valid extensions
      * @return Bundle argumentado [EN]  Bundle argued
      */
     @SuppressWarnings("All")
@@ -102,7 +103,7 @@ public class FileChooserDialog
 
     /**
      * @param context contexto de la aplicación [EN]  context of the application
-     * @param path   Directorio de búsqueda [EN]  Search directory
+     * @param path    Directorio de búsqueda [EN]  Search directory
      * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
      * @return Bundle argumentado [EN]  Bundle argued
      */
@@ -126,7 +127,7 @@ public class FileChooserDialog
      * @return Bundle argumentado [EN]  Bundle argued
      */
     public static Bundle createBundle(Context context, String[] filter) {
-        return createBundle(context, FilePathUtil.getDownloadPath().getAbsolutePath(),filter);
+        return createBundle(context, FilePathUtil.getDownloadPath().getAbsolutePath(), filter);
     }
 
     /**
@@ -269,15 +270,6 @@ public class FileChooserDialog
         close();
     }
 
-    /*{@link OnResult}*/
-    public OnResult<FileModel> getResult() {
-        return result;
-    }
-
-    public void setResult(OnResult<FileModel> result) {
-        this.result = result;
-    }
-
     /* {@link ViewHandler}*/
     @Override
     public void onClick(View view, Void item) {
@@ -366,5 +358,14 @@ public class FileChooserDialog
      */
     public void setReadablepermission(boolean readablepermission) {
         this.readablepermission = readablepermission;
+    }
+
+    /*{@link OnResult}*/
+    public OnResult<FileModel> getResult() {
+        return result;
+    }
+
+    public void setResult(OnResult<FileModel> result) {
+        this.result = result;
     }
 }

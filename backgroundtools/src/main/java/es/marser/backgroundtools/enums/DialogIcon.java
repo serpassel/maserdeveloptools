@@ -55,5 +55,9 @@ public enum DialogIcon {
     /*crud icons*/
     ADD_ICON,
     EDIT_ICON,
+    /*date*/
+    CALENDAR_ICON,
+    CALENDAR_1_ICON,
+    CALENDAR_2_ICON,
     DEFAULT_ICON
 }

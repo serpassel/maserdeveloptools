@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="day_of_week_sort_name">
+        <item>L</item>
+        <item>M</item>
+        <item>X</item>
+        <item>J</item>
+        <item>V</item>
+        <item>S</item>
+        <item>D</item>
+    </string-array>
+
+    <!--MonthDay Color-->
+    <color name="calendar_normal_background">@color/bt_white</color>
+    <color name="calendar_weekend_background">#efebe9</color>
+    <color name="calendar_normal_text">#263238</color>
+    <color name="calendar_holiday_text">#c62828</color>
+    <color name="calendar_other_holiday_text">#d84315</color>
+    <color name="calendar_other_month_text">#9e9e9e</color>
+
+</resources>

@@ -36,6 +36,10 @@
     <!--file item-->
     <attr name="item_file_container" format="reference"/>
 
+    <!--calendar weekends-->
+    <attr name="item_calendar_holiday" format="reference"/>
+    <attr name="item_calendar_normal" format="reference"/>
+
     <!--DIMENSION-->
     <!--margin padding-->
     <attr name="dialogs_default_margin" format="reference|dimension"/>

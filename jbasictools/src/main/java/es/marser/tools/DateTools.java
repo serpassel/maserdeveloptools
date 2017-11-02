@@ -113,7 +113,8 @@ public abstract class DateTools {
     /**
      * Fija la fecha y hora para los registros de una db
      * [EN] Set the date and time for the records of a db
-     *@param time tiempo en milisegundos [EN]  time in milliseconds
+     *
+     * @param time tiempo en milisegundos [EN]  time in milliseconds
      * @return String con el formato de BD [EN] String with DB format dd-MM-yyyy HH:mm:ss
      */
     public static String timeInMili(Integer time) {
@@ -316,6 +317,73 @@ public abstract class DateTools {
     }
 
     /**
+     * Devuelve el primer día de la semana para la fecha señalda.
+     * Se utiliza el valor actual de fecha para entradas nulas
+     * <p>
+     * [EN]  Returns the first day of the week for the indicated date
+     * [EN]  The current date value is used for null entries
+     *
+     * @param in fecha de entrada [EN]  entry date
+     * @return Fecha del primer día de la semana a la que pertenece el día de entrada
+     * [EN]  Date of the first day of the week to which the day of entry belongs
+     */
+    public static GregorianCalendar firstDayOfTheWeek(GregorianCalendar in) {
+        /*Clonar días */
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(nc(in).getTimeInMillis());
+
+        /*Comprobar el día de la semana de la entrada [EN]  Check the day of the week of entry*/
+
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        /*Calcular el numéro de días a restar [EN]  Calculate the number of days to subtract*/
+        /*Utilizar lunes como primer día de la semana [EN]  Use Monday as the first day of the week*/
+        int num = day - 2;
+
+        if (num < 0) {
+            num = 6;
+        }
+
+        num = -1 * num;
+
+        calendar.add(Calendar.DAY_OF_MONTH, num);
+        return calendar;
+    }
+
+    /**
+     * Devuelve el último día de la semana para la fecha señalada.
+     * Se utiliza el valor actual de fecha para entradas nulas
+     * <p>
+     * [EN]  Returns the last day of the week for the designated date.
+     * [EN]  The current date value is used for null entries
+     *
+     * @param in fecha de entrada [EN]  entry date
+     * @return Fecha del último día de la semana a la que pertenece el día de entrada
+     * [EN]  Date of the last day of the week to which the day of entry belongs
+     */
+    public static GregorianCalendar lastDayOfTheWeek(GregorianCalendar in) {
+        /*Clonar días */
+        GregorianCalendar calendar = new GregorianCalendar();
+
+        calendar.setTimeInMillis(nc(in).getTimeInMillis());
+        /*Comprobar el día de la semana de la entrada [EN]  Check the day of the week of entry*/
+
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+         /*Calcular el numéro de días a sumar [EN]  Calculate the number of days to subtract*/
+        /*Utilizar lunes como primer día de la semana [EN]  Use Monday as the first day of the week*/
+        int num = day - 2;
+        if (num < 0) {
+            num = 6;
+        }
+
+        num = 6 - num;
+
+        calendar.add(Calendar.DAY_OF_MONTH, num);
+        return calendar;
+    }
+
+    /**
      * Reseteo de horas
      * [EN]  Weather Reset
      *
@@ -421,8 +489,8 @@ public abstract class DateTools {
     }
 
     /**
-     * @param start fecha desde excluida [EN]  date from excluded
-     * @param end fecha hasta incluida [EN]  date up included
+     * @param start    fecha desde excluida [EN]  date from excluded
+     * @param end      fecha hasta incluida [EN]  date up included
      * @param holidays Lista de días festivos [EN]  Holiday List
      * @return Número de días hábiles [EN]  Holiday List
      */

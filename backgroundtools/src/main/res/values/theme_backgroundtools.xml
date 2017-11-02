@@ -38,6 +38,10 @@
         <!--file item-->
         <item name="item_file_container">@drawable/item_file_container</item>
 
+        <!--calendar item-->
+        <item name="item_calendar_holiday">@drawable/item_calendar_holiday</item>
+        <item name="item_calendar_normal">@drawable/item_calendar_normal</item>
+
         <!--edittext-->
         <item name="dialogs_edittext_hint_color">@color/bt_primary_dark</item>
         <item name="dialogs_edittext_text_color">@color/bt_black</item>

@@ -1,5 +1,7 @@
 package es.marser;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,6 +9,9 @@ import org.junit.Test;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import es.marser.tools.DateTools;
+import es.marser.tools.SystemColor;
 
 
 /**
@@ -35,6 +40,8 @@ public class DateToolsTest {
     private GregorianCalendar in9 = new GregorianCalendar();
     private GregorianCalendar in10 = new GregorianCalendar();
     private GregorianCalendar in11 = new GregorianCalendar();
+    private GregorianCalendar in12 = new GregorianCalendar();
+    private GregorianCalendar in13 = new GregorianCalendar();
     private SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyyHHmmss");
 
     @Before
@@ -55,6 +62,9 @@ public class DateToolsTest {
         in9.set(2017, Calendar.SEPTEMBER, 15, 0, 0, 0);//01-sep-2011 00:00:00
         in10.set(2017, Calendar.JUNE, 15, 0, 0, 0);//01-sep-2011 00:00:00
         in11.set(2017, Calendar.OCTOBER, 15, 0, 0, 0);//01-sep-2011 00:00:00
+
+        in12.set(2017, Calendar.OCTOBER, 9, 0, 0, 0);//01-sep-2011 00:00:00
+        in13.set(2017, Calendar.OCTOBER, 11, 0, 0, 0);//01-sep-2011 00:00:00
     }
 
     /**
@@ -95,6 +105,10 @@ public class DateToolsTest {
     public void channel3() {
         Assert.assertEquals(true, es.marser.tools.DateTools.formatShortDate(in).equals("01-01-2010"));
         Assert.assertEquals(true, es.marser.tools.DateTools.formatLongDate(in).equals("01 de enero de 2010"));
+        Assert.assertTrue(DateTools.sameDay(DateTools.firstDayOfTheWeek(in11), in12));
+        Assert.assertTrue(DateTools.sameDay(DateTools.lastDayOfTheWeek(in12), in11));
+        Assert.assertTrue(DateTools.sameDay(DateTools.firstDayOfTheWeek(in13), in12));
+        Assert.assertTrue(DateTools.sameDay(DateTools.lastDayOfTheWeek(in13), in11));
     }
 
     /**

@@ -21,6 +21,7 @@ import es.marser.backgroundtools.objectslistables.headerbody.adapter.HeadBodyLis
 
 @SuppressWarnings({"SameReturnValue", "unused"})
 public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
+
     protected HeadBodyListAdapter<H,B> adapter;
 
     //OBLIGATORY OVERWRITING___________________________________________________________________________
@@ -285,5 +286,4 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
     public boolean onLongClickBody(View view, int position, B item, View root) {
         return true;
     }
-
 }

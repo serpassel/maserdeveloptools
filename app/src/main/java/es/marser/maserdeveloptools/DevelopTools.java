@@ -57,6 +57,7 @@ public class DevelopTools extends BaseActivity {
             }
         });
 */
+/*
         checkReadExternalStorage(new Result<Boolean>() {
             @Override
             public void onResult(Boolean result) {
@@ -64,6 +65,8 @@ public class DevelopTools extends BaseActivity {
                 DialogExample.filefilterSelector(DevelopTools.this, result);
             }
         });
+*/
+        DialogExample.calendarChooser(this);
     }
 
     @Override

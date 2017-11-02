@@ -39,12 +39,9 @@ public class BuildPojoTest {
         String nameclass = "CalendarObservable";
 
         BuildPojo.FieldBuilder[] list = {
-                BuildPojo.newfb("year", int.class),
-                BuildPojo.newfb("month", int.class),
-                BuildPojo.newfb("day", int.class),
-                BuildPojo.newfb("hour", int.class),
-                BuildPojo.newfb("minute", int.class),
-                BuildPojo.newfb("second", int.class),
+                BuildPojo.newfb("holiday", boolean.class),
+                BuildPojo.newfb("othermonth", boolean.class),
+                BuildPojo.newfb("otherholiday", int.class),
                 BuildPojo.newfb("calendar", GregorianCalendar.class)
         };
 

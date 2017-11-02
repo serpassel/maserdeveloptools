@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+        <!--DATA MODEL-->
+        <import type="es.marser.backgroundtools.dialogs.model.CalendarObservable" />
+
+        <variable
+            name="item"
+            type="CalendarObservable" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/item_file_container"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="@{item.day}"
+            android:textSize="12sp"
+            bind:isholiday="@{item.holiday}"
+            bind:isOtherholiday="@{item.otherholiday}"
+            bind:isOtherMonth="@{item.othermonth}"/>
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

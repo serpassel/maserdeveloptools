@@ -6,6 +6,8 @@ import android.view.View;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.dialogs.model.CalendarObservable;
+import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialog;
@@ -243,6 +245,18 @@ public class DialogExample {
                         context,
                         FileChooserDialog.createBundle(context, new String[]{".bc3"}),
                         readeable,
+                        null
+                );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog calendarChooser(Context context) {
+
+        CalendarChooser dialog =
+                CalendarChooser.newInstance(
+                        context,
+                        CalendarChooser.createBundle(context),
                         null
                 );
         dialog.show();

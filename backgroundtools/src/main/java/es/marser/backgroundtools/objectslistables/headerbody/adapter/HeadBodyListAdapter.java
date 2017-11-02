@@ -81,11 +81,11 @@ public abstract class HeadBodyListAdapter<H, B> extends BaseListAdapter {
 
         switch (type) {
             case HEAD:
-                holder.bind(hGlobalController.getItemAt(indexPos(position, holder.getItemViewType())));
+                holder.bind(hGlobalController.getItemAt(position));
                 ((ViewHolderBinding<H>)holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
                 break;
             case BODY:
-                holder.bind(bGlobalController.getItemAt(indexPos(position, holder.getItemViewType())));
+                holder.bind(bGlobalController.getItemAt(position));
                 ((ViewHolderBinding<B>)holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
                 break;
         }
