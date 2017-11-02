@@ -41,6 +41,10 @@
         <!--calendar item-->
         <item name="item_calendar_holiday">@drawable/item_calendar_holiday</item>
         <item name="item_calendar_normal">@drawable/item_calendar_normal</item>
+        <item name="calendar_normal_text">@color/calendar_normal_text</item>
+        <item name="calendar_holiday_text">@color/calendar_holiday_text</item>
+        <item name="calendar_other_holiday_text">@color/calendar_other_holiday_text</item>
+        <item name="calendar_other_month_text">@color/calendar_other_month_text</item>
 
         <!--edittext-->
         <item name="dialogs_edittext_hint_color">@color/bt_primary_dark</item>

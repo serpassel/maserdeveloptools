@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--SELECTED-->
+    <item android:state_selected="true" >
+        <shape>
+            <!-- color de fondo -->
+            <solid android:color="@color/bt_view_selected_color" />
+
+            <!-- curvatura de las esquinas -->
+            <corners android:radius="@dimen/m_radius" />
+
+            <!-- padding para dejar una separacin prudencial entre los elementos conetenidos y el borde -->
+            <padding android:left="@dimen/m_padding" android:top="@dimen/m_padding" android:right="@dimen/m_padding"
+                android:bottom="@dimen/m_padding"/>
+
+            <!-- borde -->
+            <stroke
+                android:width="@dimen/m_stroke"
+                android:color="@android:color/darker_gray" />
+
+        </shape>
+    </item>
+
+    <!--PRESSED-->
+    <item android:state_pressed="true" >
+        <shape>
+            <!-- color de fondo -->
+            <solid android:color="@color/bt_view_pressed_color" />
+
+            <!-- curvatura de las esquinas -->
+            <corners android:radius="@dimen/m_radius" />
+
+            <!-- padding para dejar una separacin prudencial entre los elementos conetenidos y el borde -->
+            <padding android:left="@dimen/m_padding" android:top="@dimen/m_padding" android:right="@dimen/m_padding"
+                android:bottom="@dimen/m_padding"/>
+
+            <!-- borde -->
+            <stroke
+                android:width="@dimen/m_stroke"
+                android:color="@android:color/darker_gray" />
+
+        </shape>
+    </item>
+
+    <!--NORMAL-->
+    <item>
+        <shape>
+            <!-- color de fondo -->
+            <solid android:color="@color/calendar_normal_background" />
+
+            <!-- curvatura de las esquinas -->
+            <corners android:radius="@dimen/m_radius" />
+
+            <!-- padding para dejar una separacin prudencial entre los elementos conetenidos y el borde -->
+            <padding android:left="@dimen/m_padding" android:top="@dimen/m_padding" android:right="@dimen/m_padding"
+                android:bottom="@dimen/m_padding"/>
+
+        </shape>
+    </item>
+</selector>
