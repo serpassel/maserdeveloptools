@@ -16,6 +16,9 @@
     <color name="calendar_normal_text">#263238</color>
     <color name="calendar_holiday_text">#c62828</color>
     <color name="calendar_other_holiday_text">#d84315</color>
-    <color name="calendar_other_month_text">#9e9e9e</color>
+    <color name="calendar_other_month_text">#bdbdbd</color>
 
+    <!--Head date-->
+    <dimen name="calendar_month_year_text_size">17sp</dimen>
+    <dimen name="calendar_buttons_size">@dimen/s_image</dimen>
 </resources>

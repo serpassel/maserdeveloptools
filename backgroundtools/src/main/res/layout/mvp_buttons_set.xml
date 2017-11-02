@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:background="?attr/dialogs_foo_background_tint"
         android:orientation="horizontal"
-        android:padding="?attr/button_default_padding">
+        >
 
         <View
             android:layout_width="0dp"

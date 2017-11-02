@@ -1,17 +1,16 @@
 package es.marser.backgroundtools.viewbindingadapters;
 
-import android.content.Context;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorInt;
-import android.support.v4.content.ContextCompat;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.View;
 import android.widget.TextView;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.tools.BooleanTools;
 
 /**
@@ -25,27 +24,25 @@ import es.marser.tools.BooleanTools;
 public class CalendarBA {
 
     @BindingAdapter(value = {"isholiday", "isOtherholiday", "isOtherMonth"}, requireAll = false)
-    public static void formatCalendarDay(TextView view, Boolean isHoliday, Boolean isOtherHolidays, Boolean isOtherMonth) {
-        Log.d(LOG_TAG.TAG, "ENTRADA" + "festivo " + isHoliday + " Otro mes " + isOtherMonth);
+    public static void formatTextCalendarDay(TextView view, Boolean isHoliday, Boolean isOtherHolidays, Boolean isOtherMonth) {
         TypedValue typedValue = new TypedValue();
         Resources.Theme theme = view.getContext().getTheme();
 
-        theme.resolveAttribute(R.attr.dialogs_edittext_hint_color, typedValue, true);
-        @ColorInt int textSecondary = typedValue.data;
-
-        theme.resolveAttribute(R.attr.dialogs_edittext_text_color, typedValue, true);
-        @ColorInt int textPrimary = typedValue.data;
-
-        view.setTextColor(textPrimary);
+        theme.resolveAttribute(R.attr.calendar_normal_text, typedValue, true);
+        @ColorInt int textNormal = typedValue.data;
+        view.setTextColor(textNormal);
 
         if (BooleanTools.nc(isHoliday)) {
-            Log.d(LOG_TAG.TAG, "FESTIVO");
-            view.setTextColor(ContextCompat.getColor(view.getContext(), R.color.bt_wrong_color_red_500));
+
+            theme.resolveAttribute(R.attr.calendar_holiday_text, typedValue, true);
+            @ColorInt int textholiday = typedValue.data;
+            view.setTextColor(textholiday);
         }
 
         if (BooleanTools.nc(isOtherMonth)) {
-            Log.d(LOG_TAG.TAG, "OTRO MES");
-            view.setTextColor(textSecondary);
+            theme.resolveAttribute(R.attr.calendar_other_month_text, typedValue, true);
+            @ColorInt int textmonth = typedValue.data;
+            view.setTextColor(textmonth);
         }
 
     }

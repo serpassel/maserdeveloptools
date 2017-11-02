@@ -176,6 +176,11 @@ public class DateToolsTest {
                 )//28 de septiembre
                 ).equals("28092017")
         );
+        GregorianCalendar start = new GregorianCalendar();
+        start.set(2016, Calendar.NOVEMBER, 28, 23, 59, 54);//01-sep-2011 00:00:00
+        GregorianCalendar end = new GregorianCalendar();
+        end.set(2017, Calendar.JANUARY, 1, 0, 0, 0);//01-sep-2011 00:00:00
+        Assert.assertEquals(34, DateTools.daysBetweenTwoDates(start,end));
     }
 
     @Test

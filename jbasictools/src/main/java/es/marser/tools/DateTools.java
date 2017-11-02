@@ -27,6 +27,7 @@ import java.util.GregorianCalendar;
 @SuppressWarnings({"unused", "WeakerAccess", "SameParameterValue", "MagicConstant"})
 public abstract class DateTools {
 
+    public static long MILISECONDS_PER_DAY = (long) (24 * 60 * 60 * 1000);
     public static final String comparativeFormatting = "ddMMyyyy"; //Variable de formateo comparativo [EN]  Comparative Format Variable
     public static final String separatorMark = "|"; //Marca separadora para registros en cadena [EN]  [EN]  Separator mark for string registers
 
@@ -553,7 +554,6 @@ public abstract class DateTools {
      * @param in    Fecha a comparar [EN]  Date to compare
      * @return true si in está entre ambas fechas [EN]  if in is between both dates
      */
-
     public static boolean betweenTwoDate(GregorianCalendar start, GregorianCalendar end, GregorianCalendar in) {
         /*Comprobar nulos [EN]  Check for nulls*/
         if (start == null || end == null || in == null) {
@@ -569,6 +569,30 @@ public abstract class DateTools {
         GregorianCalendar ini = cloneDayResetTime(in);
         return customizePair.start.before(ini) && (customizePair.end.after(ini) || sameDay(customizePair.end, ini));
     }
+
+    /**
+     * Obtener los días entre dos fechas
+     * <p>
+     * [EN]  Get the days between two dates
+     *
+     * @param start Fecha menor [EN]  Minor date
+     * @param end   Fecha mayor [EN]  Major date
+     * @return días entre ambas fechas [EN]  days between both dates
+     */
+    public static long daysBetweenTwoDates(GregorianCalendar start, GregorianCalendar end) {
+        long lstart = resetTime(start).getTimeInMillis();
+        long lend = resetTime(end).getTimeInMillis();
+
+        return  (lend - lstart) / MILISECONDS_PER_DAY;
+    }
+
+    /*
+    *   GregorianCalendar lastinyear = new GregorianCalendar(start.get(Calendar.YEAR), Calendar.DECEMBER, 31);
+        int yeardays = lastinyear.get(Calendar.DAY_OF_YEAR);
+
+        int daysNum = end.get(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
+
+        return daysNum < 0 ? yeardays + daysNum : daysNum;*/
 
     /**
      * @param start Fecha inicial [EN]  Start date

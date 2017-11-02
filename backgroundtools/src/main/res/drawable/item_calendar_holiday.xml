@@ -25,7 +25,7 @@
     <item android:state_pressed="true" >
         <shape>
             <!-- color de fondo -->
-            <solid android:color="@color/bt_view_pressed_color" />
+            <solid android:color="@color/bt_view_selected_color" />
 
             <!-- curvatura de las esquinas -->
             <corners android:radius="@dimen/m_radius" />
@@ -47,9 +47,6 @@
         <shape>
             <!-- color de fondo -->
             <solid android:color="@color/calendar_weekend_background" />
-
-            <!-- curvatura de las esquinas -->
-            <corners android:radius="@dimen/m_radius" />
 
             <!-- padding para dejar una separacin prudencial entre los elementos conetenidos y el borde -->
             <padding android:left="@dimen/m_padding" android:top="@dimen/m_padding" android:right="@dimen/m_padding"

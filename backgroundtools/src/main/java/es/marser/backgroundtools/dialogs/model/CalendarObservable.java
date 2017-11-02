@@ -4,10 +4,12 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
 import es.marser.tools.BooleanTools;
 import es.marser.tools.DateTools;
@@ -34,8 +36,7 @@ public class CalendarObservable extends BaseObservable implements Parcelable {
 
     public CalendarObservable setCalendar(GregorianCalendar calendar) {
         this.calendar = calendar;
-        notifyPropertyChanged(BR.calendar);
-        notifyPropertyChanged(BR.day);
+        notifyAllBR();
         return this;
     }
 
@@ -78,10 +79,37 @@ public class CalendarObservable extends BaseObservable implements Parcelable {
     }
 
     @Bindable
+    public String getDateLong(){
+        return DateTools.formatLongDate(calendar);
+    }
+
+    @Bindable
     public String getDay() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("d");
-        //Log.e(LOG_TAG.TAG, "Día " + dateFormat.format(calendar.getTime()));
         return dateFormat.format(calendar.getTime());
+    }
+
+    @Bindable
+    public String getMonth() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM");
+        //Log.d(LOG_TAG.TAG, "MES " + dateFormat.format(calendar.getTime()));
+        return dateFormat.format(calendar.getTime());
+    }
+
+    @Bindable
+    public String getYear() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
+        //Log.d(LOG_TAG.TAG, "AÑO " + dateFormat.format(calendar.getTime()));
+        return dateFormat.format(calendar.getTime());
+    }
+
+
+    private void notifyAllBR() {
+        notifyPropertyChanged(BR.calendar);
+        notifyPropertyChanged(BR.day);
+        notifyPropertyChanged(BR.month);
+        notifyPropertyChanged(BR.year);
+        notifyPropertyChanged(BR.dateLong);
     }
 
     @Override

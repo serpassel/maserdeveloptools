@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
@@ -26,6 +28,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 
@@ -189,7 +192,7 @@ public class CalendarChooser
      * [EN]  Load the days of the month
      */
     private void loadDayMoth() {
-       final int[] datepos = new int[1];
+        final int[] datepos = new int[1];
         /*Cagar datos [EN]  Download data*/
         new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
             @Override
@@ -249,7 +252,15 @@ public class CalendarChooser
     /* {@link ViewHandler}*/
     @Override
     public void onClick(View view, Void item) {
-
+        if (view.getId() == R.id.id_calendar_sum_month) {
+            sumDateValues(Calendar.MONTH, 1);
+        } else if (view.getId() == R.id.id_calendar_subtract_month) {
+            sumDateValues(Calendar.MONTH, -1);
+        } else if (view.getId() == R.id.id_calendar_sum_year) {
+            sumDateValues(Calendar.YEAR, 1);
+        } else if (view.getId() == R.id.id_calendar_subtract_year) {
+            sumDateValues(Calendar.YEAR, -1);
+        }
     }
 
     @Override
@@ -257,7 +268,53 @@ public class CalendarChooser
         return true;
     }
 
+    /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
+    @Override
+    public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
+        super.onClickBodyItem(holder, item, position, mode);
+        changedDate(item.getCalendar());
+    }
+
+    /**
+     * Cambio de selección de fecha
+     * <p>
+     * [EN]  Change of date selection
+     *
+     * @param in       nueva fecha
+     * @param position posición del registro
+     */
+    private void changedDate(GregorianCalendar in) {
+        int actualMonth = headmodel.getCalendar().get(Calendar.MONTH);
+        int inMonth = in.get(Calendar.MONTH);
+
+        int actualYear = headmodel.getCalendar().get(Calendar.YEAR);
+        int inYear = in.get(Calendar.YEAR);
+
+        headmodel.setCalendar(in);
+
+        if (actualMonth != inMonth || actualYear != inYear) {
+            loadDayMoth();
+        }
+    }
+
+    /**
+     * Sumar un valor a la fecha vigente
+     * <p>
+     * [EN]  Add a value to the current date
+     *
+     * @param field Type of value{@link Calendar#YEAR} or {@link Calendar#MONTH}
+     * @param amont Value
+     */
+    private void sumDateValues(int field, int amont) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTimeInMillis(headmodel.getCalendar().getTimeInMillis());
+
+        calendar.add(field, amont);
+        changedDate(calendar);
+    }
+
     //ASYNCHRONOUS LOADING__________________________________________________________________
+
     /**
      * Método asíncrono de carga de días el calendario
      * <p>
@@ -284,7 +341,15 @@ public class CalendarChooser
             GregorianCalendar lastMonth = DateTools.lastDayOfTheMonth(in);
             GregorianCalendar lastWeek = DateTools.lastDayOfTheWeek(lastMonth);
 
-            int iterNum = lastWeek.get(Calendar.DAY_OF_YEAR) - firstWeek.get(Calendar.DAY_OF_YEAR);
+            Log.d(LOG_TAG.TAG, "ORIGINAL " + DateTools.formatShortDate(in));
+            Log.i(LOG_TAG.TAG, "First Month " + DateTools.formatShortDate(firstMonth));
+            Log.w(LOG_TAG.TAG, "First Week " + DateTools.formatShortDate(firstWeek));
+            Log.i(LOG_TAG.TAG, "Last Month " + DateTools.formatShortDate(lastMonth));
+            Log.w(LOG_TAG.TAG, "Last Week " + DateTools.formatShortDate(lastWeek));
+
+            long iterNum = DateTools.daysBetweenTwoDates(firstWeek, lastWeek);
+
+            Log.w(LOG_TAG.TAG, "Número de días " + iterNum);
 
             for (int d = 0; d <= iterNum; ++d) {
                 /*Clonar resultado [EN]  Clone result*/
@@ -293,7 +358,7 @@ public class CalendarChooser
                 /*Agregar días [EN]  Add days*/
                 iter.add(Calendar.DAY_OF_YEAR, d);
                 /*Publicar la posición del día vigente [EN]  Publish the current day position*/
-                if(DateTools.sameDay(iter,in)){
+                if (DateTools.sameDay(iter, in)) {
                     publishProgress(d);
                 }
 
