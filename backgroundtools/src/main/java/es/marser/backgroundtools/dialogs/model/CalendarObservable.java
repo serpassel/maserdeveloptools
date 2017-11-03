@@ -74,7 +74,7 @@ public class CalendarObservable extends BaseObservable implements Parcelable {
     }
 
     @Bindable
-    public boolean getOtherholiday() {
+    public boolean isOtherholiday() {
         return this.otherholiday;
     }
 

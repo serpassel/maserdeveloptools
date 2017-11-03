@@ -61,6 +61,9 @@ public class TextTools {
     public static final char SPACE = 32; //" "
     public static final char COMMA = 44; //,
     public static final char POINT = 46; //.
+    public static final char POINT_COMMA = 59; //.
+    public static final char SALTO_LINEA_CHAR = 10; //.
+    public static final char RETORNO_CARRO_CHAR = 13; //.
 
 //1.- INDENTIFICACION DE CADENAS____________________________________________________________________________
 //1.- INDENTIFICATION OF STRINGS______________________________________________________________________________

@@ -1,9 +1,13 @@
 package es.marser.backgroundtools.systemtools;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.Resources;
 import es.marser.tools.DateTools;
@@ -12,9 +16,9 @@ import es.marser.tools.TextTools;
 /**
  * @author sergio
  *         Created by sergio on 3/11/17.
- *         Enumeración de recursos de android por tipología
+ *         Recuperador de recursos de {@link R}
  *         <p>
- *         [EN]  Enumeration of android resources by type
+ *         [EN]  Resource retrieval from {@link R}
  */
 
 public class ResourcesAccess {
@@ -103,9 +107,9 @@ public class ResourcesAccess {
      * <p>
      * [EN]  Return the position index in a list of {@link R.array}, for a given value
      *
-     * @param context contexto de la aplicación [EN]  context of the application
+     * @param context   contexto de la aplicación [EN]  context of the application
      * @param arrayName Nombre del arreglo [EN]  Arrangement name
-     * @param value valor buscado [EN]  sought value
+     * @param value     valor buscado [EN]  sought value
      * @return índice de posición o -1 si no existe [EN]  position index or -1 if it does not exist
      */
     public static int getItemId(Context context, String arrayName, String value) {
@@ -167,5 +171,32 @@ public class ResourcesAccess {
         return getFilterOfArray(getAutonomyHolidays(context, year));
     }
 
+    /**
+     * Devuelve el texto asociado a una fecha festiva autonómica
+     * <p>
+     * [EN]  Returns the text associated with a regional festive date
+     *
+     * @param context  contexto de la aplicación [EN]  context of the application
+     * @param calendar fecha de referencia [EN]  reference date
+     * @return Listado de las comunidades autónomas donde la fecha es festiva
+     * [EN]  List of autonomous communities where the date is festive
+     */
+    public static String getHolidayText(Context context, GregorianCalendar calendar) {
+        GregorianCalendar gc = DateTools.nc(DateTools.resetTime(calendar));
+        int year = gc.get(Calendar.YEAR);
+        /*recuperar el índice del día en la lista festiva [EN]  retrieve the index of the day in the festive list*/
+        int index = getItemId(context, "autonomy_holidays_" + year, DateTools.formatComparative(gc));
+
+        if (index < 0) {
+            return "";
+        }
+        /*recuperar el arreglo de textos [EN]  recover the arrangement of texts*/
+        String[] texts = getStringArray(context, "text_holidays_" + year);
+
+        if(index > texts.length){
+            return "";
+        }
+        return texts[index];
+    }
 
 }

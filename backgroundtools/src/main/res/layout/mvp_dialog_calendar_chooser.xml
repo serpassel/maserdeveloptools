@@ -148,7 +148,10 @@
                 android:gravity="center_vertical|end"
                 android:text="@{headmodel.dateLong}"
                 android:textColor="?attr/dialogs_body_text_color"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                bind:isholiday="@{headmodel.holiday}"
+                bind:isOtherholiday="@{headmodel.otherholiday}"
+                bind:isOtherMonth="@{headmodel.othermonth}"/>
 
         </android.support.v7.widget.LinearLayoutCompat>
 

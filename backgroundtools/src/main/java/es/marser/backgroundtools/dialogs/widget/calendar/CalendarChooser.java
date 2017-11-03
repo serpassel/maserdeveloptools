@@ -1,22 +1,18 @@
 package es.marser.backgroundtools.dialogs.widget.calendar;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
@@ -24,6 +20,7 @@ import es.marser.backgroundtools.dialogs.bases.BaseDialogHeadBodyBinList;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.DayWeek;
 import es.marser.backgroundtools.dialogs.task.OnResult;
+import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
@@ -131,7 +128,6 @@ public class CalendarChooser
         viewDataBinding.executePendingBindings();
     }
 
-
     @Override
     protected void postBuild() {
         super.postBuild();
@@ -164,6 +160,11 @@ public class CalendarChooser
         } else {
             return new GridLayoutManager(getActivity(), 7);
         }
+    }
+
+    @Override
+    protected ListExtra getInitialSelectionMode() {
+        return ListExtra.ONLY_SINGLE_SELECTION_MODE;
     }
 
     @Override
@@ -231,6 +232,30 @@ public class CalendarChooser
 
     }
 
+    /**
+     * Fijar festivos en la fecha de cabecera
+     * <p>
+     * [EN]  Set holidays on the header date
+     */
+    private void completeHeadmodel() {
+        if (headmodel == null || headmodel.getCalendar() == null) {
+            return;
+        }
+
+        int year = headmodel.getCalendar().get(Calendar.YEAR);
+
+        headmodel.setHoliday(
+                !DateTools.isBusinessDay(headmodel.getCalendar(),
+                        ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year)
+                )
+        );
+
+        headmodel.setOtherholiday(
+                !DateTools.isBusinessDay(headmodel.getCalendar(),
+                        ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)) && !headmodel.isHoliday()
+        );
+    }
+
     //PROPERTIES_______________________________________________________________________________
 
     /*{@link OnResult}*/
@@ -278,7 +303,7 @@ public class CalendarChooser
 
     @Override
     public boolean onLongClick(View view, Void item) {
-        return true;
+        return false;
     }
 
     /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
@@ -286,6 +311,27 @@ public class CalendarChooser
     public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         super.onClickBodyItem(holder, item, position, mode);
         changedDate(item.getCalendar());
+    }
+
+    @Override
+    public boolean onLongClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
+        changedDate(item.getCalendar());
+        if(item.isOtherholiday()){
+            String list = ResourcesAccess.getHolidayText(getContext(), item.getCalendar());
+
+            if(!TextTools.isEmpty(list)){
+                String title = "Día festivo en, ";
+                list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
+                NotificationDialogBinModel dialog =
+                        NotificationDialogBinModel.newInstance(
+                                context,
+                                NotificationDialogBinModel.createInformationBundle(context, title, list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR))
+                        );
+                dialog.show();
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -308,6 +354,7 @@ public class CalendarChooser
         if (actualMonth != inMonth || actualYear != inYear) {
             loadDayMoth();
         }
+        completeHeadmodel();
     }
 
     /**
@@ -326,124 +373,4 @@ public class CalendarChooser
         changedDate(calendar);
     }
 
-    //ASYNCHRONOUS LOADING__________________________________________________________________
-
-    /**
-     * Método asíncrono de carga de días el calendario
-     * <p>
-     * [EN]  Asynchronous method of loading days on the calendar
-     */
-    private class AsyncMonthDays extends AsyncTask<DateLoader, Integer, List<CalendarObservable>> {
-
-        private DataUploaderTask<Void, Integer, List<CalendarObservable>> result;
-
-        public AsyncMonthDays(DataUploaderTask<Void, Integer, List<CalendarObservable>> result) {
-            this.result = result;
-        }
-
-        @Override
-        protected List<CalendarObservable> doInBackground(DateLoader... calendars) {
-
-            List<CalendarObservable> list = new ArrayList<>();
-            DateLoader dateLoader = calendars[0];
-
-            GregorianCalendar in = dateLoader.getCalendar();
-            String holidayFilter = dateLoader.getHolidayFilter();
-            String otherHolidayFilter = dateLoader.getOtherHolidayFilter();
-
-            /*Día de partida [EN]  Day of departure*/
-            GregorianCalendar firstMonth = DateTools.firstDaysOfTheMonth(in);
-            GregorianCalendar firstWeek = DateTools.firstDayOfTheWeek(firstMonth);
-
-            /*Día de finalización [EN]  End day*/
-            GregorianCalendar lastMonth = DateTools.lastDayOfTheMonth(in);
-            GregorianCalendar lastWeek = DateTools.lastDayOfTheWeek(lastMonth);
-
-            Log.d(LOG_TAG.TAG, "ORIGINAL " + DateTools.formatShortDate(in));
-            Log.i(LOG_TAG.TAG, "First Month " + DateTools.formatShortDate(firstMonth));
-            Log.w(LOG_TAG.TAG, "First Week " + DateTools.formatShortDate(firstWeek));
-            Log.i(LOG_TAG.TAG, "Last Month " + DateTools.formatShortDate(lastMonth));
-            Log.w(LOG_TAG.TAG, "Last Week " + DateTools.formatShortDate(lastWeek));
-
-            long iterNum = DateTools.daysBetweenTwoDates(firstWeek, lastWeek);
-
-            Log.w(LOG_TAG.TAG, "Número de días " + iterNum);
-
-            for (int d = 0; d <= iterNum; ++d) {
-                /*Clonar resultado [EN]  Clone result*/
-                GregorianCalendar iter = new GregorianCalendar();
-                iter.setTimeInMillis(firstWeek.getTimeInMillis());
-                /*Agregar días [EN]  Add days*/
-                iter.add(Calendar.DAY_OF_YEAR, d);
-                /*Publicar la posición del día vigente [EN]  Publish the current day position*/
-                if (DateTools.sameDay(iter, in)) {
-                    publishProgress(d);
-                }
-
-                CalendarObservable citer = new CalendarObservable(iter);
-                citer.setOthermonth(in.get(Calendar.MONTH) != iter.get(Calendar.MONTH));
-                citer.setHoliday(!DateTools.isBusinessDay(iter, holidayFilter));
-
-                if (!TextTools.isEmpty(otherHolidayFilter)) {
-                    citer.setOtherholiday(!DateTools.isBusinessDay(iter, otherHolidayFilter) && !citer.isHoliday());
-                }
-                list.add(citer);
-            }
-            return list;
-        }
-
-        @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            if (result != null && !isCancelled()) {
-                result.onUpdate(values[0]);
-            }
-        }
-
-        @Override
-        protected void onPostExecute(List<CalendarObservable> calendarObservables) {
-            super.onPostExecute(calendarObservables);
-            if (result != null && !isCancelled()) {
-                result.onFinish(calendarObservables);
-            }
-        }
-    }
-
-    private class DateLoader {
-
-        private GregorianCalendar calendar;
-        private String holidayFilter;
-        private String otherHolidayFilter;
-
-
-        public DateLoader(GregorianCalendar calendar, String holidayFilter, String otherHolidayFilter) {
-            this.calendar = calendar;
-            this.holidayFilter = holidayFilter;
-            this.otherHolidayFilter = otherHolidayFilter;
-        }
-
-        public GregorianCalendar getCalendar() {
-            return calendar;
-        }
-
-        public void setCalendar(GregorianCalendar calendar) {
-            this.calendar = calendar;
-        }
-
-        public String getHolidayFilter() {
-            return holidayFilter;
-        }
-
-        public void setHolidayFilter(String holidayFilter) {
-            this.holidayFilter = holidayFilter;
-        }
-
-        public String getOtherHolidayFilter() {
-            return otherHolidayFilter;
-        }
-
-        public void setOtherHolidayFilter(String otherHolidayFilter) {
-            this.otherHolidayFilter = otherHolidayFilter;
-        }
-    }
 }
