@@ -1,7 +1,5 @@
 package es.marser;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +9,6 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import es.marser.tools.DateTools;
-import es.marser.tools.SystemColor;
 
 
 /**

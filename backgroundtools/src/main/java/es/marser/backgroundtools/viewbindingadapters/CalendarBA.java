@@ -39,11 +39,19 @@ public class CalendarBA {
             view.setTextColor(textholiday);
         }
 
+        if (BooleanTools.nc(isOtherHolidays)) {
+            theme.resolveAttribute(R.attr.calendar_other_holiday_text, typedValue, true);
+            @ColorInt int textmonth = typedValue.data;
+            view.setTextColor(textmonth);
+        }
+
         if (BooleanTools.nc(isOtherMonth)) {
             theme.resolveAttribute(R.attr.calendar_other_month_text, typedValue, true);
             @ColorInt int textmonth = typedValue.data;
             view.setTextColor(textmonth);
         }
+
+
 
     }
 }

@@ -29,6 +29,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 
@@ -193,6 +194,13 @@ public class CalendarChooser
      */
     private void loadDayMoth() {
         final int[] datepos = new int[1];
+
+        if (headmodel == null || headmodel.getCalendar() == null) {
+            return;
+        }
+
+        int year = headmodel.getCalendar().get(Calendar.YEAR);
+
         /*Cagar datos [EN]  Download data*/
         new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
             @Override
@@ -214,7 +222,12 @@ public class CalendarChooser
             public void onFailure(Throwable e) {
 
             }
-        }).execute(headmodel.getCalendar());
+        }).execute(new DateLoader(
+                        headmodel.getCalendar(),
+                        ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year),
+                        ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)
+                )
+        );
 
     }
 
@@ -320,7 +333,7 @@ public class CalendarChooser
      * <p>
      * [EN]  Asynchronous method of loading days on the calendar
      */
-    private class AsyncMonthDays extends AsyncTask<GregorianCalendar, Integer, List<CalendarObservable>> {
+    private class AsyncMonthDays extends AsyncTask<DateLoader, Integer, List<CalendarObservable>> {
 
         private DataUploaderTask<Void, Integer, List<CalendarObservable>> result;
 
@@ -329,10 +342,15 @@ public class CalendarChooser
         }
 
         @Override
-        protected List<CalendarObservable> doInBackground(GregorianCalendar... calendars) {
+        protected List<CalendarObservable> doInBackground(DateLoader... calendars) {
 
             List<CalendarObservable> list = new ArrayList<>();
-            GregorianCalendar in = calendars[0];
+            DateLoader dateLoader = calendars[0];
+
+            GregorianCalendar in = dateLoader.getCalendar();
+            String holidayFilter = dateLoader.getHolidayFilter();
+            String otherHolidayFilter = dateLoader.getOtherHolidayFilter();
+
             /*Día de partida [EN]  Day of departure*/
             GregorianCalendar firstMonth = DateTools.firstDaysOfTheMonth(in);
             GregorianCalendar firstWeek = DateTools.firstDayOfTheWeek(firstMonth);
@@ -364,8 +382,11 @@ public class CalendarChooser
 
                 CalendarObservable citer = new CalendarObservable(iter);
                 citer.setOthermonth(in.get(Calendar.MONTH) != iter.get(Calendar.MONTH));
-                citer.setHoliday(!DateTools.isBusinessDay(iter));
+                citer.setHoliday(!DateTools.isBusinessDay(iter, holidayFilter));
 
+                if (!TextTools.isEmpty(otherHolidayFilter)) {
+                    citer.setOtherholiday(!DateTools.isBusinessDay(iter, otherHolidayFilter) && !citer.isHoliday());
+                }
                 list.add(citer);
             }
             return list;
@@ -385,6 +406,44 @@ public class CalendarChooser
             if (result != null && !isCancelled()) {
                 result.onFinish(calendarObservables);
             }
+        }
+    }
+
+    private class DateLoader {
+
+        private GregorianCalendar calendar;
+        private String holidayFilter;
+        private String otherHolidayFilter;
+
+
+        public DateLoader(GregorianCalendar calendar, String holidayFilter, String otherHolidayFilter) {
+            this.calendar = calendar;
+            this.holidayFilter = holidayFilter;
+            this.otherHolidayFilter = otherHolidayFilter;
+        }
+
+        public GregorianCalendar getCalendar() {
+            return calendar;
+        }
+
+        public void setCalendar(GregorianCalendar calendar) {
+            this.calendar = calendar;
+        }
+
+        public String getHolidayFilter() {
+            return holidayFilter;
+        }
+
+        public void setHolidayFilter(String holidayFilter) {
+            this.holidayFilter = holidayFilter;
+        }
+
+        public String getOtherHolidayFilter() {
+            return otherHolidayFilter;
+        }
+
+        public void setOtherHolidayFilter(String otherHolidayFilter) {
+            this.otherHolidayFilter = otherHolidayFilter;
         }
     }
 }

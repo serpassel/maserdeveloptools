@@ -15,7 +15,7 @@ import es.marser.tools.BooleanTools;
 import es.marser.tools.DateTools;
 
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 public class CalendarObservable extends BaseObservable implements Parcelable {
 
     private GregorianCalendar calendar;

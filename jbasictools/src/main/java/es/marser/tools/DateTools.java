@@ -586,14 +586,6 @@ public abstract class DateTools {
         return  (lend - lstart) / MILISECONDS_PER_DAY;
     }
 
-    /*
-    *   GregorianCalendar lastinyear = new GregorianCalendar(start.get(Calendar.YEAR), Calendar.DECEMBER, 31);
-        int yeardays = lastinyear.get(Calendar.DAY_OF_YEAR);
-
-        int daysNum = end.get(Calendar.DAY_OF_YEAR) - start.get(Calendar.DAY_OF_YEAR);
-
-        return daysNum < 0 ? yeardays + daysNum : daysNum;*/
-
     /**
      * @param start Fecha inicial [EN]  Start date
      * @param end   Fecha final [EN] End date

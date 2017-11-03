@@ -57,7 +57,8 @@ public class DevelopTools extends BaseActivity {
             }
         });
 */
-/*
+
+        /*
         checkReadExternalStorage(new Result<Boolean>() {
             @Override
             public void onResult(Boolean result) {
