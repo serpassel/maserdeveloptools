@@ -64,7 +64,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  */
 
 @SuppressWarnings({"unused", "EmptyMethod"})
-public abstract class BaseActivity extends AppCompatActivity implements PermissionChecker{
+public abstract class BaseActivity extends AppCompatActivity implements PermissionChecker {
 
     protected Toolbar toolbar;
 
@@ -89,9 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         /*Instanciar variables [EN]  Instanciar variables*/
         instaceVariables();
         /*Activar toolbar [EN]  Activar toolbar*/
-        if (activeToolbarSupport()) {
             initToolbar();
-        }
     }
 
     /**
@@ -129,14 +127,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     protected void initToolbar() {
 
         toolbar = findViewById(R.id.app_toolbar);
-        toolbar.setTitle("");
+        if (toolbar != null) {
+            toolbar.setTitle("");
 
-        setSupportActionBar(toolbar);
+            setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
+            ActionBar actionBar = getSupportActionBar();
 
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
     }
 
@@ -154,6 +154,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
      * @return verdadero si se debe de incluir barra de herramientas
      * [EN]  true if toolbar should be included
      */
+    @Deprecated
     public boolean activeToolbarSupport() {
         return true;
     }
@@ -281,7 +282,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
             checkresult.onResult(true);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-               Log.d(LOG_TAG.TAG, "Pedir permiso " + permit);
+                Log.d(LOG_TAG.TAG, "Pedir permiso " + permit);
                 requestPermissions(new String[]
                         {permit}, 1001);
             } else {

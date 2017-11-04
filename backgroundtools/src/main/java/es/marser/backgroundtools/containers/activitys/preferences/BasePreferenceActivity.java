@@ -39,14 +39,9 @@ public abstract class BasePreferenceActivity extends BaseActivity {
 
     @Override
     protected void postinstaceVariables() {
-        if (title() != null) {
+        if (title() != null && toolbar != null) {
             toolbar.setTitle(title());
         }
-    }
-
-    @Override
-    public boolean activeToolbarSupport() {
-        return title() != null;
     }
 
     protected abstract void event();

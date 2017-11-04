@@ -1,16 +1,15 @@
 package es.marser.backgroundtools.systemtools;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.Resources;
 import es.marser.tools.DateTools;
+import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
 /**
@@ -19,9 +18,16 @@ import es.marser.tools.TextTools;
  *         Recuperador de recursos de {@link R}
  *         <p>
  *         [EN]  Resource retrieval from {@link R}
+ *         <ul>
+ *         <il>General</il>
+ *         <il>Holidays</il>
+ *         <il>Territory</il>
+ *         </ul>
  */
 
 public class ResourcesAccess {
+
+    //GENERAL_______________________________________________________________________________________
 
     /**
      * lookup a resource id by field name in static R.class
@@ -119,6 +125,8 @@ public class ResourcesAccess {
         return Arrays.asList(getStringArray(context, arrayName)).indexOf(value);
     }
 
+    //HOLIDAYS________________________________________________________________________________
+
     /**
      * Devuelve los días festivos de un año
      * <p>
@@ -193,10 +201,48 @@ public class ResourcesAccess {
         /*recuperar el arreglo de textos [EN]  recover the arrangement of texts*/
         String[] texts = getStringArray(context, "text_holidays_" + year);
 
-        if(index > texts.length){
+        if (index > texts.length) {
             return "";
         }
         return texts[index];
     }
 
+    //TERRITORY_______________________________________________________________________________
+
+    /**
+     * Recupera el listado de las comunidades autónomas
+     * <p>
+     * [EN]  Retrieve the list of the autonomous communities
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @return Listado de comunidade autónomas [EN]  List of autonomous communities
+     */
+    public static String[] getListAutonomousCommunities(Context context) {
+        return getStringArray(context, "spain_ccaa");
+    }
+
+    /**
+     * Recupera el listado de provincias
+     * <p>
+     * [EN]  Retrieve the list of provinces
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @return Listado de provincias [EN]  List of provinces
+     */
+    public static String[] getListProvinces(Context context) {
+        return getStringArray(context, "spain_province");
+    }
+
+    /**
+     * Recupera la lista de municipios para una provincia determinada
+     * <p>
+     * [EN]  Retrieve the list of municipalities for a given province
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param provinceId Código de la provincia [EN]  Code of the province
+     * @return Listado de pueblos de la provincia [EN]  List of towns in the province
+     */
+    public static String[] getListVillages(Context context, int provinceId) {
+        return getStringArray(context, "spain_villages_" + MathTools.formatCifra(provinceId, 2));
+    }
 }

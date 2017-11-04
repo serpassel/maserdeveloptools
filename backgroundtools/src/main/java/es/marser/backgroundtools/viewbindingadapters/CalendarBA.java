@@ -3,13 +3,9 @@ package es.marser.backgroundtools.viewbindingadapters;
 import android.content.res.Resources;
 import android.databinding.BindingAdapter;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DrawableRes;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.View;
 import android.widget.TextView;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.tools.BooleanTools;
 

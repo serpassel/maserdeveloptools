@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.territories.ProvincieModel;
+import es.marser.generic.GenericFactory;
 import es.marser.tools.SystemColor;
 
 /**
@@ -49,6 +51,14 @@ public class ResourcesAccessTest {
     @Test
     public void channel2() {
         runList(context.getResources().getStringArray(ResourcesAccess.getResArrayId(context, name)));
+        //Log.i(LOG_TAG.TAG, ResourcesAccess.getNatinoalHolidaysFilter(context, 2018));
+        Assert.assertEquals(ResourcesAccess.getNatinoalHolidaysFilter(context, 2018), "01012018|06012018|30032018|01052018|15082018|12102018|01112018|06122018|08122018|25122018|");
+        Assert.assertEquals(ResourcesAccess.getAutonomyHolidaysFilter(context, 2018), "28022018|01032018|19032018|29032018|02042018|23042018|02052018|17052018|30052018|31052018|09062018|25072018|28072018|22082018|08092018|11092018|15092018|09102018|26122018|");
+        Assert.assertEquals(ResourcesAccess.getNatinoalHolidaysFilter(context, 9999), "");
+        Assert.assertEquals(ResourcesAccess.getItemId(context, name, "30032018"), 2);
+        //String[] in = ResourcesAccess.getAutonomyHolidays(context, 2018);
+        GregorianCalendar calendar = new GregorianCalendar(2018, Calendar.FEBRUARY, 28);
+        Assert.assertEquals(ResourcesAccess.getHolidayText(context, calendar), "ANDALUCIA;");
     }
 
     @Test
@@ -60,14 +70,15 @@ public class ResourcesAccessTest {
 
     @Test
     public void channel3() {
-        //Log.i(LOG_TAG.TAG, ResourcesAccess.getNatinoalHolidaysFilter(context, 2018));
-        Assert.assertEquals(ResourcesAccess.getNatinoalHolidaysFilter(context, 2018), "01012018|06012018|30032018|01052018|15082018|12102018|01112018|06122018|08122018|25122018|");
-        Assert.assertEquals(ResourcesAccess.getAutonomyHolidaysFilter(context, 2018), "28022018|01032018|19032018|29032018|02042018|23042018|02052018|17052018|30052018|31052018|09062018|25072018|28072018|22082018|08092018|11092018|15092018|09102018|26122018|");
-        Assert.assertEquals(ResourcesAccess.getNatinoalHolidaysFilter(context, 9999), "");
-        Assert.assertEquals(ResourcesAccess.getItemId(context, name, "30032018"), 2);
-        //String[] in = ResourcesAccess.getAutonomyHolidays(context, 2018);
-        GregorianCalendar calendar = new GregorianCalendar(2018, Calendar.FEBRUARY, 28);
-        Assert.assertEquals(ResourcesAccess.getHolidayText(context, calendar), "ANDALUCIA;");
+        Assert.assertEquals(ResourcesAccess.getListAutonomousCommunities(context).length, 19);
+        Assert.assertEquals(ResourcesAccess.getListProvinces(context).length, 52);
+
+        /*Comprobar listados de municipios*/
+        /*Generar provincias*/
+        for(String s: ResourcesAccess.getListProvinces(context)){
+            ProvincieModel pm = GenericFactory.BuildSingleObject(ProvincieModel.class, s);
+            Log.w(LOG_TAG.TAG, "Provincia " + pm.toString());
+        }
     }
 
     private void runList(String[] in) {

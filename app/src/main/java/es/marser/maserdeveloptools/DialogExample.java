@@ -6,7 +6,6 @@ import android.view.View;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;

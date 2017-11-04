@@ -22,24 +22,25 @@ public class BuildPojo {
     /**
      * El:
      * <code>String tablename = "P";
-
-     String nameclass = "Prueba";
-
-     BuildPojo.FieldBuilder[] list = {
-     BuildPojo.newfb("field1", String.class),
-     BuildPojo.newfb("date1", Date.class),
-     BuildPojo.newfb("num1", BigDecimal.class),
-     BuildPojo.newfb("num2", int.class),
-     BuildPojo.newfb("flag1", boolean.class),
-     BuildPojo.newfb("obj1", Object.class)
-     };
-
-     BuildPojo buildPojo = new BuildPojo(tablename,nameclass,list);
-     buildPojo.print(true);
-     </code>
+     * <p>
+     * String nameclass = "Prueba";
+     * <p>
+     * BuildPojo.FieldBuilder[] list = {
+     * BuildPojo.newfb("field1", String.class),
+     * BuildPojo.newfb("date1", Date.class),
+     * BuildPojo.newfb("num1", BigDecimal.class),
+     * BuildPojo.newfb("num2", int.class),
+     * BuildPojo.newfb("flag1", boolean.class),
+     * BuildPojo.newfb("obj1", Object.class)
+     * };
+     * <p>
+     * BuildPojo buildPojo = new BuildPojo(tablename,nameclass,list);
+     * buildPojo.print(true);
+     * </code>
+     *
      * @param tablename Nombre de la tabla [EN]  Name of table
      * @param className Nombre de la clase a crear [EN]  Name of the class to create
-     * @param list lista de campos [EN]  field list
+     * @param list      lista de campos [EN]  field list
      */
     public BuildPojo(String tablename, String className, FieldBuilder[] list) {
         this.tablename = tablename;
@@ -66,7 +67,7 @@ public class BuildPojo {
 //*********************************************************************************************************/
         createConstructor();
 //*********************************************************************************************************/
-        createSetterAndGetter(bindable);
+        createSettersAndGetters(bindable);
 //*********************************************************************************************************/
         createToString();
 //*********************************************************************************************************/
@@ -205,30 +206,40 @@ public class BuildPojo {
         build += "}";
     }
 
-    public void createSetterAndGetter(boolean bindable) {
-            /*Setter & Getter****************************************************************************************************************************************************/
+    public void createSettersAndGetters(boolean bindable) {
+        /*Key*/
+        FieldBuilder fieldBuilder = new FieldBuilder();
+        fieldBuilder.name = "key";
+        fieldBuilder.type = "String";
+        createSetterAndGetter(bindable, fieldBuilder);
 
+        /*Setter & Getter****************************************************************************************************************************************************/
         for (FieldBuilder f : list) {
-            /*Setter*/
-            build += "\n\npublic " + className + " set" + TextTools.capitalizeFirstChar(f.name) + "(" + f.type + " " + f.name + ") {\n" +
-                    "this." + f.name + " = " + f.name + ";\n";
-            if (bindable) {
-                build += "notifyPropertyChanged(BR." + f.name + ");\n";
-            }
-            build += "return this;\n}";
-
-            /*Getter*/
-            if (bindable) {
-                build += "\n\n@Bindable";
-            }
-            String action = "get";
-            if (f.type.equals("Boolean") || f.type.equals("boolean")) {
-                action = "is";
-            }
-            build += "\npublic " + f.type + " " + action + TextTools.capitalizeFirstChar(f.name) + "() {\n" +
-                    "return this." + f.name + ";\n}";
+            createSetterAndGetter(bindable, f);
         }
     }
+
+    private void createSetterAndGetter(boolean bindable, FieldBuilder f) {
+            /*Setter*/
+        build += "\n\npublic " + className + " set" + TextTools.capitalizeFirstChar(f.name) + "(" + f.type + " " + f.name + ") {\n" +
+                "this." + f.name + " = " + f.name + ";\n";
+        if (bindable) {
+            build += "notifyPropertyChanged(BR." + f.name + ");\n";
+        }
+        build += "return this;\n}";
+
+            /*Getter*/
+        if (bindable) {
+            build += "\n\n@Bindable";
+        }
+        String action = "get";
+        if (f.type.equals("Boolean") || f.type.equals("boolean")) {
+            action = "is";
+        }
+        build += "\npublic " + f.type + " " + action + TextTools.capitalizeFirstChar(f.name) + "() {\n" +
+                "return this." + f.name + ";\n}";
+    }
+
 
     public void createToString() {
           /*toString**************************************************************************************************************************************************************/
@@ -369,12 +380,12 @@ public class BuildPojo {
     }
 
 
-    /**
-     * in -> name,type,index
-     */
-    public static class FieldBuilder {
-        public String name;
-        public String type;
-    }
+/**
+ * in -> name,type,index
+ */
+public static class FieldBuilder {
+    public String name;
+    public String type;
+}
 
 }

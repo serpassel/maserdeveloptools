@@ -2,7 +2,6 @@ package es.marser.maserdeveloptools;
 
 import android.os.Bundle;
 
-import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
@@ -20,10 +19,6 @@ public class DevelopTools extends BaseActivity {
         launch();
     }
 
-    @Override
-    public boolean activeToolbarSupport() {
-        return false;
-    }
 
     public void launch() {
         //DialogExample.indeterminateBox(this);

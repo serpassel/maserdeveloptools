@@ -28,12 +28,12 @@ public class BuildPojoTest {
                 BuildPojo.newfb("obj1", Object.class)
         };
 
-        BuildPojo buildPojo = new BuildPojo(tablename,nameclass,list);
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
         buildPojo.print(true);
     }
 
     @Test
-    public void buildCalendarModel(){
+    public void buildCalendarModel() {
         String tablename = "P";
 
         String nameclass = "CalendarObservable";
@@ -45,8 +45,59 @@ public class BuildPojoTest {
                 BuildPojo.newfb("calendar", GregorianCalendar.class)
         };
 
-        BuildPojo buildPojo = new BuildPojo(tablename,nameclass,list);
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
         buildPojo.print(true);
     }
 
+    @Test
+    public void buildAutonomousModel() {
+        //  (CCAA) ID | CODAUTO | NOMBRE|PRO_NUM|
+        String tablename = "CCAA";
+
+        String nameclass = "AutonomousModel";
+
+        BuildPojo.FieldBuilder[] list = {
+                BuildPojo.newfb("codauto", int.class),
+                BuildPojo.newfb("name", String.class), BuildPojo.newfb("provincesCount", int.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
+        buildPojo.print(true);
+    }
+
+    @Test
+    public void buildProvincieModel() {
+        // ID | CODAUTO | CPRO | NOMBRE
+        String tablename = "provincies";
+
+        String nameclass = "ProvincieModel";
+
+        BuildPojo.FieldBuilder[] list = {
+                BuildPojo.newfb("codauto", int.class),
+                BuildPojo.newfb("cpro", int.class),
+                BuildPojo.newfb("name", String.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
+        buildPojo.print(true);
+    }
+
+    @Test
+    public void buildVillageModel(){
+        // (MUN) ID | CODAUTO | CPRO |CMUN | DC | NOMBRE
+        String tablename = "MUN";
+
+        String nameclass = "VillageModel";
+
+        BuildPojo.FieldBuilder[] list = {
+                BuildPojo.newfb("codauto", String.class),
+                BuildPojo.newfb("cpro", String.class),
+                BuildPojo.newfb("cmun", String.class),
+                BuildPojo.newfb("dc", String.class),
+                BuildPojo.newfb("name", String.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
+        buildPojo.print(true);
+    }
 }
