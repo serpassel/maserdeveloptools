@@ -31,7 +31,13 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 /**
  * @author sergio
  *         Created by Sergio on 21/06/2017.
- *         Operaciones con imagenes
+ *
+ *         || CORREGIR EL MÉTODO ELIMINAR EL USO DE VIEW PARA EVITAR EXCESOS EN LA MEMORIA ||
+ *         ||  CORRECT THE METHOD TO ELIMINATE THE USE OF VIEW TO AVOID EXCESSES IN THE MEMORY ||
+ *         ||  UTILIZAR SOLO VISTAS EN PROCEDIMEINTOS LARGOS COMO ACTIVITYS O FRAGMENTS||
+ *
+ *
+ *         Operaciones con imagenes.
  *         <p>
  *         [EN]  Operations with images
  */
