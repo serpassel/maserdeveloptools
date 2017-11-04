@@ -10,6 +10,8 @@
         <item>D</item>
     </string-array>
 
+    <string name="bt_dialog_calendar_title">Calendario</string>
+
     <!--MonthDay Color-->
     <color name="calendar_normal_background">@color/bt_white</color>
     <color name="calendar_weekend_background">#efebe9</color>

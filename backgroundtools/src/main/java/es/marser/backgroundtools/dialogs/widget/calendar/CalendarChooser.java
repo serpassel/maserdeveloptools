@@ -101,7 +101,7 @@ public class CalendarChooser
     public static Bundle createBundle(Context context) {
         return createBundle(
                 DialogIcon.CALENDAR_2_ICON,
-                context.getResources().getString(R.string.bt_dialog_select_title),
+                context.getResources().getString(R.string.bt_dialog_calendar_title),
                 context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL)
         );
