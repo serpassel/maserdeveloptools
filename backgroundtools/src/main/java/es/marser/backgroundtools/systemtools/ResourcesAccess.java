@@ -234,11 +234,24 @@ public class ResourcesAccess {
     }
 
     /**
+     * Recupera el listado de provincias
+     * <p>
+     * [EN]  Retrieve the list of provinces
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param ccaaId código de la comunidad autónoma [EN]  code of the autonomous community
+     * @return Listado de provincias [EN]  List of provinces
+     */
+    public static String[] getListProvinces(Context context, int ccaaId) {
+        return getStringArray(context, "spain_province_" + MathTools.formatCifra(ccaaId, 2));
+    }
+
+    /**
      * Recupera la lista de municipios para una provincia determinada
      * <p>
      * [EN]  Retrieve the list of municipalities for a given province
      *
-     * @param context contexto de la aplicación [EN]  context of the application
+     * @param context    contexto de la aplicación [EN]  context of the application
      * @param provinceId Código de la provincia [EN]  Code of the province
      * @return Listado de pueblos de la provincia [EN]  List of towns in the province
      */

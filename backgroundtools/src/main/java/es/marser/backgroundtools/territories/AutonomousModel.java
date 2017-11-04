@@ -21,7 +21,7 @@ import es.marser.tools.TextTools;
  *         [EN]  Autonomous community object definition data model
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @DbTable(name = "CCAA")
 public class AutonomousModel extends BaseObservable implements Parcelable {
 

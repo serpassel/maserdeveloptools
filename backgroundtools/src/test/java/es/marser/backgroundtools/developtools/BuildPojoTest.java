@@ -67,15 +67,16 @@ public class BuildPojoTest {
 
     @Test
     public void buildProvincieModel() {
-        // ID | CODAUTO | CPRO | NOMBRE
-        String tablename = "provincies";
+        // ID | CODAUTO | CPRO | NOMBRE | MUN_COUNT|
+        String tablename = "PRO";
 
         String nameclass = "ProvincieModel";
 
         BuildPojo.FieldBuilder[] list = {
                 BuildPojo.newfb("codauto", int.class),
                 BuildPojo.newfb("cpro", int.class),
-                BuildPojo.newfb("name", String.class)
+                BuildPojo.newfb("name", String.class),
+                BuildPojo.newfb("villagesCount", int.class)
         };
 
         BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);

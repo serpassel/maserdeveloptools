@@ -146,19 +146,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         return false;
     }
 
-    /**
-     * Activa el soporte de la barra de herramientas
-     * <p>
-     * [EN]  Enable toolbar support
-     *
-     * @return verdadero si se debe de incluir barra de herramientas
-     * [EN]  true if toolbar should be included
-     */
-    @Deprecated
-    public boolean activeToolbarSupport() {
-        return true;
-    }
-
     //LOADING DIALOGS_____________________________________________________________________________________
 
     /**

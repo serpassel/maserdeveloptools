@@ -11,6 +11,7 @@ import android.text.SpannableString;
  *         [EN]  Definition of selectable object for predefined lists
  */
 
+@SuppressWarnings("unused")
 public interface Selectable extends Parcelable {
     SpannableString toSpannableString();
     String filterValue();

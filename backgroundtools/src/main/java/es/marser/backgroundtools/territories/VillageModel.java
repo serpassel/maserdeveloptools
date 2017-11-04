@@ -1,8 +1,5 @@
 package es.marser.backgroundtools.territories;
 
-/**
- * Created by sergio on 4/11/17.
- */
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
@@ -14,8 +11,14 @@ import es.marser.annotation.DbTable;
 import es.marser.backgroundtools.BR;
 import es.marser.tools.TextTools;
 
-
-@SuppressWarnings("unused")
+/**
+ * @author sergio
+ *         Created by sergio on 4/11/17.
+ *         Definición de modelo de datos para municipios
+ *         <p>
+ *         [EN]  Definition of data model for municipalities
+ */
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @DbTable(name = "MUN")
 public class VillageModel extends BaseObservable implements Parcelable {
 
@@ -157,8 +160,9 @@ public class VillageModel extends BaseObservable implements Parcelable {
         public VillageModel createFromParcel(Parcel in) {
             return new VillageModel(in);
         }
+
         @Override
-        public VillageModel[] newArray ( int size){
+        public VillageModel[] newArray(int size) {
             return new VillageModel[size];
         }
     };

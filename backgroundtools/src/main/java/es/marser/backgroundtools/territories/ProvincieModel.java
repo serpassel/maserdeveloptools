@@ -20,10 +20,10 @@ import es.marser.tools.TextTools;
  *         <p>
  *         [EN]  Provincial data model
  *
- *           // 'PRO' | CODAUTO | CPRO | NOMBRE|
+ *           // 'PRO' | CODAUTO | CPRO | NOMBRE| MUN_COUNT |
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "UnusedReturnValue"})
 @DbTable(name = "PRO")
 public class ProvincieModel extends BaseObservable implements Parcelable {
 
@@ -36,22 +36,25 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
     private int cpro;
     @DbColumn(col_name = "name", indexorder = 3)
     private String name;
+    @DbColumn(col_name = "villagesCount", indexorder = 4)
+    private int villagesCount;
 
     public ProvincieModel() {
-        this.codauto = -1;
-        this.cpro = -1;
+        this.codauto = 0;
+        this.cpro = 0;
         this.name = "";
-    }
-
-    @Bindable
-    public String getKey() {
-        return key;
+        this.villagesCount = 0;
     }
 
     public ProvincieModel setKey(String key) {
         this.key = key;
         notifyPropertyChanged(BR.key);
         return this;
+    }
+
+    @Bindable
+    public String getKey() {
+        return this.key;
     }
 
     public ProvincieModel setCodauto(int codauto) {
@@ -67,8 +70,8 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
 
     public ProvincieModel setCpro(int cpro) {
         this.cpro = cpro;
-        this.key = MathTools.formatCifra(cpro, 2);
         notifyPropertyChanged(BR.cpro);
+        setKey(MathTools.formatCifra(cpro,2));
         return this;
     }
 
@@ -88,6 +91,17 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
         return this.name;
     }
 
+    public ProvincieModel setVillagesCount(int villagesCount) {
+        this.villagesCount = villagesCount;
+        notifyPropertyChanged(BR.villagesCount);
+        return this;
+    }
+
+    @Bindable
+    public int getVillagesCount() {
+        return this.villagesCount;
+    }
+
     @Override
     public String toString() {
         String builder = TextTools.REG_SEPARATOR +
@@ -98,6 +112,8 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
                 TextTools.nc(cpro) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.nc(name) +
+                TextTools.OBJECT_SEPARATOR_CHAR +
+                TextTools.nc(villagesCount) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.RETORNO_CARRO_SALTO_LINEA;
         return builder.replace("null", "");
@@ -114,6 +130,7 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
         dest.writeInt(MathTools.notNaN(codauto));
         dest.writeInt(MathTools.notNaN(cpro));
         dest.writeString(TextTools.nc(name));
+        dest.writeInt(MathTools.notNaN(villagesCount));
 
     }
 
@@ -121,6 +138,7 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
         codauto = in.readInt();
         cpro = in.readInt();
         name = in.readString();
+        villagesCount = in.readInt();
 
     }
 
@@ -129,9 +147,8 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
         public ProvincieModel createFromParcel(Parcel in) {
             return new ProvincieModel(in);
         }
-
         @Override
-        public ProvincieModel[] newArray(int size) {
+        public ProvincieModel[] newArray ( int size){
             return new ProvincieModel[size];
         }
     };

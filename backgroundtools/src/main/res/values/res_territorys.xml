@@ -3,7 +3,7 @@
     <!--CCAA ID | CODAUTO | NOMBRE|PRO_NUM|-->
     <string-array name="spain_ccaa">
         <item>CCAA|1|Andalucía|8|</item>
-        <item>CCAA|2|Aragón|4|</item>
+        <item>CCAA|2|Aragón|3|</item>
         <item>CCAA|3|Asturias, Principado de|1|</item>
         <item>CCAA|4|Balears, Illes|1|</item>
         <item>CCAA|5|Canarias|2|</item>
@@ -23,60 +23,189 @@
         <item>CCAA|19|Melilla|1|</item>
     </string-array>
 
-    <!--PROVINCIAS ID | CODAUTO | CPRO | NOMBRE-->
+    <!--PROVINCIAS ID | CODAUTO | CPRO | NOMBRE | MUN_COUNT|-->
+    <!--1 Andalucia-->
+    <string-array name="spain_province_01">
+        <item>PRO|1|4|Almería|103|</item>
+        <item>PRO|1|11|Cádiz|44|</item>
+        <item>PRO|1|14|Córdoba|75|</item>
+        <item>PRO|1|18|Granada|172|</item>
+        <item>PRO|1|21|Huelva|79|</item>
+        <item>PRO|1|23|Jaén|97|</item>
+        <item>PRO|1|29|Málaga|103|</item>
+        <item>PRO|1|41|Sevilla|105|</item>
+    </string-array>
+
+    <!--2 Aragón-->
+    <string-array name="spain_province_02">
+        <item>PRO|2|22|Huesca|202|</item>
+        <item>PRO|2|44|Teruel|236|</item>
+        <item>PRO|2|50|Zaragoza|293|</item>
+    </string-array>
+
+    <!--3 Asturias-->
+    <string-array name="spain_province_03">
+        <item>PRO|3|33|Asturias|78|</item>
+    </string-array>
+
+    <!--4 Baleares-->
+    <string-array name="spain_province_04">
+        <item>PRO|4|7|Balears, Illes|67|</item>
+    </string-array>
+
+    <!--5 Canarias-->
+    <string-array name="spain_province_05">
+        <item>PRO|5|35|Palmas, Las|34|</item>
+        <item>PRO|5|38|Santa Cruz de Tenerife|54|</item>
+    </string-array>
+
+    <!--6 Cantabria-->
+    <string-array name="spain_province_06">
+        <item>PRO|6|39|Cantabria|102|</item>
+    </string-array>
+
+    <!--7 Castilla y León-->
+    <string-array name="spain_province_07">
+        <item>PRO|7|5|Ávila|248|</item>
+        <item>PRO|7|9|Burgos|371|</item>
+        <item>PRO|7|24|León|211|</item>
+        <item>PRO|7|34|Palencia|191|</item>
+        <item>PRO|7|37|Salamanca|362|</item>
+        <item>PRO|7|40|Segovia|209|</item>
+        <item>PRO|7|42|Soria|183|</item>
+        <item>PRO|7|47|Valladolid|225|</item>
+        <item>PRO|7|49|Zamora|248|</item>
+    </string-array>
+
+    <!--8 Castilla - La Mancha-->
+    <string-array name="spain_province_08">
+        <item>PRO|8|2|Albacete|87|</item>
+        <item>PRO|8|13|Ciudad Real|102|</item>
+        <item>PRO|8|16|Cuenca|238|</item>
+        <item>PRO|8|19|Guadalajara|288|</item>
+        <item>PRO|8|45|Toledo|204|</item>
+    </string-array>
+
+    <!--9 Cataluña-->
+    <string-array name="spain_province_09">
+        <item>PRO|9|8|Barcelona|311|</item>
+        <item>PRO|9|17|Girona|221|</item>
+        <item>PRO|9|25|Lleida|231|</item>
+        <item>PRO|9|43|Tarragona|184|</item>
+    </string-array>
+
+    <!--10 Comunitat Valenciana-->
+    <string-array name="spain_province_10">
+        <item>PRO|10|3|Alicante/Alacant|141|</item>
+        <item>PRO|10|12|Castellón/Castelló|135|</item>
+        <item>PRO|10|46|Valencia/València|266|</item>
+    </string-array>
+
+    <!--11 Extremadura-->
+    <string-array name="spain_province_11">
+        <item>PRO|11|6|Badajoz|165|</item>
+        <item>PRO|11|10|Cáceres|223|</item>
+    </string-array>
+
+    <!--12 Galicia-->
+    <string-array name="spain_province_12">
+        <item>PRO|12|15|Coruña, A|93|</item>
+        <item>PRO|12|27|Lugo|67|</item>
+        <item>PRO|12|32|Ourense|92|</item>
+        <item>PRO|12|36|Pontevedra|61|</item>
+    </string-array>
+
+    <!--13 Madrid, Comunidad de-->
+    <string-array name="spain_province_13">
+        <item>PRO|13|28|Madrid|179|</item>
+    </string-array>
+
+    <!--14 Murcia, Región de-->
+    <string-array name="spain_province_14">
+        <item>PRO|14|30|Murcia|45|</item>
+    </string-array>
+
+    <!--15 Navarra, Comunidad Foral de-->
+    <string-array name="spain_province_15">
+        <item>PRO|15|31|Navarra|272|</item>
+    </string-array>
+
+    <!--16 País Vasco-->
+    <string-array name="spain_province_16">
+        <item>PRO|16|1|Araba/Álava|51|</item>
+        <item>PRO|16|48|Bizkaia|112|</item>
+        <item>PRO|16|20|Gipuzkoa|88|</item>
+    </string-array>
+
+    <!--17 Rioja, La-->
+    <string-array name="spain_province_17">
+        <item>PRO|17|26|Rioja, La|174|</item>
+    </string-array>
+
+    <!--18 Ceuta-->
+    <string-array name="spain_province_18">
+        <item>PRO|18|51|Ceuta|1|</item>
+    </string-array>
+
+    <!--19 Melilla-->
+    <string-array name="spain_province_19">
+        <item>PRO|19|52|Melilla|1|</item>
+    </string-array>
+
+    <!--00 provinces-->
     <string-array name="spain_province">
-        <item>PRO|16|1|Araba/Álava|</item>
-        <item>PRO|8|2|Albacete|</item>
-        <item>PRO|10|3|Alicante/Alacant|</item>
-        <item>PRO|1|4|Almería|</item>
-        <item>PRO|7|5|Ávila|</item>
-        <item>PRO|11|6|Badajoz|</item>
-        <item>PRO|4|7|Balears, Illes|</item>
-        <item>PRO|9|8|Barcelona|</item>
-        <item>PRO|7|9|Burgos|</item>
-        <item>PRO|11|10|Cáceres|</item>
-        <item>PRO|1|11|Cádiz|</item>
-        <item>PRO|10|12|Castellón/Castelló|</item>
-        <item>PRO|8|13|Ciudad Real|</item>
-        <item>PRO|1|14|Córdoba|</item>
-        <item>PRO|12|15|Coruña, A|</item>
-        <item>PRO|8|16|Cuenca|</item>
-        <item>PRO|9|17|Girona|</item>
-        <item>PRO|1|18|Granada|</item>
-        <item>PRO|8|19|Guadalajara|</item>
-        <item>PRO|16|20|Gipuzkoa|</item>
-        <item>PRO|1|21|Huelva|</item>
-        <item>PRO|2|22|Huesca|</item>
-        <item>PRO|1|23|Jaén|</item>
-        <item>PRO|7|24|León|</item>
-        <item>PRO|9|25|Lleida|</item>
-        <item>PRO|17|26|Rioja, La|</item>
-        <item>PRO|12|27|Lugo|</item>
-        <item>PRO|13|28|Madrid|</item>
-        <item>PRO|1|29|Málaga|</item>
-        <item>PRO|14|30|Murcia|</item>
-        <item>PRO|15|31|Navarra|</item>
-        <item>PRO|12|32|Ourense|</item>
-        <item>PRO|3|33|Asturias|</item>
-        <item>PRO|7|34|Palencia|</item>
-        <item>PRO|5|35|Palmas, Las|</item>
-        <item>PRO|12|36|Pontevedra|</item>
-        <item>PRO|7|37|Salamanca|</item>
-        <item>PRO|5|38|Santa Cruz de Tenerife|</item>
-        <item>PRO|6|39|Cantabria|</item>
-        <item>PRO|7|40|Segovia|</item>
-        <item>PRO|1|41|Sevilla|</item>
-        <item>PRO|7|42|Soria|</item>
-        <item>PRO|9|43|Tarragona|</item>
-        <item>PRO|2|44|Teruel|</item>
-        <item>PRO|8|45|Toledo|</item>
-        <item>PRO|10|46|Valencia/València|</item>
-        <item>PRO|7|47|Valladolid|</item>
-        <item>PRO|16|48|Bizkaia|</item>
-        <item>PRO|7|49|Zamora|</item>
-        <item>PRO|2|50|Zaragoza|</item>
-        <item>PRO|18|51|Ceuta|</item>
-        <item>PRO|19|52|Melilla|</item>
+        <item>PRO|8|2|Albacete|87|</item>
+        <item>PRO|10|3|Alicante/Alacant|141|</item>
+        <item>PRO|1|4|Almería|103|</item>
+        <item>PRO|16|1|Araba/Álava|51|</item>
+        <item>PRO|3|33|Asturias|78|</item>
+        <item>PRO|7|5|Ávila|248|</item>
+        <item>PRO|11|6|Badajoz|165|</item>
+        <item>PRO|4|7|Balears, Illes|67|</item>
+        <item>PRO|9|8|Barcelona|311|</item>
+        <item>PRO|16|48|Bizkaia|112|</item>
+        <item>PRO|7|9|Burgos|371|</item>
+        <item>PRO|11|10|Cáceres|223|</item>
+        <item>PRO|1|11|Cádiz|44|</item>
+        <item>PRO|6|39|Cantabria|102|</item>
+        <item>PRO|10|12|Castellón/Castelló|135|</item>
+        <item>PRO|18|51|Ceuta|1|</item>
+        <item>PRO|8|13|Ciudad Real|102|</item>
+        <item>PRO|1|14|Córdoba|75|</item>
+        <item>PRO|12|15|Coruña, A|93|</item>
+        <item>PRO|8|16|Cuenca|238|</item>
+        <item>PRO|16|20|Gipuzkoa|88|</item>
+        <item>PRO|9|17|Girona|221|</item>
+        <item>PRO|1|18|Granada|172|</item>
+        <item>PRO|8|19|Guadalajara|288|</item>
+        <item>PRO|1|21|Huelva|79|</item>
+        <item>PRO|2|22|Huesca|202|</item>
+        <item>PRO|1|23|Jaén|97|</item>
+        <item>PRO|7|24|León|211|</item>
+        <item>PRO|9|25|Lleida|231|</item>
+        <item>PRO|12|27|Lugo|67|</item>
+        <item>PRO|13|28|Madrid|179|</item>
+        <item>PRO|1|29|Málaga|103|</item>
+        <item>PRO|19|52|Melilla|1|</item>
+        <item>PRO|14|30|Murcia|45|</item>
+        <item>PRO|15|31|Navarra|272|</item>
+        <item>PRO|12|32|Ourense|92|</item>
+        <item>PRO|7|34|Palencia|191|</item>
+        <item>PRO|5|35|Palmas, Las|34|</item>
+        <item>PRO|12|36|Pontevedra|61|</item>
+        <item>PRO|17|26|Rioja, La|174|</item>
+        <item>PRO|7|37|Salamanca|362|</item>
+        <item>PRO|5|38|Santa Cruz de Tenerife|54|</item>
+        <item>PRO|7|40|Segovia|209|</item>
+        <item>PRO|1|41|Sevilla|105|</item>
+        <item>PRO|7|42|Soria|183|</item>
+        <item>PRO|9|43|Tarragona|184|</item>
+        <item>PRO|2|44|Teruel|236|</item>
+        <item>PRO|8|45|Toledo|204|</item>
+        <item>PRO|10|46|Valencia/València|266|</item>
+        <item>PRO|7|47|Valladolid|225|</item>
+        <item>PRO|7|49|Zamora|248|</item>
+        <item>PRO|2|50|Zaragoza|293|</item>
     </string-array>
 
     <!--MUNICIPIOS ID | CODAUTO | CPRO |CMUN | DC | NOMBRE-->
