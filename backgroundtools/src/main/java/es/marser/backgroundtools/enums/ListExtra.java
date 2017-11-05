@@ -9,6 +9,8 @@ package es.marser.backgroundtools.enums;
  */
 
 public enum ListExtra {
+    LIST_EXTRA,
+    VALUES_EXTRA,
     NOT_SELECTION_MODE,
     SINGLE_SELECTION_MODE,
     MULTIPLE_SELECTION_MODE,
