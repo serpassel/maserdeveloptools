@@ -42,7 +42,7 @@
                 android:layout_width="@dimen/bt_generic_edit_image_dimen"
                 android:layout_height="@dimen/bt_generic_edit_image_dimen"
                 android:layout_margin="?attr/dialogs_default_margin"
-                app:srcCompat="@drawable/ic_calculator"
+                app:srcCompat="@drawable/ic_edit"
                 bind:ignore="VectorDrawableCompat" />
 
             <android.support.v7.widget.AppCompatTextView
@@ -52,7 +52,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
-                android:text="@{headmodel.name != null ? headmodel.name : @string/bt_generic_edit_head_font}"
+                android:text="@{headmodel.name != null ? headmodel.name : @string/bt_edition}"
                 bind:fontText="@{@string/bt_generic_edit_head_font}" />
 
         </android.support.v7.widget.LinearLayoutCompat>

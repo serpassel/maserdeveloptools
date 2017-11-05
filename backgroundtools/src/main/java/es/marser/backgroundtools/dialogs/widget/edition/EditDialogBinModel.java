@@ -62,7 +62,7 @@ public class EditDialogBinModel<T extends Parcelable>
 
     @Override
     protected void preBuild() {
-        this.model = getArguments().getParcelable(ITEM_EXTRA.name());
+        this.headmodel = getArguments().getParcelable(ITEM_EXTRA.name());
         this.layout = getArguments().getInt(LAYOUT_EXTRA.name(), -1);
         statusModel.state.set(getArguments().getInt(STATE_EXTRA.name(), 0));
 

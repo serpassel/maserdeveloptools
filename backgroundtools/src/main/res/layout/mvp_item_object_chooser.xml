@@ -5,35 +5,26 @@
     <data>
 
         <!--DATA MODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.FileModel" />
+        <import type="es.marser.backgroundtools.definition.Selectable" />
 
         <variable
             name="item"
-            type="FileModel" />
+            type="Selectable" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/item_file_container"
-        android:orientation="vertical">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:layout_width="@dimen/l_image"
-            android:layout_height="@dimen/l_image"
-            android:layout_gravity="center_horizontal"
-            android:scaleType="centerCrop"
-            bind:iconDialog="@{item.fileIcon}" />
+        android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:lines="2"
-            android:text="@{item.name}"
+            android:text="@{item.toSpannableString()}"
             android:textColor="?attr/dialogs_body_text_color"
-            android:textSize="11sp"
-            bind:ignore="SmallSp" />
+            android:textSize="12sp" />
 
     </android.support.v7.widget.LinearLayoutCompat>
 

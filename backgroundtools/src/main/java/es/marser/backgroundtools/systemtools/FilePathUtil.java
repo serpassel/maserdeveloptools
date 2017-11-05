@@ -546,22 +546,20 @@ public abstract class FilePathUtil {
             return new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
-                    boolean result = false;
-                    int i = 0;
+                    boolean result = filter.length <= 0;
 
                     for (String s : filter) {
-                        result = name.toLowerCase().endsWith(s);
-
                         if (result) {
                             break;
                         }
+                        result = name.toLowerCase().endsWith(s);
                     }
 
-                    if(!result){
-                        File f =new File(dir,name);
+                    if (!result) {
+                        File f = new File(dir, name);
                         result = f.exists() && f.isDirectory();
                     }
-                  //  Log.i(LOG_TAG.TAG, "Comprobación " + name + " " + result);
+                    //  Log.i(LOG_TAG.TAG, "Comprobación " + name + " " + result);
                     return result;
                 }
             };

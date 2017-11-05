@@ -4,11 +4,13 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.SpannableString;
 
 import es.marser.annotation.DbColumn;
 import es.marser.annotation.DbPrimaryKey;
 import es.marser.annotation.DbTable;
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
@@ -25,7 +27,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @DbTable(name = "PRO")
-public class ProvincieModel extends BaseObservable implements Parcelable {
+public class ProvincieModel extends BaseObservable implements Selectable {
 
     @DbPrimaryKey
     private String key;
@@ -153,4 +155,13 @@ public class ProvincieModel extends BaseObservable implements Parcelable {
         }
     };
 
+    @Override
+    public SpannableString toSpannableString() {
+        return new SpannableString(name);
+    }
+
+    @Override
+    public String premarcValue() {
+        return name;
+    }
 }

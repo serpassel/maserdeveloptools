@@ -3,24 +3,33 @@ package es.marser.backgroundtools.containers.activitys.base;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.annotation.VisibleForTesting;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import es.marser.LOG_TAG;
 import es.marser.async.Result;
@@ -68,6 +77,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
 
     protected Toolbar toolbar;
 
+    protected DrawerLayout drawerLayout;
+    protected NavigationView navigationView;
+    protected ActionBarDrawerToggle actionBarDrawerToggle;
+
     @VisibleForTesting
     public BinIndeterminateDialog mProgressDialog;
 
@@ -89,7 +102,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         /*Instanciar variables [EN]  Instanciar variables*/
         instaceVariables();
         /*Activar toolbar [EN]  Activar toolbar*/
-            initToolbar();
+        initToolbar();
+        /*Activar el navegador Drawer*/
+        initDrawerLayout();
     }
 
     /**
@@ -140,10 +155,96 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
         }
     }
 
+    /**
+     * Iniciar soporte para menu de Drawer
+     * <p>
+     * [EN]  Start support for Drawer menu
+     */
+    protected void initDrawerLayout() {
+        //Recogemos el menu lateral
+        this.drawerLayout = findViewById(R.id.drawer_layout);
+        //Agregamos los eventos del menú lateral
+        this.navigationView = findViewById(R.id.nav_view);
+
+        if (this.drawerLayout != null && this.navigationView != null) {
+
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                getSupportActionBar().setHomeButtonEnabled(true);
+            }
+
+
+            initDrawerMenu();
+        }
+    }
+
+    /**
+     * Enlace de acciones de menu
+     * <p>
+     * [EN]  Link of menu actions
+     */
+    protected void initDrawerMenu() {
+        actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name) {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                updateDrawerUI();
+            }
+        };
+
+        drawerLayout.addDrawerListener(actionBarDrawerToggle);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull final MenuItem item) {
+                drawerLayout.closeDrawers();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        actionMenu(item);
+                    }
+                }, 170);
+
+                return true;
+            }
+        });
+    }
+
+    /**
+     * Actualiza la UI del Drawer en los cambios de usuario
+     */
+    private void updateDrawerUI() {
+        if (drawerLayout == null) {
+            Log.i(LOG_TAG.TAG, "Drawer abierto");
+        }
+    }
+
+    /**
+     * Receptor de acciones de menu
+     * <p>
+     * [EN]  Menu actions receiver
+     *
+     * @param item menú accionado [EN]  powered menu
+     */
+    protected boolean actionMenu(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return actionMenu(item);
+    }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
-        return false;
+        return true;
     }
 
     //LOADING DIALOGS_____________________________________________________________________________________

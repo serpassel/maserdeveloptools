@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="nav_top_dimen">@dimen/m_padding</dimen>
+    <color name="nav_head_tint">@color/colorPrimaryDark</color>
+    <color name="nav_title_color">@color/bt_white</color>
+
+    <string name="nav_title">OPCIONES</string>
+
+    <!--MENU GRUPO 1-->
+    <string name="group_progress">Progreso</string>
+
+    <string name="item_1">Indeterminado caja</string>
+    <string name="item_2">Indeterminado spinner</string>
+    <string name="item_3">Progreso Indeterminado</string>
+    <string name="item_4">Progreso caja</string>
+
+    <!--MENU GRUPO 2-->
+    <string name="group_edicion">Edición</string>
+
+    <string name="item_5">Editar Objeto</string>
+
+    <!--MENU GRUPO 3-->
+    <string name="group_notificaciones">Notificaciones</string>
+
+    <string name="item_6">Información</string>
+    <string name="item_7">Advertencia</string>
+    <string name="item_8">Error</string>
+    <string name="item_9">Ayuda</string>
+
+    <string name="item_10">Confirmación</string>
+    <string name="item_11">OkCancel</string>
+    <string name="item_12">YesNoCancel</string>
+    <string name="item_13">Borrar registros</string>
+    <string name="item_14">Confirmación con llave</string>
+
+    <!--MENU GRUPO 4-->
+    <string name="group_chooser">Selectores</string>
+
+    <string name="item_15">Selector de archivos</string>
+    <string name="item_16">Selector de fechas</string>
+</resources>

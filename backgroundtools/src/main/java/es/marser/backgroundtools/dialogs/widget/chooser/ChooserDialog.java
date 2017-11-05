@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.decorator.DividerDecoration;
 import es.marser.tools.TextTools;
 
 
@@ -30,15 +30,14 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class ObjectChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T> {
+public class ChooserDialog
+        extends BaseDialogBinList<String> {
 
-    protected OnResult<List<T>> result;
-    protected String premarc;
-    protected T[] values;
+    protected OnResult<List<String>> result;
+    protected String[] values;
 
     /**
-     * Nueva instancia {@link ObjectChooserDialog}
+     * Nueva instancia {@link ChooserDialog}
      *
      * @param context contexto de la aplicación [EN]  application context
      * @param bundle  Argumentos de inicio [EN]  Start arguments
@@ -46,13 +45,13 @@ public class ObjectChooserDialog<T extends Selectable>
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
-    public static <T extends Selectable> ObjectChooserDialog newInstance(
+    public static ChooserDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
-            @Nullable OnResult<List<T>> result
+            @Nullable OnResult<List<String>> result
     ) {
 
-        ObjectChooserDialog instace = new ObjectChooserDialog();
+        ChooserDialog instace = new ChooserDialog();
         instace.setContext(context);
         instace.setArguments(bundle);
         instace.setResult(null);
@@ -73,24 +72,29 @@ public class ObjectChooserDialog<T extends Selectable>
      * @return Bundle argumentado [EN]  Bundle argued
      */
     @SuppressWarnings("All")
-    public static <T extends Selectable> Bundle createBundle(DialogIcon icon,
-                                                             String title,
-                                                             String ok,
-                                                             String cancel,
-                                                             String premarc,
-                                                             ListExtra listExtra,
-                                                             T[] values
+    public static Bundle createBundle(DialogIcon icon,
+                                      String title,
+                                      String ok,
+                                      String cancel,
+                                      String premarc,
+                                      ListExtra listExtra,
+                                      @NonNull String[] values
     ) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), premarc);
-        bundle.putParcelableArray(ListExtra.VALUES_EXTRA.name(), values);
+        bundle.putStringArray(ListExtra.VALUES_EXTRA.name(), values);
 
         switch (listExtra) {
+
             case MULTIPLE_SELECTION_MODE:
             case ONLY_MULTIPLE_SELECTION_MODE:
                 bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
+                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 1);
+                break;
+            default:
+                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 0);
                 break;
         }
 
@@ -104,7 +108,12 @@ public class ObjectChooserDialog<T extends Selectable>
      * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    public static <T extends Selectable> Bundle createBundle(Context context, ListExtra listExtra, String premarc, T[] values) {
+    public static Bundle createBundle(
+            Context context,
+            ListExtra listExtra,
+            String premarc,
+            @NonNull String[] values
+    ) {
         return createBundle(
                 DialogIcon.SEARCH_ICON,
                 context.getResources().getString(R.string.bt_dialog_select_title),
@@ -124,29 +133,41 @@ public class ObjectChooserDialog<T extends Selectable>
      * @param context contexto de la aplicación [EN]  context of the application
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    public static <T extends Selectable> Bundle createBundle(Context context, T[] values) {
+    public static Bundle createBundle(
+            Context context,
+            @NonNull String[] values
+    ) {
         return createBundle(context, ListExtra.ONLY_SINGLE_SELECTION_MODE, null, values);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void preBuild() {
 
         model.body.set(getArguments().getString(DialogExtras.BODY_EXTRA.name(), ""));
         model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
 
-        buttonsSetModel.ok_name.set(getArguments().getString(DialogExtras.OK_EXTRA.name()));
+        statusModel.blockAction.set(getArguments().getInt(DialogExtras.STATE_EXTRA.name(), 0) == 1);
+
+        String ok_name = getArguments().getString(DialogExtras.OK_EXTRA.name());
+
+        values = getArguments().getStringArray(ListExtra.VALUES_EXTRA.name());
+
+        if (ok_name != null) {
+            buttonsSetModel.ok_name.set(ok_name);
+        }
         buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
-
-        premarc = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
-
-        values = (T[]) getArguments().getParcelableArray(ListExtra.VALUES_EXTRA.name());
     }
 
     @Override
     protected void postBuild() {
         super.postBuild();
         load();
+    }
+
+    @Override
+    protected void bindAdapter() {
+        super.bindAdapter();
+        recyclerView.addItemDecoration(new DividerDecoration(getContext()));
     }
 
     /*{@link BaseDialogBinList}*/
@@ -166,17 +187,20 @@ public class ObjectChooserDialog<T extends Selectable>
         return out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected void load() {
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                for (T t : values) {
-                    setSelected(getItemCount(), premarc.contains(t.premarcValue()));
-                    addItem(t);
+        if (values != null) {
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    for (String s : values) {
+                        addItem(s);
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
@@ -191,14 +215,14 @@ public class ObjectChooserDialog<T extends Selectable>
     @Override
     public void onCancel(View view) {
         if (result != null) {
-            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<T>());
+            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<String>());
         }
         close();
     }
 
     /* {@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
     @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
+    public void onClickItem(BaseViewHolder<String> holder, String item, int position, ListExtra mode) {
         super.onClickItem(holder, item, position, mode);
 
         if (getInitialSelectionMode() == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
@@ -207,11 +231,11 @@ public class ObjectChooserDialog<T extends Selectable>
     }
 
     /*{@link OnResult}*/
-    public OnResult<List<T>> getResult() {
+    public OnResult<List<String>> getResult() {
         return result;
     }
 
-    public void setResult(OnResult<List<T>> result) {
+    public void setResult(OnResult<List<String>> result) {
         this.result = result;
     }
 }

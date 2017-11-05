@@ -64,7 +64,7 @@ public class CalendarChooser
         CalendarChooser instance = new CalendarChooser();
         instance.setContext(context);
         instance.setArguments(bundle);
-        instance.setResult(null);
+        instance.setResult(result);
         return instance;
     }
 

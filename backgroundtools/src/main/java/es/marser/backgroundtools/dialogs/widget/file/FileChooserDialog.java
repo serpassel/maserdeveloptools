@@ -71,7 +71,7 @@ public class FileChooserDialog
         FileChooserDialog instace = new FileChooserDialog();
         instace.setContext(context);
         instace.setArguments(bundle);
-        instace.setResult(null);
+        instace.setResult(result);
         instace.setReadablepermission(readablepermission);
         return instace;
     }
