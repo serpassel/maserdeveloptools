@@ -10,7 +10,7 @@ import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
  *         [EN]  Set of drivers for the view manifold from a list
  */
 
-@SuppressWarnings("UnusedReturnValue")
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public interface ViewHolderController<T> {
 
     /**
@@ -62,4 +62,14 @@ public interface ViewHolderController<T> {
      * @return Objeto genérico [EN]  Generic object
      */
     T getItemAt(int position);
+
+    /**
+     * Setea el estado de la selección
+     * <p>
+     * [EN]  Set the state of the selection
+     *
+     * @param position posición plana en el adapter [EN]  flat position on the adapter
+     * @param value valor del estado de selección [EN]  Selection status value
+     */
+    void setSelected(int position, boolean value);
 }

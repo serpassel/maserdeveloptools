@@ -109,6 +109,13 @@ public class ChildViewHolderBinding<X extends ExpandableGroup<T>, T extends Parc
         if (viewHolderController != null) {
             itemView.setSelected(viewHolderController.isChildSelected(getAdapterPosition()));
         }
+
+        /*Modificar los selectores [EN]  We modify the selectors */
+       if(selecttigger != null){
+           selecttigger.setOnCheckedChangeListener(null);
+           selecttigger.setChecked(itemView.isSelected());
+           selecttigger.setOnCheckedChangeListener(this);
+       }
     }
 
     @Override

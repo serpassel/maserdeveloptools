@@ -138,6 +138,8 @@ public class DevelopTools extends BaseActivity {
         });
 */
         //DialogExample.calendarChooser(this);
+
+        DialogExample.provincieChooser(this);
     }
 
     @Override

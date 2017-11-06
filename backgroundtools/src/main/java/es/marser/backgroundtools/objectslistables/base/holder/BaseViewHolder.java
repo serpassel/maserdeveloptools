@@ -3,7 +3,10 @@ package es.marser.backgroundtools.objectslistables.base.holder;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.animation.RotateAnimation;
+import android.widget.CompoundButton;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
@@ -17,7 +20,7 @@ import static android.view.animation.Animation.RELATIVE_TO_SELF;
 
 @SuppressWarnings("unused")
 public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
-        implements View.OnClickListener, View.OnLongClickListener {
+        implements View.OnClickListener, View.OnLongClickListener, CompoundButton.OnCheckedChangeListener {
 
     /*Variables de vistas [EN]  View Variables*/
     /*Vista vinculada [EN]  Linked view*/
@@ -31,6 +34,8 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
     protected View expandAreaView;
     /*Activador de expansión [EN]  Expansion Trigger*/
     protected View expandtigger;
+    /*Activador de selección [EN]  Selection activator*/
+    protected CompoundButton selecttigger;
 
 
     public BaseViewHolder(ViewDataBinding itemViewBindable) {
@@ -60,6 +65,17 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
                 itemView
                         .getResources()
                         .getString(R.string.EXPANDABLE_VIEW_TIGGER));
+
+        /*Activador de selección [EN]  Selection activator*/
+        try {
+            selecttigger = itemView.findViewWithTag(itemView.getResources().getString(R.string.SELECTOR_VIEW_TIGGER));
+
+            if (selecttigger != null) {
+                selecttigger.setOnCheckedChangeListener(this);
+            }
+        } catch (ClassCastException e) {
+            e.printStackTrace();
+        }
     }
 
     //VIEW_______________________________________________________________________________________________
@@ -129,6 +145,25 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
      */
     public abstract void setExpanded();
 
+    /**
+     * Evento de pusalción en una subvista chequeadora
+     * <p>
+     * [EN]  Preaching event in a checking subview
+     *
+     * @param view      Vista chequeadora [EN]  Checking view
+     * @param b Valor del estado de chequeo [EN]  Check status value
+     */
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        onClick(itemView);
+
+        if (b) {
+            select();
+        } else {
+            unselect();
+        }
+    }
+
 //ACTIONS_______________________________________________________________________________________________________
 
     /**
@@ -158,6 +193,30 @@ public abstract class BaseViewHolder<T> extends RecyclerView.ViewHolder
             rotate.setDuration(300);
             rotate.setFillAfter(true);
             expandtigger.setAnimation(rotate);
+        }
+    }
+
+    /**
+     * Acción de selección
+     * <p>
+     * [EN]  Selection action
+     */
+    public void select() {
+        if (selecttigger != null) {
+            Animation animation = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.slide_left_end);
+            selecttigger.setAnimation(animation);
+        }
+    }
+
+    /**
+     * Acción de deselección
+     * <p>
+     * [EN]  Deselection action
+     */
+    public void unselect() {
+        if (selecttigger != null) {
+            Animation animation = AnimationUtils.loadAnimation(itemView.getContext(), R.anim.slide_right_end);
+            selecttigger.setAnimation(animation);
         }
     }
 

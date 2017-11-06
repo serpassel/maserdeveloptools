@@ -1,0 +1,147 @@
+package es.marser.backgroundtools.territories;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.util.Log;
+import android.view.View;
+
+import java.util.List;
+
+import es.marser.LOG_TAG;
+import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.dialogs.task.OnResult;
+import es.marser.backgroundtools.dialogs.widget.chooser.ChooserDialog;
+import es.marser.backgroundtools.enums.DialogExtras;
+import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.generic.GenericFactory;
+import es.marser.tools.TextTools;
+
+/**
+ * @author sergio
+ *         Created by sergio on 5/11/17.
+ *         Selector de provincias
+ *         <p>
+ *         [EN]  Provincial selector
+ */
+
+@SuppressWarnings("unused")
+public class ProvinceChooser extends ChooserDialog<ProvincieModel> implements ViewHandler<Boolean>{
+
+    /**
+     * Nueva instancia {@link ChooserDialog}
+     *
+     * @param context contexto de la aplicación [EN]  application context
+     * @param bundle  Argumentos de inicio [EN]  Start arguments
+     * @param result  Variable de resultados [EN]  Variable of results
+     * @return nueva instancia del dialogo [EN]  new instance of dialogue
+     */
+    @SuppressWarnings("All")
+    public static ProvinceChooser newInstance(
+            @NonNull Context context,
+            @NonNull Bundle bundle,
+            @Nullable OnResult<List<ProvincieModel>> result
+    ) {
+
+        ProvinceChooser instace = new ProvinceChooser();
+        instace.setContext(context);
+        instace.setArguments(bundle);
+        instace.setResult(result);
+        return instace;
+    }
+
+    private static Bundle createBundle(String title,
+                                       String ok,
+                                       String cancel,
+                                       String preselect,
+                                       int index,
+                                       ListExtra listExtra
+    ) {
+        Bundle bundle = new Bundle();
+
+       /*PRE-BUILD*/
+        bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.LIST_ICON);
+        bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
+        bundle.putSerializable(ListExtra.LIST_EXTRA.name(),listExtra);
+
+        switch (listExtra) {
+            case ONLY_MULTIPLE_SELECTION_MODE:
+                bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
+                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 1);
+                break;
+            default:
+                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 0);
+                break;
+        }
+
+        bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
+
+        /*LOAD*/
+        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
+        bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
+
+        return bundle;
+    }
+
+    /**
+     * Selector de provincias
+     * [EN]  Provincial selector
+     *
+     * @param context   Contexto de la aplicación
+     * @param index     índice de la comunidad autónoma o -1 si son todas
+     * @param listExtra Tipo de selección
+     * @param preselect provincias preseleccionadas
+     * @return Argumentos de creación
+     */
+    public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect) {
+        return createBundle(context.getResources().getString(R.string.pronvince_selector_title),
+                context.getResources().getString(R.string.bt_ACTION_OPEN),
+                context.getResources().getString(R.string.bt_ACTION_CANCEL),
+                preselect,
+                index,
+                multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE);
+    }
+
+    @Override
+    protected void load() {
+        if (getArguments() != null) {
+                    int index = getArguments().getInt(DialogExtras.INDEX_EXTRAS.name());
+
+                    String[] values = index < 1 || index > 19
+                            ? ResourcesAccess.getListProvinces(getContext())
+                            : ResourcesAccess.getListProvinces(getContext(), index);
+
+                    String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
+
+                    for (String reg : values) {
+                        ProvincieModel provincieModel = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
+                      addItem(provincieModel);
+                       setSelected(getItemCount()-1, preselect.contains(provincieModel.premarcValue()));
+
+                    }
+        }
+    }
+
+    @Override
+    protected void bindObject() {
+        super.bindObject();
+        viewDataBinding.setVariable(BR.handler, this);
+        viewDataBinding.executePendingBindings();
+    }
+
+    @Override
+    public void onClick(View view, Boolean isChecked) {
+        Log.i(LOG_TAG.TAG, "Pulsado y cheque " + isChecked);
+    }
+
+    @Override
+    public boolean onLongClick(View view, Boolean item) {
+        return false;
+    }
+
+}

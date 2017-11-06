@@ -8,6 +8,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
+
 /**
  * @author sergio
  *         Created by sergio on 22/10/17.
@@ -123,7 +124,14 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
 
     @Override
     public void setSelected() {
-        itemView.setSelected(viewHolderController.isSelected(getAdapterPosition()));
+            itemView.setSelected(viewHolderController.isSelected(getAdapterPosition()));
+
+            /*Modificar los selectores [EN]  We modify the selectors */
+            if(selecttigger != null){
+                selecttigger.setOnCheckedChangeListener(null);
+                selecttigger.setChecked(itemView.isSelected());
+                selecttigger.setOnCheckedChangeListener(this);
+            }
     }
 
     /**
@@ -148,7 +156,6 @@ public class ViewHolderBinding<T> extends BaseViewHolder<T> {
             }
         }
     }
-
 
     @Override
     public void onClick(View view) {

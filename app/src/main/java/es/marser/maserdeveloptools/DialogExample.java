@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.view.View;
 
+import java.util.List;
+
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
@@ -19,6 +21,8 @@ import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.territories.ProvinceChooser;
+import es.marser.backgroundtools.territories.ProvincieModel;
 import es.marser.tools.MathTools;
 
 /**
@@ -405,6 +409,24 @@ public class DialogExample {
                             }
                         }
                 );
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog provincieChooser(Context context){
+        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
+                ProvinceChooser.createBundle(context, -1, false,null),
+                new OnResult<List<ProvincieModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+            }
+
+            @Override
+            public void onClick(View view, List<ProvincieModel> value) {
+
+            }
+        });
         dialog.show();
         return dialog;
     }

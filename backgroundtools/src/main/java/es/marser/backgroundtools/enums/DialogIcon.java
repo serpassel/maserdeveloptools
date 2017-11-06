@@ -59,5 +59,7 @@ public enum DialogIcon {
     CALENDAR_ICON,
     CALENDAR_1_ICON,
     CALENDAR_2_ICON,
+    /*list*/
+    LIST_ICON,
     DEFAULT_ICON
 }

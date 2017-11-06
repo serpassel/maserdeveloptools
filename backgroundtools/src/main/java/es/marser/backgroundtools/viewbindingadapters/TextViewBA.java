@@ -33,9 +33,9 @@ import static com.android.databinding.library.baseAdapters.R.id;
 /**
  * @author sergio
  *         Created by Sergio on 21/04/2017.
- *         Adaptadores de enlace
+ *         Adaptadores de enlace para textview
  *         <p>
- *         [EN]  Link Adapters
+ *         [EN]  Link adapters for textview
  */
 
 @SuppressWarnings({"unused"})//, "WeakerAccess"})

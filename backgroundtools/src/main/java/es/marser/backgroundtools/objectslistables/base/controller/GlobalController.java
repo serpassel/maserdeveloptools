@@ -107,6 +107,11 @@ public class GlobalController<T> implements ViewHolderController<T>, OnItemChang
         return arrayListController.getItemAt(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
+    @Override
+    public void setSelected(int position, boolean value) {
+        selectionController.setSelected(adapterNotifier.indexPos(position,viewHolderType), value);
+    }
+
 
     /* {@link OnItemChangedListener}*/
 

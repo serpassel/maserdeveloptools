@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
+  <!--VIEWS-->
+    <string name="pronvince_selector_title">Selecciona la provincia</string>
+
+
+
+
+
+
     <!--CCAA ID | CODAUTO | NOMBRE|PRO_NUM|-->
     <string-array name="spain_ccaa">
         <item>CCAA|1|Andalucía|8|</item>

@@ -3,14 +3,14 @@ package es.marser.backgroundtools.dialogs.widget.chooser;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import android.os.Parcelable;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -30,33 +30,10 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class ChooserDialog
-        extends BaseDialogBinList<String> {
+public class ChooserDialog<T extends Selectable>
+        extends BaseDialogBinList<T>{//} implements ViewHandler<Boolean>{
 
-    protected OnResult<List<String>> result;
-    protected String[] values;
-
-    /**
-     * Nueva instancia {@link ChooserDialog}
-     *
-     * @param context contexto de la aplicación [EN]  application context
-     * @param bundle  Argumentos de inicio [EN]  Start arguments
-     * @param result  Variable de resultados [EN]  Variable of results
-     * @return nueva instancia del dialogo [EN]  new instance of dialogue
-     */
-    @SuppressWarnings("All")
-    public static ChooserDialog newInstance(
-            @NonNull Context context,
-            @NonNull Bundle bundle,
-            @Nullable OnResult<List<String>> result
-    ) {
-
-        ChooserDialog instace = new ChooserDialog();
-        instace.setContext(context);
-        instace.setArguments(bundle);
-        instace.setResult(null);
-        return instace;
-    }
+    protected OnResult<List<T>> result;
 
     /**
      * Creador de argumentos del cuadro de dialogo
@@ -72,19 +49,20 @@ public class ChooserDialog
      * @return Bundle argumentado [EN]  Bundle argued
      */
     @SuppressWarnings("All")
-    public static Bundle createBundle(DialogIcon icon,
-                                      String title,
-                                      String ok,
-                                      String cancel,
-                                      String premarc,
-                                      ListExtra listExtra,
-                                      @NonNull String[] values
+    public static <T extends Selectable> Bundle createBundle(DialogIcon icon,
+                                                             String title,
+                                                             String ok,
+                                                             String cancel,
+                                                             String preselect,
+                                                             ListExtra listExtra,
+                                                             List<T> values
     ) {
         Bundle bundle = new Bundle();
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), premarc);
-        bundle.putStringArray(ListExtra.VALUES_EXTRA.name(), values);
+        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
+        bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), (ArrayList<? extends Parcelable>) values);
+        bundle.putSerializable(ListExtra.LIST_EXTRA.name(),listExtra);
 
         switch (listExtra) {
 
@@ -108,16 +86,16 @@ public class ChooserDialog
      * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    public static Bundle createBundle(
+    public static <T extends Selectable> Bundle createBundle(
             Context context,
             ListExtra listExtra,
             String premarc,
-            @NonNull String[] values
+            List<T> values
     ) {
         return createBundle(
                 DialogIcon.SEARCH_ICON,
                 context.getResources().getString(R.string.bt_dialog_select_title),
-                context.getResources().getString(R.string.bt_ACTION_OPEN),
+                context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL),
                 premarc,
                 listExtra,
@@ -133,9 +111,9 @@ public class ChooserDialog
      * @param context contexto de la aplicación [EN]  context of the application
      * @return Bundle argumentado [EN]  Bundle argued
      */
-    public static Bundle createBundle(
+    public static <T extends Selectable> Bundle createBundle(
             Context context,
-            @NonNull String[] values
+            List<T> values
     ) {
         return createBundle(context, ListExtra.ONLY_SINGLE_SELECTION_MODE, null, values);
     }
@@ -143,14 +121,11 @@ public class ChooserDialog
     @Override
     protected void preBuild() {
 
-        model.body.set(getArguments().getString(DialogExtras.BODY_EXTRA.name(), ""));
         model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
 
         statusModel.blockAction.set(getArguments().getInt(DialogExtras.STATE_EXTRA.name(), 0) == 1);
 
         String ok_name = getArguments().getString(DialogExtras.OK_EXTRA.name());
-
-        values = getArguments().getStringArray(ListExtra.VALUES_EXTRA.name());
 
         if (ok_name != null) {
             buttonsSetModel.ok_name.set(ok_name);
@@ -173,7 +148,7 @@ public class ChooserDialog
     /*{@link BaseDialogBinList}*/
     @Override
     protected int getHolderLayout() {
-        return R.layout.mvp_item_file_model;
+        return R.layout.mvp_item_object_chooser;
     }
 
     @Override
@@ -190,13 +165,20 @@ public class ChooserDialog
     @SuppressWarnings("unchecked")
     @Override
     protected void load() {
+        final List<T> values = getArguments().getParcelableArrayList(ListExtra.VALUES_EXTRA.name());
+        final String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), null);
         if (values != null) {
+            if (preselect == null) {
+                adapter.globalController.arrayListController.setItems(values);
+                return;
+            }
 
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    for (String s : values) {
-                        addItem(s);
+                    for (T t : values) {
+                        addItem(t);
+                        setSelected(getItemCount(), preselect.contains(t.premarcValue()));
                     }
                 }
             });
@@ -215,27 +197,38 @@ public class ChooserDialog
     @Override
     public void onCancel(View view) {
         if (result != null) {
-            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<String>());
+            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<T>());
         }
         close();
     }
 
     /* {@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
     @Override
-    public void onClickItem(BaseViewHolder<String> holder, String item, int position, ListExtra mode) {
+    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
         super.onClickItem(holder, item, position, mode);
-
         if (getInitialSelectionMode() == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
             onOk(holder.getItemView());
         }
     }
 
     /*{@link OnResult}*/
-    public OnResult<List<String>> getResult() {
+    public OnResult<List<T>> getResult() {
         return result;
     }
 
-    public void setResult(OnResult<List<String>> result) {
+    public void setResult(OnResult<List<T>> result) {
         this.result = result;
     }
+
+    /*
+    @Override
+    public void onClick(View view, Boolean item) {
+
+    }
+
+    @Override
+    public boolean onLongClick(View view, Boolean item) {
+        return false;
+    }
+    */
 }

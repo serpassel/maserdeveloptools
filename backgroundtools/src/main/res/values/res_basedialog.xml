@@ -10,4 +10,7 @@
     <integer name="bt_limit_text">30</integer>
     <string name="bt_progress">PROGRESO: </string>
     <string name="bt_char">/</string>
+
+    <!--Subtítulos-->
+    <string name="bt_multiple_selection">Selección multiple</string>
 </resources>

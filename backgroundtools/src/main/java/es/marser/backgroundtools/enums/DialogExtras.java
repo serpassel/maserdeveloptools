@@ -36,5 +36,6 @@ public enum DialogExtras {
     /*Mostrar ocultos [EN]  Show hidden*/
     HIDDEN_EXTRAS,
     /*File args*/
-    FILTER_EXTRAS
+    FILTER_EXTRAS,
+    INDEX_EXTRAS
 }
