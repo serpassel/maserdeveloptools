@@ -91,6 +91,15 @@ public class DevelopTools extends BaseActivity {
             case R.id.item_16:
                 dialog = DialogExample.calendarChooser(this);
                 break;
+            case R.id.item_17:
+                dialog = DialogExample.autonomousChooser(this);
+                break;
+            case R.id.item_18:
+                dialog = DialogExample.preselectChooser(this);
+                break;
+            case R.id.item_19:
+                dialog = DialogExample.arabaVillagesChooser(this);
+                break;
         }
         return false;
     }
@@ -147,9 +156,9 @@ public class DevelopTools extends BaseActivity {
 
         //DialogExample.preselectChooser(this);
 
-        DialogExample.arabaVillagesChooser(this);
+        //DialogExample.arabaVillagesChooser(this);
 
-        DialogExample.autonomousChooser(this);
+        //DialogExample.autonomousChooser(this);
     }
 
     @Override

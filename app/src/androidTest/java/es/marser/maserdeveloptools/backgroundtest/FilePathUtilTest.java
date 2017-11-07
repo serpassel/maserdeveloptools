@@ -1,9 +1,11 @@
 package es.marser.maserdeveloptools.backgroundtest;
 
+import android.support.test.filters.LargeTest;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -16,11 +18,17 @@ import es.marser.backgroundtools.systemtools.FilePathUtil;
  * @author sergio
  *         Created by sergio on 7/10/17.
  */
+@LargeTest
 @SuppressWarnings({"unused", "CanBeFinal"})
 @RunWith(AndroidJUnit4.class)
 public class FilePathUtilTest {
 
-    private String[] exts = new String[]{".txt", ".jpg", ".png", ".dwg", ".xls", ".odt", ".mp4", ".doc", "", ".bc3"};
+    private String[] exts;
+
+    @Before
+    public void init(){
+        exts = new String[]{".txt", ".jpg", ".png", ".dwg", ".xls", ".odt", ".mp4", ".doc", "", ".bc3"};
+    }
 
     @Test
     public void channel2() {

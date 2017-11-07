@@ -39,4 +39,8 @@
 
     <string name="item_15">Selector de archivos</string>
     <string name="item_16">Selector de fechas</string>
+    <string name="item_17">Selector de CCAA</string>
+    <string name="item_18">Selector de provincias</string>
+    <string name="item_19">Selector de municipios</string>
+
 </resources>

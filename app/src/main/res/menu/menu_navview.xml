@@ -43,6 +43,18 @@
                     android:id="@+id/item_16"
                     android:icon="@mipmap/ic_launcher_round"
                     android:title="@string/item_16" />
+                <item
+                    android:id="@+id/item_17"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_17" />
+                <item
+                    android:id="@+id/item_18"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_18" />
+                <item
+                    android:id="@+id/item_19"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_19" />
             </menu>
         </item>
 
