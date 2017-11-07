@@ -43,7 +43,8 @@
         <!--BODY-->
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -66,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="@{model.keyname == `` ? v.GONE :v.VISIBLE}">
+            android:visibility="@{model.keyname}">
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checked"

@@ -407,7 +407,28 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
      */
     @SuppressWarnings({"UnusedParameters", "SameReturnValue"})
     public boolean onLongClick(View view, int position, int viewType) {
-        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+        switch (selectionmode) {
+            case NOT_SELECTION_MODE:
+                break;
+            case SINGLE_SELECTION_MODE:
+                /*Eliminar selecciones [EN]  Delete selections*/
+                clearSelecteds();
+                /*Inversión del elemento pulsado [EN]  Inversion of the pulsed element*/
+                toggleChildSelection(position);
+                /*Notificar cambios [EN]  Notify changes*/
+                notifyAllChanged();
+                /*Cambiamos a selección multiple [EN]  Switch to multiple selection*/
+                setSelectionmode(ListExtra.MULTIPLE_SELECTION_MODE);
+                break;
+            case MULTIPLE_SELECTION_MODE:
+                /*Deseleccionar todos los elementos y cambiar al mode de selección simple
+                * [EN]  Deselect all items and switch to simple selection mode*/
+                clearSelecteds();
+                setSelectionmode(ListExtra.SINGLE_SELECTION_MODE);
+                break;
+        }
+
+          /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(position);
 
@@ -434,43 +455,12 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
                     break;
             }
         }
-        switch (selectionmode) {
-            case NOT_SELECTION_MODE:
-                break;
-            case SINGLE_SELECTION_MODE:
-                /*Eliminar selecciones [EN]  Delete selections*/
-                clearSelecteds();
-                /*Inversión del elemento pulsado [EN]  Inversion of the pulsed element*/
-                toggleChildSelection(position);
-                /*Notificar cambios [EN]  Notify changes*/
-                notifyAllChanged();
-                /*Cambiamos a selección multiple [EN]  Switch to multiple selection*/
-                setSelectionmode(ListExtra.MULTIPLE_SELECTION_MODE);
-                break;
-            case MULTIPLE_SELECTION_MODE:
-                /*Deseleccionar todos los elementos y cambiar al mode de selección simple
-                * [EN]  Deselect all items and switch to simple selection mode*/
-                clearSelecteds();
-                setSelectionmode(ListExtra.SINGLE_SELECTION_MODE);
-                break;
-        }
+
         return true;
     }
 
 
     private void onChildClick(View view, int flatPos) {
-        if (viewComplexHandler != null) {
-            ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
-
-            viewComplexHandler.onClickChildItem(
-                    listPosition.groupPos,
-                    listPosition.childPos,
-                    getChildAt(listPosition.groupPos, listPosition.childPos),
-                    flatPos,
-                    selectionmode
-            );
-        }
-
         switch (selectionmode) {
             case NOT_SELECTION_MODE:
                 break;
@@ -491,14 +481,11 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
                 //notifyAllChanged();
                 break;
         }
-    }
 
-    private void onChildLongClick(View view, int flatPos) {
-        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
         if (viewComplexHandler != null) {
             ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
 
-            viewComplexHandler.onLongClickChildItem(
+            viewComplexHandler.onClickChildItem(
                     listPosition.groupPos,
                     listPosition.childPos,
                     getChildAt(listPosition.groupPos, listPosition.childPos),
@@ -506,6 +493,10 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
                     selectionmode
             );
         }
+
+    }
+
+    private void onChildLongClick(View view, int flatPos) {
         switch (selectionmode) {
             case NOT_SELECTION_MODE:
                 break;
@@ -526,7 +517,18 @@ public class ComplexSelectionController<G extends ExpandableGroup<C>, C extends 
                 setSelectionmode(ListExtra.SINGLE_SELECTION_MODE);
                 break;
         }
+        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+        if (viewComplexHandler != null) {
+            ExpandableListPosition listPosition = expandableList.getUnflattenedPosition(flatPos);
 
+            viewComplexHandler.onLongClickChildItem(
+                    listPosition.groupPos,
+                    listPosition.childPos,
+                    getChildAt(listPosition.groupPos, listPosition.childPos),
+                    flatPos,
+                    selectionmode
+            );
+        }
     }
 
     private void onGroupClick(View view, int flatPos) {

@@ -32,7 +32,6 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <il>Action Events</il>
  *         </ul>
  *         Tigger by {@link ViewItemHandler}
- *
  * @see es.marser.backgroundtools.handlers.ViewItemHandler
  * @see es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener
  * @see es.marser.backgroundtools.enums.ListExtra
@@ -363,11 +362,6 @@ public abstract class BaseSelectionController<T> {
         this.lastposition = this.position;
         this.position = position;
 
-        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
-        if (itemHandler != null) {
-            itemHandler.onClickItem(holder, getItemAt(position), position, selectionmode);
-        }
-
         switch (selectionmode) {
             case NOT_SELECTION_MODE:
                 return;
@@ -412,6 +406,12 @@ public abstract class BaseSelectionController<T> {
                 }
                 break;
         }
+
+          /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+        if (itemHandler != null) {
+            itemHandler.onClickItem(holder, getItemAt(position), position, selectionmode);
+        }
+
     }
 
     /**
@@ -427,11 +427,6 @@ public abstract class BaseSelectionController<T> {
         //Actualizamos el indice de posicion
         this.lastposition = this.position;
         this.position = position;
-
-                /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
-        if (itemHandler != null) {
-            itemHandler.onLongClickItem(holder, getItemAt(position), position, selectionmode);
-        }
 
         switch (selectionmode) {
             case NOT_SELECTION_MODE:
@@ -470,6 +465,12 @@ public abstract class BaseSelectionController<T> {
                 selectionmode = ListExtra.SINGLE_SELECTION_MODE;
                 break;
         }
+
+        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+        if (itemHandler != null) {
+            itemHandler.onLongClickItem(holder, getItemAt(position), position, selectionmode);
+        }
+
         return true;
     }
 }

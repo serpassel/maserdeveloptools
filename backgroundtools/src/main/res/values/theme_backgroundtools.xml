@@ -52,7 +52,7 @@
         <item name="colorControlNormal">@color/bt_primary_dark</item>
         <item name="colorControlActivated">@color/bt_primary_dark</item>
         <item name="dialogs_edittext_text_color_highlight">?attr/colorAccent</item>
-
+        
         <!--item name="android:editTextStyle">@style/bt_edit_text.text</item-->
 
         <!--CUSTOM DIMENSION-->

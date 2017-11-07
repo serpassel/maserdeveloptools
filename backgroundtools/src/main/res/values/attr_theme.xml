@@ -46,6 +46,9 @@
     <attr name="item_calendar_holiday" format="reference"/>
     <attr name="item_calendar_normal" format="reference"/>
 
+    <!--checker-->
+    <attr name="button_check_light" format="reference"/>
+
     <!--DIMENSION-->
     <!--margin padding-->
     <attr name="dialogs_default_margin" format="reference|dimension"/>

@@ -4,20 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.View;
 
 import java.util.List;
 
-import es.marser.LOG_TAG;
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.chooser.ChooserDialog;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.TextTools;
@@ -31,7 +26,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class ProvinceChooser extends ChooserDialog<ProvincieModel> implements ViewHandler<Boolean>{
+public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
 
     /**
      * Nueva instancia {@link ChooserDialog}
@@ -67,7 +62,7 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> implements Vi
        /*PRE-BUILD*/
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.LIST_ICON);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-        bundle.putSerializable(ListExtra.LIST_EXTRA.name(),listExtra);
+        bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
 
         switch (listExtra) {
             case ONLY_MULTIPLE_SELECTION_MODE:
@@ -100,7 +95,7 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> implements Vi
      */
     public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect) {
         return createBundle(context.getResources().getString(R.string.pronvince_selector_title),
-                context.getResources().getString(R.string.bt_ACTION_OPEN),
+                context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL),
                 preselect,
                 index,
@@ -110,38 +105,20 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> implements Vi
     @Override
     protected void load() {
         if (getArguments() != null) {
-                    int index = getArguments().getInt(DialogExtras.INDEX_EXTRAS.name());
+            int index = getArguments().getInt(DialogExtras.INDEX_EXTRAS.name());
 
-                    String[] values = index < 1 || index > 19
-                            ? ResourcesAccess.getListProvinces(getContext())
-                            : ResourcesAccess.getListProvinces(getContext(), index);
+            String[] values = index < 1 || index > 19
+                    ? ResourcesAccess.getListProvinces(getContext())
+                    : ResourcesAccess.getListProvinces(getContext(), index);
 
-                    String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
+            String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
-                    for (String reg : values) {
-                        ProvincieModel provincieModel = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
-                      addItem(provincieModel);
-                       setSelected(getItemCount()-1, preselect.contains(provincieModel.premarcValue()));
+            for (String reg : values) {
+                ProvincieModel provincieModel = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
+                addItem(provincieModel);
+                setSelected(getItemCount() - 1, preselect.contains(provincieModel.premarcValue()));
 
-                    }
+            }
         }
     }
-
-    @Override
-    protected void bindObject() {
-        super.bindObject();
-        viewDataBinding.setVariable(BR.handler, this);
-        viewDataBinding.executePendingBindings();
-    }
-
-    @Override
-    public void onClick(View view, Boolean isChecked) {
-        Log.i(LOG_TAG.TAG, "Pulsado y cheque " + isChecked);
-    }
-
-    @Override
-    public boolean onLongClick(View view, Boolean item) {
-        return false;
-    }
-
 }

@@ -38,6 +38,11 @@
             name="statusmodel"
             type="es.marser.backgroundtools.dialogs.model.StatusModel" />
 
+        <!--VARIABLE de selección multiple [EN]  VARIABLE multiple selection-->
+        <variable
+            name="multiselect"
+            type="Boolean"/>
+
     </data>
 
     <FrameLayout

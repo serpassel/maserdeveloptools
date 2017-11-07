@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.dialogs.widget.chooser;
 
 import android.content.Context;
+import android.databinding.ObservableBoolean;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -9,6 +10,7 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
@@ -16,6 +18,7 @@ import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.decorator.DividerDecoration;
 import es.marser.tools.TextTools;
@@ -31,9 +34,12 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T>{//} implements ViewHandler<Boolean>{
+        extends BaseDialogBinList<T> implements ViewHandler<Boolean> {
 
     protected OnResult<List<T>> result;
+
+    public static ObservableBoolean multiselect;
+    protected boolean multiselect_flag;
 
     /**
      * Creador de argumentos del cuadro de dialogo
@@ -62,7 +68,7 @@ public class ChooserDialog<T extends Selectable>
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
         bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), (ArrayList<? extends Parcelable>) values);
-        bundle.putSerializable(ListExtra.LIST_EXTRA.name(),listExtra);
+        bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
 
         switch (listExtra) {
 
@@ -121,8 +127,10 @@ public class ChooserDialog<T extends Selectable>
     @Override
     protected void preBuild() {
 
-        model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
+        multiselect_flag = true;
+        multiselect = new ObservableBoolean();
 
+        model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
         statusModel.blockAction.set(getArguments().getInt(DialogExtras.STATE_EXTRA.name(), 0) == 1);
 
         String ok_name = getArguments().getString(DialogExtras.OK_EXTRA.name());
@@ -143,6 +151,18 @@ public class ChooserDialog<T extends Selectable>
     protected void bindAdapter() {
         super.bindAdapter();
         recyclerView.addItemDecoration(new DividerDecoration(getContext()));
+    }
+
+    @Override
+    protected void bindObject() {
+        super.bindObject();
+        /*Presentador [EN]  Presenter*/
+        viewDataBinding.setVariable(BR.handler, this);
+        viewDataBinding.executePendingBindings();
+
+        /*Multiselección [EN]  Multiselection*/
+        viewDataBinding.setVariable(BR.multiselect, multiselect);
+        viewDataBinding.executePendingBindings();
     }
 
     /*{@link BaseDialogBinList}*/
@@ -180,9 +200,27 @@ public class ChooserDialog<T extends Selectable>
                         addItem(t);
                         setSelected(getItemCount(), preselect.contains(t.premarcValue()));
                     }
+                    adjustMultiSelection();
                 }
             });
         }
+    }
+
+
+    /**
+     * Método para ajustar el estado del boón de multiselección
+     * Anula los eventos de cambio de estado durante su ajuste
+     * <p>
+     * [EN]  Method to adjust the state of the multi-selection button
+     * Cancels state change events during adjustment
+     */
+    protected void adjustMultiSelection() {
+      //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
+        multiselect_flag = false;
+        boolean old = multiselect.get();
+        multiselect.set(getItemCount() == adapter.globalController.selectionController.getIdSelecteds().size());
+
+        multiselect_flag = (old == multiselect.get());
     }
 
     /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
@@ -208,6 +246,8 @@ public class ChooserDialog<T extends Selectable>
         super.onClickItem(holder, item, position, mode);
         if (getInitialSelectionMode() == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
             onOk(holder.getItemView());
+        } else {
+            adjustMultiSelection();
         }
     }
 
@@ -220,15 +260,21 @@ public class ChooserDialog<T extends Selectable>
         this.result = result;
     }
 
-    /*
     @Override
-    public void onClick(View view, Boolean item) {
-
+    public void onClick(View view, Boolean isChecked) {
+        if (multiselect_flag) {
+            if (isChecked) {
+                adapter.globalController.selectionController.selectedAll();
+            } else {
+                adapter.globalController.selectionController.deselectedAll();
+            }
+        }
+        multiselect_flag = true;
     }
 
     @Override
     public boolean onLongClick(View view, Boolean item) {
         return false;
     }
-    */
+
 }

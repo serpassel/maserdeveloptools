@@ -4,8 +4,11 @@
 
     <data>
 
-        <!--PRESENTER-->
+        <import
+            alias="v_bt"
+            type="android.view.View" />
 
+        <!--PRESENTER-->
         <import type="es.marser.backgroundtools.handlers.ViewHandler" />
 
         <variable
@@ -32,6 +35,12 @@
             name="buttonsetmodel"
             type="ButtonsSetModel" />
 
+        <import type="android.databinding.ObservableBoolean"/>
+
+        <variable
+            name="multiselect"
+            type="ObservableBoolean"/>
+
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -49,8 +58,11 @@
         <android.support.v7.widget.ContentFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="?attr/dialogs_default_margin"
-            android:background="?attr/dialogs_head_background_tint">
+            android:layout_margin="?attr/box_default_medium_margin"
+            android:background="?attr/dialogs_head_background_tint"
+            android:visibility="@{buttonsetmodel.ok_name}">
+
+            <!--android:visibility="@{buttonsetmodel.ok_name == `` ? v_bt.GONE : v_bt.VISIBLE }"-->
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/fab_checker"
@@ -60,10 +72,12 @@
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:left="5dp"
+                android:checked="@={multiselect}"
                 android:onCheckedChanged="@{(cb, isChecked) -> handler.onClick(cb, isChecked)}"
                 android:text="@string/bt_multiple_selection"
                 android:textColor="?attr/dialogs_head_text_color"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:theme="@android:style/Theme.Holo" />
         </android.support.v7.widget.ContentFrameLayout>
 
         <!--LIST-->

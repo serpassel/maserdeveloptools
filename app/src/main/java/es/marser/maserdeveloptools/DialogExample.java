@@ -24,6 +24,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.territories.ProvinceChooser;
 import es.marser.backgroundtools.territories.ProvincieModel;
 import es.marser.tools.MathTools;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -413,13 +414,21 @@ public class DialogExample {
         return dialog;
     }
 
-    public static BaseDialog provincieChooser(Context context){
+    public static BaseDialog provincieChooser(final Context context){
         ProvinceChooser dialog = ProvinceChooser.newInstance(context,
                 ProvinceChooser.createBundle(context, -1, false,null),
                 new OnResult<List<ProvincieModel>>() {
             @Override
             public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
+                if(result == DialogExtras.OK_EXTRA){
+                    StringBuilder builder = new StringBuilder();
+                    for(ProvincieModel pm: value){
+                        builder.append(pm.getName()).append(",\n");
+                    }
+                    TextTools.deleteLastBrand(builder, ";\n");
+                    Launch_toast.informationToast(context,builder.toString());
+                }
             }
 
             @Override
@@ -427,6 +436,38 @@ public class DialogExample {
 
             }
         });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog provincieMultiChooser(final Context context){
+        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
+                ProvinceChooser.createBundle(context, -1, true,null),
+                new OnResult<List<ProvincieModel>>() {
+                    @Override
+                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+                        if(result == DialogExtras.OK_EXTRA){
+
+                            StringBuilder builder = new StringBuilder();
+
+                            for(ProvincieModel pm: value){
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+
+                            NotificationDialogBinModel.newInstance(
+                                    context,
+                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, List<ProvincieModel> value) {
+
+                    }
+                });
         dialog.show();
         return dialog;
     }

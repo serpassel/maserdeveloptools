@@ -139,7 +139,9 @@ public class DevelopTools extends BaseActivity {
 */
         //DialogExample.calendarChooser(this);
 
-        DialogExample.provincieChooser(this);
+        //DialogExample.provincieChooser(this);
+
+        DialogExample.provincieMultiChooser(this);
     }
 
     @Override
