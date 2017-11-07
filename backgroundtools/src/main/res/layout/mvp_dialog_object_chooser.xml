@@ -55,6 +55,18 @@
             layout="@layout/mvp_dialog_head_title"
             bind:model="@{model}" />
 
+        <!--LIST-->
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/bt_white"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="?attr/box_default_medium_margin"
+            android:layout_weight="1"
+            android:minHeight="100dp" />
+
+        <!--SELECTOR MULTIPLE-->
         <android.support.v7.widget.ContentFrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,13 +74,12 @@
             android:background="?attr/dialogs_head_background_tint"
             android:visibility="@{buttonsetmodel.ok_name}">
 
-            <!--android:visibility="@{buttonsetmodel.ok_name == `` ? v_bt.GONE : v_bt.VISIBLE }"-->
-
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/fab_checker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="?attr/dialogs_default_margin"
+                android:layout_marginEnd="?attr/dialogs_default_margin"
+                android:layout_marginStart="?attr/dialogs_default_margin"
                 android:drawablePadding="5dp"
                 android:gravity="center_vertical"
                 android:left="5dp"
@@ -76,19 +87,9 @@
                 android:onCheckedChanged="@{(cb, isChecked) -> handler.onClick(cb, isChecked)}"
                 android:text="@string/bt_multiple_selection"
                 android:textColor="?attr/dialogs_head_text_color"
-                android:textSize="18sp"
+                android:textSize="15sp"
                 android:theme="@android:style/Theme.Holo" />
         </android.support.v7.widget.ContentFrameLayout>
-
-        <!--LIST-->
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/id_recyclerview"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="?attr/box_default_medium_margin"
-            android:layout_weight="1"
-            android:minHeight="100dp" />
 
         <!--FOO-->
         <include

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.territories;
+package es.marser.backgroundtools.territories.choosers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.territories.model.AutonomousModel;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.TextTools;
 
@@ -26,7 +27,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
+public class AutonomousChooser extends ChooserDialog<AutonomousModel> {
 
     /**
      * Nueva instancia {@link ChooserDialog}
@@ -37,25 +38,26 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
-    public static ProvinceChooser newInstance(
+    public static AutonomousChooser newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
-            @Nullable OnResult<List<ProvincieModel>> result
+            @Nullable OnResult<List<AutonomousModel>> result
     ) {
 
-        ProvinceChooser instace = new ProvinceChooser();
+        AutonomousChooser instace = new AutonomousChooser();
         instace.setContext(context);
         instace.setArguments(bundle);
         instace.setResult(result);
         return instace;
     }
 
+
     private static Bundle createBundle(String title,
                                        String ok,
                                        String cancel,
                                        String preselect,
-                                       int index,
-                                       ListExtra listExtra
+                                       ListExtra listExtra,
+                                       boolean placeholder
     ) {
         Bundle bundle = new Bundle();
 
@@ -63,6 +65,7 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.LIST_ICON);
         bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
         bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
+        bundle.putBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), placeholder);
 
         switch (listExtra) {
             case ONLY_MULTIPLE_SELECTION_MODE:
@@ -78,28 +81,40 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
 
         /*LOAD*/
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-        bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
 
         return bundle;
     }
 
     /**
-     * Selector de provincias
-     * [EN]  Provincial selector
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
      *
      * @param context   Contexto de la aplicación
-     * @param index     índice de la comunidad autónoma o -1 si son todas
      * @param listExtra Tipo de selección
      * @param preselect provincias preseleccionadas
      * @return Argumentos de creación
      */
-    public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect) {
-        return createBundle(context.getResources().getString(R.string.pronvince_selector_title),
+    public static Bundle createBundle(Context context, boolean multipleselection, String preselect) {
+        return createBundle(context,multipleselection,preselect,false);
+    }
+
+    /**
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
+     *
+     * @param context     Contexto de la aplicación
+     * @param listExtra   Tipo de selección
+     * @param preselect   provincias preseleccionadas
+     * @param placeholder bandera para añadir registro extra de territorio completo
+     * @return Argumentos de creación
+     */
+    public static Bundle createBundle(Context context, boolean multipleselection, String preselect, boolean placeholder) {
+        return createBundle(context.getResources().getString(R.string.autonomous_selector_title),
                 context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL),
                 preselect,
-                index,
-                multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE);
+                multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
+                placeholder);
     }
 
     @Override
@@ -107,17 +122,22 @@ public class ProvinceChooser extends ChooserDialog<ProvincieModel> {
         if (getArguments() != null) {
             int index = getArguments().getInt(DialogExtras.INDEX_EXTRAS.name());
 
-            String[] values = index < 1 || index > 19
-                    ? ResourcesAccess.getListProvinces(getContext())
-                    : ResourcesAccess.getListProvinces(getContext(), index);
+            String[] values = ResourcesAccess.getListAutonomousCommunities(getContext());
 
             String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
-            for (String reg : values) {
-                ProvincieModel provincieModel = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
-                addItem(provincieModel);
-                setSelected(getItemCount() - 1, preselect.contains(provincieModel.premarcValue()));
+            if (getArguments().getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
 
+                AutonomousModel item1 = GenericFactory.BuildSingleObject(AutonomousModel.class,
+                        getContext().getResources().getString(R.string.all_spain_ccaa));
+                addItem(item1);
+                setSelected(getItemCount() - 1, preselect.contains(item1.preSelectValue()));
+            }
+
+            for (String reg : values) {
+                AutonomousModel item = GenericFactory.BuildSingleObject(AutonomousModel.class, reg);
+                addItem(item);
+                setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
             }
         }
     }

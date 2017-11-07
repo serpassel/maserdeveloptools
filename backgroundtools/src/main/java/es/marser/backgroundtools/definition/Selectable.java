@@ -14,5 +14,5 @@ import android.text.SpannableString;
 @SuppressWarnings("unused")
 public interface Selectable extends Parcelable{
     SpannableString toSpannableString();
-    String premarcValue();
+    String preSelectValue();
 }

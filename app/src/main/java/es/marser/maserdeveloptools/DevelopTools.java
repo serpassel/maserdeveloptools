@@ -141,7 +141,15 @@ public class DevelopTools extends BaseActivity {
 
         //DialogExample.provincieChooser(this);
 
-        DialogExample.provincieMultiChooser(this);
+        //DialogExample.provincieMultiChooser(this);
+
+        //DialogExample.andaluciaChooser(this);
+
+        //DialogExample.preselectChooser(this);
+
+        DialogExample.arabaVillagesChooser(this);
+
+        DialogExample.autonomousChooser(this);
     }
 
     @Override

@@ -16,6 +16,7 @@ public enum DialogExtras {
     BODY_EXTRA,
     KEY_EXTRA,
     MODE_EXTRA,
+    PLACEHOLDER_EXTRA,
     /*Modo de visualización de los  dialogos indeterminados [EN]  Display Mode for Undetermined Dialogs*/
     MODE_BOX_EXTRAS,
     MODE_SPINNER_EXTRAS,

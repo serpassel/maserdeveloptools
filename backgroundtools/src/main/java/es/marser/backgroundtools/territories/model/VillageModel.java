@@ -1,14 +1,16 @@
-package es.marser.backgroundtools.territories;
+package es.marser.backgroundtools.territories.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.SpannableString;
 
 import es.marser.annotation.DbColumn;
 import es.marser.annotation.DbPrimaryKey;
 import es.marser.annotation.DbTable;
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.tools.TextTools;
 
 /**
@@ -20,8 +22,9 @@ import es.marser.tools.TextTools;
  */
 @SuppressWarnings({"unused", "UnusedReturnValue"})
 @DbTable(name = "MUN")
-public class VillageModel extends BaseObservable implements Parcelable {
+public class VillageModel extends BaseObservable implements Selectable {
 
+    @SuppressWarnings("FieldCanBeLocal")
     @DbPrimaryKey
     private String key;
 
@@ -52,7 +55,7 @@ public class VillageModel extends BaseObservable implements Parcelable {
 
     @Bindable
     public String getKey() {
-        return this.key;
+        return cpro + cmun + dc;
     }
 
     public VillageModel setCodauto(String codauto) {
@@ -69,6 +72,7 @@ public class VillageModel extends BaseObservable implements Parcelable {
     public VillageModel setCpro(String cpro) {
         this.cpro = cpro;
         notifyPropertyChanged(BR.cpro);
+        notifyPropertyChanged(BR.key);
         return this;
     }
 
@@ -80,7 +84,7 @@ public class VillageModel extends BaseObservable implements Parcelable {
     public VillageModel setCmun(String cmun) {
         this.cmun = cmun;
         notifyPropertyChanged(BR.cmun);
-        setKey(cmun);
+        notifyPropertyChanged(BR.key);
         return this;
     }
 
@@ -92,6 +96,7 @@ public class VillageModel extends BaseObservable implements Parcelable {
     public VillageModel setDc(String dc) {
         this.dc = dc;
         notifyPropertyChanged(BR.dc);
+        notifyPropertyChanged(BR.key);
         return this;
     }
 
@@ -166,4 +171,14 @@ public class VillageModel extends BaseObservable implements Parcelable {
             return new VillageModel[size];
         }
     };
+
+    @Override
+    public SpannableString toSpannableString() {
+        return new SpannableString(name);
+    }
+
+    @Override
+    public String preSelectValue() {
+        return cpro + cmun + dc;
+    }
 }

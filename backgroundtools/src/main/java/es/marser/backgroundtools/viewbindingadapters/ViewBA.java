@@ -3,12 +3,7 @@ package es.marser.backgroundtools.viewbindingadapters;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
-import android.support.v7.widget.AppCompatCheckBox;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-
-import es.marser.LOG_TAG;
 
 /**
  * @author sergio

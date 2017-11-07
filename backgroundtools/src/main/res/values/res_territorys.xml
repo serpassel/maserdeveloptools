@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
   <!--VIEWS-->
-    <string name="pronvince_selector_title">Selecciona la provincia</string>
-
-
-
-
-
+    <string name="autonomous_selector_title">Seleccione la CCAA</string>
+    <string name="province_selector_title">Seleccione la provincia</string>
+    <string name="village_selector_title">Seleccione el municipio</string>
 
     <!--CCAA ID | CODAUTO | NOMBRE|PRO_NUM|-->
+    <string name="all_spain_ccaa">CCAA|0|Todo el territorio|52|</string>
     <string-array name="spain_ccaa">
         <item>CCAA|1|Andalucía|8|</item>
         <item>CCAA|2|Aragón|3|</item>
@@ -32,6 +30,7 @@
     </string-array>
 
     <!--PROVINCIAS ID | CODAUTO | CPRO | NOMBRE | MUN_COUNT|-->
+    <string name="all_spain_pro">PRO|0|0|Todas las provincias|8126|</string>
     <!--1 Andalucia-->
     <string-array name="spain_province_01">
         <item>PRO|1|4|Almería|103|</item>
@@ -217,6 +216,7 @@
     </string-array>
 
     <!--MUNICIPIOS ID | CODAUTO | CPRO |CMUN | DC | NOMBRE-->
+    <string name="all_spain_mun">MUN|00|00|000|0|Todos los municipios|</string>
     <!--01 álava-->
     <string-array name="spain_villages_01">
         <item>MUN|16|01|051|3|Agurain/Salvatierra|</item>

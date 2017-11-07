@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.territories;
+package es.marser.backgroundtools.territories.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -161,7 +161,7 @@ public class ProvincieModel extends BaseObservable implements Selectable {
     }
 
     @Override
-    public String premarcValue() {
-        return name;
+    public String preSelectValue() {
+        return MathTools.formatCifra(cpro, 2);
     }
 }

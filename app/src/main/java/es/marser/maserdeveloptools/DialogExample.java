@@ -21,8 +21,12 @@ import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.territories.ProvinceChooser;
-import es.marser.backgroundtools.territories.ProvincieModel;
+import es.marser.backgroundtools.territories.choosers.AutonomousChooser;
+import es.marser.backgroundtools.territories.choosers.ProvinceChooser;
+import es.marser.backgroundtools.territories.choosers.VillageChooser;
+import es.marser.backgroundtools.territories.model.AutonomousModel;
+import es.marser.backgroundtools.territories.model.ProvincieModel;
+import es.marser.backgroundtools.territories.model.VillageModel;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
@@ -187,7 +191,7 @@ public class DialogExample {
                         NotificationDialogBinModel.createConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
-                                switch (result){
+                                switch (result) {
                                     case OK_EXTRA:
                                         Launch_toast.informationToast(context, result.name());
                                         break;
@@ -195,7 +199,7 @@ public class DialogExample {
                                         Launch_toast.errorToast(context, result.name());
                                         break;
                                     case OPTION_EXTRA:
-                                        Launch_toast.warningToast(context,result.name());
+                                        Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
                             }
@@ -217,7 +221,7 @@ public class DialogExample {
                         NotificationDialogBinModel.createConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
-                                switch (result){
+                                switch (result) {
                                     case OK_EXTRA:
                                         Launch_toast.informationToast(context, result.name());
                                         break;
@@ -225,7 +229,7 @@ public class DialogExample {
                                         Launch_toast.errorToast(context, result.name());
                                         break;
                                     case OPTION_EXTRA:
-                                        Launch_toast.warningToast(context,result.name());
+                                        Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
                             }
@@ -248,7 +252,7 @@ public class DialogExample {
                         NotificationDialogBinModel.createOkCancelErrorBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
-                                switch (result){
+                                switch (result) {
                                     case OK_EXTRA:
                                         Launch_toast.informationToast(context, result.name());
                                         break;
@@ -256,7 +260,7 @@ public class DialogExample {
                                         Launch_toast.errorToast(context, result.name());
                                         break;
                                     case OPTION_EXTRA:
-                                        Launch_toast.warningToast(context,result.name());
+                                        Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
                             }
@@ -278,7 +282,7 @@ public class DialogExample {
                         NotificationDialogBinModel.createYesNoCancelConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
-                                switch (result){
+                                switch (result) {
                                     case OK_EXTRA:
                                         Launch_toast.informationToast(context, result.name());
                                         break;
@@ -286,7 +290,7 @@ public class DialogExample {
                                         Launch_toast.errorToast(context, result.name());
                                         break;
                                     case OPTION_EXTRA:
-                                        Launch_toast.warningToast(context,result.name());
+                                        Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
                             }
@@ -308,7 +312,7 @@ public class DialogExample {
                         NotificationDialogBinModel.createDeleteRecordsBundle(context), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
-                                switch (result){
+                                switch (result) {
                                     case OK_EXTRA:
                                         Launch_toast.informationToast(context, result.name());
                                         break;
@@ -316,7 +320,7 @@ public class DialogExample {
                                         Launch_toast.errorToast(context, result.name());
                                         break;
                                     case OPTION_EXTRA:
-                                        Launch_toast.warningToast(context,result.name());
+                                        Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
                             }
@@ -343,10 +347,10 @@ public class DialogExample {
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
-                                if(result == DialogExtras.OK_EXTRA){
+                                if (result == DialogExtras.OK_EXTRA) {
                                     Log.i(LOG_TAG.TAG, "Valor " + value.getFile().getAbsolutePath());
                                     Launch_toast.informationToast(context, value.getFile().getAbsolutePath());
-                                }else{
+                                } else {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
@@ -371,9 +375,9 @@ public class DialogExample {
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
-                                if(result == DialogExtras.OK_EXTRA){
+                                if (result == DialogExtras.OK_EXTRA) {
                                     Launch_toast.informationToast(context, value.getName());
-                                }else{
+                                } else {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
@@ -397,9 +401,9 @@ public class DialogExample {
                         new OnResult<CalendarObservable>() {
                             @Override
                             public void onResult(DialogExtras result, CalendarObservable value) {
-                                if(result == DialogExtras.OK_EXTRA){
+                                if (result == DialogExtras.OK_EXTRA) {
                                     Launch_toast.warningToast(context, value.getDateLong());
-                                }else{
+                                } else {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
@@ -414,44 +418,46 @@ public class DialogExample {
         return dialog;
     }
 
-    public static BaseDialog provincieChooser(final Context context){
+
+    //TERRITORY_________________________________________________________________________________________
+    public static BaseDialog provincieChooser(final Context context) {
         ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, -1, false,null),
-                new OnResult<List<ProvincieModel>>() {
-            @Override
-            public void onResult(DialogExtras result, List<ProvincieModel> value) {
-
-                if(result == DialogExtras.OK_EXTRA){
-                    StringBuilder builder = new StringBuilder();
-                    for(ProvincieModel pm: value){
-                        builder.append(pm.getName()).append(",\n");
-                    }
-                    TextTools.deleteLastBrand(builder, ";\n");
-                    Launch_toast.informationToast(context,builder.toString());
-                }
-            }
-
-            @Override
-            public void onClick(View view, List<ProvincieModel> value) {
-
-            }
-        });
-        dialog.show();
-        return dialog;
-    }
-
-    public static BaseDialog provincieMultiChooser(final Context context){
-        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, -1, true,null),
+                ProvinceChooser.createBundle(context, -1, false, null),
                 new OnResult<List<ProvincieModel>>() {
                     @Override
                     public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                        if(result == DialogExtras.OK_EXTRA){
+                        if (result == DialogExtras.OK_EXTRA) {
+                            StringBuilder builder = new StringBuilder();
+                            for (ProvincieModel pm : value) {
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+                            Launch_toast.informationToast(context, builder.toString());
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, List<ProvincieModel> value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog provincieMultiChooser(final Context context) {
+        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
+                ProvinceChooser.createBundle(context, -1, true, null),
+                new OnResult<List<ProvincieModel>>() {
+                    @Override
+                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+                        if (result == DialogExtras.OK_EXTRA) {
 
                             StringBuilder builder = new StringBuilder();
 
-                            for(ProvincieModel pm: value){
+                            for (ProvincieModel pm : value) {
                                 builder.append(pm.getName()).append(",\n");
                             }
                             TextTools.deleteLastBrand(builder, ";\n");
@@ -468,6 +474,134 @@ public class DialogExample {
 
                     }
                 });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog preselectChooser(final Context context) {
+        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
+                ProvinceChooser.createBundle(context, -1, true, "Almería, Burgos,"),
+                new OnResult<List<ProvincieModel>>() {
+                    @Override
+                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+                        if (result == DialogExtras.OK_EXTRA) {
+
+                            StringBuilder builder = new StringBuilder();
+
+                            for (ProvincieModel pm : value) {
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+
+                            NotificationDialogBinModel.newInstance(
+                                    context,
+                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, List<ProvincieModel> value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog andaluciaChooser(final Context context) {
+        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
+                ProvinceChooser.createBundle(context, 1, true, null),
+                new OnResult<List<ProvincieModel>>() {
+                    @Override
+                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+                        if (result == DialogExtras.OK_EXTRA) {
+
+                            StringBuilder builder = new StringBuilder();
+
+                            for (ProvincieModel pm : value) {
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+
+                            NotificationDialogBinModel.newInstance(
+                                    context,
+                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            ).show();
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, List<ProvincieModel> value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog arabaVillagesChooser(final Context context) {
+        VillageChooser dialog = VillageChooser.newInstance(
+                context,
+                VillageChooser.createBundle(context, 1,false, null),
+                new OnResult<List<VillageModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<VillageModel> value) {
+                if (result == DialogExtras.OK_EXTRA) {
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for (VillageModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
+                    }
+                    TextTools.deleteLastBrand(builder, ";\n");
+
+                    NotificationDialogBinModel.newInstance(
+                            context,
+                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onClick(View view, List<VillageModel> value) {
+
+            }
+        });
+        dialog.show();
+        return dialog;
+    }
+
+    public static BaseDialog autonomousChooser(final Context context){
+        AutonomousChooser dialog = AutonomousChooser.newInstance(context,
+                AutonomousChooser.createBundle(context, true, null, true),
+                new OnResult<List<AutonomousModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<AutonomousModel> value) {
+                if (result == DialogExtras.OK_EXTRA) {
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for (AutonomousModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
+                    }
+                    TextTools.deleteLastBrand(builder, ";\n");
+
+                    NotificationDialogBinModel.newInstance(
+                            context,
+                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onClick(View view, List<AutonomousModel> value) {
+
+            }
+        });
+
         dialog.show();
         return dialog;
     }

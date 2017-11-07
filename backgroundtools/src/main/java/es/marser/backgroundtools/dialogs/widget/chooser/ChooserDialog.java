@@ -198,7 +198,7 @@ public class ChooserDialog<T extends Selectable>
                 public void run() {
                     for (T t : values) {
                         addItem(t);
-                        setSelected(getItemCount(), preselect.contains(t.premarcValue()));
+                        setSelected(getItemCount(), preselect.contains(t.preSelectValue()));
                     }
                     adjustMultiSelection();
                 }
