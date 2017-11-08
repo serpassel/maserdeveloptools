@@ -10,6 +10,8 @@ import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.FileModel;
+import es.marser.backgroundtools.dialogs.task.OnDResult;
+import es.marser.backgroundtools.dialogs.widget.auth.DialogLogin;
 import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
@@ -546,62 +548,62 @@ public class DialogExample {
     public static BaseDialog arabaVillagesChooser(final Context context) {
         VillageChooser dialog = VillageChooser.newInstance(
                 context,
-                VillageChooser.createBundle(context, 1,false, null),
+                VillageChooser.createBundle(context, 1, false, null),
                 new OnResult<List<VillageModel>>() {
-            @Override
-            public void onResult(DialogExtras result, List<VillageModel> value) {
-                if (result == DialogExtras.OK_EXTRA) {
+                    @Override
+                    public void onResult(DialogExtras result, List<VillageModel> value) {
+                        if (result == DialogExtras.OK_EXTRA) {
 
-                    StringBuilder builder = new StringBuilder();
+                            StringBuilder builder = new StringBuilder();
 
-                    for (VillageModel pm : value) {
-                        builder.append(pm.getName()).append(",\n");
+                            for (VillageModel pm : value) {
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+
+                            NotificationDialogBinModel.newInstance(
+                                    context,
+                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            ).show();
+                        }
                     }
-                    TextTools.deleteLastBrand(builder, ";\n");
 
-                    NotificationDialogBinModel.newInstance(
-                            context,
-                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                    ).show();
-                }
-            }
+                    @Override
+                    public void onClick(View view, List<VillageModel> value) {
 
-            @Override
-            public void onClick(View view, List<VillageModel> value) {
-
-            }
-        });
+                    }
+                });
         dialog.show();
         return dialog;
     }
 
-    public static BaseDialog autonomousChooser(final Context context){
+    public static BaseDialog autonomousChooser(final Context context) {
         AutonomousChooser dialog = AutonomousChooser.newInstance(context,
                 AutonomousChooser.createBundle(context, true, null, true),
                 new OnResult<List<AutonomousModel>>() {
-            @Override
-            public void onResult(DialogExtras result, List<AutonomousModel> value) {
-                if (result == DialogExtras.OK_EXTRA) {
+                    @Override
+                    public void onResult(DialogExtras result, List<AutonomousModel> value) {
+                        if (result == DialogExtras.OK_EXTRA) {
 
-                    StringBuilder builder = new StringBuilder();
+                            StringBuilder builder = new StringBuilder();
 
-                    for (AutonomousModel pm : value) {
-                        builder.append(pm.getName()).append(",\n");
+                            for (AutonomousModel pm : value) {
+                                builder.append(pm.getName()).append(",\n");
+                            }
+                            TextTools.deleteLastBrand(builder, ";\n");
+
+                            NotificationDialogBinModel.newInstance(
+                                    context,
+                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            ).show();
+                        }
                     }
-                    TextTools.deleteLastBrand(builder, ";\n");
 
-                    NotificationDialogBinModel.newInstance(
-                            context,
-                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                    ).show();
-                }
-            }
+                    @Override
+                    public void onClick(View view, List<AutonomousModel> value) {
 
-            @Override
-            public void onClick(View view, List<AutonomousModel> value) {
-
-            }
-        });
+                    }
+                });
 
         dialog.show();
         return dialog;
@@ -609,34 +611,13 @@ public class DialogExample {
 
     //INPUT_______________________________________________________________________________________________
 
-    public static BaseDialog inputBox(final Context context){
+    public static BaseDialog inputBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
                 DialogInputBox.createBundle("Introducir texto"),
                 new OnResult<String>() {
-            @Override
-            public void onResult(DialogExtras result, String value) {
-                if(result == DialogExtras.OK_EXTRA){
-                    Launch_toast.informationToast(context, value);
-                }
-            }
-
-            @Override
-            public void onClick(View view, String value) {
-
-            }
-        });
-                dialog.show();
-        return dialog;
-
-    }
-
-    public static BaseDialog passwordBox(final Context context){
-        DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createPasswordBundle(null,6),
-                new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
-                        if(result == DialogExtras.OK_EXTRA){
+                        if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value);
                         }
                     }
@@ -651,19 +632,62 @@ public class DialogExample {
 
     }
 
-    public static BaseDialog mailBox(final Context context){
+    public static BaseDialog passwordBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createMailBundle(null,"Introduce el mail"),
+                DialogInputBox.createPasswordBundle(null, 6),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
-                        if(result == DialogExtras.OK_EXTRA){
+                        if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value);
                         }
                     }
 
                     @Override
                     public void onClick(View view, String value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
+    }
+
+    //LOGIN______________________________________________________________________________________________
+    public static BaseDialog loginMailBox(final Context context) {
+        DialogLogin dialog = DialogLogin.newInstance(context,
+                DialogLogin.createMailPasswordBundle(null, 6),
+                new OnDResult<String, String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value1, String value2) {
+                        if (result == DialogExtras.OK_EXTRA) {
+                            Launch_toast.informationToast(context, value1 + value2);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value, String value2) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog loginUserBox(final Context context) {
+        DialogLogin dialog = DialogLogin.newInstance(context,
+                DialogLogin.createUserPasswordBundle(null, 6),
+                new OnDResult<String, String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value1, String value2) {
+                        if (result == DialogExtras.OK_EXTRA) {
+                            Launch_toast.informationToast(context, value1 + value2);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value, String value2) {
 
                     }
                 });

@@ -161,11 +161,13 @@ public class DevelopTools extends BaseActivity {
 
         //DialogExample.autonomousChooser(this);
 
-        DialogExample.inputBox(this);
+        //DialogExample.inputBox(this);
 
-        DialogExample.mailBox(this);
+        //DialogExample.passwordBox(this);
 
-        DialogExample.passwordBox(this);
+        //DialogExample.loginMailBox(this);
+
+        DialogExample.loginUserBox(this);
     }
 
     @Override
