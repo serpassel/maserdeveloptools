@@ -26,6 +26,7 @@ import es.marser.backgroundtools.systemtools.FilePathUtil;
         NotificationTest.class,
         NotificationTest2.class,
         ResourcesAccessTest.class,
+        DialogInputTest.class,
         ChooserTest.class
 
 })
