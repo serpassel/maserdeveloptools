@@ -61,5 +61,12 @@ public enum DialogIcon {
     CALENDAR_2_ICON,
     /*list*/
     LIST_ICON,
+    /*inputbox*/
+    MAIL_ICON,
+    MULTILINE_ICON,
+    EDITTEXT_ICON,
+    /*auth*/
+    LOGIN_ICON,
+    PASSWORD_ICON,
     DEFAULT_ICON
 }

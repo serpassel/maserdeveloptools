@@ -38,10 +38,17 @@
             name="statusmodel"
             type="es.marser.backgroundtools.dialogs.model.StatusModel" />
 
+        <!--MODELO de configuración de cajas de texto [EN]  MODEL configuration of text boxes-->
+        <import type="es.marser.backgroundtools.dialogs.widget.inputbox.BoxSettings" />
+
+        <variable
+            name="settings"
+            type="BoxSettings" />
+
         <!--VARIABLE de selección multiple [EN]  VARIABLE multiple selection-->
         <variable
             name="multiselect"
-            type="Boolean"/>
+            type="Boolean" />
 
     </data>
 

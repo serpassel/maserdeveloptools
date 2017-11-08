@@ -383,11 +383,12 @@ public class TextTools {
 // 4.- VALIDATORS OF PATTERNS____________________________________________________________________________________
 
     /**
+     * @param chars número mínimo de caracteres [EN]  minimum number of characters
      * @param password entrada de la contraseña [EN] password entry
      * @return true si la contraseña es mayor de 6 caracteres [EN] true if the password is greater than 6 characters
      */
-    public static boolean validatePassword(String password) {
-        return password != null && password.length() >= 6;
+    public static boolean validatePassword(String password, int chars) {
+        return password != null && password.length() >= chars;
     }
 
     /**

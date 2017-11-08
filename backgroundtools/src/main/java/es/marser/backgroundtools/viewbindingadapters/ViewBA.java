@@ -8,6 +8,7 @@ import android.view.View;
 /**
  * @author sergio
  *         Created by sergio on 6/11/17.
+ *         Adpatador de métodos para vistas MVP
  */
 @SuppressWarnings("unused")
 @BindingMethods({

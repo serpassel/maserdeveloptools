@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:bind="http://schemas.android.com/tools"
     xmlns:foo="http://schemas.android.com/tools">
 
     <data>
 
-        <import
-            alias="v_ib"
-            type="android.view.View" />
+        <!--STATUS-->
+        <import type="es.marser.backgroundtools.dialogs.widget.inputbox.BoxSettings" />
 
+        <variable
+            name="settings"
+            type="BoxSettings" />
+
+        <!--DATA-->
         <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
 
         <variable
@@ -17,6 +22,7 @@
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
+        <!--BUTTONS-->
         <variable
             name="winaction"
             type="WindowAction" />
@@ -36,49 +42,50 @@
         foo:colorDialogBodyBackground="@{model.icon}">
 
         <!--HEAD-->
-        <android.support.v7.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="?attr/box_default_medium_margin"
-            android:background="?attr/dialogs_head_background_tint"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="@dimen/bt_dialog_notification_image_dimen"
-                android:layout_height="@dimen/bt_dialog_notification_image_dimen"
-                android:layout_margin="?attr/dialogs_default_margin"
-                bind:ignore="VectorDrawableCompat"
-                foo:iconDialog="@{model.icon}" />
-
-            <android.support.v7.widget.AppCompatTextView
-                style="@style/bt_head_label"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:text="@{model.title != null ? model.title : @string/bt_dialog_notification_default_title}"
-                bind:fontText="@{@string/bt_generic_edit_head_font}" />
-
-        </android.support.v7.widget.LinearLayoutCompat>
+        <include
+            layout="@layout/mvp_dialog_head_title"
+            bind:model="@{model}" />
 
         <!--BODY-->
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
             <android.support.v7.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="?attr/box_default_hight_margin"
+                android:layout_margin="?attr/dialogs_default_margin"
                 android:orientation="vertical">
 
-                <es.marser.backgroundtools.custom.widget.AppCompatJustifiedTextView
-                    style="@style/bt_body_label"
+                <!--Name-->
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/box_input_2"
+                    style="@style/bt_textinputlayout_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{model.body}"
-                    android:textColor="?attr/dialogs_body_text_color" />
+                    android:hint="@{settings.hint}"
+                    app:hintTextAppearance="@style/bt_counter_label.text"
+                    app:errorText="@{settings.errorText}"
+                    app:errorTextAppearance="@style/bt_error_label.text"
+                    app:passwordToggleEnabled="@{settings.passwordCount}"
+                    app:passwordToggleTint="?attr/colorPrimary"
+                    app:counterEnabled="@{settings.counterCount}"
+                    app:counterTextAppearance="@style/bt_counter_label.text"
+                  >
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/field_input_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|top"
+                        android:inputType="@{settings.inputType}"
+                        android:lines="@{settings.lines}"
+                        android:text="@={settings.body}"
+                        android:textColor="?attr/dialogs_edittext_text_color"
+                        />
+                </android.support.design.widget.TextInputLayout>
+
             </android.support.v7.widget.LinearLayoutCompat>
 
         </android.support.v4.widget.NestedScrollView>
@@ -88,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:visibility="@{model.keyname == `` ? v_ib.GONE :v_ib.VISIBLE}">
+            android:visibility="@{model.keyname}">
 
             <android.support.v7.widget.AppCompatCheckBox
                 android:id="@+id/checked"
@@ -98,7 +105,6 @@
                 android:textColor="?attr/colorControlNormal"
                 android:textSize="12sp" />
         </android.support.v7.widget.ContentFrameLayout>
-
 
         <!--FOO-->
         <include

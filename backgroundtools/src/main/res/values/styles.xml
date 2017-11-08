@@ -7,8 +7,19 @@
         <item name="android:textAppearance">@style/bt_error_label.text</item>
     </style>
     <!--error label text-->
-    <style name="bt_error_label.text" parent="@style/TextAppearance.AppCompat">
+    <style name="bt_error_label.text" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/bt_wrong_color_red_500</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+
+    <!--counter label-->
+    <style name="bt_counter_label">
+        <item name="android:background">@color/bt_transparent</item>
+        <item name="android:textAppearance">@style/bt_counter_label.text</item>
+    </style>
+    <!--counter label text-->
+    <style name="bt_counter_label.text" parent="@android:style/TextAppearance">
+        <item name="android:textColor">?attr/dialogs_edittext_hint_color</item>
         <item name="android:textSize">10sp</item>
     </style>
 

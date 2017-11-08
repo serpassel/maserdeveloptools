@@ -207,6 +207,21 @@ public class DialogBA {
             case LIST_ICON:
                 view.setImageResource(R.drawable.ic_list);
                 break;
+            case MAIL_ICON:
+                view.setImageResource(R.drawable.ic_mail);
+                break;
+            case MULTILINE_ICON:
+                view.setImageResource(R.drawable.ic_multiline);
+                break;
+            case EDITTEXT_ICON:
+                view.setImageResource(R.drawable.ic_edit_text);
+                break;
+            case LOGIN_ICON:
+                view.setImageResource(R.drawable.ic_login);
+                break;
+            case PASSWORD_ICON:
+                view.setImageResource(R.drawable.ic_pin_code);
+                break;
 
             case LOADING_ICON:
             default:

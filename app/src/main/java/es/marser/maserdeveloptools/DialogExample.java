@@ -15,6 +15,7 @@ import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogB
 import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialog;
 import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
+import es.marser.backgroundtools.dialogs.widget.inputbox.DialogInputBox;
 import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.dialogs.widget.progress.BinProgressDialog;
 import es.marser.backgroundtools.dialogs.task.OnResult;
@@ -604,6 +605,71 @@ public class DialogExample {
 
         dialog.show();
         return dialog;
+    }
+
+    //INPUT_______________________________________________________________________________________________
+
+    public static BaseDialog inputBox(final Context context){
+        DialogInputBox dialog = DialogInputBox.newInstance(context,
+                DialogInputBox.createBundle("Introducir texto"),
+                new OnResult<String>() {
+            @Override
+            public void onResult(DialogExtras result, String value) {
+                if(result == DialogExtras.OK_EXTRA){
+                    Launch_toast.informationToast(context, value);
+                }
+            }
+
+            @Override
+            public void onClick(View view, String value) {
+
+            }
+        });
+                dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog passwordBox(final Context context){
+        DialogInputBox dialog = DialogInputBox.newInstance(context,
+                DialogInputBox.createPasswordBundle(null,6),
+                new OnResult<String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value) {
+                        if(result == DialogExtras.OK_EXTRA){
+                            Launch_toast.informationToast(context, value);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog mailBox(final Context context){
+        DialogInputBox dialog = DialogInputBox.newInstance(context,
+                DialogInputBox.createMailBundle(null,"Introduce el mail"),
+                new OnResult<String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value) {
+                        if(result == DialogExtras.OK_EXTRA){
+                            Launch_toast.informationToast(context, value);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
     }
 
 }

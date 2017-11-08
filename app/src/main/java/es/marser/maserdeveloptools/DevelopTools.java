@@ -8,6 +8,7 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.enums.DialogExtras;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
 public class DevelopTools extends BaseActivity {
@@ -159,6 +160,12 @@ public class DevelopTools extends BaseActivity {
         //DialogExample.arabaVillagesChooser(this);
 
         //DialogExample.autonomousChooser(this);
+
+        DialogExample.inputBox(this);
+
+        DialogExample.mailBox(this);
+
+        DialogExample.passwordBox(this);
     }
 
     @Override

@@ -16,7 +16,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="?attr/box_default_medium_margin"
         android:background="?attr/dialogs_head_background_tint"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true">
+        <requestFocus/>
 
         <android.support.v7.widget.AppCompatImageView
             android:layout_width="@dimen/bt_dialog_notification_image_dimen"

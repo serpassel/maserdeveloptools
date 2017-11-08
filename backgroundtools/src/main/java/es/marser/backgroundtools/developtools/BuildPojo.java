@@ -57,19 +57,27 @@ public class BuildPojo {
     }
 
     private void building(boolean bindable) {
+        building(bindable, tablename != null);
+    }
+
+    private void building(boolean bindable, boolean mappeable) {
         createimported(bindable);
 //*********************************************************************************************************/
-        createTableName();
+        if (mappeable) {
+            createTableName();
+        }
 //*********************************************************************************************************/
         openClass(bindable);
 //*********************************************************************************************************/
-        declareVariables();
+        declareVariables(mappeable);
 //*********************************************************************************************************/
         createConstructor();
 //*********************************************************************************************************/
-        createSettersAndGetters(bindable);
+        createSettersAndGetters(bindable, mappeable);
 //*********************************************************************************************************/
-        createToString();
+        if (mappeable) {
+            createToString();
+        }
 //*********************************************************************************************************/
         createParcelable();
 //*********************************************************************************************************/
@@ -137,18 +145,22 @@ public class BuildPojo {
      * <p>
      * [EN]  Declare variables
      */
-    public void declareVariables() {
+    public void declareVariables(boolean mappeable) {
 /*Declaración de variables********************************************************************************************************************************************/
         /*Clave principal [EN]  Primary Key*/
-        build += "\n@DbPrimaryKey\n" +
-                "private String key;\n";
+        if (mappeable) {
+            build += "\n@DbPrimaryKey\n" +
+                    "private String key;\n";
+        }
 
         build += "\n";
         /*Campos [EN]  Fields */
         for (int i = 0; i < list.length; ++i) {
             FieldBuilder f = list[i];
-            build += "@DbColumn(col_name = \"" + f.name + "\", indexorder = " + (i + 1) + ")\n" +
-                    "private " + f.type + " " + f.name + ";\n";
+            if (mappeable) {
+                build += "@DbColumn(col_name = \"" + f.name + "\", indexorder = " + (i + 1) + ")\n";
+            }
+            build += "private " + f.type + " " + f.name + ";\n";
         }
 
         build += "\n";
@@ -206,12 +218,14 @@ public class BuildPojo {
         build += "}";
     }
 
-    public void createSettersAndGetters(boolean bindable) {
+    public void createSettersAndGetters(boolean bindable, boolean mappeable) {
+        if (mappeable) {
         /*Key*/
-        FieldBuilder fieldBuilder = new FieldBuilder();
-        fieldBuilder.name = "key";
-        fieldBuilder.type = "String";
-        createSetterAndGetter(bindable, fieldBuilder);
+            FieldBuilder fieldBuilder = new FieldBuilder();
+            fieldBuilder.name = "key";
+            fieldBuilder.type = "String";
+            createSetterAndGetter(bindable, fieldBuilder);
+        }
 
         /*Setter & Getter****************************************************************************************************************************************************/
         for (FieldBuilder f : list) {
@@ -341,7 +355,7 @@ public class BuildPojo {
                 case "Boolean":
                 case "boolean":
                     build += "in.readByte() != 0;\n";
-                    build += "false";
+                    //build += "false";
                     break;
                 case "Date":
                     build += "new Date();\n" +
@@ -380,12 +394,12 @@ public class BuildPojo {
     }
 
 
-/**
- * in -> name,type,index
- */
-public static class FieldBuilder {
-    public String name;
-    public String type;
-}
+    /**
+     * in -> name,type,index
+     */
+    public static class FieldBuilder {
+        public String name;
+        public String type;
+    }
 
 }

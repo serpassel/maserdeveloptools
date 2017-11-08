@@ -38,5 +38,7 @@ public enum DialogExtras {
     HIDDEN_EXTRAS,
     /*File args*/
     FILTER_EXTRAS,
-    INDEX_EXTRAS
+    INDEX_EXTRAS,
+    /*Settings*/
+    SETTING_INPUTBOX_EXTRA
 }

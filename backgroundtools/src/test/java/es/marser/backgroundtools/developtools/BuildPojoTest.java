@@ -101,4 +101,27 @@ public class BuildPojoTest {
         BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
         buildPojo.print(true);
     }
+
+    @Test
+    public void buildBoxSettings(){
+
+        String nameclass = "BoxSettings";
+
+        BuildPojo.FieldBuilder[] list = {
+                /*edit*/
+                BuildPojo.newfb("inputType", int.class),
+                BuildPojo.newfb("lines", int.class),
+                /*layout*/
+                BuildPojo.newfb("error", boolean.class),
+                BuildPojo.newfb("errorText", String.class),
+                BuildPojo.newfb("password", boolean.class),
+                BuildPojo.newfb("passwordCount", int.class),
+                BuildPojo.newfb("counterCount", int.class),
+                BuildPojo.newfb("counter", boolean.class),
+                BuildPojo.newfb("hint", String.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(null, nameclass, list);
+        buildPojo.print(true);
+    }
 }
