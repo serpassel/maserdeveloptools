@@ -216,13 +216,22 @@ public class DialogBA {
             case EDITTEXT_ICON:
                 view.setImageResource(R.drawable.ic_edit_text);
                 break;
+            case USER_PASSWORD_ICON:
             case LOGIN_ICON:
                 view.setImageResource(R.drawable.ic_login);
                 break;
             case PASSWORD_ICON:
                 view.setImageResource(R.drawable.ic_pin_code);
                 break;
-
+            case FACEBOOK_ICON:
+                view.setImageResource(R.drawable.ic_facebook);
+                break;
+            case GOOGLE_ICON:
+                view.setImageResource(R.drawable.ic_google);
+                break;
+            case USER_ANONYMOUS_ICON:
+                view.setImageResource(R.drawable.ic_user_anonymous);
+                break;
             case LOADING_ICON:
             default:
                 view.setImageResource(R.drawable.ic_sand_clock);

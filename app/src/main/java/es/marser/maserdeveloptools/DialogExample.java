@@ -11,6 +11,7 @@ import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.FileModel;
 import es.marser.backgroundtools.dialogs.task.OnDResult;
+import es.marser.backgroundtools.dialogs.widget.auth.DialogCredential;
 import es.marser.backgroundtools.dialogs.widget.auth.DialogLogin;
 import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
@@ -674,7 +675,7 @@ public class DialogExample {
 
     }
 
-    //LOGIN______________________________________________________________________________________________
+    //AUTH______________________________________________________________________________________________
     public static BaseDialog loginMailBox(final Context context) {
         DialogLogin dialog = DialogLogin.newInstance(context,
                 DialogLogin.createMailPasswordBundle(null, 6),
@@ -733,6 +734,50 @@ public class DialogExample {
 
                     }
                 });
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog credentialLogin(final Context context) {
+        DialogCredential dialog = DialogCredential.newInstance(context,
+                DialogCredential.createBundle(),
+                new OnResult<DialogIcon>() {
+                    @Override
+                    public void onResult(DialogExtras result, DialogIcon value) {
+                        if(result == DialogExtras.OK_EXTRA){
+                            Launch_toast.informationToast(context, value.name());
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, DialogIcon value) {
+
+                    }
+                }
+        );
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog credentialReauth(final Context context) {
+        DialogCredential dialog = DialogCredential.newInstance(context,
+                DialogCredential.createBundle(context),
+                new OnResult<DialogIcon>() {
+                    @Override
+                    public void onResult(DialogExtras result, DialogIcon value) {
+                        if(result == DialogExtras.OK_EXTRA){
+                            Launch_toast.informationToast(context, value.name());
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, DialogIcon value) {
+
+                    }
+                }
+        );
         dialog.show();
         return dialog;
 

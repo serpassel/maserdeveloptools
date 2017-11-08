@@ -21,14 +21,14 @@ import es.marser.backgroundtools.systemtools.FilePathUtil;
         UriToolsTest.class,
         DialogTest.class,
         FileChooserTest.class,
-        FilePathUtil.class,
-        Launch_toast.class,
         NotificationTest.class,
         NotificationTest2.class,
         ResourcesAccessTest.class,
         DialogInputTest.class,
-        ChooserTest.class
-
+        DialogCredentialTest.class,
+        ChooserTest.class,
+        Launch_toast.class,
+        FilePathUtil.class
 })
 public class StaticSuiteTest {
 

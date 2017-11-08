@@ -397,7 +397,7 @@ public class TextTools {
      * @return true si ambas cadenas coinciden y no son nulas [EN] true if both strings match and are not null
      */
     public static boolean validateAndConfirmPassword(String password, String confirmation) {
-        return (password != null && confirmation != null && password.equals(confirmation));
+        return (password == null || confirmation == null || !password.equals(confirmation));
     }
 
     /**

@@ -18,4 +18,4 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 //noinspection GroovyUnusedAssignment
 targetCompatibility = JavaVersion.VERSION_1_8
 
-//apply from: rootProject.file('release-bintray.gradle')
+apply from: rootProject.file('release-bintray.gradle')

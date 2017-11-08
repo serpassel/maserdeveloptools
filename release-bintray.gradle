@@ -15,7 +15,7 @@ ext {
     siteUrl = 'https://github.com/serpassel/maserdeveloptools'
     gitUrl = 'https://github.com/serpassel/maserdeveloptools.git'
 
-    libraryVersion = '0.0.3'
+    libraryVersion = '1.0.0'
 
     developerId = 'zergio'
     developerName = 'Sergio Pascual'

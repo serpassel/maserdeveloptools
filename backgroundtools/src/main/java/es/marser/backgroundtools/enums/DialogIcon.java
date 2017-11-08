@@ -68,5 +68,10 @@ public enum DialogIcon {
     /*auth*/
     LOGIN_ICON,
     PASSWORD_ICON,
+    /*providers*/
+    FACEBOOK_ICON,
+    GOOGLE_ICON,
+    USER_PASSWORD_ICON,
+    USER_ANONYMOUS_ICON,
     DEFAULT_ICON
 }

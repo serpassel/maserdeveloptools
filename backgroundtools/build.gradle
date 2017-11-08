@@ -53,4 +53,4 @@ dependencies {
     androidTestCompile 'org.mockito:mockito-android:2.7.15'
 }
 
-apply from: rootProject.file('release-bintray.gradle')
+//apply from: rootProject.file('release-bintray.gradle')

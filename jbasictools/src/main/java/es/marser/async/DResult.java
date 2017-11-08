@@ -8,6 +8,7 @@ package es.marser.async;
  *         [EN]  Class for delivery of results in asynchronous processes
  */
 
+@SuppressWarnings("unused")
 public interface DResult<T, X> {
     /**
      * Resultado de la finalización de una tarea

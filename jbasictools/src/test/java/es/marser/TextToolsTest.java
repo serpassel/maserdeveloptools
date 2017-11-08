@@ -46,7 +46,7 @@ public class TextToolsTest {
     public void channel4() {
         Assert.assertFalse(!es.marser.tools.TextTools.validatePassword(in,6));
         Assert.assertFalse(es.marser.tools.TextTools.validatePassword(es.marser.tools.TextTools.limitText(in, 2),6));
-        Assert.assertFalse(!es.marser.tools.TextTools.validateAndConfirmPassword(in, in));
+        Assert.assertFalse(TextTools.validateAndConfirmPassword(in, in));
         Assert.assertFalse(!es.marser.tools.TextTools.validateMail("kjjnjnjknjk@kjnjknjk.kkjjknkjnk"));
         Assert.assertFalse(es.marser.tools.TextTools.validateMail("kjjnjnjknjk@kjnjknjk"));
         Assert.assertEquals(3, TextTools.charOccurrences("ttttt,tttt,ttttt,", TextTools.COMMA));

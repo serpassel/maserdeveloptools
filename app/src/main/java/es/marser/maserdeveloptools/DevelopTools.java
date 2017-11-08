@@ -114,7 +114,7 @@ public class DevelopTools extends BaseActivity {
                 dialog = DialogExample.passwordModificationBox(this);
                 break;
             case R.id.item_24:
-                dialog = DialogExample.arabaVillagesChooser(this);
+                dialog = DialogExample.credentialLogin(this);
                 break;
         }
         return false;
@@ -183,6 +183,10 @@ public class DevelopTools extends BaseActivity {
         //DialogExample.loginMailBox(this);
 
         //DialogExample.passwordModificationBox(this);
+
+        //DialogExample.credentialLogin(this);
+
+        DialogExample.credentialReauth(this);
     }
 
     @Override

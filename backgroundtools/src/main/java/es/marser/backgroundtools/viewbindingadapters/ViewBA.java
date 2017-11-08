@@ -31,6 +31,16 @@ public class ViewBA {
         }
     }
 
+    @BindingAdapter({"inversevisibility"})
+    public static void setInverseVisibility(View view, String value) {
+        if (value == null || value.length() <= 0) {
+            view.setVisibility(View.VISIBLE);
+        } else {
+            view.setVisibility(View.GONE);
+        }
+    }
+
+
     @BindingAdapter({"android:visibility"})
     public static void setVisibility(View view, boolean value) {
         if (value) {

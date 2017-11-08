@@ -174,7 +174,7 @@ public class DialogLogin extends BaseDialogBinModel {
 
         if (user.validate() && password.validate()) {
             if (user.getInputType() == BoxSettings.textPassword) {
-                if (!TextTools.validateAndConfirmPassword(user.getBody(), password.getBody())) {
+                if (TextTools.validateAndConfirmPassword(user.getBody(), password.getBody())) {
                     password.setErrorText("Las contraseñas no coinciden");
                     return;
                 }
