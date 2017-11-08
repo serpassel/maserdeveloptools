@@ -59,6 +59,33 @@
         </item>
 
         <item
+            android:id="@+id/submenu_5"
+            android:title="@string/group_input">
+            <menu>
+                <item
+                    android:id="@+id/item_20"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_20" />
+                <item
+                    android:id="@+id/item_21"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_21" />
+                <item
+                    android:id="@+id/item_22"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_22" />
+                <item
+                    android:id="@+id/item_23"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_23" />
+                <item
+                    android:id="@+id/item_24"
+                    android:icon="@mipmap/ic_launcher_round"
+                    android:title="@string/item_24" />
+            </menu>
+        </item>
+
+        <item
             android:id="@+id/submenu_2"
             android:title="@string/group_edicion">
             <menu>

@@ -43,4 +43,13 @@
     <string name="item_18">Selector de provincias</string>
     <string name="item_19">Selector de municipios</string>
 
+    <!--MENU GRUPO 5-->
+    <string name="group_input">Entradas</string>
+
+    <string name="item_20">Insertar número</string>
+    <string name="item_21">Insertar texto largo</string>
+    <string name="item_22">Login mail</string>
+    <string name="item_23">Modificar contraseña</string>
+    <string name="item_24">Iniciar sesión</string>
+
 </resources>

@@ -611,9 +611,30 @@ public class DialogExample {
 
     //INPUT_______________________________________________________________________________________________
 
-    public static BaseDialog inputBox(final Context context) {
+    public static BaseDialog longInputBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createBundle("Introducir texto"),
+                DialogInputBox.createBundle("Introducir texto", 6, "Texto Largo", 400),
+                new OnResult<String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value) {
+                        if (result == DialogExtras.OK_EXTRA) {
+                            Launch_toast.informationToast(context, value);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog numberBox(final Context context) {
+        DialogInputBox dialog = DialogInputBox.newInstance(context,
+                DialogInputBox.createNumberBundle(null,"Introducir texto"),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -683,6 +704,27 @@ public class DialogExample {
                     public void onResult(DialogExtras result, String value1, String value2) {
                         if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value1 + value2);
+                        }
+                    }
+
+                    @Override
+                    public void onClick(View view, String value, String value2) {
+
+                    }
+                });
+        dialog.show();
+        return dialog;
+
+    }
+
+    public static BaseDialog passwordModificationBox(final Context context) {
+        DialogLogin dialog = DialogLogin.newInstance(context,
+                DialogLogin.createModificationPasswordBundle(null, 6),
+                new OnDResult<String, String>() {
+                    @Override
+                    public void onResult(DialogExtras result, String value1, String value2) {
+                        if (result == DialogExtras.OK_EXTRA) {
+                            Launch_toast.informationToast(context, value2);
                         }
                     }
 

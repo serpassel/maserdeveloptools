@@ -44,6 +44,7 @@ public class DialogLogin extends BaseDialogBinModel {
     }
 
     //BUNDLE_____________________________________________________________________
+
     /**
      * Creación de argumentos
      * <p>
@@ -78,8 +79,8 @@ public class DialogLogin extends BaseDialogBinModel {
      * <p>
      * [EN]  Argument formation for email text box
      *
-     * @param title Título del cuadro [EN]  Title of the picture
-     * @param passlenght  número mínimo de caracteres del password [EN]  minimum number of password characters
+     * @param title      Título del cuadro [EN]  Title of the picture
+     * @param passlenght número mínimo de caracteres del password [EN]  minimum number of password characters
      * @return Argumentos [EN]  Arguments
      */
     public static Bundle createMailPasswordBundle(String title, int passlenght) {
@@ -89,15 +90,16 @@ public class DialogLogin extends BaseDialogBinModel {
 
         BoxSettings password = new BoxSettings(passlenght);
         password.setHint("Contraseña");
-        return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Iniciar sesión"), user, password);
+        return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Autentificación"), user, password);
     }
+
     /**
      * Formación de argumentos para cuadro de texto de correo electrónico
      * <p>
      * [EN]  Argument formation for email text box
      *
-     * @param title Título del cuadro [EN]  Title of the picture
-     * @param passlenght  número mínimo de caracteres del password [EN]  minimum number of password characters
+     * @param title      Título del cuadro [EN]  Title of the picture
+     * @param passlenght número mínimo de caracteres del password [EN]  minimum number of password characters
      * @return Argumentos [EN]  Arguments
      */
     public static Bundle createUserPasswordBundle(String title, int passlenght) {
@@ -106,7 +108,25 @@ public class DialogLogin extends BaseDialogBinModel {
 
         BoxSettings password = new BoxSettings(passlenght);
         password.setHint("Contraseña");
-        return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Iniciar sesión"), user, password);
+        return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Autentificación"), user, password);
+    }
+
+    /**
+     * Modificación de contraseña
+     * <p>
+     * [EN]  Password modification
+     *
+     * @param title      Título del cuadro [EN]  Title of the picture
+     * @param passlenght número mínimo de caracteres del password [EN]  minimum number of password characters
+     * @return Argumentos [EN]  Arguments
+     */
+    public static Bundle createModificationPasswordBundle(String title, int passlenght) {
+        /*settings*/
+        BoxSettings user = new BoxSettings(passlenght);
+        user.setHint("Nueva Contraseña");
+        BoxSettings password = new BoxSettings(passlenght);
+        password.setHint("Confirmar Contraseña");
+        return createBundle(DialogIcon.PASSWORD_ICON, TextTools.nc(title, "Modificar Contraseña"), user, password);
     }
 
     //CREACIÓN____________________________________________________________________
@@ -128,7 +148,7 @@ public class DialogLogin extends BaseDialogBinModel {
             user = new BoxSettings();
         }
 
-        if(password == null){
+        if (password == null) {
             password = new BoxSettings();
         }
 
@@ -153,6 +173,12 @@ public class DialogLogin extends BaseDialogBinModel {
     public void onOk(View v) {
 
         if (user.validate() && password.validate()) {
+            if (user.getInputType() == BoxSettings.textPassword) {
+                if (!TextTools.validateAndConfirmPassword(user.getBody(), password.getBody())) {
+                    password.setErrorText("Las contraseñas no coinciden");
+                    return;
+                }
+            }
             result.onResult(DialogExtras.OK_EXTRA, user.getBody(), password.getBody());
             close();
         }

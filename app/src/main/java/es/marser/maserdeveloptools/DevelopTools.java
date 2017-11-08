@@ -8,7 +8,6 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.enums.DialogExtras;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
 public class DevelopTools extends BaseActivity {
@@ -101,6 +100,22 @@ public class DevelopTools extends BaseActivity {
             case R.id.item_19:
                 dialog = DialogExample.arabaVillagesChooser(this);
                 break;
+
+            case R.id.item_20:
+                dialog = DialogExample.numberBox(this);
+                break;
+            case R.id.item_21:
+                dialog = DialogExample.longInputBox(this);
+                break;
+            case R.id.item_22:
+                dialog = DialogExample.loginMailBox(this);
+                break;
+            case R.id.item_23:
+                dialog = DialogExample.passwordModificationBox(this);
+                break;
+            case R.id.item_24:
+                dialog = DialogExample.arabaVillagesChooser(this);
+                break;
         }
         return false;
     }
@@ -161,13 +176,13 @@ public class DevelopTools extends BaseActivity {
 
         //DialogExample.autonomousChooser(this);
 
-        //DialogExample.inputBox(this);
+        //DialogExample.numberBox((this);
 
-        //DialogExample.passwordBox(this);
+        //DialogExample.longInputBox(this);
 
         //DialogExample.loginMailBox(this);
 
-        DialogExample.loginUserBox(this);
+        //DialogExample.passwordModificationBox(this);
     }
 
     @Override
