@@ -13,7 +13,6 @@ import es.marser.tools.TextTools;
  * @author sergio
  *         Created by Sergio on 02/03/2017.
  *         <p>
- *         <p>
  *         En este registro figuran las mediciones (cantidades), en que interviene un concepto de un
  *         presupuesto en la descomposición de otro de mayor rango.
  *         En el intercambio de archivos de presupuestos,

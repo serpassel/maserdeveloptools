@@ -383,7 +383,7 @@ public class TextTools {
 // 4.- VALIDATORS OF PATTERNS____________________________________________________________________________________
 
     /**
-     * @param chars número mínimo de caracteres [EN]  minimum number of characters
+     * @param chars    número mínimo de caracteres [EN]  minimum number of characters
      * @param password entrada de la contraseña [EN] password entry
      * @return true si la contraseña es mayor de 6 caracteres [EN] true if the password is greater than 6 characters
      */
@@ -478,6 +478,7 @@ public class TextTools {
      *
      * @param builder StringBuilder construido [EN]  StringBuilder built
      * @param brand   marca de separación [EN]  separation mark
+     * @return {@link StringBuilder} sin la marca trasera [EN]  without the back brand
      */
     public static String deleteLastBrand(StringBuilder builder, String brand) {
         String out = "";

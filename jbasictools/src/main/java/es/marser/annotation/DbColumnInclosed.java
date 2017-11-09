@@ -16,8 +16,6 @@ import java.lang.annotation.Target;
  *         <p>
  *         Annotations for mapping POJOs with connection to SQL databases. [EN]  Reading of predefined external exchange records
  *         [EN]  Definition of table columns
- * @see es.marser.sqltools.SQLStrings.inclosed#CREATION
- * @see es.marser.sqltools.SQLStrings.inclosed#MODIFICATION
  */
 @SuppressWarnings("unused")
 @Retention(RetentionPolicy.RUNTIME)
