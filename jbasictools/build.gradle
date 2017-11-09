@@ -1,11 +1,5 @@
 apply plugin: 'java'
 
-repositories {
-    maven {
-        url "https://dl.bintray.com/zergio/developtools-rep"
-    }
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'commons-codec:commons-codec:1.6'
@@ -18,4 +12,4 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 //noinspection GroovyUnusedAssignment
 targetCompatibility = JavaVersion.VERSION_1_8
 
-//apply from: rootProject.file('release-bintray.gradle')
+apply from: rootProject.file('release-bintray.gradle')
