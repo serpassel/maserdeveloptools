@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.territories.model;
+package es.marser.backgroundtools.dialogs.widget.territories.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

@@ -25,12 +25,12 @@ import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.territories.choosers.AutonomousChooser;
-import es.marser.backgroundtools.territories.choosers.ProvinceChooser;
-import es.marser.backgroundtools.territories.choosers.VillageChooser;
-import es.marser.backgroundtools.territories.model.AutonomousModel;
-import es.marser.backgroundtools.territories.model.ProvincieModel;
-import es.marser.backgroundtools.territories.model.VillageModel;
+import es.marser.backgroundtools.dialogs.widget.territories.choosers.AutonomousChooser;
+import es.marser.backgroundtools.dialogs.widget.territories.choosers.ProvinceChooser;
+import es.marser.backgroundtools.dialogs.widget.territories.choosers.VillageChooser;
+import es.marser.backgroundtools.dialogs.widget.territories.model.AutonomousModel;
+import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
+import es.marser.backgroundtools.dialogs.widget.territories.model.VillageModel;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 

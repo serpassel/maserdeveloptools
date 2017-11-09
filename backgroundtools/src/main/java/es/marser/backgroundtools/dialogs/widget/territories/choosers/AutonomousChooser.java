@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.territories.choosers;
+package es.marser.backgroundtools.dialogs.widget.territories.choosers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,20 +14,20 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
-import es.marser.backgroundtools.territories.model.VillageModel;
+import es.marser.backgroundtools.dialogs.widget.territories.model.AutonomousModel;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.TextTools;
 
 /**
  * @author sergio
  *         Created by sergio on 5/11/17.
- *         Selector de municipios
+ *         Selector de provincias
  *         <p>
- *         [EN]  Selector of municipalities
+ *         [EN]  Provincial selector
  */
 
 @SuppressWarnings("unused")
-public class VillageChooser extends ChooserDialog<VillageModel> {
+public class AutonomousChooser extends ChooserDialog<AutonomousModel> {
 
     /**
      * Nueva instancia {@link ChooserDialog}
@@ -38,24 +38,24 @@ public class VillageChooser extends ChooserDialog<VillageModel> {
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
-    public static VillageChooser newInstance(
+    public static AutonomousChooser newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
-            @Nullable OnResult<List<VillageModel>> result
+            @Nullable OnResult<List<AutonomousModel>> result
     ) {
 
-        VillageChooser instace = new VillageChooser();
+        AutonomousChooser instace = new AutonomousChooser();
         instace.setContext(context);
         instace.setArguments(bundle);
         instace.setResult(result);
         return instace;
     }
 
+
     private static Bundle createBundle(String title,
                                        String ok,
                                        String cancel,
                                        String preselect,
-                                       int index,
                                        ListExtra listExtra,
                                        boolean placeholder
     ) {
@@ -81,42 +81,38 @@ public class VillageChooser extends ChooserDialog<VillageModel> {
 
         /*LOAD*/
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-        bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
 
         return bundle;
     }
 
     /**
-     * Selector de provincias
-     * [EN]  Provincial selector
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
      *
      * @param context   Contexto de la aplicación
-     * @param index     índice de la comunidad autónoma o -1 si son todas
      * @param listExtra Tipo de selección
      * @param preselect provincias preseleccionadas
      * @return Argumentos de creación
      */
-    public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect) {
-        return createBundle(context, index, multipleselection, preselect, false);
+    public static Bundle createBundle(Context context, boolean multipleselection, String preselect) {
+        return createBundle(context,multipleselection,preselect,false);
     }
 
     /**
-     * Selector de provincias
-     * [EN]  Provincial selector
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
      *
      * @param context     Contexto de la aplicación
-     * @param index       índice de la comunidad autónoma o -1 si son todas
      * @param listExtra   Tipo de selección
      * @param preselect   provincias preseleccionadas
      * @param placeholder bandera para añadir registro extra de territorio completo
      * @return Argumentos de creación
      */
-    public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect, boolean placeholder) {
-        return createBundle(context.getResources().getString(R.string.village_selector_title),
+    public static Bundle createBundle(Context context, boolean multipleselection, String preselect, boolean placeholder) {
+        return createBundle(context.getResources().getString(R.string.autonomous_selector_title),
                 context.getResources().getString(R.string.bt_ACTION_OK),
                 context.getResources().getString(R.string.bt_ACTION_CANCEL),
                 preselect,
-                index,
                 multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
                 placeholder);
     }
@@ -126,21 +122,20 @@ public class VillageChooser extends ChooserDialog<VillageModel> {
         if (getArguments() != null) {
             int index = getArguments().getInt(DialogExtras.INDEX_EXTRAS.name());
 
-            String[] values = ResourcesAccess.getListVillages(getContext(), index);
+            String[] values = ResourcesAccess.getListAutonomousCommunities(getContext());
 
             String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
             if (getArguments().getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
 
-                VillageModel item1 = GenericFactory.BuildSingleObject(VillageModel.class,
-                        getContext().getResources().getString(R.string.all_spain_mun));
+                AutonomousModel item1 = GenericFactory.BuildSingleObject(AutonomousModel.class,
+                        getContext().getResources().getString(R.string.all_spain_ccaa));
                 addItem(item1);
                 setSelected(getItemCount() - 1, preselect.contains(item1.preSelectValue()));
             }
 
-
             for (String reg : values) {
-                VillageModel item = GenericFactory.BuildSingleObject(VillageModel.class, reg);
+                AutonomousModel item = GenericFactory.BuildSingleObject(AutonomousModel.class, reg);
                 addItem(item);
                 setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
             }

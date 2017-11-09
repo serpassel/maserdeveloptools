@@ -5,4 +5,5 @@
     android:layout_weight="1"
     android:minHeight="100dp"
     android:layout_gravity="center_horizontal"
+    android:background="@color/bt_warning_color"
     android:layout_margin="?attr/box_default_small_margin"/>

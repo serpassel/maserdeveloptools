@@ -37,26 +37,13 @@ import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 
 @SuppressWarnings("unused")
 public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C extends Parcelable>
-        extends BaseFragment implements ComplexTouchabeViewHandler<G, C>, ViewComplexHandler<G, C> {
+        extends BaseFragmentList implements ComplexTouchabeViewHandler<G, C>, ViewComplexHandler<G, C> {
 
-    protected RecyclerView recyclerView;
     protected ComplexAdapter<G, C> adapter;
-
-    protected Integer lastScroll;
 
     @Override
     protected void instanceVariables() {
 
-    }
-
-    //VARIABLE START____________________________________________________________________________________
-    @Override
-    protected void initActivityCreated() {
-        lastScroll = null;
-        recyclerView = getActivity().findViewById(getRecyclerviewId());
-        recyclerView.setHasFixedSize(hasFixedSize());
-        recyclerView.setLayoutManager(getLayoutManager());
-        bindAdapter();
     }
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
@@ -82,65 +69,7 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
     /*Vistas de componentes [EN]  Component views*/
 
     /**
-     * Definición de la vista del recyclerview
-     * <p>
-     * [EN]  Definition of the view of recyclerview
-     *
-     * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
-     */
-    protected int getRecyclerviewId() {
-        return R.id.com_recyclerview;
-    }
-
-    /*Configuración de recyclerview [EN]  Configuring recyclerview*/
-
-    /**
-     * Definición del gestor del layout de la lista. Por defecto se utilizará el lineal
-     * <p>
-     * [EN]  Definition of the layout manager of the list.  By default the linear
-     *
-     * @return gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Opcional puede ser {@link GridLayoutManager}
-     * [EN]  gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Optional can be {@link GridLayoutManager}
-     */
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-    }
-
-    /**
-     * Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * <p>
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     *
-     * @return Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected boolean hasFixedSize() {
-        return true;
-    }
-
-    /*Inicio de métodos [EN]  Start of methods*/
-
-    /**
-     * Modo de selección inicial de la lista. Por defecto Mode de selección sencilla
-     * <p>
-     * [EN]  Initial selection mode of the list.  Default Simple selection mode.
-     *
-     * @return Modo de selección sencilla {@link ListExtra#SINGLE_SELECTION_MODE}
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected ListExtra getInitialSelectionMode() {
-        return ListExtra.SINGLE_SELECTION_MODE;
-    }
-
-    /**
-     * Enlace del adaptador de la lista
+     * Enlace del adaptador de la lista {@link BaseFragmentList#initActivityCreated()}
      * <p>
      * [EN]  List adapter link
      */
@@ -376,69 +305,6 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
         return adapter.getGroups().isEmpty();
     }
 
-    /**
-     * Posiciona la vista en el prier elemento de la lista
-     * <p>
-     * [EN]  Position the view on the first item in the list
-     */
-    public void scrollToFirst() {
-        if (!isEmpty()) {
-            scrollToId(0);
-        }
-    }
-
-    /**
-     * Posicionar la vista en la posición señalada
-     * <p>
-     * [EN]  Position the view in the indicated position
-     *
-     * @param position posición para recibir el foco [EN]  position to receive focus
-     */
-    public void scrollToId(int position) {
-        if (position > -1 && position < getItemCount()) {
-            try {
-                recyclerView.scrollToPosition(position);
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    /**
-     * Guarda la posición del pimer elemento visible
-     * <p>
-     * [EN]  Save the position of the visible element pimer
-     */
-    public void savedScroll() {
-        if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            lastScroll = ((LinearLayoutManager) recyclerView.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
-        } else {
-            lastScroll = 0;
-        }
-    }
-
-    /**
-     * Posiciona la vista en a útlima posición guardada
-     * <p>
-     * [EN]  Position the view in the last saved position
-     */
-    public void restoreScroll() {
-        if (lastScroll != null && lastScroll < recyclerView.getAdapter().getItemCount() && lastScroll > -1) {
-            try {
-                recyclerView.scrollToPosition(lastScroll);
-            } catch (Exception ignored) {
-            }
-        }
-    }
-
-    /**
-     * Posiciona el foco en la última posición de la lista de elementos
-     * <p>
-     * [EN]  Position the focus in the last position in the list of elements
-     */
-    public void scrollToLast() {
-        scrollToId(adapter.getItemCount() - 1);
-
-    }
 
     /**
      * Notificar cambios en el adapter
@@ -449,28 +315,4 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
         adapter.notifyDataSetChanged();
     }
 
-//ITEM DECORATOR___________________________________________________________________________________
-
-    /**
-     * Añadir un separador de elementos
-     * <p>
-     * [EN]  Add an element separator
-     *
-     * @param itemDecoration elemento de separación [EN]  separation element
-     */
-    protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration) {
-        recyclerView.addItemDecoration(itemDecoration);
-    }
-
-    /**
-     * Añadir separador de elementos e indicar su orden de aplicación
-     * <p>
-     * [EN]  Add element separator and indicate its order of application
-     *
-     * @param itemDecoration elementos de separación [EN]  separation elements
-     * @param index          order del separador [EN]  order of the separator
-     */
-    protected void addItemDecorator(RecyclerView.ItemDecoration itemDecoration, int index) {
-        recyclerView.addItemDecoration(itemDecoration, index);
-    }
 }

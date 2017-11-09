@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.territories.choosers;
+package es.marser.backgroundtools.dialogs.widget.territories.choosers;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
-import es.marser.backgroundtools.territories.model.ProvincieModel;
+import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.TextTools;
 

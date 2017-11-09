@@ -3,9 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include
-        android:id="@+id/com_recyclerview"
-        layout="@layout/com_recyclerview"
-        android:fitsSystemWindows="true"
-        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="?attr/box_default_medium_margin"
+        android:background="@color/bt_white"
+        android:minHeight="100dp" />
 </android.support.v7.widget.ContentFrameLayout>
