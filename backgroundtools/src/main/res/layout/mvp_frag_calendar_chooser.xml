@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
+
+    <data>
+
+        <!--HEADMODEL-->
+        <import type="es.marser.backgroundtools.dialogs.model.CalendarObservable" />
+
+        <variable
+            name="model"
+            type="CalendarObservable" />
+
+        <!--HANDLERS-->
+        <import type="es.marser.backgroundtools.handlers.ViewHandler" />
+
+        <variable
+            name="handler"
+            type="ViewHandler" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:background="?attr/dialogs_base_background_tint"
+        android:orientation="vertical">
+
+        <!--MONTH YEAR-->
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="?attr/dialogs_default_margin"
+            android:layout_marginStart="?attr/dialogs_default_margin"
+            android:background="?attr/dialogs_head_background_tint"
+            android:orientation="horizontal"
+            android:padding="?attr/dialogs_default_padding">
+
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/id_calendar_subtract_month"
+                android:layout_width="@dimen/calendar_buttons_size"
+                android:layout_height="@dimen/calendar_buttons_size"
+                android:layout_gravity="center_vertical"
+                android:background="@color/bt_transparent"
+                android:onClick="@{(v)->handler.onClick(v, null)}"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_left_arrow" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_body_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|start"
+                android:text="@{model.month}"
+                android:textColor="?attr/dialogs_head_text_color"
+                android:textSize="@dimen/calendar_month_year_text_size" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/id_calendar_sum_month"
+                android:layout_width="@dimen/calendar_buttons_size"
+                android:layout_height="@dimen/calendar_buttons_size"
+                android:layout_gravity="center_vertical"
+                android:background="@color/bt_transparent"
+                android:onClick="@{(v)->handler.onClick(v, null)}"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_right_arrow" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/id_calendar_subtract_year"
+                android:layout_width="@dimen/calendar_buttons_size"
+                android:layout_height="@dimen/calendar_buttons_size"
+                android:layout_gravity="center_vertical"
+                android:background="@color/bt_transparent"
+                android:onClick="@{(v)->handler.onClick(v, null)}"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_left_arrow" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_body_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:text="@{model.year}"
+                android:textColor="?attr/dialogs_head_text_color"
+                android:textSize="@dimen/calendar_month_year_text_size" />
+
+            <android.support.v7.widget.AppCompatImageButton
+                android:id="@+id/id_calendar_sum_year"
+                android:layout_width="@dimen/calendar_buttons_size"
+                android:layout_height="@dimen/calendar_buttons_size"
+                android:layout_gravity="center_vertical"
+                android:background="@color/bt_transparent"
+                android:onClick="@{(v)->handler.onClick(v, null)}"
+                android:scaleType="fitXY"
+                app:srcCompat="@drawable/ic_right_arrow" />
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <!--LIST-->
+        <include
+            android:id="@+id/id_recyclerview"
+            layout="@layout/com_recyclerview" />
+
+        <!--DATE LONG-->
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="?attr/dialogs_default_margin"
+            android:layout_marginBottom="?attr/box_default_medium_margin"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/bt_body_label"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical|end"
+                android:text="@{model.dateLong}"
+                android:textColor="?attr/dialogs_body_text_color"
+                android:textSize="12sp"
+                bind:isholiday="@{model.holiday}"
+                bind:isOtherholiday="@{model.otherholiday}"
+                bind:isOtherMonth="@{model.othermonth}"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.headerbody.holder;
+package es.marser.backgroundtools.objectslistables.table.holder;
 
 import android.databinding.ViewDataBinding;
 

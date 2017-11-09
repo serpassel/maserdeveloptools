@@ -6,17 +6,23 @@ import android.view.MenuItem;
 
 import es.marser.LOG_TAG;
 import es.marser.async.Result;
-import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
+import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
+import es.marser.backgroundtools.containers.fragments.widget.CalendarChooserFragment;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
-public class DevelopTools extends BaseActivity {
+public class DevelopTools extends BaseActivityFragment{
     private BaseDialog dialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.ac_main_frag_drawer);
+    protected int getActivityLayout() {
+        return R.layout.ac_main_frag_drawer;
+    }
+
+    @Override
+    protected BaseFragment instanceFragment() {
+        return CalendarChooserFragment.newInstance();
     }
 
     @Override
@@ -186,21 +192,6 @@ public class DevelopTools extends BaseActivity {
 
         //DialogExample.credentialLogin(this);
 
-        DialogExample.credentialReauth(this);
-    }
-
-    @Override
-    protected void preinstaceVariables() {
-
-    }
-
-    @Override
-    protected void instaceVariables() {
-
-    }
-
-    @Override
-    protected void postinstaceVariables() {
-
+        // DialogExample.credentialReauth(this);
     }
 }

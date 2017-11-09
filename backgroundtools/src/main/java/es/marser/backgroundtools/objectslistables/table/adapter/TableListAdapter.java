@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.headerbody.adapter;
+package es.marser.backgroundtools.objectslistables.table.adapter;
 
 import android.databinding.ViewDataBinding;
 import android.util.SparseIntArray;
@@ -9,8 +9,8 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
-import es.marser.backgroundtools.objectslistables.headerbody.holder.BodyViewHolderBinding;
-import es.marser.backgroundtools.objectslistables.headerbody.holder.HeaderViewHolderBinding;
+import es.marser.backgroundtools.objectslistables.table.holder.BodyViewHolderBinding;
+import es.marser.backgroundtools.objectslistables.table.holder.HeaderViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 
 /**
@@ -22,7 +22,7 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class HeadBodyListAdapter<H, B> extends BaseListAdapter {
+public abstract class TableListAdapter<H, B> extends BaseListAdapter {
 
     /*Controlador de cabecera [EN]  Header controller*/
     public GlobalController<H> hGlobalController;
@@ -47,7 +47,7 @@ public abstract class HeadBodyListAdapter<H, B> extends BaseListAdapter {
         return null;
     }
 
-    public HeadBodyListAdapter() {
+    public TableListAdapter() {
 
         hGlobalController = new GlobalController<>(ViewHolderType.HEAD.ordinal());
         hGlobalController.setChangedListener(this);

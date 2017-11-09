@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.fragments;
+package es.marser.backgroundtools.containers.fragments.base;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -10,8 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import es.marser.backgroundtools.BR;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
-import es.marser.backgroundtools.handlers.ViewHandler;
 
 /**
  * @author sergio
@@ -26,16 +24,10 @@ import es.marser.backgroundtools.handlers.ViewHandler;
  *         </ul>
  */
 @SuppressWarnings("unused")
-public abstract class BaseFragmentBinModel<T> extends BaseFragment implements ViewHandler<T> {
+public abstract class BaseFragmentBinModel<T> extends BaseFragment {
 
     protected ViewDataBinding viewDataBinding;
-    private T model;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        instaceVariables();
-    }
+    protected T model;
 
     /**
      * @return Return the View for the fragment's UI, or null.
@@ -45,7 +37,7 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        binObjectsl();
+        binObjects();
         return viewDataBinding.getRoot();
     }
 
@@ -56,7 +48,8 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
      * <p>
      * [EN]  Instanciar variables
      */
-    protected void instaceVariables() {
+    @Override
+    protected void instanceVariables() {
         model = getNewModelInstance();
     }
 
@@ -78,21 +71,8 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
      * <p>
      * [EN]  Binds the header object with the presenter
      */
-    protected void binObjectsl() {
+    protected void binObjects() {
         setModel(model);
-        setHandler(this);
-    }
-
-    /**
-     * Enlace de manejador de eventos de vista de cabecera
-     * <p>
-     * [EN]  Header View Event Handler Link
-     *
-     * @param handler manejador de eventos {@link ViewHandler} [EN]  event handler {@link ViewHandler}
-     */
-    public void setHandler(ViewHandler<T> handler) {
-        viewDataBinding.setVariable(BR.handler, handler);
-        viewDataBinding.executePendingBindings();
     }
 
     /**
@@ -119,18 +99,6 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment implements Vi
      */
     public T getModel() {
         return model;
-    }
-
-    //DEFINITION OF INTERFACES_____________________________________________________________________________
-    /*{@link ViewHandler}*/
-    @Override
-    public void onClick(View view, T item) {
-
-    }
-
-    @Override
-    public boolean onLongClick(View view, T item) {
-        return true;
     }
 
 }

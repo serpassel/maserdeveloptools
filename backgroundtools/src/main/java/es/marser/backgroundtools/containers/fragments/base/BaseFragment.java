@@ -47,14 +47,22 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
 
     protected FragmentAction fragmentAction;
 
-
     //ARGUMENTS________________________________________________________________________________________
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        resolveArgs();
+        instanceVariables();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        resolveArgs();
-        instaceVariables();
-        return super.onCreateView(inflater, container, savedInstanceState);
+        super.onCreateView(inflater, container, savedInstanceState);
+        inflater.inflate(getFragmentLayout(), container, false);
+        return inflater.inflate(getFragmentLayout(), container, false);
     }
 
     @Override
@@ -64,7 +72,7 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
     }
 
     /**
-     * Traslado de argumentos a variables
+     * Traslado de argumentos a variables {@link #onCreate(Bundle)}
      * <p>
      * [EN]  Moving arguments to variables
      */
@@ -73,13 +81,15 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
     }
 
     /**
-     * Instanciar variables
+     * Instanciar variables {@link #onCreate(Bundle)}
      * <p>
      * [EN]  Instanciar variables
      */
-    protected abstract void instaceVariables();
+    protected abstract void instanceVariables();
 
     /**
+     *
+     * {@link #onActivityCreated(Bundle)}
      * Utilizar para configurar datos. Se aplica cuando el fragment ha sido cargado por la actividad
      * <p>
      * [EN]  Use to configure data.  Applies when the fragment has been loaded by the activity
@@ -87,6 +97,7 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
     protected abstract void initActivityCreated();
 
     /**
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
      * Definición de la vista del fragment. Valor por defecto {@link R.layout#mvc_frag_simple_list}
      * <p>
      * [EN]  Fragment view definition

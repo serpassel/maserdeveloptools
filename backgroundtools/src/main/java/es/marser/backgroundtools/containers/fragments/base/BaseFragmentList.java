@@ -33,7 +33,7 @@ public abstract class BaseFragmentList extends BaseFragment {
      * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
      */
     protected int getRecyclerviewId() {
-        return R.id.com_recyclerview;
+        return R.id.id_recyclerview;
     }
 
     /**

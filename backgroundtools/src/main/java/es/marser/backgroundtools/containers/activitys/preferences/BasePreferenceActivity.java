@@ -31,14 +31,15 @@ public abstract class BasePreferenceActivity extends BaseActivity {
     }
 
     @Override
-    protected void instaceVariables() {
+    protected void instanceVariables() {
         customfragment = (PreferenceFragment) getFragmentManager()
                 .findFragmentByTag(getResources()
                         .getString(R.string.FRAGMENT_PREFERENCE));
     }
 
     @Override
-    protected void postinstaceVariables() {
+    protected void initToolbar() {
+        super.initToolbar();
         if (title() != null && toolbar != null) {
             toolbar.setTitle(title());
         }

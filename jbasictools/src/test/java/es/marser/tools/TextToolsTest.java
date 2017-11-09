@@ -1,4 +1,4 @@
-package es.marser;
+package es.marser.tools;
 
 import org.junit.Assert;
 import org.junit.Test;

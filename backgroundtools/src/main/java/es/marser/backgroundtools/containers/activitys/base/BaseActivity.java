@@ -69,7 +69,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         </ul>
  */
 
-@SuppressWarnings({"unused", "EmptyMethod"})
+@SuppressWarnings({"EmptyMethod", "unused"})
 public abstract class BaseActivity extends AppCompatActivity implements PermissionChecker {
 
     protected Toolbar toolbar;
@@ -97,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         /*Instanciar variables [EN]  Instanciar variables*/
-        instaceVariables();
+        instanceVariables();
         /*Activar toolbar [EN]  Activar toolbar*/
         initToolbar();
         /*Activar el navegador Drawer*/
@@ -105,25 +105,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     }
 
     /**
-     * Métodos pre-inicio de variables
-     * <p>
-     * [EN]  Pre-start methods of variables
-     */
-    protected abstract void preinstaceVariables();
-
-    /**
      * Instanciar variables
      * <p>
      * [EN]  Instanciar variables
      */
-    protected abstract void instaceVariables();
+    protected abstract void instanceVariables();
 
-    /**
-     * Métodos post-inicio de variables
-     * <p>
-     * [EN]  Post-start methods of variables
-     */
-    protected abstract void postinstaceVariables();
 
     protected int getActivityLayout() {
         return R.layout.ac_frag_toolbar;

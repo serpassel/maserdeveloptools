@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.fragments;
+package es.marser.backgroundtools.containers.fragments.base;
 
 import android.os.Parcelable;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.handlers.ViewComplexHandler;
 import es.marser.backgroundtools.objectslistables.complex.adapter.ComplexAdapter;
@@ -46,7 +45,7 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
     protected Integer lastScroll;
 
     @Override
-    protected void instaceVariables() {
+    protected void instanceVariables() {
 
     }
 

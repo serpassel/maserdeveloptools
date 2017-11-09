@@ -1,31 +1,32 @@
-package es.marser.backgroundtools.dialogs.bases;
+package es.marser.backgroundtools.containers.fragments.base;
 
 import android.view.View;
 
 import java.util.ArrayList;
 
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.headerbody.adapter.HeadBodyListAdapter;
+import es.marser.backgroundtools.objectslistables.table.adapter.TableListAdapter;
 
 /**
  * @author sergio
  *         Created by sergio on 1/11/17.
- *         Base de construcción de dialogo con lista de multiples vistas cabecera y cuerpo
+ *         Base de construcción de fragment con lista de multiples vistas cabecera y cuerpo
  *         <p>
- *         [EN]  Base construction dialog with list of multiple views header and body
+ *         [EN]  Fragment construction base with list of multiple head and body views
  */
 
-@SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
+@SuppressWarnings({"unused", "SameReturnValue"})
+public abstract class BaseFragmentBinTable<H, B> extends BaseFragmentList {
 
-    protected HeadBodyListAdapter<H,B> adapter;
+    protected TableListAdapter<H, B> adapter;
 
     //OBLIGATORY OVERWRITING___________________________________________________________________________
-    public abstract  int getHeadHolderLayout();
+    public abstract int getHeadHolderLayout();
 
     public abstract int getBodyHolderLayout();
 
@@ -35,12 +36,12 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
         return new ViewItemHandler<H>() {
             @Override
             public void onClickItem(BaseViewHolder<H> holder, H item, int position, ListExtra mode) {
-                BaseDialogHeadBodyBinList.this.onClickHeadItem(holder, item, position, mode);
+                BaseFragmentBinTable.this.onClickHeadItem(holder, item, position, mode);
             }
 
             @Override
             public boolean onLongClickItem(BaseViewHolder<H> holder, H item, int position, ListExtra mode) {
-                return BaseDialogHeadBodyBinList.this.onLongClickHeadItem(holder, item, position, mode);
+                return BaseFragmentBinTable.this.onLongClickHeadItem(holder, item, position, mode);
             }
         };
     }
@@ -49,12 +50,12 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
         return new ViewItemHandler<B>() {
             @Override
             public void onClickItem(BaseViewHolder<B> holder, B item, int position, ListExtra mode) {
-                BaseDialogHeadBodyBinList.this.onClickBodyItem(holder, item, position, mode);
+                BaseFragmentBinTable.this.onClickBodyItem(holder, item, position, mode);
             }
 
             @Override
             public boolean onLongClickItem(BaseViewHolder<B> holder, B item, int position, ListExtra mode) {
-                return BaseDialogHeadBodyBinList.this.onLongClickBodyItem(holder, item, position, mode);
+                return BaseFragmentBinTable.this.onLongClickBodyItem(holder, item, position, mode);
             }
         };
     }
@@ -64,12 +65,12 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
         return new TouchableViewHandler<H>() {
             @Override
             public void onClick(View view, int position, H item, View root) {
-                BaseDialogHeadBodyBinList.this.onClickHead(view, position, item, root);
+                BaseFragmentBinTable.this.onClickHead(view, position, item, root);
             }
 
             @Override
             public boolean onLongClick(View view, int position, H item, View root) {
-                return BaseDialogHeadBodyBinList.this.onLongClickHead(view, position, item, root);
+                return BaseFragmentBinTable.this.onLongClickHead(view, position, item, root);
             }
         };
     }
@@ -78,54 +79,60 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
         return new TouchableViewHandler<B>() {
             @Override
             public void onClick(View view, int position, B item, View root) {
-                BaseDialogHeadBodyBinList.this.onClickBody(view, position, item, root);
+                BaseFragmentBinTable.this.onClickBody(view, position, item, root);
             }
 
             @Override
             public boolean onLongClick(View view, int position, B item, View root) {
-                return BaseDialogHeadBodyBinList.this.onLongClickBody(view, position, item, root);
+                return BaseFragmentBinTable.this.onLongClickBody(view, position, item, root);
             }
         };
     }
 
+
     //SUPERCLASS OVERWRITING________________________________________________________________________
     @Override
     protected void bindAdapter() {
-        adapter = new HeadBodyListAdapter<H, B>() {
+        adapter = new TableListAdapter<H, B>() {
             @Override
             public int getHeadHolderLayout() {
-                return BaseDialogHeadBodyBinList.this.getHeadHolderLayout();
+                return BaseFragmentBinTable.this.getHeadHolderLayout();
             }
 
             @Override
             public int getBodyHolderLayout() {
-                return BaseDialogHeadBodyBinList.this.getBodyHolderLayout();
+                return BaseFragmentBinTable.this.getBodyHolderLayout();
             }
 
             @Override
             public ViewItemHandler<H> getHeadItemHandler() {
-                return BaseDialogHeadBodyBinList.this.getHeadItemHandler();
+                return BaseFragmentBinTable.this.getHeadItemHandler();
             }
 
             @Override
             public ViewItemHandler<B> getBodyItemHandler() {
-                return BaseDialogHeadBodyBinList.this.getBodyItemHandler();
+                return BaseFragmentBinTable.this.getBodyItemHandler();
             }
 
             @Override
             public TouchableViewHandler<H> getHeadTouchableViewHandler() {
-                return BaseDialogHeadBodyBinList.this.getHeadTouchableViewHandler();
+                return BaseFragmentBinTable.this.getHeadTouchableViewHandler();
             }
 
             @Override
             public TouchableViewHandler<B> getBodyTouchableViewHandler() {
-                return BaseDialogHeadBodyBinList.this.getBodyTouchableViewHandler();
+                return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
             }
         };
         recyclerView.setAdapter(adapter);
 
         adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
         adapter.bGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
+    }
+
+    @Override
+    protected int getFragmentLayout() {
+        return R.layout.mvc_frag_simple_list;
     }
 
     @Override
@@ -144,7 +151,7 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
      * @return controladora de cabecera
      * [EN]  header controller
      */
-    public GlobalController<H> getHeadGlobalController(){
+    public GlobalController<H> getHeadGlobalController() {
         return adapter.hGlobalController;
     }
 
@@ -152,7 +159,7 @@ public abstract class BaseDialogHeadBodyBinList<H,B> extends BaseDialogList {
      * @return Controladora de cuerpo
      * [EN]  Body controller
      */
-    public GlobalController<B> getBodyGlobalController(){
+    public GlobalController<B> getBodyGlobalController() {
         return adapter.bGlobalController;
     }
 

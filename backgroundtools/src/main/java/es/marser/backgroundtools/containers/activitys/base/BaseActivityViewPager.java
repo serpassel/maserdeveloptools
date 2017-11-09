@@ -1,5 +1,7 @@
 package es.marser.backgroundtools.containers.activitys.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 
@@ -21,7 +23,13 @@ public abstract class BaseActivityViewPager extends BaseActivity {
     protected TabLayout tabLayout;
 
     @Override
-    protected void instaceVariables() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(getActivityLayout());
+    }
+
+    @Override
+    protected void instanceVariables() {
         mPager = findViewById(R.id.pager);
         ScreenSlidePagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager()) {
             @Override

@@ -1,11 +1,10 @@
-package es.marser.backgroundtools.containers.fragments;
+package es.marser.backgroundtools.containers.fragments.base;
 
 import android.view.View;
 
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentList;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;

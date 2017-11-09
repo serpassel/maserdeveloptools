@@ -22,7 +22,7 @@ public abstract class BaseActivityFragment extends BaseActivity {
     }
 
     @Override
-    protected void instaceVariables() {
+    protected void instanceVariables() {
         baseFragment = instanceFragment();
         if (baseFragment != null) {
             insertFragment(baseFragment);
@@ -31,8 +31,9 @@ public abstract class BaseActivityFragment extends BaseActivity {
                     .findFragmentByTag(getResources()
                             .getString(R.string.FRAGMENT_PAGER));
         }
-}
+    }
 
+    @Override
     protected int getActivityLayout() {
         return R.layout.ac_frag;
     }

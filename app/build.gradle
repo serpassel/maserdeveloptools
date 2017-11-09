@@ -32,19 +32,14 @@ android {
 }
 
 repositories {
-  /*
-    maven {
-        url "https://dl.bintray.com/zergio/developtools-rep"
-    }
-    */
     google()
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    implementation 'es.marser.developtools:backgroundtools:1.0.0'
-    //implementation project(':backgroundtools')
+   // implementation 'es.marser.developtools:backgroundtools:1.0.0'
+    implementation project(':backgroundtools')
     implementation 'es.marser.developtools:jbasictools:1.0.0'
     //implementation project(':jbasictools')
     implementation 'es.marser.developtools:sqltools:1.0.0'
