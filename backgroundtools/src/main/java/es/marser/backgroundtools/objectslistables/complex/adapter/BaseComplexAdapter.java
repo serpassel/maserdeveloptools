@@ -48,7 +48,7 @@ import es.marser.backgroundtools.objectslistables.base.controller.ArrayListContr
  *         </ul>
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod"})
 public abstract class BaseComplexAdapter<
         G extends GroupViewHolderBinding<X, T>,
         C extends ChildViewHolderBinding<X, T>,

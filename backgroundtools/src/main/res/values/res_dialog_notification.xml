@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--Dimensión de la imagen-->
     <dimen name="bt_dialog_notification_image_dimen">@dimen/m_image</dimen>
 
     <!--Títulos-->
-    <string name="bt_dialog_notification_default_title">Notificación</string>
+    <string name="bt_dialog_notification_default_title" tools:keep="@string/bt_dialog_notification_default_title">Notificación</string>
     <string name="bt_dialog_information_title">Información</string>
     <string name="bt_dialog_error_title">Error</string>
     <string name="bt_dialog_warning_title">Advertencia</string>

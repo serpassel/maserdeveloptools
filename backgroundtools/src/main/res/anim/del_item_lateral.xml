@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <set xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:duration="400"
     android:interpolator="@android:anim/accelerate_interpolator"
-    android:shareInterpolator="false">
+    android:shareInterpolator="false"
+    tools:keep="@anim/del_item_lateral">
     <alpha
         android:fromAlpha="1.0"
         android:toAlpha="0.2" />

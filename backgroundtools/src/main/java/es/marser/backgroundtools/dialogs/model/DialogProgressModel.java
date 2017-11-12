@@ -24,6 +24,10 @@ public class DialogProgressModel extends DialogModel implements Parcelable{
     public final ObservableField<String> progresstext = new ObservableField<>("");//Texto de progreso [EN]  Progress text
     public final ObservableField<String> error = new ObservableField<>("");//Mensaje de error [EN]  Error message
 
+    public DialogProgressModel() {
+        super();
+    }
+
     protected DialogProgressModel(Parcel in) {
         super(in);
         max.set(in.readString());

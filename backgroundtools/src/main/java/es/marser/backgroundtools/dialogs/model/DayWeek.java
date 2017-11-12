@@ -12,8 +12,12 @@ import android.os.Parcelable;
  *         [EN]  Weekdays
  */
 
+@SuppressWarnings("unused")
 public class DayWeek implements Parcelable{
     public final ObservableField<String> day = new ObservableField<>();//Título de carga [EN]  Loading title
+
+    public DayWeek() {
+    }
 
     protected DayWeek(Parcel in) {
         day.set(in.readString());

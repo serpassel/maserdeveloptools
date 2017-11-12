@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!--HEAD-->
-    <dimen name="bt_generic_edit_image_dimen">23dp</dimen>
-    <string name="bt_generic_edit_content">Icon</string>
+    <dimen name="bt_generic_edit_image_dimen" tools:keep="@dimen/bt_generic_edit_image_dimen">23dp</dimen>
+    <string name="bt_generic_edit_content" tools:keep="@string/bt_generic_edit_content">Icon</string>
     <string name="bt_generic_edit_head_font">Roboto_Black.ttf</string>
-    <string name="bt_generic_edit_default_head_title">Editar</string>
+    <string name="bt_generic_edit_default_head_title" tools:keep="@string/bt_generic_edit_default_head_title">Editar</string>
 
-    <style name="bt_generic_edit_head_label">
+    <style name="bt_generic_edit_head_label" tools:keep="@style/bt_generic_edit_head_label">
         <item name="background">@color/bt_transparent</item>
         <item name="android:textColor">?attr/dialogs_head_text_color</item>
         <item name="android:textSize">17sp</item>

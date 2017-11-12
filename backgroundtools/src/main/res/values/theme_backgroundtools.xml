@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="BackgroundToolsTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="BackgroundToolsTheme" parent="Theme.AppCompat.NoActionBar" tools:keep="@style/BackgroundToolsTheme">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/bt_primary</item>
         <item name="colorPrimaryDark">@color/bt_primary_dark</item>

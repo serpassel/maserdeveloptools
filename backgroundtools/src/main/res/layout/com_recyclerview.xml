@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
     android:minHeight="100dp"
     android:layout_gravity="center_horizontal"
     android:background="@color/bt_warning_color"
-    android:layout_margin="?attr/box_default_small_margin"/>
+    android:layout_margin="?attr/box_default_small_margin"
+    tools:ignore="Overdraw" />

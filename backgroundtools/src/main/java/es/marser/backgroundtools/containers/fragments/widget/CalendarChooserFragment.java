@@ -18,7 +18,6 @@ import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBi
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.DayWeek;
 import es.marser.backgroundtools.dialogs.widget.calendar.AsyncMonthDays;
-import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
 import es.marser.backgroundtools.dialogs.widget.calendar.DateLoader;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
@@ -33,6 +32,7 @@ import es.marser.tools.DateTools;
  *         [EN]  Date selector fragment
  */
 
+@SuppressWarnings("unused")
 public class CalendarChooserFragment
         extends BaseFragmentBinHeadBinTable<CalendarObservable, DayWeek, CalendarObservable>
         implements ViewHandler<Void> {

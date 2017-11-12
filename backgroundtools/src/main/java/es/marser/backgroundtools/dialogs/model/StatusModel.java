@@ -29,6 +29,9 @@ public class StatusModel implements Parcelable {
      */
     public final ObservableInt state = new ObservableInt(0);
 
+    public StatusModel() {
+    }
+
     protected StatusModel(Parcel in) {
         blockAction.set(in.readByte() != 0);
         state.set(in.readInt());

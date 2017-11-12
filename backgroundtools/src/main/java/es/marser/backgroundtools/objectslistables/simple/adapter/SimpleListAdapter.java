@@ -22,10 +22,6 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
 
 public abstract class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, ViewHolderBinding<T>> {
 
-    //SAVED AND RESTORE_____________________________________________________________
-
-
-
     //ANIMATIONS_____________________________________________________________________
 
     /**

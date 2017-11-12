@@ -1,5 +1,6 @@
 package es.marser.sqltools;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
@@ -421,6 +422,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  Class for asynchronous CRUD handling
      */
+    @SuppressLint("StaticFieldLeak")
     @SuppressWarnings("unused")
     private abstract class AsyncUD extends AsyncTask<Object, Throwable, Boolean> {
         private OnChanged onResult;
@@ -454,6 +456,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param in        Clase Mapeada
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
+    @SuppressLint("StaticFieldLeak")
     private AsyncTask asyncCrudAction(Object in, CrudAction action, OnChanged onChanged) {
         if (in == null || action == null) {
             if (onChanged != null) {
@@ -675,6 +678,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param <T> Objeto genérico a instanciar [EN]  Generic object to instantiate
      */
+    @SuppressLint("StaticFieldLeak")
     @SuppressWarnings("unused")
     private abstract class AsyncSingleCRUD<T> extends AsyncTask<String, Throwable, T> {
         protected OnSingleRead<T> onRead;
@@ -713,6 +717,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
+    @SuppressLint("StaticFieldLeak")
     private <T> AsyncTask getRecord(String sql, Class<T> cls, OnSingleRead<T> onRead) {
         return new AsyncSingleCRUD<T>(onRead) {
             @SuppressWarnings("unchecked")
@@ -793,6 +798,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param <T> Objeto genérico a instanciar [EN]  Generic object to instantiate
      */
+    @SuppressLint("StaticFieldLeak")
     @SuppressWarnings("unused")
     private abstract class AsyncListCRUD<T> extends AsyncTask<String, AsyncPublishObject<T>, Void> {
 
@@ -845,6 +851,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
+    @SuppressLint("StaticFieldLeak")
     private <T> AsyncTask getRecords(String sql, Class<T> cls, OnRead<T> onRead) {
         return new AsyncListCRUD<T>(onRead) {
             @SuppressWarnings("unchecked")
@@ -940,6 +947,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  Asynchronous Block Recording Subclass
      */
+    @SuppressLint("StaticFieldLeak")
     @SuppressWarnings("unused")
     public class AddSyncList extends AsyncTask<List<Object>, Integer, Void> {
         protected OnBlockSaved onBlockSaved;

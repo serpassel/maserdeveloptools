@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="external_storage_readable_permission_request">No hemos obtenido los permisos necesarios de lectura</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="external_storage_readable_permission_request" tools:keep="@string/external_storage_readable_permission_request">No hemos obtenido los permisos necesarios de lectura</string>
 </resources>

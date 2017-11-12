@@ -20,6 +20,7 @@ import es.marser.backgroundtools.BR;
  *         [EN]  Base for construction of fragments type table with header object
  */
 
+@SuppressWarnings("unused")
 public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends Parcelable, B extends Parcelable>
         extends BaseFragmentBinTable<H, B> {
 

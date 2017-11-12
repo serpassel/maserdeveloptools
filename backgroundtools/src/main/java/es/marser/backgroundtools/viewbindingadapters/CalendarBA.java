@@ -17,6 +17,7 @@ import es.marser.tools.BooleanTools;
  *         [EN]  Adapters for calendar
  */
 
+@SuppressWarnings("unused")
 public class CalendarBA {
 
     @BindingAdapter(value = {"isholiday", "isOtherholiday", "isOtherMonth"}, requireAll = false)

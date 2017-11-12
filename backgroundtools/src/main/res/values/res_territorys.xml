@@ -7,7 +7,7 @@
 
     <!--CCAA ID | CODAUTO | NOMBRE|PRO_NUM|-->
     <string name="all_spain_ccaa">CCAA|0|Todo el territorio|52|</string>
-    <string-array name="spain_ccaa">
+    <string-array name="spain_ccaa" tools:keep="@array/spain_ccaa">
         <item>CCAA|1|Andalucía|8|</item>
         <item>CCAA|2|Aragón|3|</item>
         <item>CCAA|3|Asturias, Principado de|1|</item>
@@ -32,7 +32,7 @@
     <!--PROVINCIAS ID | CODAUTO | CPRO | NOMBRE | MUN_COUNT|-->
     <string name="all_spain_pro">PRO|0|0|Todas las provincias|8126|</string>
     <!--1 Andalucia-->
-    <string-array name="spain_province_01">
+    <string-array name="spain_province_01" tools:keep="@array/spain_province_01">
         <item>PRO|1|4|Almería|103|</item>
         <item>PRO|1|11|Cádiz|44|</item>
         <item>PRO|1|14|Córdoba|75|</item>
@@ -44,35 +44,35 @@
     </string-array>
 
     <!--2 Aragón-->
-    <string-array name="spain_province_02">
+    <string-array name="spain_province_02" tools:keep="@array/spain_province_02">
         <item>PRO|2|22|Huesca|202|</item>
         <item>PRO|2|44|Teruel|236|</item>
         <item>PRO|2|50|Zaragoza|293|</item>
     </string-array>
 
     <!--3 Asturias-->
-    <string-array name="spain_province_03">
+    <string-array name="spain_province_03" tools:keep="@array/spain_province_03">
         <item>PRO|3|33|Asturias|78|</item>
     </string-array>
 
     <!--4 Baleares-->
-    <string-array name="spain_province_04">
+    <string-array name="spain_province_04" tools:keep="@array/spain_province_04">
         <item>PRO|4|7|Balears, Illes|67|</item>
     </string-array>
 
     <!--5 Canarias-->
-    <string-array name="spain_province_05">
+    <string-array name="spain_province_05" tools:keep="@array/spain_province_05">
         <item>PRO|5|35|Palmas, Las|34|</item>
         <item>PRO|5|38|Santa Cruz de Tenerife|54|</item>
     </string-array>
 
     <!--6 Cantabria-->
-    <string-array name="spain_province_06">
+    <string-array name="spain_province_06" tools:keep="@array/spain_province_06">
         <item>PRO|6|39|Cantabria|102|</item>
     </string-array>
 
     <!--7 Castilla y León-->
-    <string-array name="spain_province_07">
+    <string-array name="spain_province_07" tools:keep="@array/spain_province_07">
         <item>PRO|7|5|Ávila|248|</item>
         <item>PRO|7|9|Burgos|371|</item>
         <item>PRO|7|24|León|211|</item>
@@ -85,7 +85,7 @@
     </string-array>
 
     <!--8 Castilla - La Mancha-->
-    <string-array name="spain_province_08">
+    <string-array name="spain_province_08" tools:keep="@array/spain_province_08">
         <item>PRO|8|2|Albacete|87|</item>
         <item>PRO|8|13|Ciudad Real|102|</item>
         <item>PRO|8|16|Cuenca|238|</item>
@@ -94,7 +94,7 @@
     </string-array>
 
     <!--9 Cataluña-->
-    <string-array name="spain_province_09">
+    <string-array name="spain_province_09" tools:keep="@array/spain_province_09">
         <item>PRO|9|8|Barcelona|311|</item>
         <item>PRO|9|17|Girona|221|</item>
         <item>PRO|9|25|Lleida|231|</item>
@@ -102,20 +102,20 @@
     </string-array>
 
     <!--10 Comunitat Valenciana-->
-    <string-array name="spain_province_10">
+    <string-array name="spain_province_10" tools:keep="@array/spain_province_10">
         <item>PRO|10|3|Alicante/Alacant|141|</item>
         <item>PRO|10|12|Castellón/Castelló|135|</item>
         <item>PRO|10|46|Valencia/València|266|</item>
     </string-array>
 
     <!--11 Extremadura-->
-    <string-array name="spain_province_11">
+    <string-array name="spain_province_11" tools:keep="@array/spain_province_11">
         <item>PRO|11|6|Badajoz|165|</item>
         <item>PRO|11|10|Cáceres|223|</item>
     </string-array>
 
     <!--12 Galicia-->
-    <string-array name="spain_province_12">
+    <string-array name="spain_province_12" tools:keep="@array/spain_province_12">
         <item>PRO|12|15|Coruña, A|93|</item>
         <item>PRO|12|27|Lugo|67|</item>
         <item>PRO|12|32|Ourense|92|</item>
@@ -123,44 +123,44 @@
     </string-array>
 
     <!--13 Madrid, Comunidad de-->
-    <string-array name="spain_province_13">
+    <string-array name="spain_province_13" tools:keep="@array/spain_province_13">
         <item>PRO|13|28|Madrid|179|</item>
     </string-array>
 
     <!--14 Murcia, Región de-->
-    <string-array name="spain_province_14">
+    <string-array name="spain_province_14" tools:keep="@array/spain_province_14">
         <item>PRO|14|30|Murcia|45|</item>
     </string-array>
 
     <!--15 Navarra, Comunidad Foral de-->
-    <string-array name="spain_province_15">
+    <string-array name="spain_province_15" tools:keep="@array/spain_province_15">
         <item>PRO|15|31|Navarra|272|</item>
     </string-array>
 
     <!--16 País Vasco-->
-    <string-array name="spain_province_16">
+    <string-array name="spain_province_16" tools:keep="@array/spain_province_16">
         <item>PRO|16|1|Araba/Álava|51|</item>
         <item>PRO|16|48|Bizkaia|112|</item>
         <item>PRO|16|20|Gipuzkoa|88|</item>
     </string-array>
 
     <!--17 Rioja, La-->
-    <string-array name="spain_province_17">
+    <string-array name="spain_province_17" tools:keep="@array/spain_province_17">
         <item>PRO|17|26|Rioja, La|174|</item>
     </string-array>
 
     <!--18 Ceuta-->
-    <string-array name="spain_province_18">
+    <string-array name="spain_province_18" tools:keep="@array/spain_province_18">
         <item>PRO|18|51|Ceuta|1|</item>
     </string-array>
 
     <!--19 Melilla-->
-    <string-array name="spain_province_19">
+    <string-array name="spain_province_19" tools:keep="@array/spain_province_19">
         <item>PRO|19|52|Melilla|1|</item>
     </string-array>
 
     <!--00 provinces-->
-    <string-array name="spain_province">
+    <string-array name="spain_province" tools:keep="@array/spain_province">
         <item>PRO|8|2|Albacete|87|</item>
         <item>PRO|10|3|Alicante/Alacant|141|</item>
         <item>PRO|1|4|Almería|103|</item>
@@ -218,7 +218,7 @@
     <!--MUNICIPIOS ID | CODAUTO | CPRO |CMUN | DC | NOMBRE-->
     <string name="all_spain_mun">MUN|00|00|000|0|Todos los municipios|</string>
     <!--01 álava-->
-    <string-array name="spain_villages_01">
+    <string-array name="spain_villages_01" tools:keep="@array/spain_villages_01">
         <item>MUN|16|01|051|3|Agurain/Salvatierra|</item>
         <item>MUN|16|01|001|4|Alegría-Dulantzi|</item>
         <item>MUN|16|01|002|9|Amurrio|</item>
@@ -273,7 +273,7 @@
     </string-array>
 
     <!--02 Albacete-->
-    <string-array name="spain_villages_02">
+    <string-array name="spain_villages_02" tools:keep="@array/spain_villages_02">
         <item>MUN|08|02|001|9|Abengibre|</item>
         <item>MUN|08|02|002|4|Alatoz|</item>
         <item>MUN|08|02|003|0|Albacete|</item>
@@ -364,7 +364,7 @@
     </string-array>
 
     <!--03 Alicante-->
-    <string-array name="spain_villages_03">
+    <string-array name="spain_villages_03" tools:keep="@array/spain_villages_03">
         <item>MUN|10|03|002|0|Agost|</item>
         <item>MUN|10|03|003|6|Agres|</item>
         <item>MUN|10|03|004|1|Aigües|</item>
@@ -509,7 +509,7 @@
     </string-array>
 
     <!--04 Almería-->
-    <string-array name="spain_villages_04">
+    <string-array name="spain_villages_04" tools:keep="@array/spain_villages_04">
         <item>MUN|01|04|001|0|Abla|</item>
         <item>MUN|01|04|002|5|Abrucena|</item>
         <item>MUN|01|04|003|1|Adra|</item>
@@ -616,7 +616,7 @@
     </string-array>
 
     <!--05 Ávila-->
-    <string-array name="spain_villages_05">
+    <string-array name="spain_villages_05" tools:keep="@array/spain_villages_05">
         <item>MUN|07|05|001|3|Adanero|</item>
         <item>MUN|07|05|002|8|Adrada, La|</item>
         <item>MUN|07|05|005|2|Albornos|</item>
@@ -868,7 +868,7 @@
     </string-array>
 
     <!--06 Badajoz-->
-    <string-array name="spain_villages_06">
+    <string-array name="spain_villages_06" tools:keep="@array/spain_villages_06">
         <item>MUN|11|06|001|6|Acedera|</item>
         <item>MUN|11|06|002|1|Aceuchal|</item>
         <item>MUN|11|06|003|7|Ahillones|</item>
@@ -1037,7 +1037,7 @@
     </string-array>
 
     <!--07 Balears, Illes-->
-    <string-array name="spain_villages_07">
+    <string-array name="spain_villages_07" tools:keep="@array/spain_villages_07">
         <item>MUN|04|07|002|7|Alaior|</item>
         <item>MUN|04|07|001|2|Alaró|</item>
         <item>MUN|04|07|003|3|Alcúdia|</item>
@@ -1108,7 +1108,7 @@
     </string-array>
 
     <!--08 Barcelona-->
-    <string-array name="spain_villages_08">
+    <string-array name="spain_villages_08" tools:keep="@array/spain_villages_08">
         <item>MUN|09|08|001|8|Abrera|</item>
         <item>MUN|09|08|002|3|Aguilar de Segarra|</item>
         <item>MUN|09|08|014|2|Aiguafreda|</item>
@@ -1423,7 +1423,7 @@
     </string-array>
 
     <!--09 Burgos-->
-    <string-array name="spain_villages_09">
+    <string-array name="spain_villages_09" tools:keep="@array/spain_villages_09">
         <item>MUN|07|09|001|1|Abajas|</item>
         <item>MUN|07|09|003|2|Adrada de Haza|</item>
         <item>MUN|07|09|006|3|Aguas Cándidas|</item>
@@ -1798,7 +1798,7 @@
     </string-array>
 
     <!--10 Cáceres-->
-    <string-array name="spain_villages_10">
+    <string-array name="spain_villages_10" tools:keep="@array/spain_villages_10">
         <item>MUN|11|10|001|5|Abadía|</item>
         <item>MUN|11|10|002|0|Abertura|</item>
         <item>MUN|11|10|003|6|Acebo|</item>
@@ -2025,7 +2025,7 @@
     </string-array>
 
     <!--11 Cádiz-->
-    <string-array name="spain_villages_11">
+    <string-array name="spain_villages_11" tools:keep="@array/spain_villages_11">
         <item>MUN|01|11|001|2|Alcalá de los Gazules|</item>
         <item>MUN|01|11|002|7|Alcalá del Valle|</item>
         <item>MUN|01|11|003|3|Algar|</item>
@@ -2073,7 +2073,7 @@
     </string-array>
 
     <!--12 Castellón/Castelló-->
-    <string-array name="spain_villages_12">
+    <string-array name="spain_villages_12" tools:keep="@array/spain_villages_12">
         <item>MUN|10|12|002|2|Aín|</item>
         <item>MUN|10|12|003|8|Albocàsser|</item>
         <item>MUN|10|12|004|3|Alcalà de Xivert|</item>
@@ -2212,7 +2212,7 @@
     </string-array>
 
     <!--13 Ciudad Real-->
-    <string-array name="spain_villages_13">
+    <string-array name="spain_villages_13" tools:keep="@array/spain_villages_13">
         <item>MUN|08|13|001|3|Abenójar|</item>
         <item>MUN|08|13|002|8|Agudo|</item>
         <item>MUN|08|13|003|4|Alamillo|</item>
@@ -2318,7 +2318,7 @@
     </string-array>
 
     <!--14 Córdoba-->
-    <string-array name="spain_villages_14">
+    <string-array name="spain_villages_14" tools:keep="@array/spain_villages_14">
         <item>MUN|01|14|001|8|Adamuz|</item>
         <item>MUN|01|14|002|3|Aguilar de la Frontera|</item>
         <item>MUN|01|14|003|9|Alcaracejos|</item>
@@ -2397,7 +2397,7 @@
     </string-array>
 
     <!--15 Coruña, A-->
-    <string-array name="spain_villages_15">
+    <string-array name="spain_villages_15" tools:keep="@array/spain_villages_15">
         <item>MUN|12|15|001|1|Abegondo|</item>
         <item>MUN|12|15|002|6|Ames|</item>
         <item>MUN|12|15|003|2|Aranga|</item>
@@ -2494,7 +2494,7 @@
     </string-array>
 
     <!--16 Cuenca-->
-    <string-array name="spain_villages_16">
+    <string-array name="spain_villages_16" tools:keep="@array/spain_villages_16">
         <item>MUN|08|16|001|4|Abia de la Obispalía|</item>
         <item>MUN|08|16|002|9|Acebrón, El|</item>
         <item>MUN|08|16|003|5|Alarcón|</item>
@@ -2736,7 +2736,7 @@
     </string-array>
 
     <!--17 Girona-->
-    <string-array name="spain_villages_17">
+    <string-array name="spain_villages_17" tools:keep="@array/spain_villages_17">
         <item>MUN|09|17|001|0|Agullana|</item>
         <item>MUN|09|17|002|5|Aiguaviva|</item>
         <item>MUN|09|17|003|1|Albanyà|</item>
@@ -2961,7 +2961,7 @@
     </string-array>
 
     <!--18 Granada-->
-    <string-array name="spain_villages_18">
+    <string-array name="spain_villages_18" tools:keep="@array/spain_villages_18">
         <item>MUN|01|18|001|6|Agrón|</item>
         <item>MUN|01|18|002|1|Alamedilla|</item>
         <item>MUN|01|18|003|7|Albolote|</item>
@@ -3137,7 +3137,7 @@
     </string-array>
 
     <!--19 Guadalajara-->
-    <string-array name="spain_villages_19">
+    <string-array name="spain_villages_19" tools:keep="@array/spain_villages_19">
         <item>MUN|08|19|001|9|Abánades|</item>
         <item>MUN|08|19|002|4|Ablanque|</item>
         <item>MUN|08|19|003|0|Adobes|</item>
@@ -3429,7 +3429,7 @@
     </string-array>
 
     <!--20 Gipuzkoa-->
-    <string-array name="spain_villages_20">
+    <string-array name="spain_villages_20" tools:keep="@array/spain_villages_20">
         <item>MUN|16|20|001|3|Abaltzisketa|</item>
         <item>MUN|16|20|002|8|Aduna|</item>
         <item>MUN|16|20|016|3|Aia|</item>
@@ -3521,7 +3521,7 @@
     </string-array>
 
     <!--21 Huelva-->
-    <string-array name="spain_villages_21">
+    <string-array name="spain_villages_21" tools:keep="@array/spain_villages_21">
         <item>MUN|01|21|001|0|Alájar|</item>
         <item>MUN|01|21|002|5|Aljaraque|</item>
         <item>MUN|01|21|003|1|Almendro, El|</item>
@@ -3604,7 +3604,7 @@
     </string-array>
 
     <!--22 Huesca-->
-    <string-array name="spain_villages_22">
+    <string-array name="spain_villages_22" tools:keep="@array/spain_villages_22">
         <item>MUN|02|22|001|5|Abiego|</item>
         <item>MUN|02|22|002|0|Abizanda|</item>
         <item>MUN|02|22|003|6|Adahuesca|</item>
@@ -3810,7 +3810,7 @@
     </string-array>
 
     <!--23 Jaén-->
-    <string-array name="spain_villages_23">
+    <string-array name="spain_villages_23" tools:keep="@array/spain_villages_23">
         <item>MUN|01|23|001|1|Albanchez de Mágina|</item>
         <item>MUN|01|23|002|6|Alcalá la Real|</item>
         <item>MUN|01|23|003|2|Alcaudete|</item>
@@ -3911,7 +3911,7 @@
     </string-array>
 
     <!--24 León-->
-    <string-array name="spain_villages_24">
+    <string-array name="spain_villages_24" tools:keep="@array/spain_villages_24">
         <item>MUN|07|24|001|6|Acebedo|</item>
         <item>MUN|07|24|002|1|Algadefe|</item>
         <item>MUN|07|24|003|7|Alija del Infantado|</item>
@@ -4126,7 +4126,7 @@
     </string-array>
 
     <!--25 Lleida-->
-    <string-array name="spain_villages_25">
+    <string-array name="spain_villages_25" tools:keep="@array/spain_villages_25">
         <item>MUN|09|25|001|9|Abella de la Conca|</item>
         <item>MUN|09|25|002|4|Àger|</item>
         <item>MUN|09|25|003|0|Agramunt|</item>
@@ -4361,7 +4361,7 @@
     </string-array>
 
     <!--26 Rioja, La-->
-    <string-array name="spain_villages_26">
+    <string-array name="spain_villages_26" tools:keep="@array/spain_villages_26">
         <item>MUN|17|26|001|2|Ábalos|</item>
         <item>MUN|17|26|002|7|Agoncillo|</item>
         <item>MUN|17|26|003|3|Aguilar del Río Alhama|</item>
@@ -4539,7 +4539,7 @@
     </string-array>
 
     <!--27 Lugo-->
-    <string-array name="spain_villages_27">
+    <string-array name="spain_villages_27" tools:keep="@array/spain_villages_27">
         <item>MUN|12|27|001|8|Abadín|</item>
         <item>MUN|12|27|002|3|Alfoz|</item>
         <item>MUN|12|27|003|9|Antas de Ulla|</item>
@@ -4610,7 +4610,7 @@
     </string-array>
 
     <!--28 Madrid-->
-    <string-array name="spain_villages_28">
+    <string-array name="spain_villages_28" tools:keep="@array/spain_villages_28">
         <item>MUN|13|28|001|4|Acebeda, La|</item>
         <item>MUN|13|28|002|9|Ajalvir|</item>
         <item>MUN|13|28|003|5|Alameda del Valle|</item>
@@ -4793,7 +4793,7 @@
     </string-array>
 
     <!--29 Málaga-->
-    <string-array name="spain_villages_29">
+    <string-array name="spain_villages_29" tools:keep="@array/spain_villages_29">
         <item>MUN|01|29|001|7|Alameda|</item>
         <item>MUN|01|29|002|2|Alcaucín|</item>
         <item>MUN|01|29|003|8|Alfarnate|</item>
@@ -4900,7 +4900,7 @@
     </string-array>
 
     <!--30 Murcia-->
-    <string-array name="spain_villages_30">
+    <string-array name="spain_villages_30" tools:keep="@array/spain_villages_30">
         <item>MUN|14|30|001|1|Abanilla|</item>
         <item>MUN|14|30|002|6|Abarán|</item>
         <item>MUN|14|30|003|2|Águilas|</item>
@@ -4949,7 +4949,7 @@
     </string-array>
 
     <!--31 Navarra-->
-    <string-array name="spain_villages_31">
+    <string-array name="spain_villages_31" tools:keep="@array/spain_villages_31">
         <item>MUN|15|31|001|8|Abáigar|</item>
         <item>MUN|15|31|002|3|Abárzuza/Abartzuza|</item>
         <item>MUN|15|31|003|9|Abaurregaina/Abaurrea Alta|</item>
@@ -5225,7 +5225,7 @@
     </string-array>
 
     <!--32 Ourense-->
-    <string-array name="spain_villages_32">
+    <string-array name="spain_villages_32" tools:keep="@array/spain_villages_32">
         <item>MUN|12|32|001|3|Allariz|</item>
         <item>MUN|12|32|002|8|Amoeiro|</item>
         <item>MUN|12|32|003|4|Arnoia, A|</item>
@@ -5321,7 +5321,7 @@
     </string-array>
 
     <!--33 Asturias-->
-    <string-array name="spain_villages_33">
+    <string-array name="spain_villages_33" tools:keep="@array/spain_villages_33">
         <item>MUN|03|33|001|9|Allande|</item>
         <item>MUN|03|33|002|4|Aller|</item>
         <item>MUN|03|33|003|0|Amieva|</item>
@@ -5403,7 +5403,7 @@
     </string-array>
 
     <!--34 Palencia-->
-    <string-array name="spain_villages_34">
+    <string-array name="spain_villages_34" tools:keep="@array/spain_villages_34">
         <item>MUN|07|34|001|4|Abarca de Campos|</item>
         <item>MUN|07|34|003|5|Abia de las Torres|</item>
         <item>MUN|07|34|004|0|Aguilar de Campoo|</item>
@@ -5598,7 +5598,7 @@
     </string-array>
 
     <!--35 Palmas, Las-->
-    <string-array name="spain_villages_35">
+    <string-array name="spain_villages_35" tools:keep="@array/spain_villages_35">
         <item>MUN|05|35|001|7|Agaete|</item>
         <item>MUN|05|35|002|2|Agüimes|</item>
         <item>MUN|05|35|020|6|Aldea de San Nicolás, La|</item>
@@ -5636,7 +5636,7 @@
     </string-array>
 
     <!--36 Pontevedra-->
-    <string-array name="spain_villages_36">
+    <string-array name="spain_villages_36" tools:keep="@array/spain_villages_36">
         <item>MUN|12|36|020|9|Agolada|</item>
         <item>MUN|12|36|001|0|Arbo|</item>
         <item>MUN|12|36|003|1|Baiona|</item>
@@ -5701,7 +5701,7 @@
     </string-array>
 
     <!--37 Salamanca-->
-    <string-array name="spain_villages_37">
+    <string-array name="spain_villages_37" tools:keep="@array/spain_villages_37">
         <item>MUN|07|37|001|6|Abusejo|</item>
         <item>MUN|07|37|002|1|Agallas|</item>
         <item>MUN|07|37|003|7|Ahigal de los Aceiteros|</item>
@@ -6067,7 +6067,7 @@
     </string-array>
 
     <!--38 Santa Cruz de Tenerife-->
-    <string-array name="spain_villages_38">
+    <string-array name="spain_villages_38" tools:keep="@array/spain_villages_38">
         <item>MUN|05|38|001|2|Adeje|</item>
         <item>MUN|05|38|002|7|Agulo|</item>
         <item>MUN|05|38|003|3|Alajeró|</item>
@@ -6125,7 +6125,7 @@
     </string-array>
 
     <!--39 Cantabria-->
-    <string-array name="spain_villages_39">
+    <string-array name="spain_villages_39" tools:keep="@array/spain_villages_39">
         <item>MUN|06|39|001|5|Alfoz de Lloredo|</item>
         <item>MUN|06|39|002|0|Ampuero|</item>
         <item>MUN|06|39|003|6|Anievas|</item>
@@ -6231,7 +6231,7 @@
     </string-array>
 
     <!--40 Segovia-->
-    <string-array name="spain_villages_40">
+    <string-array name="spain_villages_40" tools:keep="@array/spain_villages_40">
         <item>MUN|07|40|001|9|Abades|</item>
         <item>MUN|07|40|002|4|Adrada de Pirón|</item>
         <item>MUN|07|40|003|0|Adrados|</item>
@@ -6444,7 +6444,7 @@
     </string-array>
 
     <!--41 Sevilla-->
-    <string-array name="spain_villages_41">
+    <string-array name="spain_villages_41" tools:keep="@array/spain_villages_41">
         <item>MUN|01|41|001|6|Aguadulce|</item>
         <item>MUN|01|41|002|1|Alanís|</item>
         <item>MUN|01|41|003|7|Albaida del Aljarafe|</item>
@@ -6553,7 +6553,7 @@
     </string-array>
 
     <!--42 Soria-->
-    <string-array name="spain_villages_42">
+    <string-array name="spain_villages_42" tools:keep="@array/spain_villages_42">
         <item>MUN|07|42|001|1|Abejar|</item>
         <item>MUN|07|42|003|2|Adradas|</item>
         <item>MUN|07|42|004|7|Ágreda|</item>
@@ -6740,7 +6740,7 @@
     </string-array>
 
     <!--43 Tarragona-->
-    <string-array name="spain_villages_43">
+    <string-array name="spain_villages_43" tools:keep="@array/spain_villages_43">
         <item>MUN|09|43|001|7|Aiguamúrcia|</item>
         <item>MUN|09|43|002|2|Albinyana|</item>
         <item>MUN|09|43|003|8|Albiol, L'|</item>
@@ -6928,7 +6928,7 @@
     </string-array>
 
     <!--44 Teruel-->
-    <string-array name="spain_villages_44">
+    <string-array name="spain_villages_44" tools:keep="@array/spain_villages_44">
         <item>MUN|02|44|001|2|Ababuj|</item>
         <item>MUN|02|44|002|7|Abejuela|</item>
         <item>MUN|02|44|003|3|Aguatón|</item>
@@ -7168,7 +7168,7 @@
     </string-array>
 
     <!--45 Toledo-->
-    <string-array name="spain_villages_45">
+    <string-array name="spain_villages_45" tools:keep="@array/spain_villages_45">
         <item>MUN|08|45|001|5|Ajofrín|</item>
         <item>MUN|08|45|002|0|Alameda de la Sagra|</item>
         <item>MUN|08|45|003|6|Albarreal de Tajo|</item>
@@ -7376,7 +7376,7 @@
     </string-array>
 
     <!--46 Valencia/València-->
-    <string-array name="spain_villages_46">
+    <string-array name="spain_villages_46" tools:keep="@array/spain_villages_46">
         <item>MUN|10|46|001|8|Ademuz|</item>
         <item>MUN|10|46|002|3|Ador|</item>
         <item>MUN|10|46|004|4|Agullent|</item>
@@ -7646,7 +7646,7 @@
     </string-array>
 
     <!--47 Valladolid-->
-    <string-array name="spain_villages_47">
+    <string-array name="spain_villages_47" tools:keep="@array/spain_villages_47">
         <item>MUN|07|47|001|4|Adalia|</item>
         <item>MUN|07|47|002|9|Aguasal|</item>
         <item>MUN|07|47|003|5|Aguilar de Campos|</item>
@@ -7875,7 +7875,7 @@
     </string-array>
 
     <!--48 Bizkaia-->
-    <string-array name="spain_villages_48">
+    <string-array name="spain_villages_48" tools:keep="@array/spain_villages_48">
         <item>MUN|16|48|001|0|Abadiño|</item>
         <item>MUN|16|48|002|5|Abanto y Ciérvana-Abanto Zierbena|</item>
         <item>MUN|16|48|911|9|Ajangiz|</item>
@@ -7991,7 +7991,7 @@
     </string-array>
 
     <!--49 Zamora-->
-    <string-array name="spain_villages_49">
+    <string-array name="spain_villages_49" tools:keep="@array/spain_villages_49">
         <item>MUN|07|49|002|8|Abezames|</item>
         <item>MUN|07|49|003|4|Alcañices|</item>
         <item>MUN|07|49|004|9|Alcubilla de Nogales|</item>
@@ -8243,7 +8243,7 @@
     </string-array>
 
     <!--50 Zaragoza-->
-    <string-array name="spain_villages_50">
+    <string-array name="spain_villages_50" tools:keep="@array/spain_villages_50">
         <item>MUN|02|50|001|6|Abanto|</item>
         <item>MUN|02|50|002|1|Acered|</item>
         <item>MUN|02|50|003|7|Agón|</item>
@@ -8540,12 +8540,12 @@
     </string-array>
 
     <!--51 Ceuta-->
-    <string-array name="spain_villages_51">
+    <string-array name="spain_villages_51" tools:keep="@array/spain_villages_51">
         <item>MUN|18|51|001|3|Ceuta|</item>
     </string-array>
 
     <!--52 Melilla-->
-    <string-array name="spain_villages_52">
+    <string-array name="spain_villages_52" tools:keep="@array/spain_villages_52">
         <item>MUN|19|52|001|8|Melilla|</item>
     </string-array>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="bt_ACTION_OK">aceptar</string>
     <string name="bt_ACTION_OPEN">abrir</string>
@@ -8,8 +8,8 @@
     <string name="bt_ACTION_YES">si</string>
     <string name="bt_ACTION_NOT">no</string>
     <string name="bt_ACTION_SAVE">guardar</string>
-    <string name="bt_ACTION_DISCARD">descartar</string>
-    <string name="bt_ACTION_IGNORE">ignorar</string>
+    <string name="bt_ACTION_DISCARD" tools:keep="@string/bt_ACTION_DISCARD">descartar</string>
+    <string name="bt_ACTION_IGNORE" tools:keep="@string/bt_ACTION_IGNORE">ignorar</string>
 
     <style name="bt_buttons_set">
         <item name="android:textColor">?attr/dialogs_foo_text_color</item>

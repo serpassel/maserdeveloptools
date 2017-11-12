@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string-array name="day_of_week_sort_name">
         <item>L</item>
         <item>M</item>
@@ -15,10 +15,10 @@
     <!--MonthDay Color-->
     <color name="calendar_normal_background">@color/bt_white</color>
     <color name="calendar_weekend_background">#efebe9</color>
-    <color name="calendar_normal_text">#263238</color>
-    <color name="calendar_holiday_text">#c62828</color>
-    <color name="calendar_other_holiday_text">#039be5</color>
-    <color name="calendar_other_month_text">#bdbdbd</color>
+    <color name="calendar_normal_text" tools:keep="@color/calendar_normal_text">#263238</color>
+    <color name="calendar_holiday_text" tools:keep="@color/calendar_holiday_text">#c62828</color>
+    <color name="calendar_other_holiday_text" tools:keep="@color/calendar_other_holiday_text">#039be5</color>
+    <color name="calendar_other_month_text" tools:keep="@color/calendar_other_month_text">#bdbdbd</color>
 
     <!--Head date-->
     <dimen name="calendar_month_year_text_size">17sp</dimen>
@@ -35,7 +35,7 @@
     </string-array-->
 
     <!--FESTIVOS 2018-->
-    <string-array name="national_holidays_2018">
+    <string-array name="national_holidays_2018" tools:keep="@array/national_holidays_2018">
         <item>01012018</item>
         <item>06012018</item>
         <item>30032018</item>
@@ -48,7 +48,7 @@
         <item>25122018</item>
      </string-array>
 
-    <string-array name="autonomy_holidays_2018">
+    <string-array name="autonomy_holidays_2018" tools:keep="@array/autonomy_holidays_2018">
         <item>28022018</item>
         <item>01032018</item>
         <item>19032018</item>
@@ -70,7 +70,7 @@
         <item>26122018</item>
     </string-array>
 
-    <string-array  name="text_holidays_2018">
+    <string-array  name="text_holidays_2018" tools:keep="@array/text_holidays_2018">
         <item>ANDALUCIA;</item>
         <item>ISLAS BALEARES;</item>
         <item>VALENCIA;MURCIA;</item>
@@ -92,7 +92,7 @@
         <item>CATALUÑA;</item>
     </string-array>
     <!--FESTIVOS 2017-->
-    <string-array name="national_holidays_2017">
+    <string-array name="national_holidays_2017" tools:keep="@array/national_holidays_2017">
         <item>06012017</item>
         <item>14042017</item>
         <item>01052017</item>
@@ -104,7 +104,7 @@
         <item>25122017</item>
     </string-array>
 
-    <string-array name="autonomy_holidays_2017">
+    <string-array name="autonomy_holidays_2017" tools:keep="@array/autonomy_holidays_2017">
         <item>02012017</item>
         <item>28022017</item>
         <item>01032017</item>
@@ -128,7 +128,7 @@
         <item>26122017</item>
     </string-array>
 
-    <string-array  name="text_holidays_2017">
+    <string-array  name="text_holidays_2017" tools:keep="@array/text_holidays_2017">
         <item>ANDALUCIA;ARAGON;ASTURIAS;CASTILLA Y LEON;MURCIA;MELILLA;</item>
         <item>ANDALUCIA;</item>
         <item>ISLAS BALEARES;</item>
@@ -152,7 +152,7 @@
         <item>CATALUÑA;</item>
     </string-array>
     <!--FESTIVOS 2016-->
-    <string-array name="national_holidays_2016">
+    <string-array name="national_holidays_2016" tools:keep="@array/national_holidays_2016">
         <item>01012016</item>
         <item>06012016</item>
         <item>25032016</item>
@@ -163,7 +163,7 @@
         <item>08122016</item>
     </string-array>
 
-    <string-array name="autonomy_holidays_2016">
+    <string-array name="autonomy_holidays_2016" tools:keep="@array/autonomy_holidays_2016">
         <item>29022016</item>
         <item>01032016</item>
         <item>19032016</item>
@@ -188,7 +188,7 @@
         <item>26122016</item>
     </string-array>
 
-    <string-array  name="text_holidays_2016">
+    <string-array  name="text_holidays_2016" tools:keep="@array/text_holidays_2016">
         <item>ANDALUCIA;</item>
         <item>ISLAS BALEARES;</item>
         <item>VALENCIA;MURCIA;MELILLA;</item>
@@ -213,7 +213,7 @@
         <item>ANDALUCIA;ARAGON;ASTURIAS;ISLAS BALEARES;CANTABRIA;CASTILLA-LA MANCHA;CASTILLA Y LEON;CATALUÑA;VALENCIA;EXTREMADURA;MADRID;MURCIA;NAVARRA;CEUTA;MELILLA;</item>
     </string-array>
     <!--FESTIVOS 2015-->
-    <string-array name="national_holidays_2015">
+    <string-array name="national_holidays_2015" tools:keep="@array/national_holidays_2015">
         <item>01012015</item>
         <item>06012015</item>
         <item>03042015</item>
@@ -224,7 +224,7 @@
         <item>25122015</item>
     </string-array>
 
-    <string-array name="autonomy_holidays_2015">
+    <string-array name="autonomy_holidays_2015" tools:keep="@array/autonomy_holidays_2015">
         <item>28022015</item>
         <item>19032015</item>
         <item>20032015</item>
@@ -248,7 +248,7 @@
         <item>25122015</item>
     </string-array>
 
-    <string-array  name="text_holidays_2015">
+    <string-array  name="text_holidays_2015" tools:keep="@array/text_holidays_2015">
         <item>ANDALUCIA;</item>
         <item>VALENCIA;MADRID;MURCIA;NAVARRA;PAIS VASCO;MELILLA;</item>
         <item>GALICIA;</item>

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="bt_wrong_color_red_500">#f44336</color>
-    <color name="bt_right_color_teal_500">#009688</color>
-    <color name="bt_warning_color_amber_500">#ffc107</color>
+    <color name="bt_right_color_teal_500" tools:keep="@color/bt_right_color_teal_500">#009688</color>
+    <color name="bt_warning_color_amber_500" tools:keep="@color/bt_warning_color_amber_500">#ffc107</color>
     <color name="bt_transparent">#00000000</color>
 
-    <color name="bt_black">#000000</color>
+    <color name="bt_black" tools:keep="@color/bt_black">#000000</color>
     <color name="bt_white">#FFFFFF</color>
 
     <!--Material Desing 700-->
     <color name="bt_view_selected_color">#80f8bbd0</color>
     <!--Material Desing 700-->
-    <color name="bt_view_pressed_color">#33607d8b</color>
+    <color name="bt_view_pressed_color" tools:keep="@color/bt_view_pressed_color">#33607d8b</color>
     <!--Material Desing 700-->
-    <color name="bt_view_default_color">@color/bt_transparent</color>
+    <color name="bt_view_default_color" tools:keep="@color/bt_view_default_color">@color/bt_transparent</color>
 
 
     <!--Material Desing 700-->
@@ -27,7 +27,7 @@
     <color name="bt_error_color_light">#ffebee</color>
     <color name="bt_information_color_light">#e8f5e9</color>
     <color name="bt_warning_color_light">#fff8e1</color>
-    <color name="bt_question_color_light">#f3e5f5</color>
+    <color name="bt_question_color_light" tools:keep="@color/bt_question_color_light">#f3e5f5</color>
 
 
     <!--OPACITY-->

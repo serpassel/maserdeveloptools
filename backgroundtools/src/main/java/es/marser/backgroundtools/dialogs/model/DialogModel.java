@@ -6,7 +6,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.tools.BooleanTools;
 
 
 /**
@@ -25,6 +24,9 @@ public class DialogModel implements Parcelable {
     public final ObservableField<DialogIcon> icon = new ObservableField<>();//Icono del título [EN]  Title Icon
     public final ObservableBoolean key = new ObservableBoolean(false); //Clave de reiteración [EN]  Repeat Key
     public final ObservableField<String> keyname = new ObservableField<>("");//Nombre de la clave de reiteración [EN]  Name of the reiteration key
+
+    public DialogModel() {
+    }
 
     protected DialogModel(Parcel in) {
         title.set(in.readString());

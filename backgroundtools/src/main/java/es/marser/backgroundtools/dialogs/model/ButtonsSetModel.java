@@ -19,6 +19,9 @@ public class ButtonsSetModel implements Parcelable {
     public final ObservableField<String> cancel_name = new ObservableField<>();//Texto del cuerpo [EN]  Body text
     public final ObservableField<String> option_name = new ObservableField<>();//Nombre de la clave de reiteración [EN]  Name of the reiteration key
 
+    public ButtonsSetModel() {
+    }
+
     protected ButtonsSetModel(Parcel in) {
         ok_name.set(in.readString());
         cancel_name.set(in.readString());

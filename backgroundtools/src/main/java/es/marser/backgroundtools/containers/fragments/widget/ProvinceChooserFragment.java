@@ -1,9 +1,7 @@
 package es.marser.backgroundtools.containers.fragments.widget;
 
 import android.os.Bundle;
-import android.util.Log;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinList;
 import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
@@ -19,6 +17,7 @@ import es.marser.generic.GenericFactory;
  *         [EN]  Fragment of selection of provinces
  */
 
+@SuppressWarnings("unused")
 public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel> {
 
 

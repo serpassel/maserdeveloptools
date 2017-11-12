@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <dimen name="nav_top_dimen">@dimen/m_padding</dimen>
     <color name="nav_head_tint">@color/colorPrimaryDark</color>
@@ -35,7 +35,7 @@
     <string name="item_14">Confirmación con llave</string>
 
     <!--MENU GRUPO 4-->
-    <string name="group_chooser">Selectores</string>
+    <string name="group_chooser" tools:keep="@string/group_chooser">Selectores</string>
 
     <string name="item_15">Selector de archivos</string>
     <string name="item_16">Selector de fechas</string>

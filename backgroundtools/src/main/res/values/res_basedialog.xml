@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!--HEAD-->
     <dimen name="bt_image_dimen">23dp</dimen>
@@ -8,8 +8,8 @@
 
     <!--BODY-->
     <integer name="bt_limit_text">30</integer>
-    <string name="bt_progress">PROGRESO: </string>
-    <string name="bt_char">/</string>
+    <string name="bt_progress" tools:keep="@string/bt_progress">PROGRESO: </string>
+    <string name="bt_char" tools:keep="@string/bt_char">/</string>
 
     <!--Subtítulos-->
     <string name="bt_multiple_selection">Selección multiple</string>

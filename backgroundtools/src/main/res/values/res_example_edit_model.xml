@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="bt_example_edit_model_name_hint_text">Título</string>
-    <string name="bt_example_edit_model_subname_hint_text">SubTítulo</string>
-    <string name="bt_edition">Edición</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="bt_example_edit_model_name_hint_text" tools:keep="@string/bt_example_edit_model_name_hint_text">Título</string>
+    <string name="bt_example_edit_model_subname_hint_text" tools:keep="@string/bt_example_edit_model_subname_hint_text">SubTítulo</string>
+    <string name="bt_edition" tools:keep="@string/bt_edition">Edición</string>
 </resources>

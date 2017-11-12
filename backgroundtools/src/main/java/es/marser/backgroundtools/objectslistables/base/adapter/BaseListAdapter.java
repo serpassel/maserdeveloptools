@@ -6,15 +6,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import es.marser.LOG_TAG;
-import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
@@ -55,7 +50,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  * @see OnItemChangedListener
  */
 
-@SuppressWarnings({"SameReturnValue", "unused"})
+@SuppressWarnings({"SameReturnValue", "unused", "EmptyMethod"})
 public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewHolder<T>>
         extends
         RecyclerView.Adapter<VH>
@@ -87,11 +82,36 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+        if (globalController != null) {
+            globalController.onSaveInstanceState(savedInstanceState);
+
+            /*Listeners*/
+            globalController.removeViewItemHandler();
+            globalController.removeAdapterNotifier();
+        }
     }
 
-
-
+    /**
+     * Called when all saved state has been restored into the view hierarchy
+     * of the fragment.  This can be used to do initialization based on saved
+     * state that you are letting the view hierarchy track itself, such as
+     * whether check box widgets are currently checked.  This is called
+     * after {@link #onActivityCreated(Bundle)} and before
+     * {@link #onStart()}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (globalController != null) {
+            if (savedInstanceState != null) {
+                globalController.onSaveInstanceState(savedInstanceState);
+            }
+
+            /*Listeners*/
+            globalController.setChangedListener(this);
+            globalController.setViewItemHandler(getItemHandler());
+        }
     }
 
 

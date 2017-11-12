@@ -25,6 +25,7 @@ import es.marser.tools.TextTools;
  *         </ul>
  */
 
+@SuppressWarnings("unused")
 public class ResourcesAccess {
 
     //GENERAL_______________________________________________________________________________________
