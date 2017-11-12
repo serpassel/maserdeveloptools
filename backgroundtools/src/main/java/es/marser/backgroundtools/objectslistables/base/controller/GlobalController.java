@@ -13,6 +13,7 @@ import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -32,9 +33,11 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     /*Oyente de cambios en la lista [EN]  Listener of changes in the list*/
     protected AdapterNotifier adapterNotifier;
 
+    public static String itemskey = "items_key";
+    public static String itemscountkey = "items_count_key";
     public int viewHolderType;
 
-    public GlobalController(int viewHolderType){
+    public GlobalController(int viewHolderType) {
         this.viewHolderType = viewHolderType;
 
          /*Nueva instancia de controladores [EN]  New controller instance*/
@@ -71,15 +74,23 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-      if(savedInstanceState != null) {
-          //Selection
-          selectionController.onSaveInstanceState(savedInstanceState, String.valueOf(viewHolderType));
-          selectionController.removedOnSelectionChanged();
-          //Expanded
-          expandController.onSaveInstanceState(savedInstanceState, String.valueOf(viewHolderType));
 
-          //ArrayList
-      }
+        //Selection
+        if (selectionController != null) {
+            selectionController.onSaveInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+            selectionController.removedOnSelectionChanged();
+        }
+
+        //Expanded
+        expandController.onSaveInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+
+        //ArrayList
+        if (savedInstanceState != null) {
+            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, getItemCount());
+            if (arrayListController != null && getItemCount() > 0) {
+                savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, arrayListController);
+            }
+        }
     }
 
     /**
@@ -94,15 +105,47 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+
         //Selection
-        selectionController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+        if (selectionController != null) {
+            selectionController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+        } else {
+            selectionController = new SelectionController<>(
+                    arrayListController,
+                    ListExtra.SINGLE_SELECTION_MODE);
+        }
         selectionController.setOnSelectionChanged(this);
+
         //Expanded
-        expandController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+        if (expandController != null) {
+            expandController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
+        } else {
+            expandController = new ExpandController();
+        }
+        expandController.setOnSelectionChanged(this);
 
         //ArrayList
-    }
+        if (savedInstanceState != null
+                && arrayListController != null
+                && arrayListController.size() > 0
+                && savedInstanceState.getInt(TextTools.nc(viewHolderType) + itemscountkey, 0) > 0) {
 
+            try {
+                arrayListController = (ArrayListController<T>) savedInstanceState
+                        .getParcelableArrayList(TextTools.nc(viewHolderType) + itemskey);
+            } catch (ClassCastException e) {
+                arrayListController = new ArrayListController<>();
+            }
+        }
+
+        if (arrayListController == null) {
+            arrayListController = new ArrayListController<>();
+        }
+
+        arrayListController.setOnChangedListListener(this);
+
+        adapterNotifier.notifyDataSetChanged(viewHolderType);
+    }
 
     public GlobalController() {
         this(ViewHolderType.SIMPLE.ordinal());
@@ -116,7 +159,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * @return [EN]  Total number of records
      */
     public int getItemCount() {
-        return arrayListController.size();
+        return arrayListController != null ? arrayListController.size() : 0;
     }
     //SET LISTENERS________________________________________________________________________________
 
@@ -167,7 +210,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public void setSelected(int position, boolean value) {
-        selectionController.setSelected(adapterNotifier.indexPos(position,viewHolderType), value);
+        selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
     }
 
 

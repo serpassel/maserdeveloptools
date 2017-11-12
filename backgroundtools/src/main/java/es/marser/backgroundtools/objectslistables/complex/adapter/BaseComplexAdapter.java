@@ -57,6 +57,7 @@ public abstract class BaseComplexAdapter<
         extends RecyclerView.Adapter<BaseViewHolder>
         implements ExpandCollapseListener, ComplexViewHolderController<X, T> {
 
+    private static final String EXPAND_STATE_MAP = "expandable_recyclerview_adapter_expand_state_map";
 
     /*Variables de Elementos [EN]  Element Variables*/
     protected List<X> groups;
@@ -80,32 +81,41 @@ public abstract class BaseComplexAdapter<
     }
 
     //SAVED AND RESTORE_____________________________________________________________
+    /**
+     * Stores the expanded state map across state loss.
+     * <p>
+     * Should be called from whatever {@link Activity} that hosts the RecyclerView that {@link
+     * ExpandableRecyclerViewAdapter} is attached to.
+     * <p>
+     * This will make sure to add the expanded state map as an extra to the
+     * instance state bundle to be used in {@link #onRestoreInstanceState(Bundle)}.
+     *
+     * @param savedInstanceState The {@code Bundle} into which to store the
+     * expanded state map
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        //savedInstanceState.putBooleanArray(EXPAND_STATE_MAP, expandableList.expandedGroupIndexes);
+    }
 
     /**
-     * Called to ask the fragment to save its current dynamic state, so it
-     * can later be reconstructed in a new instance of its process is
-     * restarted.  If a new instance of the fragment later needs to be
-     * created, the data you place in the Bundle here will be available
-     * in the Bundle given to {@link #onCreate(Bundle)},
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
-     * {@link #onActivityCreated(Bundle)}.
+     * Fetches the expandable state map from the saved instance state {@link Bundle}
+     * and restores the expanded states of all of the list items.
      * <p>
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
-     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
-     * applies here as well.  Note however: <em>this method may be called
-     * at any time before {@link #onDestroy()}</em>.  There are many situations
-     * where a fragment may be mostly torn down (such as when placed on the
-     * back stack with no UI showing), but its state will not be saved until
-     * its owning activity actually needs to save its state.
+     * Should be called from {@link Activity#onRestoreInstanceState(Bundle)}  in
+     * the {@link Activity} that hosts the RecyclerView that this
+     * {@link ExpandableRecyclerViewAdapter} is attached to.
+     * <p>
+     *
+     * @param savedInstanceState The {@code Bundle} from which the expanded
+     * state map is loaded
      */
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        if (savedInstanceState == null || !savedInstanceState.containsKey(EXPAND_STATE_MAP)) {
+            return;
+        }
+       // expandableList.expandedGroupIndexes = savedInstanceState.getBooleanArray(EXPAND_STATE_MAP);
+        notifyDataSetChanged();
     }
-
-
-
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-    }
-
 
     //ACTION EVENTS_______________________________________________________________________________________________
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/

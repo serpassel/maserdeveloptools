@@ -173,7 +173,7 @@ public class TextTools {
      * @return "" si el objeto es nulo o in.toString() [EN] if the object is null or in.toString ()
      */
     public static String nc(Object in) {
-        return in != null ? in.toString() : "";
+        return in != null ? String.valueOf(in) : "";
     }
 
     /**
