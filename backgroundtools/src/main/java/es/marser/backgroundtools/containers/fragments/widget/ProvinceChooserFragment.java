@@ -84,7 +84,7 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
-                Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
+               //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
                 addItem(item);
                 setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
             }

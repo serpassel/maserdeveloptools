@@ -1,5 +1,6 @@
 package es.marser.backgroundtools.dialogs.bases;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import es.marser.backgroundtools.objectslistables.table.adapter.TableListAdapter
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class BaseDialogBinTable<H,B> extends BaseDialogList {
+public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelable> extends BaseDialogList {
 
     protected TableListAdapter<H,B> adapter;
 
@@ -89,8 +90,16 @@ public abstract class BaseDialogBinTable<H,B> extends BaseDialogList {
     }
 
     //SUPERCLASS OVERWRITING________________________________________________________________________
+
+
+    /**
+     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
+     * <p>
+     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
+     */
     @Override
-    protected void bindAdapter() {
+    protected void preBuild() {
+        super.preBuild();
         adapter = new TableListAdapter<H, B>() {
             @Override
             public int getHeadHolderLayout() {
@@ -122,6 +131,10 @@ public abstract class BaseDialogBinTable<H,B> extends BaseDialogList {
                 return BaseDialogBinTable.this.getBodyTouchableViewHandler();
             }
         };
+    }
+
+    @Override
+    protected void bindAdapter() {
         recyclerView.setAdapter(adapter);
 
         adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());

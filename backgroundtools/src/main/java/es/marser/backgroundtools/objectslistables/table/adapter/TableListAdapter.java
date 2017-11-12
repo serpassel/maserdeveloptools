@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.objectslistables.table.adapter;
 
 import android.databinding.ViewDataBinding;
+import android.os.Parcelable;
 import android.util.SparseIntArray;
 
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
@@ -22,7 +23,8 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class TableListAdapter<H, B> extends BaseListAdapter {
+public abstract class TableListAdapter<H extends Parcelable, B extends Parcelable>
+        extends BaseListAdapter {
 
     /*Controlador de cabecera [EN]  Header controller*/
     public GlobalController<H> hGlobalController;

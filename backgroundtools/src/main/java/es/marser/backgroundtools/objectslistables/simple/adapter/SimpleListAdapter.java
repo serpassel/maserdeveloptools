@@ -1,8 +1,15 @@
 package es.marser.backgroundtools.objectslistables.simple.adapter;
 
 import android.databinding.ViewDataBinding;
+import android.os.Parcelable;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import es.marser.LOG_TAG;
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
@@ -13,7 +20,32 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  *         Created by sergio on 1/11/17.
  */
 
-public abstract class SimpleListAdapter<T> extends BaseListAdapter<T, ViewHolderBinding<T>> {
+public abstract class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, ViewHolderBinding<T>> {
+
+    //SAVED AND RESTORE_____________________________________________________________
+
+
+
+    //ANIMATIONS_____________________________________________________________________
+
+    /**
+     * Called when a view created by this adapter has been attached to a window.
+     * <p>
+     * <p>This can be used as a reasonable signal that the view is about to be seen
+     * by the user. If the adapter previously freed any resources in
+     * {@link #onViewDetachedFromWindow(RecyclerView.ViewHolder) onViewDetachedFromWindow}
+     * those resources should be restored here.</p>
+     *
+     * @param holder Holder of the view being attached
+     */
+    @Override
+    public void onViewAttachedToWindow(ViewHolderBinding<T> holder) {
+        Log.i(LOG_TAG.TAG, "VENTANA");
+        Animation animation = AnimationUtils.loadAnimation(holder.getItemView().getContext(), R.anim.hide_lateral);
+        holder.getItemView().setAnimation(animation);
+        super.onViewAttachedToWindow(holder);
+    }
+
     /**
      * Vista del item
      * <p>

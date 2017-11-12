@@ -2,11 +2,19 @@ package es.marser.backgroundtools.objectslistables.base.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import es.marser.LOG_TAG;
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
@@ -48,7 +56,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
+public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewHolder<T>>
         extends
         RecyclerView.Adapter<VH>
         implements
@@ -58,6 +66,35 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
 
     public GlobalController<T> globalController;
 
+
+//SAVED AND RESTORE_____________________________________________________________
+
+    /**
+     * Called to ask the fragment to save its current dynamic state, so it
+     * can later be reconstructed in a new instance of its process is
+     * restarted.  If a new instance of the fragment later needs to be
+     * created, the data you place in the Bundle here will be available
+     * in the Bundle given to {@link #onCreate(Bundle)},
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
+     * {@link #onActivityCreated(Bundle)}.
+     * <p>
+     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
+     * applies here as well.  Note however: <em>this method may be called
+     * at any time before {@link #onDestroy()}</em>.  There are many situations
+     * where a fragment may be mostly torn down (such as when placed on the
+     * back stack with no UI showing), but its state will not be saved until
+     * its owning activity actually needs to save its state.
+     */
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+    }
+
+
+
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+    }
+
+
     //CONSTRUCTORS____________________________________________________________________________________________
     public BaseListAdapter() {
 
@@ -65,9 +102,8 @@ public abstract class BaseListAdapter<T, VH extends BaseViewHolder<T>>
 
         globalController.setChangedListener(this);
         globalController.setViewItemHandler(getItemHandler());
-
-        SparseIntArray sparseIntArray = new SparseIntArray();
     }
+
 
     //ACTION EVENTS_______________________________________________________________________________________________
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/

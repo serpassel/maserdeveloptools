@@ -48,8 +48,6 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
     protected FragmentAction fragmentAction;
 
     //ARGUMENTS________________________________________________________________________________________
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

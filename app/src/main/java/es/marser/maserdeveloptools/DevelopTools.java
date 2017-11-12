@@ -24,8 +24,10 @@ public class DevelopTools extends BaseActivityFragment{
     @Override
     protected BaseFragment instanceFragment() {
        return ProvinceChooserFragment.newInstance();
-       // return CalendarChooserFragment.newInstance();
+      //  return CalendarChooserFragment.newInstance();
     }
+
+
 
     @Override
     protected void onStart() {

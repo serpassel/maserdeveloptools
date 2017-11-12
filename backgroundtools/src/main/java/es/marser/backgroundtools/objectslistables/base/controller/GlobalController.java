@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.os.AsyncTask;
+import android.os.Parcelable;
 
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -18,7 +19,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  */
 
 @SuppressWarnings("unused")
-public class GlobalController<T> implements ViewHolderController<T>, OnItemChangedListener {
+public class GlobalController<T extends Parcelable> implements ViewHolderController<T>, OnItemChangedListener {
     /*Variables de control [EN]  Control variables*/
     public SelectionController<T> selectionController;
     public ArrayListController<T> arrayListController;

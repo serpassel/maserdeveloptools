@@ -1,5 +1,6 @@
 package es.marser.backgroundtools.dialogs.bases;
 
+import android.os.Parcelable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseDialogBinList<T>
+public abstract class BaseDialogBinList<T extends Parcelable>
         extends BaseDialogList
         implements
         TouchableViewHandler<T>,
@@ -43,8 +44,14 @@ public abstract class BaseDialogBinList<T>
      */
     protected abstract int getHolderLayout();
 
+    /**
+     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
+     * <p>
+     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
+     */
     @Override
-    protected void bindAdapter() {
+    protected void preBuild() {
+        super.preBuild();
         adapter = new SimpleListAdapter<T>() {
 
             @Override
@@ -62,9 +69,11 @@ public abstract class BaseDialogBinList<T>
                 return BaseDialogBinList.this.getHolderLayout();
             }
         };
+    }
 
+    @Override
+    protected void bindAdapter() {
         recyclerView.setAdapter(adapter);
-
         adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
     }
 
