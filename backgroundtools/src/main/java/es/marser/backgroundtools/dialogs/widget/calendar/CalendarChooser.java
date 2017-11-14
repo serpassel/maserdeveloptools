@@ -23,6 +23,7 @@ import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -291,19 +292,39 @@ public class CalendarChooser
     @Override
     public void onClick(View view, Void item) {
         if (view.getId() == R.id.id_calendar_sum_month) {
-            sumDateValues(Calendar.MONTH, 1);
+            nextMonth();
         } else if (view.getId() == R.id.id_calendar_subtract_month) {
-            sumDateValues(Calendar.MONTH, -1);
+            previousMonth();
         } else if (view.getId() == R.id.id_calendar_sum_year) {
-            sumDateValues(Calendar.YEAR, 1);
+            nextYear();
         } else if (view.getId() == R.id.id_calendar_subtract_year) {
-            sumDateValues(Calendar.YEAR, -1);
+            previousYear();
         }
     }
 
     @Override
     public boolean onLongClick(View view, Void item) {
         return false;
+    }
+
+    /*{@link es.marser.backgroundtools.systemtools.events.SimpleGestureFilter.SimpleGestureListener}*/
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+        super.onSwipe(eventsExtras);
+        switch (eventsExtras){
+            case SWIPE_UP:
+                nextYear();
+                break;
+            case SWIPE_DOWN:
+                previousYear();
+                break;
+            case SWIPE_LEFT:
+                previousMonth();
+                break;
+            case SWIPE_RIGHT:
+                nextMonth();
+                break;
+        }
     }
 
     /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
@@ -316,12 +337,12 @@ public class CalendarChooser
     @Override
     public boolean onLongClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         changedDate(item.getCalendar());
-        if(item.isOtherholiday()){
+        if (item.isOtherholiday()) {
             String list = ResourcesAccess.getHolidayText(getContext(), item.getCalendar());
 
-            if(!TextTools.isEmpty(list)){
+            if (!TextTools.isEmpty(list)) {
                 String title = "Día festivo en, ";
-              list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
+                list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
                 NotificationDialogBinModel dialog =
                         NotificationDialogBinModel.newInstance(
                                 context,
@@ -332,6 +353,24 @@ public class CalendarChooser
         }
 
         return true;
+    }
+
+    //CALC_________________________________________________________________________________
+
+    private void nextMonth() {
+        sumDateValues(Calendar.MONTH, 1);
+    }
+
+    private void previousMonth() {
+        sumDateValues(Calendar.MONTH, -1);
+    }
+
+    private void nextYear() {
+        sumDateValues(Calendar.YEAR, 1);
+    }
+
+    private void previousYear() {
+        sumDateValues(Calendar.YEAR, -1);
     }
 
     /**

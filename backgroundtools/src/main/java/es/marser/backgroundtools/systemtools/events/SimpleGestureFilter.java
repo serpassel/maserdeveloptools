@@ -161,7 +161,9 @@ public class SimpleGestureFilter extends GestureDetector.SimpleOnGestureListener
 
         if (this.mode == MODE_DYNAMIC) {        // we owe an ACTION_UP, so we fake an
             arg0.setAction(ACTION_FAKE);      //action which will be converted to an ACTION_UP later.
-            this.context.dispatchTouchEvent(arg0);
+            if (this.context != null) {
+                this.context.dispatchTouchEvent(arg0);
+            }
         }
         return false;
     }

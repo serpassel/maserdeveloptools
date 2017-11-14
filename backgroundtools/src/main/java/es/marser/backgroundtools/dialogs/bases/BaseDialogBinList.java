@@ -44,14 +44,8 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     protected abstract int getHolderLayout();
 
-    /**
-     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
-     * <p>
-     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
-     */
     @Override
-    protected void preBuild() {
-        super.preBuild();
+    protected void bindAdapter() {
         adapter = new SimpleListAdapter<T>() {
 
             @Override
@@ -69,10 +63,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
                 return BaseDialogBinList.this.getHolderLayout();
             }
         };
-    }
 
-    @Override
-    protected void bindAdapter() {
         recyclerView.setAdapter(adapter);
         adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
     }

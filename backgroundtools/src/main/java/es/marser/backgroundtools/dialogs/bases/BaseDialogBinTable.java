@@ -91,15 +91,8 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
 
     //SUPERCLASS OVERWRITING________________________________________________________________________
 
-
-    /**
-     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
-     * <p>
-     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
-     */
     @Override
-    protected void preBuild() {
-        super.preBuild();
+    protected void bindAdapter() {
         adapter = new TableListAdapter<H, B>() {
             @Override
             public int getHeadHolderLayout() {
@@ -131,10 +124,8 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
                 return BaseDialogBinTable.this.getBodyTouchableViewHandler();
             }
         };
-    }
 
-    @Override
-    protected void bindAdapter() {
+
         recyclerView.setAdapter(adapter);
 
         adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
