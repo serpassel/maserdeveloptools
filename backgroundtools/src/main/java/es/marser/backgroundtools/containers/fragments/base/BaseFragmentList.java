@@ -1,9 +1,16 @@
 package es.marser.backgroundtools.containers.fragments.base;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 
@@ -22,15 +29,74 @@ public abstract class BaseFragmentList extends BaseFragment {
 
     protected Integer lastScroll;
 
+    public BaseFragmentList() {
+        super();
+    }
 
-     /*Vistas de componentes [EN]  Component views*/
+    /*Arranque [EN]  start*/
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    //    Log.i(LOG_TAG.TAG, "onCreateView");
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
+
+    /**
+     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * has returned, but before any saved state has been restored in to the view.
+     * This gives subclasses a chance to initialize themselves once
+     * they know their view hierarchy has been completely created.  The fragment's
+     * view hierarchy is not however attached to its parent at this point.
+     *
+     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     */
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+     //   Log.i(LOG_TAG.TAG, "onViewCreated");
+
+    }
+
+    /**
+     * Called when the fragment's activity has been created and this
+     * fragment's view hierarchy instantiated.  It can be used to do final
+     * initialization once these pieces are in place, such as retrieving
+     * views or restoring state.  It is also useful for fragments that use
+     * {@link #setRetainInstance(boolean)} to retain their instance,
+     * as this callback tells the fragment when it is fully associated with
+     * the new activity instance.  This is called after {@link #onCreateView}
+     * and before {@link #onViewStateRestored(Bundle)}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        Log.i(LOG_TAG.TAG, "onActivityCreated");
+        lastScroll = null;
+
+        Log.w(LOG_TAG.TAG, "RecyclerView nula:  " + (recyclerView == null));
+
+        if (recyclerView == null) {
+
+            recyclerView = getActivity().findViewById(getRecyclerviewId());
+            recyclerView.setHasFixedSize(hasFixedSize());
+            recyclerView.setLayoutManager(getLayoutManager());
+        }
+        bindAdapter();
+    }
+
+    /*Vistas de componentes [EN]  Component views*/
 
     /**
      * Definición de la vista del recyclerview
      * <p>
      * [EN]  Definition of the view of recyclerview
      *
-     * @return R.id.xxxxxx, por defecto {@link R.id#com_recyclerview} [EN]  default {@link R.id#com_recyclerview}
+     * @return R.id.xxxxxx, por defecto {@link R.id#id_recyclerview} [EN]  default {@link R.id#id_recyclerview}
      */
     protected int getRecyclerviewId() {
         return R.id.id_recyclerview;
@@ -81,18 +147,10 @@ public abstract class BaseFragmentList extends BaseFragment {
         return ListExtra.SINGLE_SELECTION_MODE;
     }
 
-    @Override
-    protected void initActivityCreated() {
-        lastScroll = null;
-        recyclerView = getActivity().findViewById(getRecyclerviewId());
-        recyclerView.setHasFixedSize(hasFixedSize());
-        recyclerView.setLayoutManager(getLayoutManager());
-        bindAdapter();
-    }
 
     /**
      * Enlazar el adapter con la lista {@link RecyclerView}, y oyentes del adapter,
-     * el método es llamado tras definir la lista {@link RecyclerView} en el método {@link BaseFragment#initActivityCreated()}
+     * el método es llamado tras definir la lista {@link RecyclerView} en el método {@link #onActivityCreated(Bundle)} )}
      * <p>
      * [EN] Link the adapter with the list {@link RecyclerView}, and listeners of the adapter
      * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},

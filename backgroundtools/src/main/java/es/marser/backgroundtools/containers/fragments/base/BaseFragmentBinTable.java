@@ -3,12 +3,14 @@ package es.marser.backgroundtools.containers.fragments.base;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
@@ -26,9 +28,14 @@ import es.marser.backgroundtools.objectslistables.table.adapter.TableListAdapter
  */
 
 @SuppressWarnings({"unused", "SameReturnValue"})
-public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parcelable> extends BaseFragmentList {
+public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parcelable>
+        extends BaseFragmentList {
 
     protected TableListAdapter<H, B> adapter;
+
+    public BaseFragmentBinTable() {
+        super();
+    }
 
     //SAVED AND RESTORE_________________________________________________________________________________
 
@@ -53,7 +60,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        adapter.onSaveInstanceState(outState);
+        //  adapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -71,54 +78,13 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        adapter.onRestoreInstanceState(savedInstanceState);
+        //adapter.onRestoreInstanceState(savedInstanceState);
     }
 
     //OBLIGATORY OVERWRITING___________________________________________________________________________
     public abstract int getHeadHolderLayout();
 
     public abstract int getBodyHolderLayout();
-
-    /**
-     * Instanciar variables {@link #onCreate(Bundle)}
-     * <p>
-     * [EN]  Instanciar variables
-     */
-    @Override
-    protected void instanceVariables() {
-        adapter = new TableListAdapter<H, B>() {
-            @Override
-            public int getHeadHolderLayout() {
-                return BaseFragmentBinTable.this.getHeadHolderLayout();
-            }
-
-            @Override
-            public int getBodyHolderLayout() {
-                return BaseFragmentBinTable.this.getBodyHolderLayout();
-            }
-
-            @Override
-            public ViewItemHandler<H> getHeadItemHandler() {
-                return BaseFragmentBinTable.this.getHeadItemHandler();
-            }
-
-            @Override
-            public ViewItemHandler<B> getBodyItemHandler() {
-                return BaseFragmentBinTable.this.getBodyItemHandler();
-            }
-
-            @Override
-            public TouchableViewHandler<H> getHeadTouchableViewHandler() {
-                return BaseFragmentBinTable.this.getHeadTouchableViewHandler();
-            }
-
-            @Override
-            public TouchableViewHandler<B> getBodyTouchableViewHandler() {
-                return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
-            }
-        };
-        recyclerView.setAdapter(adapter);
-    }
 
     //OPTIONAL OVERWRITE________________________________________________________________________________
     /*Controlador de pulsaciones*/
@@ -183,8 +149,52 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
     //SUPERCLASS OVERWRITING________________________________________________________________________
     @Override
     protected void bindAdapter() {
-        adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
-        adapter.bGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
+        Log.w(LOG_TAG.TAG, "bind adapter");
+
+        Log.i(LOG_TAG.TAG, "Adaptador nulo: " + (adapter == null));
+
+        if(adapter == null) {
+            adapter = new TableListAdapter<H, B>() {
+                @Override
+                public int getHeadHolderLayout() {
+                    return BaseFragmentBinTable.this.getHeadHolderLayout();
+                }
+
+                @Override
+                public int getBodyHolderLayout() {
+                    return BaseFragmentBinTable.this.getBodyHolderLayout();
+                }
+
+                @Override
+                public ViewItemHandler<H> getHeadItemHandler() {
+                    return BaseFragmentBinTable.this.getHeadItemHandler();
+                }
+
+                @Override
+                public ViewItemHandler<B> getBodyItemHandler() {
+                    return BaseFragmentBinTable.this.getBodyItemHandler();
+                }
+
+                @Override
+                public TouchableViewHandler<H> getHeadTouchableViewHandler() {
+                    return BaseFragmentBinTable.this.getHeadTouchableViewHandler();
+                }
+
+                @Override
+                public TouchableViewHandler<B> getBodyTouchableViewHandler() {
+                    return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
+                }
+            };
+            adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
+            adapter.bGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
+        }
+
+        Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador pre-set: " + (recyclerView.getAdapter() == null));
+        if (recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(adapter);
+        }
+
+            Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador post-set: " + (recyclerView.getAdapter() == null));
     }
 
     @Override

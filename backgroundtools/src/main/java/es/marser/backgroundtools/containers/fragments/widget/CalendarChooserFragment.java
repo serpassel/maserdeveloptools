@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
@@ -55,7 +57,7 @@ public class CalendarChooserFragment
     public int getBodyHolderLayout() {
         return R.layout.mvp_item_calendar_month_day;
     }
-    
+
     @Override
     protected int getFragmentLayout() {
         return R.layout.mvp_frag_calendar_chooser;
@@ -89,8 +91,8 @@ public class CalendarChooserFragment
     }
 
     @Override
-    protected void initActivityCreated() {
-        super.initActivityCreated();
+    protected void bindAdapter() {
+        super.bindAdapter();
         getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
         loadDayWeek();
         load(null);
@@ -109,6 +111,8 @@ public class CalendarChooserFragment
      */
     private void loadDayWeek() {
 
+        getHeadGlobalController().removeAllItems();
+
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
         for (String name : names) {
@@ -116,6 +120,8 @@ public class CalendarChooserFragment
             value.day.set(name);
             getHeadGlobalController().arrayListController.add(value);
         }
+
+        Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
     }
 
     /**
@@ -209,7 +215,7 @@ public class CalendarChooserFragment
                         ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)) && !model.isHoliday()
         );
     }
-  
+
     /**
      * Cambio de selección de fecha
      * <p>

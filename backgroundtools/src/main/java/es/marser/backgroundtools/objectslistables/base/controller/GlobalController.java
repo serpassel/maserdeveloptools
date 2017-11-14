@@ -4,9 +4,11 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -35,6 +37,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     public static String itemskey = "items_key";
     public static String itemscountkey = "items_count_key";
+    public static String viewholdertypekey = "view_holder_type_key";
+
     public int viewHolderType;
 
     public GlobalController(int viewHolderType) {
@@ -74,11 +78,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-
         //Selection
         if (selectionController != null) {
             selectionController.onSaveInstanceState(savedInstanceState, String.valueOf(viewHolderType));
-            selectionController.removedOnSelectionChanged();
+            //  selectionController.removedOnSelectionChanged();
         }
 
         //Expanded
@@ -87,6 +90,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         //ArrayList
         if (savedInstanceState != null) {
             savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, getItemCount());
+
             if (arrayListController != null && getItemCount() > 0) {
                 savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, arrayListController);
             }
@@ -109,20 +113,13 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         //Selection
         if (selectionController != null) {
             selectionController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
-        } else {
-            selectionController = new SelectionController<>(
-                    arrayListController,
-                    ListExtra.SINGLE_SELECTION_MODE);
         }
-        selectionController.setOnSelectionChanged(this);
 
         //Expanded
         if (expandController != null) {
             expandController.onRestoreInstanceState(savedInstanceState, String.valueOf(viewHolderType));
-        } else {
-            expandController = new ExpandController();
         }
-        expandController.setOnSelectionChanged(this);
+        //expandController.setOnSelectionChanged(this);
 
         //ArrayList
         if (savedInstanceState != null
@@ -142,9 +139,9 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             arrayListController = new ArrayListController<>();
         }
 
-        arrayListController.setOnChangedListListener(this);
+        //arrayListController.setOnChangedListListener(this);
 
-        adapterNotifier.notifyDataSetChanged(viewHolderType);
+       // adapterNotifier.notifyDataSetChanged(viewHolderType);
     }
 
     public GlobalController() {
@@ -185,17 +182,21 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      */
     @Override
     public boolean isExpaned(int posicion) {
-        return expandController.get(adapterNotifier.indexPos(posicion, viewHolderType));
+        return expandController != null && adapterNotifier != null && expandController.get(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
     @Override
     public boolean isSelected(int posicion) {
-        return selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
+        // Log.d(LOG_TAG.TAG, "Selector nulo " + (selectionController == null));
+        // Log.d(LOG_TAG.TAG, "DialogProgressModello " + (adapterNotifier == null));
+        return selectionController != null && adapterNotifier != null && selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
     @Override
     public void onClick(BaseViewHolder<T> holder, int posicion) {
-        selectionController.onClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+        if (selectionController != null && adapterNotifier != null) {
+            selectionController.onClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+        }
     }
 
     @Override
@@ -205,11 +206,17 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public T getItemAt(int posicion) {
+        if (arrayListController == null || adapterNotifier == null) {
+            return null;
+        }
         return arrayListController.getItemAt(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
     @Override
     public void setSelected(int position, boolean value) {
+        if (selectionController == null || adapterNotifier == null) {
+            return;
+        }
         selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
     }
 
@@ -235,7 +242,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public void onAddItem(int index) {
-        expandController.clear();
+        if (expandController != null) {
+            expandController.clear();
+        }
+
         if (adapterNotifier != null) {
             adapterNotifier.notifyItemInserted(index, viewHolderType);
         }
@@ -243,9 +253,12 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public void onRemoveItem(int index) {
-        expandController.delete(index);
-        selectionController.delete(index);
-
+        if (expandController != null) {
+            expandController.delete(index);
+        }
+        if (selectionController != null) {
+            selectionController.delete(index);
+        }
         if (adapterNotifier != null) {
             adapterNotifier.notifyItemRemoved(index, viewHolderType);
         }
@@ -253,7 +266,9 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             @Override
             public void run() {
                 try {
-                    expandController.collapseAll();
+                    if (expandController != null) {
+                        expandController.collapseAll();
+                    }
                 } catch (Exception ignored) {
                 }
             }
@@ -263,8 +278,13 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     @Override
     public void removeAllItems() {
         // Log.i(MainCRUD.TAG, "Eliminados todos los registros;");
-        selectionController.clear();
-        expandController.clear();
+        if (selectionController != null) {
+            selectionController.clear();
+        }
+        if (expandController != null) {
+            expandController.clear();
+        }
+
         if (adapterNotifier != null) {
             adapterNotifier.notifyDataSetChanged(viewHolderType);
         }

@@ -85,31 +85,6 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
         adapter.onRestoreInstanceState(savedInstanceState);
     }
 
-    @Override
-    protected void instanceVariables() {
-        adapter = new ComplexAdapter<G, C>() {
-            @Override
-            protected int getGroupLayoutHolder() {
-                return BaseFragmentBinComplexList.this.getGroupLayoutHolder();
-            }
-
-            @Override
-            protected int getChildLayoutHolder() {
-                return BaseFragmentBinComplexList.this.getChildLayoutHolder();
-            }
-
-            @Override
-            public ComplexTouchabeViewHandler<G, C> getComplexTouchabeViewHandler() {
-                return BaseFragmentBinComplexList.this;
-            }
-
-            @Override
-            public ViewComplexHandler<G, C> getViewComplexHandler() {
-                return BaseFragmentBinComplexList.this;
-            }
-        };
-    }
-
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
 
     /*Vistas [EN] Views*/
@@ -138,6 +113,27 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
      * [EN]  List adapter link
      */
     protected void bindAdapter() {
+        adapter = new ComplexAdapter<G, C>() {
+            @Override
+            protected int getGroupLayoutHolder() {
+                return BaseFragmentBinComplexList.this.getGroupLayoutHolder();
+            }
+
+            @Override
+            protected int getChildLayoutHolder() {
+                return BaseFragmentBinComplexList.this.getChildLayoutHolder();
+            }
+
+            @Override
+            public ComplexTouchabeViewHandler<G, C> getComplexTouchabeViewHandler() {
+                return BaseFragmentBinComplexList.this;
+            }
+
+            @Override
+            public ViewComplexHandler<G, C> getViewComplexHandler() {
+                return BaseFragmentBinComplexList.this;
+            }
+        };
         recyclerView.setAdapter(adapter);
     }
 

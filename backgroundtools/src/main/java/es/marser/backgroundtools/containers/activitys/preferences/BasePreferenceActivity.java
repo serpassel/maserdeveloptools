@@ -31,7 +31,7 @@ public abstract class BasePreferenceActivity extends BaseActivity {
     }
 
     @Override
-    protected void instanceVariables() {
+    protected void instanceVariables(@Nullable Bundle savedInstanceState) {
         customfragment = (PreferenceFragment) getFragmentManager()
                 .findFragmentByTag(getResources()
                         .getString(R.string.FRAGMENT_PREFERENCE));

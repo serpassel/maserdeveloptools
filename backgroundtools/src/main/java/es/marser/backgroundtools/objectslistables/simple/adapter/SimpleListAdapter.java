@@ -36,9 +36,9 @@ public abstract class SimpleListAdapter<T extends Parcelable> extends BaseListAd
      */
     @Override
     public void onViewAttachedToWindow(ViewHolderBinding<T> holder) {
-        Log.i(LOG_TAG.TAG, "VENTANA");
-        Animation animation = AnimationUtils.loadAnimation(holder.getItemView().getContext(), R.anim.hide_lateral);
-        holder.getItemView().setAnimation(animation);
+        //Log.i(LOG_TAG.TAG, "VENTANA");
+        //Animation animation = AnimationUtils.loadAnimation(holder.getItemView().getContext(), R.anim.hide_lateral);
+        //holder.getItemView().setAnimation(animation);
         super.onViewAttachedToWindow(holder);
     }
 

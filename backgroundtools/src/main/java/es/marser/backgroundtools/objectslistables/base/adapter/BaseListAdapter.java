@@ -84,10 +84,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (globalController != null) {
             globalController.onSaveInstanceState(savedInstanceState);
-
-            /*Listeners*/
-            globalController.removeViewItemHandler();
-            globalController.removeAdapterNotifier();
         }
     }
 
@@ -107,11 +103,8 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
             if (savedInstanceState != null) {
                 globalController.onSaveInstanceState(savedInstanceState);
             }
-
-            /*Listeners*/
-            globalController.setChangedListener(this);
-            globalController.setViewItemHandler(getItemHandler());
         }
+        notifyDataSetChanged();
     }
 
 

@@ -21,13 +21,17 @@ import es.marser.backgroundtools.BR;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends Parcelable, B extends Parcelable>
+public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable, H extends Parcelable, B extends Parcelable>
         extends BaseFragmentBinTable<H, B> {
 
     protected ViewDataBinding viewDataBinding;
     protected T model;
 
-    public static String bundle_model_table_key =  "head_model_table_key";
+    public static String bundle_model_table_key = "head_model_table_key";
+
+    public BaseFragmentBinHeadBinTable() {
+        super();
+    }
 
     //SAVED AND RESTORE_________________________________________________________________________________
 
@@ -53,7 +57,9 @@ public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(bundle_model_table_key, model);
-        adapter.onSaveInstanceState(outState);
+        if (adapter != null) {
+            //adapter.onSaveInstanceState(outState);
+        }
         super.onSaveInstanceState(outState);
     }
 
@@ -71,9 +77,13 @@ public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        adapter.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState != null){
+
+        if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(bundle_model_table_key);
+        }
+
+        if (adapter != null && savedInstanceState != null) {
+            //adapter.onRestoreInstanceState(savedInstanceState);
         }
     }
 
@@ -90,16 +100,6 @@ public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends
     }
 
     //INSTANTIATE VARIABLES______________________________________________________________________________
-
-    /**
-     * Instanciar variables en el método {@link BaseFragment#OnCreate()}
-     * <p>
-     * [EN]  Instanciar variables
-     */
-    @Override
-    protected void instanceVariables() {
-        model = getNewModelInstance();
-    }
 
     /**
      * Crear una instancia para el objeto modelo {@link #instanceVariables()}
@@ -121,6 +121,9 @@ public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable,H extends
      * [EN]  Binds the header object with the presenter
      */
     protected void binObjects() {
+        if (model == null) {
+            model = getNewModelInstance();
+        }
         setModel(model);
     }
 

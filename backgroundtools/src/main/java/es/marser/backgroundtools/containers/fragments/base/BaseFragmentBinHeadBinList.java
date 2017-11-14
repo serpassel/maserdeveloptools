@@ -34,7 +34,7 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     protected ViewDataBinding viewDataBinding;
     protected T model;
 
-    public static String bundle_model_list_key =  "head_model_list_key";
+    public static String bundle_model_list_key = "head_model_list_key";
     //SAVED AND RESTORE_________________________________________________________________________________
 
     /**
@@ -78,7 +78,7 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         adapter.onRestoreInstanceState(savedInstanceState);
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             model = savedInstanceState.getParcelable(bundle_model_list_key);
         }
     }
@@ -98,15 +98,6 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     //INSTANTIATE VARIABLES______________________________________________________________________________
 
     /**
-     * Instanciar variables
-     * <p>
-     * [EN]  Instanciar variables
-     */
-    protected void instanceVariables() {
-        model = getNewModelInstance();
-    }
-
-    /**
      * Crear una instancia para el objeto modelo
      * <p>
      * [EN]  Create an instance for the model object
@@ -124,6 +115,9 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
      * [EN]  Binds the header object with the presenter
      */
     protected void binObjects() {
+        if (model == null) {
+            model = getNewModelInstance();
+        }
         setModel(model);
     }
 

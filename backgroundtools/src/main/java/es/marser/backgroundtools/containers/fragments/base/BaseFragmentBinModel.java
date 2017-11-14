@@ -29,6 +29,8 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
     protected ViewDataBinding viewDataBinding;
     protected T model;
 
+    //ARRANQUE [EN]  START
+
     /**
      * @return Return the View for the fragment's UI, or null.
      */
@@ -42,16 +44,6 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
     }
 
     //INSTANTIATE VARIABLES______________________________________________________________________________
-
-    /**
-     * Instanciar variables
-     * <p>
-     * [EN]  Instanciar variables
-     */
-    @Override
-    protected void instanceVariables() {
-        model = getNewModelInstance();
-    }
 
     /**
      * Crear una instancia para el objeto modelo
@@ -72,6 +64,9 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
      * [EN]  Binds the header object with the presenter
      */
     protected void binObjects() {
+        if (model == null) {
+            model = getNewModelInstance();
+        }
         setModel(model);
     }
 

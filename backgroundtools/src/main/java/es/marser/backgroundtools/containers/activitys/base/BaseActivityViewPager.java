@@ -29,7 +29,7 @@ public abstract class BaseActivityViewPager extends BaseActivity {
     }
 
     @Override
-    protected void instanceVariables() {
+    protected void instanceVariables(@Nullable Bundle savedInstanceState) {
         mPager = findViewById(R.id.pager);
         ScreenSlidePagerAdapter mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager()) {
             @Override

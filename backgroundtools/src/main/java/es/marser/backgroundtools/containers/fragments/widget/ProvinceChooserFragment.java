@@ -49,9 +49,6 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
         return R.layout.mvp_item_object_chooser;
     }
 
-    @Override
-    protected void instanceVariables() {
-    }
 
     @Override
     public void onStart() {

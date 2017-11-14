@@ -97,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
         /*Instanciar variables [EN]  Instanciar variables*/
-        instanceVariables();
+        instanceVariables(savedInstanceState);
         /*Activar toolbar [EN]  Activar toolbar*/
         initToolbar();
         /*Activar el navegador Drawer*/
@@ -109,7 +109,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
      * <p>
      * [EN]  Instanciar variables
      */
-    protected abstract void instanceVariables();
+    protected abstract void instanceVariables(@Nullable Bundle savedInstanceState);
 
 
     protected int getActivityLayout() {
@@ -317,12 +317,12 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
      *
      * @param fragment {@link android.support.v4.app.Fragment}
      */
-    protected void insertFragment(Fragment fragment) {
+    protected void insertFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (fragment != null && fragmentManager != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.pager, fragment);
+            fragmentTransaction.add(R.id.pager, fragment, tag);
             fragmentTransaction.commit();
         }
     }
@@ -334,11 +334,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
      *
      * @param fragment {@link android.support.v4.app.Fragment}
      */
-    protected void replaceFragment(Fragment fragment) {
+    protected void replaceFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragment != null && fragmentManager != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.pager, fragment);
+            fragmentTransaction.replace(R.id.pager, fragment, tag);
             fragmentTransaction.commit();
         }
     }

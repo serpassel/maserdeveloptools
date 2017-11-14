@@ -15,6 +15,8 @@ public abstract class BaseActivityFragment extends BaseActivity {
 
     protected BaseFragment baseFragment;
 
+    protected static String baseFragmentTag = "basePager";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,14 +24,23 @@ public abstract class BaseActivityFragment extends BaseActivity {
     }
 
     @Override
-    protected void instanceVariables() {
-        baseFragment = instanceFragment();
-        if (baseFragment != null) {
-            insertFragment(baseFragment);
-        } else {
-            baseFragment = (BaseFragment) getSupportFragmentManager()
-                    .findFragmentByTag(getResources()
-                            .getString(R.string.FRAGMENT_PAGER));
+    protected void instanceVariables(@Nullable Bundle savedInstanceState) {
+
+        if (getSupportFragmentManager().findFragmentByTag(baseFragmentTag) == null) {
+
+            if(baseFragment == null) {
+                baseFragment = instanceFragment();
+            }
+            
+            if (baseFragment != null) {
+                if (!baseFragment.isAdded()) {
+                    insertFragment(baseFragment, baseFragmentTag);
+                }
+            } else {
+                baseFragment = (BaseFragment) getSupportFragmentManager()
+                        .findFragmentByTag(getResources()
+                                .getString(R.string.FRAGMENT_PAGER));
+            }
         }
     }
 

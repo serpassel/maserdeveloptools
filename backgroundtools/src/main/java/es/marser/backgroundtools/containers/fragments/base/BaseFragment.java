@@ -43,16 +43,12 @@ import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragment extends Fragment implements PermissionChecker{
+public abstract class BaseFragment extends Fragment implements PermissionChecker {
 
     protected FragmentAction fragmentAction;
 
-    //ARGUMENTS________________________________________________________________________________________
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        resolveArgs();
-        instanceVariables();
+    public BaseFragment() {
+        //setRetainInstance(true);
     }
 
     @Nullable
@@ -62,37 +58,6 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
         inflater.inflate(getFragmentLayout(), container, false);
         return inflater.inflate(getFragmentLayout(), container, false);
     }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        initActivityCreated();
-    }
-
-    /**
-     * Traslado de argumentos a variables {@link #onCreate(Bundle)}
-     * <p>
-     * [EN]  Moving arguments to variables
-     */
-    @SuppressWarnings("EmptyMethod")
-    protected void resolveArgs() {
-    }
-
-    /**
-     * Instanciar variables {@link #onCreate(Bundle)}
-     * <p>
-     * [EN]  Instanciar variables
-     */
-    protected abstract void instanceVariables();
-
-    /**
-     *
-     * {@link #onActivityCreated(Bundle)}
-     * Utilizar para configurar datos. Se aplica cuando el fragment ha sido cargado por la actividad
-     * <p>
-     * [EN]  Use to configure data.  Applies when the fragment has been loaded by the activity
-     */
-    protected abstract void initActivityCreated();
 
     /**
      * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
@@ -108,6 +73,7 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
      * Método para carga datos en el adapter
      * <p>
      * [EN]  Method for loading data into the adapter
+     *
      * @param bundle argumentos de carga de datos [EN]  data load arguments
      */
     protected abstract void load(Bundle bundle);
