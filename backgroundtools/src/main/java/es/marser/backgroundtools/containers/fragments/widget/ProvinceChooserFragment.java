@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.containers.fragments.widget;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinList;
@@ -19,7 +20,6 @@ import es.marser.generic.GenericFactory;
 
 @SuppressWarnings("unused")
 public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel> {
-
 
     public static ProvinceChooserFragment newInstance() {
         return new ProvinceChooserFragment();
@@ -49,11 +49,14 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
         return R.layout.mvp_item_object_chooser;
     }
 
-
     @Override
-    public void onStart() {
-        super.onStart();
-        load(createBundle(1,"", true));
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+        super.bindAdapter(savedInstanceState);
+        if (savedInstanceState == null) {
+            load(createBundle(1, "", true));
+        } else {
+            adapter.onRestoreInstanceState(savedInstanceState);
+        }
     }
 
     @Override
@@ -80,7 +83,7 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
-               //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
+                //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
                 addItem(item);
                 setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
             }
