@@ -73,6 +73,10 @@
         <item name="button_default_margin">10dp</item>
         <item name="button_default_padding">5dp</item>
 
+        <!--STYLES-->
+        <item name="toolbar_theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="popup_theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
+
     </style>
 
 </resources>

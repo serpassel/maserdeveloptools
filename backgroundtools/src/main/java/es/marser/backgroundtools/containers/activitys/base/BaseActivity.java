@@ -195,6 +195,8 @@ public abstract class BaseActivity
                 return true;
             }
         });
+
+        actionBarDrawerToggle.syncState();
     }
 
     /**

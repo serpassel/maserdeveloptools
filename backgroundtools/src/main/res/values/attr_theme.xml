@@ -67,4 +67,8 @@
     <attr name="button_default_margin" format="reference|dimension"/>
     <attr name="button_default_padding" format="reference|dimension"/>
 
+    <!--STYLES-->
+    <attr name="toolbar_theme" format="reference"/>
+    <attr name="popup_theme" format="reference"/>
+
 </resources>
