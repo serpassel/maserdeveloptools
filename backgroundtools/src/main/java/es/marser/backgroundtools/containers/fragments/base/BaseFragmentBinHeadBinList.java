@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,12 +28,13 @@ import es.marser.backgroundtools.BR;
 
 @SuppressWarnings("unused")
 public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends Parcelable>
-        extends BaseFragmentBinList<X> {
+        extends BaseFragmentBinList<X> implements BinHeadFragment<T> {
 
     protected ViewDataBinding viewDataBinding;
     protected T model;
 
     public static String bundle_model_list_key = "head_model_list_key";
+
     //SAVED AND RESTORE_________________________________________________________________________________
 
     /**
@@ -59,7 +59,6 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     @Override
     public void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(bundle_model_list_key, model);
-        adapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
 
@@ -77,9 +76,9 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        adapter.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState != null) {
+        if (savedInstanceState != null && getModel() == null) {
             model = savedInstanceState.getParcelable(bundle_model_list_key);
+            setModel(model);
         }
     }
 
@@ -91,43 +90,43 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        binObjects();
+        binObjects(savedInstanceState);
         return viewDataBinding.getRoot();
     }
 
-    //INSTANTIATE VARIABLES______________________________________________________________________________
-
     /**
-     * Crear una instancia para el objeto modelo
-     * <p>
-     * [EN]  Create an instance for the model object
-     *
-     * @return Nuevo objeto genérico [EN]  New generic object
-     */
-    protected @NonNull
-    abstract T getNewModelInstance();
-
-    //LINK VARIABLES______________________________________________________________________________________
-
-    /**
-     * Enlaza el objeto de cabecera con el presentador
+     * Enlaza el objeto de cabecera con el presentador,
+     * {@link  #OnCreateView} en el método OnCreateView
      * <p>
      * [EN]  Binds the header object with the presenter
+     *
+     * @param savedInstanceState argumentos de recuperación de datos
      */
-    protected void binObjects() {
+    @Override
+    public void binObjects(@Nullable Bundle savedInstanceState) {
+
+        if (savedInstanceState != null && getModel() == null) {
+            model = savedInstanceState.getParcelable(bundle_model_list_key);
+        }
+
         if (model == null) {
             model = getNewModelInstance();
         }
-        setModel(model);
+
+        if (getModel() == null) {
+            setModel(model);
+        }
     }
 
     /**
      * Asignación del objeto genérico de cabecera
+     * {@link #binObjectsl()}
      * <p>
      * [EN]  Assigning the generic header object
      *
      * @param model Objeto modelo [EN]  Model object
      */
+    @Override
     public void setModel(T model) {
         if (model != null) {
             this.model = model;
@@ -143,6 +142,7 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
      *
      * @return Objeto genérico de cabecera [EN]  Generic Header Object
      */
+    @Override
     public T getModel() {
         return model;
     }

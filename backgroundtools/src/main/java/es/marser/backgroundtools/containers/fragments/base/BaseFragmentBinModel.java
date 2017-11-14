@@ -3,7 +3,7 @@ package es.marser.backgroundtools.containers.fragments.base;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +24,12 @@ import es.marser.backgroundtools.BR;
  *         </ul>
  */
 @SuppressWarnings("unused")
-public abstract class BaseFragmentBinModel<T> extends BaseFragment {
+public abstract class BaseFragmentBinModel<T extends Parcelable> extends BaseFragment implements BinHeadFragment<T> {
 
     protected ViewDataBinding viewDataBinding;
     protected T model;
+
+    public static String bundle_model_key = "head_model_key";
 
     //ARRANQUE [EN]  START
 
@@ -39,35 +41,52 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        binObjects();
+        binObjects(savedInstanceState);
         return viewDataBinding.getRoot();
     }
 
-    //INSTANTIATE VARIABLES______________________________________________________________________________
-
     /**
-     * Crear una instancia para el objeto modelo
-     * <p>
-     * [EN]  Create an instance for the model object
+     * Called when all saved state has been restored into the view hierarchy
+     * of the fragment.  This can be used to do initialization based on saved
+     * state that you are letting the view hierarchy track itself, such as
+     * whether check box widgets are currently checked.  This is called
+     * after {@link #onActivityCreated(Bundle)} and before
+     * {@link #onStart()}.
      *
-     * @return Nuevo objeto genérico [EN]  New generic object
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
      */
-    protected @NonNull
-    abstract T getNewModelInstance();
-
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null && getModel() == null) {
+            model = savedInstanceState.getParcelable(bundle_model_key);
+            setModel(model);
+        }
+    }
 
     //LINK VARIABLES______________________________________________________________________________________
 
     /**
-     * Enlaza el objeto de cabecera con el presentador
+     * Enlaza el objeto de cabecera con el presentador,
+     * {@link  #OnCreateView} en el método OnCreateView
      * <p>
      * [EN]  Binds the header object with the presenter
+     *
+     * @param savedInstanceState argumentos de recuperación de datos [EN]  data recovery arguments
      */
-    protected void binObjects() {
+    @Override
+    public void binObjects(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null && getModel() == null) {
+            model = savedInstanceState.getParcelable(bundle_model_key);
+        }
+
         if (model == null) {
             model = getNewModelInstance();
         }
-        setModel(model);
+        if (getModel() == null) {
+            setModel(model);
+        }
     }
 
     /**
@@ -77,6 +96,7 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
      *
      * @param model Objeto modelo [EN]  Model object
      */
+    @Override
     public void setModel(T model) {
         if (model != null) {
             this.model = model;
@@ -92,6 +112,7 @@ public abstract class BaseFragmentBinModel<T> extends BaseFragment {
      *
      * @return Objeto genérico de cabecera [EN]  Generic Header Object
      */
+    @Override
     public T getModel() {
         return model;
     }
