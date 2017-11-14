@@ -113,9 +113,7 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
             model = getNewModelInstance();
         }
 
-        if (getModel() == null) {
-            setModel(model);
-        }
+        setModel(model);
     }
 
     /**

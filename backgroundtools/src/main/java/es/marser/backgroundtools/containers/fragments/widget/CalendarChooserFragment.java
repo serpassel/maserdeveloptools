@@ -3,6 +3,7 @@ package es.marser.backgroundtools.containers.fragments.widget;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -78,15 +79,15 @@ public class CalendarChooserFragment
     }
 
     @Override
-    protected void binObjects() {
-        super.binObjects();
+    public void binObjects(@Nullable Bundle savedInstanceState) {
+        super.binObjects(savedInstanceState);
         viewDataBinding.setVariable(BR.handler, this);
         viewDataBinding.executePendingBindings();
     }
 
     @NonNull
     @Override
-    protected CalendarObservable getNewModelInstance() {
+    public CalendarObservable getNewModelInstance() {
         return new CalendarObservable();
     }
 

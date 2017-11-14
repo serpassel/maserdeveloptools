@@ -84,9 +84,7 @@ public abstract class BaseFragmentBinModel<T extends Parcelable> extends BaseFra
         if (model == null) {
             model = getNewModelInstance();
         }
-        if (getModel() == null) {
             setModel(model);
-        }
     }
 
     /**

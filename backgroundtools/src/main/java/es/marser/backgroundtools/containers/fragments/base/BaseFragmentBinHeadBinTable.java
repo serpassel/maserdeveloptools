@@ -111,9 +111,7 @@ public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable, H extend
         if (model == null) {
             model = getNewModelInstance();
         }
-        if (getModel() == null) {
             setModel(model);
-        }
     }
 
     /**
