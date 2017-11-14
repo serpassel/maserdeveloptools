@@ -23,6 +23,7 @@ import es.marser.backgroundtools.containers.PermissionChecker;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 
 /**
  * @author sergio
@@ -43,7 +44,10 @@ import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragment extends Fragment implements PermissionChecker {
+public abstract class BaseFragment
+        extends Fragment
+        implements PermissionChecker,
+        SimpleGestureFilter.SimpleGestureListener {
 
     protected FragmentAction fragmentAction;
 
@@ -163,6 +167,16 @@ public abstract class BaseFragment extends Fragment implements PermissionChecker
         }
     }
 
+    //EVENTS_________________________________________________________________________________________________
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+
+    }
+
+    @Override
+    public void onDoubleTap() {
+
+    }
 
     //PERMISSION CHECKER____________________________________________________________________________________
     protected Result<Boolean> checkresult;

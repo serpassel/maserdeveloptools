@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -34,6 +35,8 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.PermissionChecker;
 import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.enums.EventsExtras;
+import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 
 /**
  * @author sergio
@@ -70,13 +73,18 @@ import es.marser.backgroundtools.enums.DialogIcon;
  */
 
 @SuppressWarnings({"EmptyMethod", "unused"})
-public abstract class BaseActivity extends AppCompatActivity implements PermissionChecker {
+public abstract class BaseActivity
+        extends AppCompatActivity
+        implements PermissionChecker,
+        SimpleGestureFilter.SimpleGestureListener {
 
     protected Toolbar toolbar;
 
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     protected ActionBarDrawerToggle actionBarDrawerToggle;
+
+    protected SimpleGestureFilter gestureFilter;
 
     @VisibleForTesting
     public BinIndeterminateDialog mProgressDialog;
@@ -96,12 +104,42 @@ public abstract class BaseActivity extends AppCompatActivity implements Permissi
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        /*Variables de eventos [EN]  Events variables*/
+        gestureFilter = new SimpleGestureFilter(this,this);
         /*Instanciar variables [EN]  Instanciar variables*/
         instanceVariables(savedInstanceState);
         /*Activar toolbar [EN]  Activar toolbar*/
         initToolbar();
         /*Activar el navegador Drawer*/
         initDrawerLayout();
+    }
+
+    //EVENTS_______________________________________________
+
+
+    /**
+     * Called when a touch screen event was not handled by any of the views
+     * under it.  This is most useful to process touch events that happen
+     * outside of your window bounds, where there is no view to receive it.
+     *
+     * @param event The touch screen event being processed.
+     * @return Return true if you have consumed the event, false if you haven't.
+     * The default implementation always returns false.
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        gestureFilter.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+
+    }
+
+    @Override
+    public void onDoubleTap() {
+
     }
 
     /**

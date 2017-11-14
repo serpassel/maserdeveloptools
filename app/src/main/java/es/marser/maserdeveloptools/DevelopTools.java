@@ -25,8 +25,6 @@ public class DevelopTools extends BaseActivityFragment{
        return CalendarChooserFragment.newInstance();
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();

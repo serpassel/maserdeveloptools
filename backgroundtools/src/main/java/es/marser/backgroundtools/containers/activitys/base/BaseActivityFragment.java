@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
+import es.marser.backgroundtools.enums.EventsExtras;
 
 /**
  * @author sergio
@@ -16,6 +17,18 @@ public abstract class BaseActivityFragment extends BaseActivity {
     protected BaseFragment baseFragment;
 
     protected static String baseFragmentTag = "basePager";
+
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+        baseFragment.onSwipe(eventsExtras);
+        super.onSwipe(eventsExtras);
+    }
+
+    @Override
+    public void onDoubleTap() {
+        baseFragment.onDoubleTap();
+        super.onDoubleTap();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
