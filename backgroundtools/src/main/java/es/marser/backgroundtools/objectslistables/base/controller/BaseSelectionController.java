@@ -2,6 +2,7 @@ package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -110,6 +112,7 @@ public abstract class BaseSelectionController<T> {
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id) {
+
         if (savedInstanceState != null) {
             ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList(TextTools.nc(id) + selectedIdkey);
             if (selectedItems == null) {
@@ -117,6 +120,7 @@ public abstract class BaseSelectionController<T> {
             }
             if (ids != null) {
                 for (Integer i : ids) {
+                    Log.w(LOG_TAG.TAG, "Restore selector " + i);
                     selectedItems.put(i, true);
                 }
             }

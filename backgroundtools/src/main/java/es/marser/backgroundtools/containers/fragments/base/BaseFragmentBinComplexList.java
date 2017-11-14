@@ -112,7 +112,8 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
      * <p>
      * [EN]  List adapter link
      */
-    protected void bindAdapter() {
+    @Override
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         adapter = new ComplexAdapter<G, C>() {
             @Override
             protected int getGroupLayoutHolder() {

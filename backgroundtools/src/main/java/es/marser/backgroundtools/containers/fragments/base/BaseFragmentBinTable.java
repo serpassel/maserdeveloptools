@@ -60,25 +60,10 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        //  adapter.onSaveInstanceState(outState);
+        if (adapter != null) {
+            adapter.onSaveInstanceState(outState);
+        }
         super.onSaveInstanceState(outState);
-    }
-
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        //adapter.onRestoreInstanceState(savedInstanceState);
     }
 
     //OBLIGATORY OVERWRITING___________________________________________________________________________
@@ -148,12 +133,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
 
     //SUPERCLASS OVERWRITING________________________________________________________________________
     @Override
-    protected void bindAdapter() {
-        Log.w(LOG_TAG.TAG, "bind adapter");
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+       // Log.w(LOG_TAG.TAG, "bind adapter");
 
-        Log.i(LOG_TAG.TAG, "Adaptador nulo: " + (adapter == null));
+       // Log.i(LOG_TAG.TAG, "Adaptador nulo: " + (adapter == null));
 
-        if(adapter == null) {
+        if (adapter == null) {
             adapter = new TableListAdapter<H, B>() {
                 @Override
                 public int getHeadHolderLayout() {
@@ -189,12 +174,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
             adapter.bGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
         }
 
-        Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador pre-set: " + (recyclerView.getAdapter() == null));
+       // Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador pre-set: " + (recyclerView.getAdapter() == null));
         if (recyclerView.getAdapter() == null) {
             recyclerView.setAdapter(adapter);
         }
 
-            Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador post-set: " + (recyclerView.getAdapter() == null));
+        //Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador post-set: " + (recyclerView.getAdapter() == null));
     }
 
     @Override

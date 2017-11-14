@@ -22,10 +22,13 @@ import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.DayWeek;
 import es.marser.backgroundtools.dialogs.widget.calendar.AsyncMonthDays;
 import es.marser.backgroundtools.dialogs.widget.calendar.DateLoader;
+import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -92,11 +95,15 @@ public class CalendarChooserFragment
     }
 
     @Override
-    protected void bindAdapter() {
-        super.bindAdapter();
-        getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
-        loadDayWeek();
-        load(null);
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+        super.bindAdapter(savedInstanceState);
+        if (savedInstanceState == null) {
+            getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
+            loadDayWeek();
+            load(null);
+        }else{
+            adapter.onRestoreInstanceState(savedInstanceState);
+        }
     }
 
     //LOAD_________________________________________________________________________
@@ -190,6 +197,38 @@ public class CalendarChooserFragment
     public boolean onLongClick(View view, Void item) {
         return false;
     }
+
+
+    /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
+    @Override
+    public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
+        super.onClickBodyItem(holder, item, position, mode);
+        changedDate(item.getCalendar());
+    }
+
+    @Override
+    public boolean onLongClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
+        changedDate(item.getCalendar());
+        if(item.isOtherholiday()){
+            String list = ResourcesAccess.getHolidayText(getContext(), item.getCalendar());
+
+            if(!TextTools.isEmpty(list)){
+                String title = "Día festivo en, ";
+               list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
+                NotificationDialogBinModel dialog =
+                        NotificationDialogBinModel.newInstance(
+                                getContext(),
+                                NotificationDialogBinModel.createInformationBundle(getContext(),
+                                        title,
+                                        list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR))
+                        );
+                dialog.show();
+            }
+        }
+
+        return true;
+    }
+
 
     //CALCS_____________________________________________________________________________
 

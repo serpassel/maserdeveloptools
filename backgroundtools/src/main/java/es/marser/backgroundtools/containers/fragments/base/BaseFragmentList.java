@@ -34,31 +34,6 @@ public abstract class BaseFragmentList extends BaseFragment {
     }
 
     /*Arranque [EN]  start*/
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    //    Log.i(LOG_TAG.TAG, "onCreateView");
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    /**
-     * Called immediately after {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
-     * has returned, but before any saved state has been restored in to the view.
-     * This gives subclasses a chance to initialize themselves once
-     * they know their view hierarchy has been completely created.  The fragment's
-     * view hierarchy is not however attached to its parent at this point.
-     *
-     * @param view               The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     */
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-     //   Log.i(LOG_TAG.TAG, "onViewCreated");
-
-    }
-
     /**
      * Called when the fragment's activity has been created and this
      * fragment's view hierarchy instantiated.  It can be used to do final
@@ -75,10 +50,10 @@ public abstract class BaseFragmentList extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log.i(LOG_TAG.TAG, "onActivityCreated");
+      //  Log.i(LOG_TAG.TAG, "onActivityCreated");
         lastScroll = null;
 
-        Log.w(LOG_TAG.TAG, "RecyclerView nula:  " + (recyclerView == null));
+        //Log.w(LOG_TAG.TAG, "RecyclerView nula:  " + (recyclerView == null));
 
         if (recyclerView == null) {
 
@@ -86,7 +61,7 @@ public abstract class BaseFragmentList extends BaseFragment {
             recyclerView.setHasFixedSize(hasFixedSize());
             recyclerView.setLayoutManager(getLayoutManager());
         }
-        bindAdapter();
+        bindAdapter(savedInstanceState);
     }
 
     /*Vistas de componentes [EN]  Component views*/
@@ -159,7 +134,7 @@ public abstract class BaseFragmentList extends BaseFragment {
      * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
      * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
      */
-    protected abstract void bindAdapter();
+    protected abstract void bindAdapter(@Nullable Bundle savedInstanceState);
 
     /**
      * Número de registros en la lista

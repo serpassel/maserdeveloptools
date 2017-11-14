@@ -3,14 +3,12 @@ package es.marser.backgroundtools.containers.fragments.base;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
@@ -76,25 +74,10 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        adapter.onSaveInstanceState(outState);
+        if (adapter != null) {
+            adapter.onSaveInstanceState(outState);
+        }
         super.onSaveInstanceState(outState);
-    }
-
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        adapter.onRestoreInstanceState(savedInstanceState);
     }
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
@@ -116,7 +99,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
     }
 
     @Override
-    protected void bindAdapter() {
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         adapter = new SimpleListAdapter<T>() {
 
             @Override

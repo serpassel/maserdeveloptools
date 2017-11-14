@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
  *         [EN]  Definition of fragment with header element
  */
 
+@SuppressWarnings("unused")
 public interface BinHeadFragment<T extends Parcelable> {
     //INSTANTIATE VARIABLES______________________________________________________________________________
 

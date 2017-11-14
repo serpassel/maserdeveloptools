@@ -321,7 +321,7 @@ public class CalendarChooser
 
             if(!TextTools.isEmpty(list)){
                 String title = "Día festivo en, ";
-                list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
+              list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
                 NotificationDialogBinModel dialog =
                         NotificationDialogBinModel.newInstance(
                                 context,

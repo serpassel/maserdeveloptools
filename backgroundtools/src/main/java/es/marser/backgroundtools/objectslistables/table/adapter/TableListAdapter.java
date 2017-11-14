@@ -87,18 +87,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (hGlobalController != null) {
             hGlobalController.onSaveInstanceState(savedInstanceState);
-
-            /*Listeners*/
-            hGlobalController.removeViewItemHandler();
-            hGlobalController.removeAdapterNotifier();
         }
 
         if (bGlobalController != null) {
             bGlobalController.onSaveInstanceState(savedInstanceState);
-
-            /*Listeners*/
-            bGlobalController.removeViewItemHandler();
-            bGlobalController.removeAdapterNotifier();
         }
     }
 
@@ -116,23 +108,17 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (hGlobalController != null) {
             if (savedInstanceState != null) {
-                hGlobalController.onSaveInstanceState(savedInstanceState);
+                hGlobalController.onRestoreInstanceState(savedInstanceState);
             }
-
-            /*Listeners*/
-            hGlobalController.setChangedListener(this);
-            hGlobalController.setViewItemHandler(getHeadItemHandler());
         }
 
         if (bGlobalController != null) {
             if (savedInstanceState != null) {
-                bGlobalController.onSaveInstanceState(savedInstanceState);
+                bGlobalController.onRestoreInstanceState(savedInstanceState);
             }
-
-            /*Listeners*/
-            bGlobalController.setChangedListener(this);
-            bGlobalController.setViewItemHandler(getBodyItemHandler());
         }
+
+        notifyDataSetChanged();
     }
 
 

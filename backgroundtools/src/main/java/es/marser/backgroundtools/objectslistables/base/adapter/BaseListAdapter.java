@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
@@ -58,7 +60,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         AdapterNotifier {
 
     /*Variables de control [EN]  Control variables*/
-
     public GlobalController<T> globalController;
 
 
@@ -99,10 +100,8 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (globalController != null) {
-            if (savedInstanceState != null) {
-                globalController.onSaveInstanceState(savedInstanceState);
-            }
+        if (globalController != null && savedInstanceState != null) {
+            globalController.onRestoreInstanceState(savedInstanceState);
         }
         notifyDataSetChanged();
     }
@@ -110,7 +109,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
     //CONSTRUCTORS____________________________________________________________________________________________
     public BaseListAdapter() {
-
         globalController = new GlobalController<>();
 
         globalController.setChangedListener(this);
