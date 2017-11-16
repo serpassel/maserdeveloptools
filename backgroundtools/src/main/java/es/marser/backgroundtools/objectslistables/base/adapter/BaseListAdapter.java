@@ -9,7 +9,10 @@ import android.support.v7.widget.RecyclerView;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
@@ -60,6 +63,10 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     /*Variables de control [EN]  Control variables*/
     public GlobalController<T> globalController;
 
+    public boolean animHolders;
+
+    private static String animHoldersKey = "anim_holders_key";
+
 
 //SAVED AND RESTORE_____________________________________________________________
 
@@ -84,6 +91,10 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         if (globalController != null) {
             globalController.onSaveInstanceState(savedInstanceState);
         }
+
+        if (savedInstanceState != null) {
+            savedInstanceState.putBoolean(animHoldersKey, animHolders);
+        }
     }
 
     /**
@@ -98,9 +109,14 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (globalController != null && savedInstanceState != null) {
-            globalController.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            if (globalController != null) {
+                globalController.onRestoreInstanceState(savedInstanceState);
+            }
+
+            animHolders = savedInstanceState.getBoolean(animHoldersKey, false);
         }
+
         notifyDataSetChanged();
     }
 
@@ -111,8 +127,49 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
         globalController.setChangedListener(this);
         globalController.setViewItemHandler(getItemHandler());
+
+        animHolders = false;
     }
 
+
+    //ANIMATIONS_____________________________________________________________________
+
+    /**
+     * Called when a view created by this adapter has been attached to a window.
+     * <p>
+     * <p>This can be used as a reasonable signal that the view is about to be seen
+     * by the user. If the adapter previously freed any resources in
+     * {@link #onViewDetachedFromWindow(RecyclerView.ViewHolder) onViewDetachedFromWindow}
+     * those resources should be restored here.</p>
+     *
+     * @param holder Holder of the view being attached
+     */
+    @Override
+    public void onViewAttachedToWindow(VH holder) {
+        super.onViewAttachedToWindow(holder);
+        if (animHolders) {
+            Animation animation = AnimationUtils.loadAnimation(holder.getItemView().getContext(), R.anim.slide_left_end);
+            holder.getItemView().setAnimation(animation);
+        }
+    }
+
+    /**
+     * Called when a view created by this adapter has been detached from its window.
+     * <p>
+     * <p>Becoming detached from the window is not necessarily a permanent condition;
+     * the consumer of an Adapter's views may choose to cache views offscreen while they
+     * are not visible, attaching and detaching them as appropriate.</p>
+     *
+     * @param holder Holder of the view being detached
+     */
+    @Override
+    public void onViewDetachedFromWindow(VH holder) {
+        super.onViewDetachedFromWindow(holder);
+        if (animHolders) {
+            Animation animation = AnimationUtils.loadAnimation(holder.getItemView().getContext(), R.anim.slide_right_end);
+            holder.getItemView().setAnimation(animation);
+        }
+    }
 
     //ACTION EVENTS_______________________________________________________________________________________________
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
@@ -248,4 +305,12 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         notifyItemInserted(flatPos(index, viewType));
     }
 
+    //PROPERTIES_________________________________________________________________________________________
+    public boolean isAnimHolders() {
+        return animHolders;
+    }
+
+    public void setAnimHolders(boolean animHolders) {
+        this.animHolders = animHolders;
+    }
 }

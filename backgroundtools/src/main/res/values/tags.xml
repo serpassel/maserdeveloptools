@@ -5,7 +5,7 @@
     <!--TAGS FOR VIEWS OF LINKED LIST ELEMENTS-->
 
     <!--TAGS DE SELECCION [EN]  SELECTION TAGS-->
-    <string name="SELECTOR_VIEW_TIGGER">expandable_view_tigger</string>
+    <string name="SELECTOR_VIEW_TIGGER">selector_view_tigger</string>
 
     <!--TAGS DE EXPANSIÓN [EN]  EXPANSION TAGS-->
     <string name="PRIMARY_EXPANDABLE_VIEW">primary_expandable_view</string>

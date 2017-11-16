@@ -4,7 +4,7 @@
     android:shareInterpolator="false"
     tools:keep="@anim/show_lateral">
     <translate
-        android:duration="500"
+        android:duration="1500"
         android:fromXDelta="100%"
         android:fromYDelta="100%"
         android:toXDelta="0%"

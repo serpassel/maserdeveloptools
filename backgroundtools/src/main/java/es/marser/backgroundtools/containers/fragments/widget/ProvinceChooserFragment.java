@@ -52,6 +52,8 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
     @Override
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         super.bindAdapter(savedInstanceState);
+        adapter.setAnimHolders(true);
+
         if (savedInstanceState == null) {
             load(createBundle(1, "", true));
         } else {
