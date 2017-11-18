@@ -81,7 +81,7 @@ public class ResourcesAccess {
      * @param name    de la variable [EN]  variable
      * @return arreglo de un recurso {@link R.array}
      */
-    private static String[] getStringArray(Context context, String name) {
+    public static String[] getStringArray(Context context, String name) {
         int id = getResArrayId(context, name);
         if (id <= 0) {
             return new String[]{};
@@ -101,7 +101,7 @@ public class ResourcesAccess {
      * @param in Arreglo con los datos [EN]  Arrangement with the data
      * @return Cadena de texto con el filtro [EN]  Text string with filter
      */
-    private static String getFilterOfArray(String[] in) {
+    public static String getFilterOfArray(String[] in) {
         StringBuilder builder = new StringBuilder();
         for (String s : in) {
             builder.append(s).append(DateTools.separatorMark);

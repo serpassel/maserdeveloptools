@@ -245,7 +245,6 @@
         <item>02112015</item>
         <item>07122015</item>
         <item>26122015</item>
-        <item>25122015</item>
     </string-array>
 
     <string-array  name="text_holidays_2015" tools:keep="@array/text_holidays_2015">
