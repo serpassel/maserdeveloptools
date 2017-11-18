@@ -13,6 +13,8 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import es.marser.LOG_TAG;
+import es.marser.async.TaskLoadingResult;
+import es.marser.backgroundtools.dialogs.model.HolidayModel;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
@@ -31,19 +33,28 @@ public class DaysTerritoryTest {
 
         // hcrud.saveYear(model.getCalendar().get(Calendar.YEAR));
         for (int i = 2015; i < new GregorianCalendar().get(Calendar.YEAR) + 2; ++i) {
-            print(appContext, i);
+           // print(appContext, i);
             checkYearHolidays(appContext, i);
         }
 
     }
 
     @Test
-    public void getHolidays() throws Exception {
+    public void getHolidays() {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         for (int i = 2015; i < new GregorianCalendar().get(Calendar.YEAR) + 2; ++i) {
-            Log.i(LOG_TAG.TAG, "Recursos " + i + ": " + ResourcesAccess.getHolidays(appContext, i).size());
+            int size = ResourcesAccess.getHolidays(appContext, i, new TaskLoadingResult<HolidayModel>() {
+
+                @Override
+                public void onUpdate(HolidayModel update) {
+                    Log.w(LOG_TAG.TAG, "Día " + update.toString());
+                }
+            }).size();
+
+
+            Log.i(LOG_TAG.TAG, "Recursos " + i + ": " + size);
         }
 
     }
@@ -109,6 +120,6 @@ public class DaysTerritoryTest {
                 .replace("LA RIOJA", "17")
                 .replace("CEUTA", "18")
                 .replace("MELILLA", "19")
-                .replace(TextTools.POINT_COMMA, TextTools.ITEM_SEPARATOR_CHAR);
+                .replace(";", TextTools.ITEM_SEPARATOR_SPLIT);
     }
 }

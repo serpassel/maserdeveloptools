@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.systemtools;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.async.TaskLoadingResult;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.HolidayModel;
@@ -232,6 +234,9 @@ public class ResourcesAccess {
         }
 
         for (String s : getStringArray(context, "holidays_" + year)) {
+
+            Log.i(LOG_TAG.TAG, "Entrada: " + s);
+
             HolidayModel holidayModel = GenericFactory.BuildSingleObject(HolidayModel.class, s);
             if (holidayModel != null) {
                 if (result != null) {
