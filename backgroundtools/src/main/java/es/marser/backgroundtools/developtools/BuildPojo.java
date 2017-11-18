@@ -1,5 +1,8 @@
 package es.marser.backgroundtools.developtools;
 
+import java.util.GregorianCalendar;
+
+import es.marser.tools.DateTools;
 import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
 
@@ -11,8 +14,11 @@ import es.marser.tools.TextTools;
  *         [EN]  Tool for mapping pojos
  */
 
-@SuppressWarnings({"SameParameterValue", "StringConcatenationInLoop"})
+@SuppressWarnings({"SameParameterValue", "StringConcatenationInLoop", "WeakerAccess", "CanBeFinal"})
 public class BuildPojo {
+
+    public static final int OBJECT = 0;
+    public static final int ITEM = 1;
 
     private String tablename;
     private String className;
@@ -53,30 +59,35 @@ public class BuildPojo {
         FieldBuilder fieldBuilder = new FieldBuilder();
         fieldBuilder.name = name;
         fieldBuilder.type = type.getSimpleName();
+        fieldBuilder.longType = type.getName();
+        fieldBuilder.cls = type;
         return fieldBuilder;
     }
 
-    private void building(boolean bindable) {
-        building(bindable, tablename != null);
+    private void building(boolean bindable, int type) {
+        building(bindable, type, (tablename != null || type == ITEM));
     }
 
-    private void building(boolean bindable, boolean mappeable) {
-        createimported(bindable);
+    private void building(boolean bindable, int type, boolean mappeable) {
+        createimported(bindable, mappeable);
 //*********************************************************************************************************/
-        if (mappeable) {
+        openHeader();
+
+//*********************************************************************************************************/
+        if (mappeable && type == OBJECT) {
             createTableName();
         }
 //*********************************************************************************************************/
         openClass(bindable);
 //*********************************************************************************************************/
-        declareVariables(mappeable);
+        declareVariables(mappeable, type);
 //*********************************************************************************************************/
         createConstructor();
 //*********************************************************************************************************/
         createSettersAndGetters(bindable, mappeable);
 //*********************************************************************************************************/
         if (mappeable) {
-            createToString();
+            createToString(type);
         }
 //*********************************************************************************************************/
         createParcelable();
@@ -84,33 +95,73 @@ public class BuildPojo {
         close();
     }
 
-    public void print(boolean bindable) {
+    public String print(boolean bindable) {
+        return print(bindable, OBJECT);
+    }
+
+    public String print(boolean bindable, int type) {
         clear();
 
-        building(bindable);
+        building(bindable, type);
 
         if (bindable) {
             System.out.println(SystemColor.ANSI_CYAN + build);
         } else {
             System.out.println(SystemColor.ANSI_YELLOW + build);
         }
+
+        return build;
     }
 
-    public void createimported(boolean bindable) {
+    public void createimported(boolean bindable, boolean mappeable) {
         build += "import android.os.Parcel;\n" +
                 "import android.os.Parcelable;\n" +
-                "\n" +
-                "import es.marser.annotation.DbColumn;\n" +
-                "import es.marser.annotation.DbPrimaryKey;\n" +
-                "import es.marser.annotation.DbTable;\n" +
-                "import es.marser.tools.MathTools;\n" +
-                "import es.marser.tools.BooleanTools;\n" +
-                "import es.marser.tools.DateTools;\n" +
-                "import es.marser.tools.TextTools;\n" +
-                "import java.math.BigDecimal;\n" +
-                "import java.util.Date;\n";
+                "\n";
 
+        if (mappeable) {
+            build += "import es.marser.annotation.DbColumn;\n" +
+                    "import es.marser.annotation.DbPrimaryKey;\n" +
+                    "import es.marser.annotation.DbTable;\n";
+        }
 
+        for (FieldBuilder f : list) {
+            String text = "import " + f.longType + ";\n";
+
+            if (!build.contains(text) && !f.type.equals(f.longType)) {
+                build += text;
+            }
+
+            String text2;
+            switch (f.type) {
+                case "BigDecimal":
+                case "String":
+                    text2 = "import es.marser.tools.TextTools;\n";
+                    if (!build.contains(text2)) {
+                        build += text2;
+                    }
+                    break;
+                case "long":
+                case "Long":
+                case "int":
+                case "Integer":
+                case "double":
+                case "Double":
+                case "float":
+                case "Float":
+                    text2 = "import es.marser.tools.MathTools;\n";
+                    if (!build.contains(text2)) {
+                        build += text2;
+                    }
+                    break;
+                case "Boolean":
+                case "boolean":
+                    text2 = "import es.marser.tools.BooleanTools;\n";
+                    if (!build.contains(text2)) {
+                        build += text2;
+                    }
+                    break;
+            }
+        }
         if (bindable) {
             build += "import android.databinding.BaseObservable;\n" +
                     "import android.databinding.Bindable;\n";
@@ -124,8 +175,23 @@ public class BuildPojo {
      */
     public void createTableName() {
         /*Nombre de la tabla*/
-        build += "\n\n@SuppressWarnings(\"unused\")\n";
         build += "@DbTable(name = \"" + tablename + "\")";
+    }
+
+
+    /**
+     * Cabecera de la clase JavaDoc
+     */
+    public void openHeader() {
+        build += "/**\n" +
+                " * @author sergio\n" +
+                " *         Created by sergio on " + DateTools.formatShortDate(new GregorianCalendar()) + "\n" +
+                " *         Objeto Modelo\n" +
+                " *         <p>\n" +
+                " *         [EN]  Object Model \n" +
+                " */\n";
+
+        build += "@SuppressWarnings(\"unused\")\n";
     }
 
     /**
@@ -145,10 +211,10 @@ public class BuildPojo {
      * <p>
      * [EN]  Declare variables
      */
-    public void declareVariables(boolean mappeable) {
+    public void declareVariables(boolean mappeable, int type) {
 /*Declaración de variables********************************************************************************************************************************************/
         /*Clave principal [EN]  Primary Key*/
-        if (mappeable) {
+        if (mappeable && type == ITEM) {
             build += "\n@DbPrimaryKey\n" +
                     "private String key;\n";
         }
@@ -255,23 +321,35 @@ public class BuildPojo {
     }
 
 
-    public void createToString() {
+    public void createToString(int type) {
           /*toString**************************************************************************************************************************************************************/
 
         build += "\n\n@Override\n" +
                 "public String toString() {\n" +
-                " String builder = TextTools.REG_SEPARATOR +\n" +
-                "\"" + tablename + "\" +\n";
+                " String builder = ";
 
-        for (FieldBuilder f : list) {
-            build += "TextTools.OBJECT_SEPARATOR_CHAR +\n" +
+        if (type == OBJECT) {
 
-                    "TextTools.nc(" + f.name + ") +\n";
+            build += "TextTools.REG_SEPARATOR +\n" +
+                    "\"" + tablename + "\" +\n";
         }
 
-        build += "TextTools.OBJECT_SEPARATOR_CHAR +\n" +
-                "TextTools.RETORNO_CARRO_SALTO_LINEA;\n" +
-                "return builder.replace(\"null\", \"\");\n}\n";
+        for (FieldBuilder f : list) {
+            if (type == OBJECT) {
+                build += "TextTools.OBJECT_SEPARATOR_CHAR +\n";
+            } else {
+                build += "TextTools.ITEM_SEPARATOR_CHAR +\n";
+            }
+            build += "TextTools.nc(" + f.name + ") +\n";
+        }
+
+        if (type == OBJECT) {
+            build += "TextTools.OBJECT_SEPARATOR_CHAR +\n" +
+                    "TextTools.RETORNO_CARRO_SALTO_LINEA;\n" +
+                    "return builder.replace(\"null\", \"\");\n}\n";
+        } else {
+            build += "TextTools.ITEM_SEPARATOR_CHAR +\n";
+        }
     }
 
 
@@ -287,6 +365,7 @@ public class BuildPojo {
 
         for (FieldBuilder f : list) {
             build += "dest.write";
+
             switch (f.type) {
                 case "BigDecimal":
                 case "String":
@@ -319,14 +398,16 @@ public class BuildPojo {
                     build += "Long(" + f.name + ".getTimeInMillis());\n";
                     break;
                 default:
-                    build += "null";
+                    build += "Parcelable(" + f.name + ", flags);\n";
                     break;
             }
         }
         build += "\n}\n\n";
 
         /*Lectura de parcela*/
+        build += "@SuppressWarnings(\"WeakerAccess\")\n";
         build += "protected " + className + "(Parcel in) {\n";
+
         for (FieldBuilder f : list) {
             build += f.name + " = ";
             switch (f.type) {
@@ -366,7 +447,7 @@ public class BuildPojo {
                             f.name + ".setTimeInMillis(in.readLong());\n";
                     break;
                 default:
-                    build += "null";
+                    build += "in.readParcelable(" + f.type + ".class.getClassLoader());\n";
                     break;
             }
         }
@@ -400,6 +481,9 @@ public class BuildPojo {
     public static class FieldBuilder {
         public String name;
         public String type;
+        public String longType;
+        @SuppressWarnings("unused")
+        public Class cls;
     }
 
 }

@@ -172,6 +172,7 @@ public class SimpleGestureFilter extends GestureDetector.SimpleOnGestureListener
     public interface SimpleGestureListener {
         void onSwipe(EventsExtras eventsExtras);
 
+        @SuppressWarnings("EmptyMethod")
         void onDoubleTap();
     }
 }

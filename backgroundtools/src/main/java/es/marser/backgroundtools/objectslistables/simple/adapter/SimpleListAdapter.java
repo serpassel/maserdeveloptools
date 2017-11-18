@@ -2,14 +2,8 @@ package es.marser.backgroundtools.objectslistables.simple.adapter;
 
 import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseIntArray;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
-import es.marser.LOG_TAG;
-import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;

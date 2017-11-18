@@ -17,8 +17,6 @@ import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 
-import static org.junit.Assert.assertEquals;
-
 /**
  * Instrumented test, which will execute on an Android device.
  *
