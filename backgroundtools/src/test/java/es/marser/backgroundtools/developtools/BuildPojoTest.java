@@ -1,14 +1,11 @@
 package es.marser.backgroundtools.developtools;
 
-import android.util.Log;
-
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-import es.marser.LOG_TAG;
 import es.marser.tools.SystemColor;
 
 /**

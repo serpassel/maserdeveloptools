@@ -2,12 +2,17 @@ package es.marser.backgroundtools.systemtools;
 
 import android.content.Context;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
+import java.util.List;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.dialogs.model.HolidayModel;
 import es.marser.backgroundtools.enums.Resources;
+import es.marser.generic.GenericFactory;
 import es.marser.tools.DateTools;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
@@ -208,6 +213,26 @@ public class ResourcesAccess {
         return texts[index];
     }
 
+    /**
+     * Devuelve una lista de objetos modelo de días festivos para un año concreto
+     * <p>
+     * [EN]  Returns a list of model holiday objects for a specific year
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param year    año de referencia [EN]  reference year
+     * @return Lista de valores de objeto [EN]  List of object values {@link HolidayModel}
+     */
+    public static List<HolidayModel> getHolidays(Context context, int year) {
+        List<HolidayModel> out = new ArrayList<>();
+        for (String s : getStringArray(context, "holidays_" + year)) {
+            HolidayModel holidayModel = GenericFactory.BuildSingleObject(HolidayModel.class, s);
+            if(holidayModel != null){
+                out.add(holidayModel);
+            }
+        }
+        return out;
+    }
+
     //TERRITORY_______________________________________________________________________________
 
     /**
@@ -240,7 +265,7 @@ public class ResourcesAccess {
      * [EN]  Retrieve the list of provinces
      *
      * @param context contexto de la aplicación [EN]  context of the application
-     * @param ccaaId código de la comunidad autónoma [EN]  code of the autonomous community
+     * @param ccaaId  código de la comunidad autónoma [EN]  code of the autonomous community
      * @return Listado de provincias [EN]  List of provinces
      */
     public static String[] getListProvinces(Context context, int ccaaId) {
