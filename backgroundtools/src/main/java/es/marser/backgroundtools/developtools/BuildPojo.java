@@ -1,7 +1,13 @@
 package es.marser.backgroundtools.developtools;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.GregorianCalendar;
 
+import es.marser.backgroundtools.systemtools.FilePathUtil;
 import es.marser.tools.DateTools;
 import es.marser.tools.SystemColor;
 import es.marser.tools.TextTools;
@@ -214,7 +220,7 @@ public class BuildPojo {
     public void declareVariables(boolean mappeable, int type) {
 /*Declaración de variables********************************************************************************************************************************************/
         /*Clave principal [EN]  Primary Key*/
-        if (mappeable && type == ITEM) {
+        if (mappeable && type != ITEM) {
             build += "\n@DbPrimaryKey\n" +
                     "private String key;\n";
         }
@@ -320,7 +326,6 @@ public class BuildPojo {
                 "return this." + f.name + ";\n}";
     }
 
-
     public void createToString(int type) {
           /*toString**************************************************************************************************************************************************************/
 
@@ -351,7 +356,6 @@ public class BuildPojo {
             build += "TextTools.ITEM_SEPARATOR_CHAR +\n";
         }
     }
-
 
     public void createParcelable() {
         /*descripcion de contenido*/
@@ -474,6 +478,48 @@ public class BuildPojo {
         build = "";
     }
 
+    /**
+     * @param classpath "/home/sergio/Dropbox/BusiDay/BusiDay/app"
+     * @param text      Texto de creación
+     * @param packagen2 es.marser.busiday
+     * @param path      "async"
+     * @param name      BuildPojo
+     */
+    public String writeClass(String classpathi, String packagen2, String text, String path, String name) {
+        String classpath = classpathi + "/src/main/java/" + packagen2.replace(".", "/");
+        String filePath = classpath + "/" + path + "/" + name + ".java";
+        String packagen = "package " + packagen2 + "." + path.replace("/", ".") + ";\n\n";
+        String importBR = "import " + packagen2 + ".BR;\n";
+
+        File file = FilePathUtil.AutoRenameFile(new File(filePath));
+
+        FileWriter fichero = null;
+        PrintWriter pw;
+        try {
+            fichero = new FileWriter(filePath);
+            pw = new PrintWriter(fichero);
+
+            pw.print(packagen);
+            pw.print(importBR);
+
+            pw.print(text);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                // Nuevamente aprovechamos el finally para
+                // asegurarnos que se cierra el fichero.
+                if (null != fichero)
+                    fichero.close();
+            } catch (Exception e2) {
+                e2.printStackTrace();
+            }
+        }
+        return filePath;
+    }
 
     /**
      * in -> name,type,index

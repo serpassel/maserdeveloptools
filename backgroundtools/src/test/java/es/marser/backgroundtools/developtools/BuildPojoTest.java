@@ -1,10 +1,15 @@
 package es.marser.backgroundtools.developtools;
 
+import android.util.Log;
+
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import es.marser.LOG_TAG;
+import es.marser.tools.SystemColor;
 
 /**
  * @author sergio
@@ -84,7 +89,7 @@ public class BuildPojoTest {
     }
 
     @Test
-    public void buildVillageModel(){
+    public void buildVillageModel() {
         // (MUN) ID | CODAUTO | CPRO |CMUN | DC | NOMBRE
         String tablename = "MUN";
 
@@ -103,7 +108,7 @@ public class BuildPojoTest {
     }
 
     @Test
-    public void buildBoxSettings(){
+    public void buildBoxSettings() {
 
         String nameclass = "BoxSettings";
 
@@ -123,5 +128,28 @@ public class BuildPojoTest {
 
         BuildPojo buildPojo = new BuildPojo(null, nameclass, list);
         buildPojo.print(true);
+    }
+
+    @Test
+    public void buildHolidayModel() {
+
+        // (MUN) ID | DAY | autonomics{\...\....\} |TYPE |
+        String tablename = "HA";
+
+        String classpath = "/home/sergio/Dropbox/MaserDevelopTools/backgroundtools";
+        String path = "dialogs/model";
+        String packagen2 = "es.marser.backgroundtools";
+
+        String nameclass = "HolidayModel";
+
+        BuildPojo.FieldBuilder[] list = {
+
+                BuildPojo.newfb("codigo", String.class),
+                BuildPojo.newfb("lines", String.class),
+                BuildPojo.newfb("type", int.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
+        System.out.println(SystemColor.ANSI_GREEN+ buildPojo.writeClass(classpath, packagen2, buildPojo.print(true), path, nameclass));
     }
 }
