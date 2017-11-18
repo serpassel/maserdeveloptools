@@ -31,9 +31,19 @@ public class DaysTerritoryTest {
 
         // hcrud.saveYear(model.getCalendar().get(Calendar.YEAR));
         for (int i = 2015; i < new GregorianCalendar().get(Calendar.YEAR) + 2; ++i) {
-
             print(appContext, i);
             checkYearHolidays(appContext, i);
+        }
+
+    }
+
+    @Test
+    public void getHolidays() throws Exception {
+        // Context of the app under test.
+        Context appContext = InstrumentationRegistry.getTargetContext();
+
+        for (int i = 2015; i < new GregorianCalendar().get(Calendar.YEAR) + 2; ++i) {
+            Log.i(LOG_TAG.TAG, "Recursos " + i + ": " + ResourcesAccess.getHolidays(appContext, i).size());
         }
 
     }

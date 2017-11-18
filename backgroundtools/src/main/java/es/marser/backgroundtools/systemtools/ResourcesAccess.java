@@ -9,6 +9,7 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import es.marser.async.TaskLoadingResult;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.model.HolidayModel;
 import es.marser.backgroundtools.enums.Resources;
@@ -220,17 +221,47 @@ public class ResourcesAccess {
      *
      * @param context contexto de la aplicación [EN]  context of the application
      * @param year    año de referencia [EN]  reference year
+     * @param result Objeto para procedmiento asíncrono [EN]  Object for asynchronous procedure
      * @return Lista de valores de objeto [EN]  List of object values {@link HolidayModel}
      */
-    public static List<HolidayModel> getHolidays(Context context, int year) {
+    public static List<HolidayModel> getHolidays(Context context, int year, TaskLoadingResult<HolidayModel> result) {
         List<HolidayModel> out = new ArrayList<>();
+
+        if (result != null) {
+            result.onStart(null);
+        }
+
         for (String s : getStringArray(context, "holidays_" + year)) {
             HolidayModel holidayModel = GenericFactory.BuildSingleObject(HolidayModel.class, s);
-            if(holidayModel != null){
+            if (holidayModel != null) {
+                if (result != null) {
+                    result.onUpdate(holidayModel);
+                }
                 out.add(holidayModel);
+            } else {
+                if (result != null) {
+                    result.onFailure(new NullPointerException("Error: " + s));
+                }
             }
         }
+
+        if (result != null) {
+            result.onFinish(null);
+        }
         return out;
+    }
+
+    /**
+     * Devuelve una lista de objetos modelo de días festivos para un año concreto
+     * <p>
+     * [EN]  Returns a list of model holiday objects for a specific year
+     *
+     * @param context contexto de la aplicación [EN]  context of the application
+     * @param year    año de referencia [EN]  reference year
+     * @return Lista de valores de objeto [EN]  List of object values {@link HolidayModel}
+     */
+    public static List<HolidayModel> getHolidays(Context context, int year){
+        return getHolidays(context,year, null);
     }
 
     //TERRITORY_______________________________________________________________________________
