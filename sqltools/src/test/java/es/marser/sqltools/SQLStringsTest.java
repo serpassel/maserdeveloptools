@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import es.marser.sqltools.examples.PojoExample;
+import es.marser.tools.SystemColor;
 
 import static org.mockito.Mockito.when;
 
@@ -64,6 +65,12 @@ public class SQLStringsTest {
         Assert.assertEquals(true, SQLStrings.upRecord(example).startsWith("UPDATE example SET name = 'NOMBRE', age = '17', modificacion ="));
         Assert.assertEquals(true, SQLStrings.upRecord(example).endsWith("WHERE key = '" + key + "'"));
         Assert.assertEquals(SQLStrings.deleteRecord(example), "DELETE FROM example WHERE key = '" + key + "'");
+        Assert.assertEquals(SQLStrings.createKeyStartWith("mesa",  PojoExample.class), " WHERE key like 'mesa%'");
+        Assert.assertEquals(SQLStrings.createKeyEndWith("mesa",  PojoExample.class), " WHERE key like '%mesa'");
+        Assert.assertEquals(SQLStrings.createKeyContains("mesa",  PojoExample.class), " WHERE key like '%mesa%'");
+
+        System.out.println(SystemColor.ANSI_GREEN + SQLStrings.createKeyContains("mesa",  PojoExample.class));
+
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -82,6 +89,7 @@ public class SQLStringsTest {
         Assert.assertEquals(SQLStrings.getDbCastName(Boolean.class), "INTEGER");
         Assert.assertEquals(SQLStrings.getDbCastName(Date.class), "INTEGER");
         Assert.assertEquals(SQLStrings.getDbCastName(Object.class), "TEXT");
+
     }
 
 }

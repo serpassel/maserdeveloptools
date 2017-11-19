@@ -19,7 +19,6 @@ import es.marser.async.AsyncPublishObject;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.TaskFailure;
 import es.marser.async.TaskResult;
-import es.marser.sqltools.DatabaseSettings;
 
 
 /**
@@ -81,7 +80,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
     public CRUDHandler(Context context, String name, int version, Class... tables) {
         super(context, name, null, version);
         this.context = context;
-        if(tables == null){
+        if (tables == null) {
             tables = new Class[]{};
         }
         this.tables = tables;
@@ -170,7 +169,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @see es.marser.sqltools.examples.PojoExample
      */
     protected final void createTables(SQLiteDatabase db) {
-       String sql;
+        String sql;
         /*Recuperar listado de clase mapeadas con las tablas [EN]  Retrieve class list mapped with tables*/
         for (Class l : tables) {
             /*Obtener la sentencia de */
@@ -467,7 +466,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
             }
         }
 
-      return  new AsyncUD(onChanged) {
+        return new AsyncUD(onChanged) {
             @Override
             protected Boolean doInBackground(Object... params) {
                 Throwable t = crudAction(params[0], (CrudAction) params[1]);
@@ -501,7 +500,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
     public AsyncTask delRecord(Object in, OnChanged onChanged) {
-    return asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
+        return asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
     }
 
     /**
@@ -513,7 +512,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param onChanged Oyente de resultados [EN]  Listener results
      */
     public AsyncTask updateRecord(Object in, OnChanged onChanged) {
-      return  asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
+        return asyncCrudAction(in, CrudAction.INSERT_OR_REPLACE, onChanged);
     }
 
 
@@ -591,6 +590,10 @@ public class CRUDHandler extends SQLiteOpenHelper {
      */
     private <T> List<T> getRecords(String sql, Class<T> cls) {
         List<T> out = new ArrayList<>();
+
+        Log.w(LOG_TAG.TAG, "Sentencia SQL: " + sql);
+
+
          /*Asegurar la conexión de la base de datos [EN]  Secure the database connection*/
         reconectDatabase();
                 /*Crear cursor [EN]  Create cursor*/
@@ -667,6 +670,37 @@ public class CRUDHandler extends SQLiteOpenHelper {
     public <T> List<T> findRecordsByParent(Object parentkey, Class<T> cls) {
         return getRecords(SQLStrings.findRecordByParent(parentkey, cls), cls);
     }
+
+    /**
+     * @param text de comienzo de la clave primaria [EN]  of the beginning of the primary key
+     * @param cls  clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>  Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> List<T> findRecordsKeyStartWith(String text, Class<T> cls) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyStartWith(text, cls), cls);
+    }
+
+    /**
+     * @param text de terminación de la clave primaria [EN]  termination of the primary key
+     * @param cls  clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>  Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> List<T> findRecordsKeyEndWith(String text, Class<T> cls) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyEndWith(text, cls), cls);
+    }
+
+    /**
+     * @param text contenido en la clave primaria [EN]  content in the primary key
+     * @param cls  clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>  Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> List<T> findRecordsKeyContains(String text, Class<T> cls) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyEndWith(text, cls), cls);
+    }
+
 
 //READING RECORDS, ASYNCHRONOUS___________________________________________________________________
 
@@ -787,7 +821,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      */
     public <T> AsyncTask findRecordByFilter(String filter, Class<T> cls, OnSingleRead<T> onRead) {
-       return getRecord(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
+        return getRecord(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls, onRead);
     }
 
     /*RESULTADO MULTIPLE [EN]  MULTIPLE RESULT*/
@@ -934,6 +968,39 @@ public class CRUDHandler extends SQLiteOpenHelper {
      */
     public <T> AsyncTask findRecordsByParent(Object parentkey, Class<T> cls, OnRead<T> onRead) {
         return getRecords(SQLStrings.findRecordByParent(parentkey, cls), cls, onRead);
+    }
+
+    /**
+     * @param text   de comienzo de la clave primaria [EN]  of the beginning of the primary key
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @param onRead Oyente de resultados [EN]  Listener results
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> AsyncTask findRecordsKeyStartWith(String text, Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyStartWith(text, cls), cls, onRead);
+    }
+
+    /**
+     * @param text   de terminación de la clave primaria [EN]  termination of the primary key
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @param onRead Oyente de resultados [EN]  Listener results
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> AsyncTask findRecordsKeyEndWith(String text, Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyEndWith(text, cls), cls, onRead);
+    }
+
+    /**
+     * @param text   contenido en la clave primaria [EN]  content in the primary key
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @param onRead Oyente de resultados [EN]  Listener results
+     * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
+     */
+    public <T> AsyncTask findRecordsKeyContains(String text, Class<T> cls, OnRead<T> onRead) {
+        return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createKeyContains(text, cls), cls, onRead);
     }
 
     //BLOCK RECORDING, ASYNCHRONOUS

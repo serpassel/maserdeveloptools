@@ -490,6 +490,7 @@ public class BuildPojo {
      * @param path      "async"
      * @param name      BuildPojo
      */
+    @SuppressWarnings("unused")
     public String writeClass(String classpathi, String packagen2, String text, String path, String name) {
         String classpath = classpathi + "/src/main/java/" + packagen2.replace(".", "/");
         String filePath = classpath + "/" + path + "/" + name + ".java";

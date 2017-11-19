@@ -296,7 +296,7 @@ public abstract class SQLStrings {
     public static String findRecordSql(Object key, Class cls) {
         StringBuilder sql = new StringBuilder();
         sql.append(SQLStrings.selectAll(cls)); //Creamos la consulta general
-        //Buscamos el nombre del campo con la clave forénea
+        //Recuperamos los campos
         Field[] f = cls.getDeclaredFields();
         Annotation a;
         //Creamos la estructura de los campos del objeto hijo a filtrar
@@ -621,9 +621,6 @@ public abstract class SQLStrings {
         out.append(values.toString());//Introducimos los valores
         out.append(")");
 
-
-        Log.w(LOG_TAG.TAG, "AGREGAR " + out.toString());
-
         return out.toString();
 
     }
@@ -787,6 +784,84 @@ public abstract class SQLStrings {
             }
         }
         return out.toString();
+    }
+
+    /**
+     * Creación de filtro para consulta sql para claves primarias de texto que comiencen por el texto indicado
+     * <p>
+     * [EN]  Filter creation for sql query for primary text keys starting with the indicated text
+     *
+     * @param filter Texto de filtro [EN]  Filter text
+     * @param cls    Clase de objteo de base de datos [EN]  Database objteo class
+     * @return Clausula de filtro [EN]  Filter clause
+     */
+    public static String createKeyStartWith(String filter, Class cls) {
+        StringBuilder sql = new StringBuilder();
+        DbPrimaryKey a;
+
+        for (Field f1 : cls.getDeclaredFields()) {
+            a = f1.getAnnotation(DbPrimaryKey.class);
+            if (a != null) {
+                sql.append(" WHERE ")
+                        .append(a.id_name())
+                        .append(" like '")
+                        .append(filter)
+                        .append("%'");
+            }
+        }
+        return sql.toString();
+    }
+
+    /**
+     * Creación de filtro para consulta sql para claves primarias de texto que contienen por el texto indicado
+     * <p>
+     * [EN]  Creation of filter for sql query for primary keys of text that contain by the indicated text
+     *
+     * @param filter Texto de filtro [EN]  Filter text
+     * @param cls    Clase de objteo de base de datos [EN]  Database objteo class
+     * @return Clausula de filtro [EN]  Filter clause
+     */
+    public static String createKeyContains(String filter, Class cls) {
+        StringBuilder sql = new StringBuilder();
+        DbPrimaryKey a;
+
+        for (Field f1 : cls.getDeclaredFields()) {
+            a = f1.getAnnotation(DbPrimaryKey.class);
+            if (a != null) {
+                sql.append(" WHERE ")
+                        .append(a.id_name())
+                        .append(" like '%")
+                        .append(filter)
+                        .append("%'");
+            }
+        }
+        return sql.toString();
+    }
+
+    /**
+     * Creación de filtro para consulta sql para claves primarias de texto que terminan por el texto indicado
+     * <p>
+     * [EN]  Filter creation for sql query for primary text keys that end with the indicated text
+     *
+     * @param filter Texto de filtro [EN]  Filter text
+     * @param cls    Clase de objteo de base de datos [EN]  Database objteo class
+     * @return Clausula de filtro [EN]  Filter clause
+     */
+    public static String createKeyEndWith(String filter, Class cls) {
+        StringBuilder sql = new StringBuilder();
+        DbPrimaryKey a;
+
+        for (Field f1 : cls.getDeclaredFields()) {
+            a = f1.getAnnotation(DbPrimaryKey.class);
+            if (a != null) {
+                sql.append(" WHERE ")
+                        .append(a.id_name())
+                        .append(" like '%")
+                        .append(filter)
+                        .append("'");
+            }
+        }
+        return sql.toString();
     }
 
     //TRANSFORMACION DE CLASE MAPEADA [EN]  TRANSFORMATION OF CLASS MAPPING___________________________________
