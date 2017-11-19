@@ -1,6 +1,7 @@
 package es.marser.sqltools;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -10,10 +11,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.annotation.DbColumn;
 import es.marser.annotation.DbColumnInclosed;
 import es.marser.annotation.DbPrimaryKey;
 import es.marser.annotation.DbTable;
+import es.marser.tools.BooleanTools;
+import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
 
@@ -71,10 +75,10 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creating tables by java reflection. Creates the table if it does not exist
      * <p>
-     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
-     * <p>Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
-     * <p>Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
-     * <p>Campos autocreados {@link es.marser.annotation.DbTable} [EN] Self-created fields
+     * <p>Nombre de la tabla {@link DbTable} [EN]  Name of table
+     * <p>Clave primaria {@link DbPrimaryKey} [EN]  Primary Key
+     * <p>Campos de la tabla {@link DbColumn} [EN] Table Fields
+     * <p>Campos autocreados {@link DbTable} [EN] Self-created fields
      *
      * @param obj POJO mapeado [EN] [EN]  mapped POJO
      * @return Sentencia SQL de creación de tablas [EN]  SQL table creation statement
@@ -143,7 +147,7 @@ public abstract class SQLStrings {
      * Crea la sentencia de eliminación de una tabla
      * <p>
      * [EN]  Creates the delete statement for a table
-     * Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
+     * Nombre de la tabla {@link DbTable} [EN]  Name of table
      *
      * @param obj POJO mapeado [EN] mapped POJO
      * @return Sentencia SQL de eliminación de tablas [EN] SQL statement of drop tables
@@ -199,8 +203,8 @@ public abstract class SQLStrings {
      * Lista las nuevas columnas a añadir según la versión mapeada
      * <p>
      * [EN]  List the new columns to be added according to the mapped version
-     * Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
-     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
+     * Nombre de la tabla {@link DbTable} [EN]  Name of table
+     * Campos de la tabla {@link DbColumn} [EN] Table Fields
      *
      * @param obj        POJO mapeado <p> [EN]  POJO mapeado
      * @param oldversion versión de la base de datos anterior <p>[EN]  version of the previous database
@@ -225,7 +229,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creates the SQl statement to add a column to a table, by reflection methods
      * <p>
-     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
+     * Campos de la tabla {@link DbColumn} [EN] Table Fields
      *
      * @param tableName nombre de la tabla <p>[EN]  table name
      * @param field     campo a agregar <p>[EN]  field to add
@@ -264,7 +268,7 @@ public abstract class SQLStrings {
      * Recupera todos los registros de una tabla
      * <p>
      * [EN]  Recovers all records in a table
-     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
+     * <p>Nombre de la tabla {@link DbTable} [EN]  Name of table
      *
      * @param cls Clase mapeada [EN]  SQl statement for reading all records
      * @return Sentencia SQl para lectura de todos los registros [EN]  SQl statement for reading all records
@@ -283,7 +287,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Generates primary keyword search clause. [EN]  Add to select statement
      * <p>
-     * Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
+     * Clave primaria {@link DbPrimaryKey} [EN]  Primary Key
      *
      * @param key Valor de la clave primaria [EN]  Primary Key Value
      * @param cls Clase mapeada [EN]  Primary Key Value
@@ -318,7 +322,7 @@ public abstract class SQLStrings {
      * <p>
      * [EN]  Creates a statement by the parent key.  Add to selection statement
      * <p>
-     * Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
+     * Campos de la tabla {@link DbColumn} [EN] Table Fields
      *
      * @param parentKey Índice de registro padre [EN]  Parent Registration Index
      * @param cls       Clase mapeada [EN]  Mapped class
@@ -353,10 +357,10 @@ public abstract class SQLStrings {
      * Crea sentencia SQL para inserción del registro
      * <p>
      * [EN]  Create SQL statement for record insertion
-     * <p>Nombre de la tabla {@link es.marser.annotation.DbTable} [EN]  Name of table
-     * <p>Clave primaria {@link es.marser.annotation.DbPrimaryKey} [EN]  Primary Key
-     * <p>Campos de la tabla {@link es.marser.annotation.DbColumn} [EN] Table Fields
-     * <p>Campos autocreados {@link es.marser.annotation.DbTable} [EN] Self-created fields
+     * <p>Nombre de la tabla {@link DbTable} [EN]  Name of table
+     * <p>Clave primaria {@link DbPrimaryKey} [EN]  Primary Key
+     * <p>Campos de la tabla {@link DbColumn} [EN] Table Fields
+     * <p>Campos autocreados {@link DbTable} [EN] Self-created fields
      *
      * @param obj Objecto mapeado [EN]  Mapped object
      * @return Sentencia SQL de inserción de datos [EN]  SQL statement of data insertion
@@ -617,6 +621,9 @@ public abstract class SQLStrings {
         out.append(values.toString());//Introducimos los valores
         out.append(")");
 
+
+        Log.w(LOG_TAG.TAG, "AGREGAR " + out.toString());
+
         return out.toString();
 
     }
@@ -797,11 +804,18 @@ public abstract class SQLStrings {
         if (value == null) {
             return null;
         }
+
         switch (value.getClass().getSimpleName()) {
             case "String":
                 out.append("'");
                 out.append(TextTools.toSQLString((String) value));
                 out.append("'");
+                break;
+            case "GregorianCalendar":
+                GregorianCalendar gc = (GregorianCalendar) value;
+                long time = gc.getTimeInMillis();
+                Log.i(LOG_TAG.TAG, "Fecha en milisegundos " + time);
+                out.append(time);
                 break;
             case "Date":
                 out.append(((Date) value).getTime());
@@ -861,6 +875,7 @@ public abstract class SQLStrings {
             case "double":
             case "Double":
                 return "NUM";
+            case "GregorianCalendar":
             case "int":
             case "long":
             case "Long":
@@ -893,8 +908,6 @@ public abstract class SQLStrings {
                 builder.append(" DEFAULT ").append("'").append(defaultvalue).append("'");
                 break;
             case "double":
-                builder.append(" DEFAULT ").append(Double.parseDouble(defaultvalue));
-                break;
             case "Double":
                 builder.append(" DEFAULT ").append(Double.parseDouble(defaultvalue));
                 break;
@@ -902,11 +915,10 @@ public abstract class SQLStrings {
                 builder.append(" DEFAULT ").append(new BigDecimal(defaultvalue));
                 break;
             case "int":
-                builder.append(" DEFAULT ").append(Integer.parseInt(defaultvalue));
-                break;
             case "Integer":
                 builder.append(" DEFAULT ").append(Integer.parseInt(defaultvalue));
                 break;
+            case "GregorianCalendar":
             case "Date":
                 builder.append(" DEFAULT ").append(Integer.parseInt(defaultvalue));
                 break;
@@ -956,42 +968,31 @@ public abstract class SQLStrings {
      * @throws IllegalAccessException no se puede acceder al método [EN]  can not access method
      * @throws NoSuchFieldError       no se ha localizado el campo [EN]  field has not been located
      */
+    @SuppressWarnings("deprecation")
     private static void setColumnByReflection(Object obj, Cursor rs, Field f1, int colindex)
             throws IllegalAccessException, NoSuchFieldError {
-        int b;
+        long l;
+        int i;
         f1.setAccessible(true);
+        //  Log.w(LOG_TAG.TAG, "Campo " + rs.getColumnName(colindex));
+        //  Log.w(LOG_TAG.TAG, "Dato " + rs.getLong(colindex));
 
         switch (f1.getType().getSimpleName()) {
             case "String":
                 f1.set(obj, TextTools.fromSQLString(rs.getString(colindex)));
                 break;
             case "Integer":
-                f1.set(obj, rs.getInt(colindex));
-                break;
             case "int":
-                f1.set(obj, rs.getInt(colindex));
+                f1.set(obj, MathTools.notNaN(rs.getInt(colindex), -1));
                 break;
             case "Boolean":
-                b = rs.getInt(colindex);
-                if (b < 0) {
-                    f1.set(obj, false);
-                } else {
-                    f1.set(obj, true);
-                }
-                break;
             case "boolean":
-                b = rs.getInt(colindex);
-                if (b < 0) {
-                    f1.set(obj, false);
-                } else {
-                    f1.set(obj, true);
-                }
+                i = MathTools.notNaN(rs.getInt(colindex), -1);
+                f1.set(obj, BooleanTools.inverseInBoolean(i));
                 break;
             case "Double":
-                f1.set(obj, rs.getDouble(colindex));
-                break;
             case "double":
-                f1.set(obj, rs.getDouble(colindex));
+                f1.set(obj, MathTools.notNaN(rs.getDouble(colindex), 0.0));
                 break;
             case "BigDecimal":
                 /*Añadir excepción para valores creados como Double
@@ -1002,10 +1003,17 @@ public abstract class SQLStrings {
                     f1.set(obj, new BigDecimal(String.valueOf(rs.getDouble(colindex))));
                 }
                 break;
+            case "GregorianCalendar":
+                l = rs.getLong(colindex);
+                Log.w(LOG_TAG.TAG, "Data en milisegundos " + l);
+                GregorianCalendar gc = new GregorianCalendar();
+                gc.setTimeInMillis(l);
+                f1.set(obj, gc);
+                break;
             case "Date":
-                b = rs.getInt(colindex);
+                l = rs.getLong(colindex);
                 Date date = new Date();
-                date.setTime(b);
+                date.setTime(l);
                 f1.set(obj, date);
                 break;
             default:

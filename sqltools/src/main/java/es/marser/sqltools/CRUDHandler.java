@@ -4,8 +4,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteConstraintException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
@@ -19,7 +19,7 @@ import es.marser.async.AsyncPublishObject;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.TaskFailure;
 import es.marser.async.TaskResult;
-
+import es.marser.sqltools.DatabaseSettings;
 
 
 /**
@@ -54,7 +54,7 @@ import es.marser.async.TaskResult;
  *         <il>Listeners</il>
  *         </ul>
  */
-@SuppressWarnings({"unused"})
+@SuppressWarnings({"unused", "WeakerAccess"})
 public class CRUDHandler extends SQLiteOpenHelper {
 
     /*Nombre de la base de datos por defecto [EN]  Default database name*/
@@ -170,11 +170,12 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @see es.marser.sqltools.examples.PojoExample
      */
     protected final void createTables(SQLiteDatabase db) {
-        String sql;
+       String sql;
         /*Recuperar listado de clase mapeadas con las tablas [EN]  Retrieve class list mapped with tables*/
         for (Class l : tables) {
             /*Obtener la sentencia de */
             sql = SQLStrings.createTable(l);
+            Log.w(LOG_TAG.TAG, "Crear tablas " + sql);
             /*Reconectar base de datos para garantizar su estado [EN]  Reconnect database to ensure its status*/
             reconectDatabase();
             /*Ejecutar setencia [EN]  Execute setencia */
@@ -277,7 +278,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * <p>
      * [EN]  Asynchronous database connection
      *
-     * @param dbResult Oyente de resultado [EN]  Asynchronous database connection
+     * @param onConect Oyente de resultado [EN]  Asynchronous database connection
      */
     public void asyncConectDatabase(final OnConect onConect) {
         AsyncTask.execute(new Runnable() {
@@ -358,7 +359,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
                 }
             } catch (IllegalAccessException e) {
                 return e;
-            } catch (SQLiteConstraintException e) {
+            } catch (SQLiteException e) {
                 return e;
             }
             return null;
@@ -569,7 +570,6 @@ public class CRUDHandler extends SQLiteOpenHelper {
      *
      * @param filter Filtro de la búsqueda [EN]  Search Filter
      * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
-     * @param onRead Oyente de resultados [EN]  Listener results
      * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      * @return Primer registro que coincida con el filtro [EN]  First record that matches the filter
      */
@@ -603,7 +603,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
                 if (o != null) {
                     out.add(o);
                 }
-            } catch (ClassCastException | InstantiationException | IllegalAccessException ignored) {
+            } catch (ClassCastException | InstantiationException | IllegalAccessException e) {
+                e.printStackTrace();
             }
         }
                 /*Cerrar cursor [EN]  Close cursor*/
@@ -633,7 +634,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @param cls   clase del objeto a instanciar [EN]  class of the object to instantiate
      * @param <T>   Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      * @return Lista de objetos genéricos leídos [EN]  List of read generic objects
-     * @see es.marser.sqltools.SQLStrings#createOrder(String)
+     * @see SQLStrings#createOrder(String)
      */
     public <T> List<T> getAllRecordsOrderBy(String order, Class<T> cls) {
         return getRecords(SQLStrings.selectAll(cls) + SQLStrings.createOrder(order), cls);

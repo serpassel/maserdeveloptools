@@ -75,7 +75,7 @@ public class BuildPojo {
     }
 
     private void building(boolean bindable, int type, boolean mappeable) {
-        createimported(bindable, mappeable);
+        createimported(bindable, mappeable, type);
 //*********************************************************************************************************/
         openHeader();
 
@@ -119,15 +119,17 @@ public class BuildPojo {
         return build;
     }
 
-    public void createimported(boolean bindable, boolean mappeable) {
+    public void createimported(boolean bindable, boolean mappeable, int type) {
         build += "import android.os.Parcel;\n" +
                 "import android.os.Parcelable;\n" +
                 "\n";
 
         if (mappeable) {
             build += "import es.marser.annotation.DbColumn;\n" +
-                    "import es.marser.annotation.DbPrimaryKey;\n" +
-                    "import es.marser.annotation.DbTable;\n";
+                    "import es.marser.annotation.DbPrimaryKey;\n";
+            if(type == OBJECT){
+                build += "import es.marser.annotation.DbTable;\n";
+            }
         }
 
         for (FieldBuilder f : list) {
@@ -220,7 +222,7 @@ public class BuildPojo {
     public void declareVariables(boolean mappeable, int type) {
 /*Declaración de variables********************************************************************************************************************************************/
         /*Clave principal [EN]  Primary Key*/
-        if (mappeable && type != ITEM) {
+        if (mappeable && type == ITEM) {
             build += "\n@DbPrimaryKey\n" +
                     "private String key;\n";
         }
@@ -326,6 +328,7 @@ public class BuildPojo {
                 "return this." + f.name + ";\n}";
     }
 
+
     public void createToString(int type) {
           /*toString**************************************************************************************************************************************************************/
 
@@ -353,9 +356,11 @@ public class BuildPojo {
                     "TextTools.RETORNO_CARRO_SALTO_LINEA;\n" +
                     "return builder.replace(\"null\", \"\");\n}\n";
         } else {
-            build += "TextTools.ITEM_SEPARATOR_CHAR +\n";
+            build += "TextTools.ITEM_SEPARATOR_CHAR;\n" +
+                    "return builder;\n}\n";
         }
     }
+
 
     public void createParcelable() {
         /*descripcion de contenido*/
