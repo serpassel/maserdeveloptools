@@ -134,7 +134,6 @@ public class CRUDHandlerTest2 {
 
         crudHandler.close();
 
-
         DatabaseSettings databaseSettings = new DatabaseSettings();
         databaseSettings.setTables(ExampleObjectB.class);
         crudHandler = new CRUDHandler(InstrumentationRegistry.getTargetContext(), databaseSettings);
@@ -142,6 +141,20 @@ public class CRUDHandlerTest2 {
         Assert.assertTrue(crudHandler.isOpen());
         Assert.assertEquals(size, printlist(crudHandler.getAllRecords(ExampleObjectB.class)).size());
 
+
+    }
+
+    @Test
+    public void countTest(){
+        crudHandler.close();
+        DatabaseSettings databaseSettings = new DatabaseSettings();
+        databaseSettings.setTables(ExampleObjectB.class);
+        crudHandler = new CRUDHandler(InstrumentationRegistry.getTargetContext(), databaseSettings);
+        crudHandler.conectDatabase();
+
+        Assert.assertEquals(size, crudHandler.countAll(ExampleObjectB.class));
+
+        Log.w(LOG_TAG.TAG, "Datos " + crudHandler.countAll(ExampleObjectB.class));
 
     }
 }

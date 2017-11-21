@@ -204,11 +204,11 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @param position posición del elemento a eliminar [EN]  position of the item to be deleted
      */
     public void deleteItem(int position) {
+          /*Recargar la lista [EN]  Reload the list*/
+        loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if (position > -1 && position < arrayListController.size()) {
 
-        /*Recargar la lista [EN]  Reload the list*/
-            loadData();
         /*Eliminar elemento de la lista [EN]  Remove item from the list*/
             arrayListController.remove(position);
         /*Grabar cambios [EN]  Record Changes*/
@@ -225,11 +225,11 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @param item     Objeto generíco actualizado [EN]  Updated general purpose object
      */
     public void updateItem(int position, T item) {
+           /*Recargar la lista [EN]  Reload the list*/
+        loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((position > -1 && position < arrayListController.size()) || item == null) {
 
-        /*Recargar la lista [EN]  Reload the list*/
-            loadData();
         /*Actualizar el elemento [EN]  Update item*/
             arrayListController.updateItem(position, item);
         /*Grabar cambios [EN]  Record Changes*/
@@ -246,10 +246,10 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @param item     Elemento genérico [EN]  Generic element
      */
     public void insertItem(int position, T item) {
+            /*Recargar la lista [EN]  Reload the list*/
+        loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((position > -1 && position < arrayListController.size()) || item == null) {
-        /*Recargar la lista [EN]  Reload the list*/
-            loadData();
         /*Insertar el elemento en la posición indicada [EN]  Insert the element in the indicated position*/
             arrayListController.insertItem(position, item);
         /*Grabar cambios [EN]  Record Changes*/

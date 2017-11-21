@@ -32,7 +32,7 @@ import es.marser.tools.TextTools;
  *         <p>Filtro y orden
  *         <p>Transformación de clases mapeadas en datos
  *         <p>Transformación de datos en clase mapeadas
- *         <p>
+ *         <p>Funciones de agregado
  *         <p>
  *         Static methods for creating SQL statements
  *         <p>
@@ -42,6 +42,7 @@ import es.marser.tools.TextTools;
  *         <p>[EN]  Filter and Order
  *         <p>[EN]  Transformation of mapped classes into data
  *         <p>[EN]  Transformation of data in mapped class
+ *         <p>[EN]  Aggregate functions
  */
 
 @SuppressWarnings({"WeakerAccess", "unused", "SameParameterValue"})
@@ -802,8 +803,7 @@ public abstract class SQLStrings {
         for (Field f1 : cls.getDeclaredFields()) {
             a = f1.getAnnotation(DbPrimaryKey.class);
             if (a != null) {
-                sql.append(" WHERE ")
-                        .append(a.id_name())
+                sql.append(a.id_name())
                         .append(" like '")
                         .append(filter)
                         .append("%'");
@@ -828,7 +828,7 @@ public abstract class SQLStrings {
         for (Field f1 : cls.getDeclaredFields()) {
             a = f1.getAnnotation(DbPrimaryKey.class);
             if (a != null) {
-                sql.append(" WHERE ")
+                sql
                         .append(a.id_name())
                         .append(" like '%")
                         .append(filter)
@@ -854,8 +854,7 @@ public abstract class SQLStrings {
         for (Field f1 : cls.getDeclaredFields()) {
             a = f1.getAnnotation(DbPrimaryKey.class);
             if (a != null) {
-                sql.append(" WHERE ")
-                        .append(a.id_name())
+                sql   .append(a.id_name())
                         .append(" like '%")
                         .append(filter)
                         .append("'");
@@ -1137,5 +1136,23 @@ public abstract class SQLStrings {
         }
         return o;
     }
+//AGGREGATE FUNCTIONS_________________________________________________________________________
 
+    /**
+     * Cuenta los registros de una tabla
+     * <p>
+     * [EN]  Count the records of a table
+     * <p>Nombre de la tabla {@link DbTable} [EN]  Name of table
+     *
+     * @param cls Clase mapeada [EN]  SQl statement for reading all records
+     * @return Sentencia SQl para lectura de todos los registros [EN]  SQl statement for reading all records
+     */
+    public static String countAll(Class cls) {
+        StringBuilder out = new StringBuilder();
+        Annotation a;
+        out.append("SELECT COUNT(*) FROM ");
+        a = cls.getAnnotation(DbTable.class); //Recuperamos el nombre de la tabla
+        out.append(((DbTable) a).name());
+        return out.toString();
+    }
 }

@@ -68,9 +68,6 @@ public class SQLStringsTest {
         Assert.assertEquals(SQLStrings.createKeyStartWith("mesa",  PojoExample.class), " WHERE key like 'mesa%'");
         Assert.assertEquals(SQLStrings.createKeyEndWith("mesa",  PojoExample.class), " WHERE key like '%mesa'");
         Assert.assertEquals(SQLStrings.createKeyContains("mesa",  PojoExample.class), " WHERE key like '%mesa%'");
-
-        System.out.println(SystemColor.ANSI_GREEN + SQLStrings.createKeyContains("mesa",  PojoExample.class));
-
     }
 
     @SuppressWarnings("ConstantConditions")
@@ -91,5 +88,6 @@ public class SQLStringsTest {
         Assert.assertEquals(SQLStrings.getDbCastName(Object.class), "TEXT");
 
     }
+
 
 }
