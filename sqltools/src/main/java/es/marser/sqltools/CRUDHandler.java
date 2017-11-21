@@ -11,14 +11,19 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.LOG_TAG;
+import es.marser.annotation.DbPrimaryKey;
 import es.marser.async.AsyncPublishObject;
 import es.marser.async.DataUploaderTask;
 import es.marser.async.TaskFailure;
 import es.marser.async.TaskResult;
+import es.marser.tools.TextTools;
 
 
 /**
@@ -579,6 +584,41 @@ public class CRUDHandler extends SQLiteOpenHelper {
         return getRecord(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter), cls);
     }
 
+    /**
+     * Comprobar si un objeto esta incluido en la base de datos
+     * <p>
+     * [EN]  Check if an object is included in the database
+     *
+     * @param object Objeto Mappeado a buscar [EN]  Mapped object to search
+     * @return verdadero si el registro ya está incluido en la base de datos [EN]  true if the record is already included in the database
+     */
+    public <T> boolean isRegistered(T obj) {
+        DbPrimaryKey a;
+        boolean out = false;
+
+        for (Field f1 : obj.getClass().getDeclaredFields()) {
+            a = f1.getAnnotation(DbPrimaryKey.class);
+            if(a != null){
+                try {
+                    Method method = obj.getClass().getDeclaredMethod(
+                            "get" + TextTools.capitalizeFirstChar(f1.getName())
+                    );
+                    out = method != null && findRecordByKey(method.invoke(obj), obj.getClass()) != null;
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                    Log.e(LOG_TAG.TAG, "Error NoSuchMethodException" );
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                    Log.e(LOG_TAG.TAG, "Error IllegalAccessException" );
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                    Log.e(LOG_TAG.TAG, "Error InvocationTargetException" );
+                }
+            }
+        }
+        return out;
+    }
+
     /*RESULTADO MULTIPLE [EN]  MULTIPLE RESULT*/
 
     /**
@@ -593,9 +633,6 @@ public class CRUDHandler extends SQLiteOpenHelper {
      */
     private <T> List<T> getRecords(String sql, Class<T> cls) {
         List<T> out = new ArrayList<>();
-
-        Log.w(LOG_TAG.TAG, "Sentencia SQL: " + sql);
-
 
          /*Asegurar la conexión de la base de datos [EN]  Secure the database connection*/
         reconectDatabase();
@@ -681,7 +718,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
      */
     public <T> List<T> findRecordsKeyStartWith(String text, Class<T> cls) {
-        return findRecordsByFilter(SQLStrings.createKeyStartWith(text, cls), cls);}
+        return findRecordsByFilter(SQLStrings.createKeyStartWith(text, cls), cls);
+    }
 
     /**
      * @param text de terminación de la clave primaria [EN]  termination of the primary key
@@ -700,7 +738,8 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
      */
     public <T> List<T> findRecordsKeyContains(String text, Class<T> cls) {
-        return findRecordsByFilter(SQLStrings.createKeyContains(text, cls), cls);}
+        return findRecordsByFilter(SQLStrings.createKeyContains(text, cls), cls);
+    }
 
 
 //READING RECORDS, ASYNCHRONOUS___________________________________________________________________
@@ -979,7 +1018,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
      */
     public <T> AsyncTask findRecordsKeyStartWith(String text, Class<T> cls, OnRead<T> onRead) {
-       return  findRecordsByFilter(SQLStrings.createKeyStartWith(text, cls), cls, onRead);
+        return findRecordsByFilter(SQLStrings.createKeyStartWith(text, cls), cls, onRead);
     }
 
     /**
@@ -990,7 +1029,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
      */
     public <T> AsyncTask findRecordsKeyEndWith(String text, Class<T> cls, OnRead<T> onRead) {
-       return  findRecordsByFilter(SQLStrings.createKeyEndWith(text, cls), cls, onRead);
+        return findRecordsByFilter(SQLStrings.createKeyEndWith(text, cls), cls, onRead);
     }
 
     /**
@@ -1001,7 +1040,7 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * @return Todos los registros cuya clave comienza por el text de referencia [EN]  All records whose key begins with the reference text
      */
     public <T> AsyncTask findRecordsKeyContains(String text, Class<T> cls, OnRead<T> onRead) {
-        return  findRecordsByFilter(SQLStrings.createKeyContains(text, cls), cls, onRead);
+        return findRecordsByFilter(SQLStrings.createKeyContains(text, cls), cls, onRead);
     }
 
     //  AGGREGATE FUNCTIONS_______________________________________________________________
@@ -1045,15 +1084,56 @@ public class CRUDHandler extends SQLiteOpenHelper {
      * [EN]  Number of records that correspond to a filter
      *
      * @param filter filtro de búsqueda [EN]  search filter
-     * @param cls clase del objeto a instanciar [EN]  class of the object to instantiate
-     * @param <T> Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
      * @return Número total de registros de una tabla [EN]  Total number of records in a table
      */
     public <T> int countByFilter(String filter, Class<T> cls) {
         return recordsCount(SQLStrings.selectAll(cls) + SQLStrings.createFilter(filter));
     }
 
+    /**
+     * Devuelve el número de registros cuya clave primaria comienza por el filtro
+     * <p>
+     * [EN]  Returns the number of records whose primary key begins with the filter
+     *
+     * @param filter filtro de búsqueda [EN]  search filter
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Número total de registros de una tabla [EN]  Total number of records in a table
+     */
+    public <T> int countKeyStartWith(String filter, Class<T> cls) {
+        return countByFilter(SQLStrings.createKeyStartWith(filter, cls), cls);
+    }
 
+    /**
+     * Devuelve el número de registros cuya clave primaria termina por el filtro
+     * <p>
+     * [EN]  Returns the number of records whose primary key ends with the filter
+     *
+     * @param filter filtro de búsqueda [EN]  search filter
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Número total de registros de una tabla [EN]  Total number of records in a table
+     */
+    public <T> int countKeyEndWith(String filter, Class<T> cls) {
+        return countByFilter(SQLStrings.createKeyEndWith(filter, cls), cls);
+    }
+
+
+    /**
+     * Devuelve el número de registros cuya clave primaria contiene el filtro
+     * <p>
+     * [EN]  Returns the number of records whose primary key contains the filter
+     *
+     * @param filter filtro de búsqueda [EN]  search filter
+     * @param cls    clase del objeto a instanciar [EN]  class of the object to instantiate
+     * @param <T>    Objeto genérico Parcelable de lectura [EN]  Generic object Parcelable of reading
+     * @return Número total de registros de una tabla [EN]  Total number of records in a table
+     */
+    public <T> int countKeyContains(String filter, Class<T> cls) {
+        return countByFilter(SQLStrings.createKeyContains(filter, cls), cls);
+    }
 
     //BLOCK RECORDING, ASYNCHRONOUS
 

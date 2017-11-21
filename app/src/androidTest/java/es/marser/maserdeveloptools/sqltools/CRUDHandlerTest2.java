@@ -34,6 +34,7 @@ public class CRUDHandlerTest2 {
     private CRUDHandler crudHandler;
 
     private int size;
+    private String[] data;
 
 
     @Before
@@ -64,7 +65,7 @@ public class CRUDHandlerTest2 {
                 "~M|3#\\3.11|3\\11\\|4|\\VIVIENDA 1\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 2\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 3\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\\\VIVIENDA 4\\\\\\\\\\\\Planta sótano-baja\\1\\\\\\\\|" +
                 "~M|3#\\3.12|3\\12\\|4|\\VIVIENDA 1\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 2\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 3\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\\\VIVIENDA 4\\\\\\\\\\\\Planta baja-entrecubierta\\1\\\\\\\\|" +
                 "~M|3#\\3.13|3\\13\\|4|\\\\4\\\\\\\\|";
-        String[] data = TextTools.getRecordSplit(reading, TextTools.REG_SEPARATOR);
+        data = TextTools.getRecordSplit(reading, TextTools.REG_SEPARATOR);
         size = data.length;
 
         /*Conexión de datos*/
@@ -100,25 +101,36 @@ public class CRUDHandlerTest2 {
 
     @After
     public void tearDown() throws Exception {
-        Log.i(LOG_TAG.TAG, "AFTER");
+      //  Log.i(LOG_TAG.TAG, "AFTER");
         crudHandler.close();
     }
 
     @Test
     public void dTest() {
-        Log.i(LOG_TAG.TAG, "dTest");
+     //   Log.i(LOG_TAG.TAG, "dTest");
         //Lectura
         Assert.assertEquals(size, printlist(crudHandler.getAllRecords(ExampleObjectD.class)).size());
         Assert.assertEquals(6, crudHandler.findRecordsKeyStartWith("2", ExampleObjectD.class).size());
         Assert.assertEquals(4, crudHandler.findRecordsKeyEndWith("3", ExampleObjectD.class).size());
         Assert.assertEquals(3, crudHandler.findRecordsKeyContains(".04", ExampleObjectD.class).size());
 
+        Assert.assertEquals(crudHandler.countKeyStartWith("2", ExampleObjectD.class),
+                crudHandler.findRecordsKeyStartWith("2", ExampleObjectD.class).size()
+        );
 
-        List<ExampleObjectD> l = crudHandler.findRecordsKeyContains(".04", ExampleObjectD.class);
+        Assert.assertEquals(crudHandler.countKeyEndWith("3", ExampleObjectD.class),
+                crudHandler.findRecordsKeyEndWith("3", ExampleObjectD.class).size()
+        );
 
-        for (ExampleObjectD e : l) {
-            Log.w(LOG_TAG.TAG, "Registro " + e.toString());
-        }
+        Assert.assertEquals(crudHandler.countKeyContains(".04", ExampleObjectD.class),
+                crudHandler.findRecordsKeyContains(".04", ExampleObjectD.class).size()
+        );
+
+        ExampleObjectD p0 = GenericFactory.BuildSingleObject(ExampleObjectD.class, data[1]);
+
+        Assert.assertTrue(crudHandler.isRegistered(p0));
+        Assert.assertFalse(crudHandler.isRegistered(new ExampleObjectD()));
+
     }
 
     private <T> List<T> printlist(List<T> list) {
@@ -130,7 +142,7 @@ public class CRUDHandlerTest2 {
 
     @Test
     public void bTest() {
-        Log.i(LOG_TAG.TAG, "bTest");
+        //Log.i(LOG_TAG.TAG, "bTest");
 
         crudHandler.close();
 
@@ -153,8 +165,5 @@ public class CRUDHandlerTest2 {
         crudHandler.conectDatabase();
 
         Assert.assertEquals(size, crudHandler.countAll(ExampleObjectB.class));
-
-        Log.w(LOG_TAG.TAG, "Datos " + crudHandler.countAll(ExampleObjectB.class));
-
     }
 }
