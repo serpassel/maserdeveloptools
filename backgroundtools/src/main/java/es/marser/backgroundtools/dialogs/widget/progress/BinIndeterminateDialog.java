@@ -60,15 +60,15 @@ public class BinIndeterminateDialog extends BaseDialogBinModel {
     }
 
     public static Bundle createBundle(DialogIcon icon, DialogExtras mode) {
-        Log.d("BACK$", "CREAR BUNDLE");
+        //Log.d("BACK$", "CREAR BUNDLE");
         Bundle bundle = new Bundle();
 
         if (icon == null) {
             bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.DEFAULT_ICON);
             bundle.putSerializable(DialogExtras.MODE_EXTRA.name(), DialogExtras.MODE_SPINNER_EXTRAS);
-            Log.d("BACK$", "NULO");
+          //  Log.d("BACK$", "NULO");
         } else {
-            Log.d("BACK$", "NO NULO");
+            //Log.d("BACK$", "NO NULO");
             bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
             bundle.putSerializable(DialogExtras.MODE_EXTRA.name(), DialogExtras.MODE_BOX_EXTRAS);
         }

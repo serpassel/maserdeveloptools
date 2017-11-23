@@ -888,7 +888,6 @@ public abstract class SQLStrings {
             case "GregorianCalendar":
                 GregorianCalendar gc = (GregorianCalendar) value;
                 long time = gc.getTimeInMillis();
-                Log.i(LOG_TAG.TAG, "Fecha en milisegundos " + time);
                 out.append(time);
                 break;
             case "Date":
@@ -1079,7 +1078,6 @@ public abstract class SQLStrings {
                 break;
             case "GregorianCalendar":
                 l = rs.getLong(colindex);
-                Log.w(LOG_TAG.TAG, "Data en milisegundos " + l);
                 GregorianCalendar gc = new GregorianCalendar();
                 gc.setTimeInMillis(l);
                 f1.set(obj, gc);

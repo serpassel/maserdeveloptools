@@ -198,7 +198,7 @@ public class ChooserDialog<T extends Selectable>
                 public void run() {
                     for (T t : values) {
                         addItem(t);
-                        setSelected(getItemCount(), preselect.contains(t.preSelectValue()));
+                        inputSelected(getItemCount()-1, preselect.contains(t.preSelectValue()));
                     }
                     adjustMultiSelection();
                 }
@@ -229,7 +229,7 @@ public class ChooserDialog<T extends Selectable>
         if (result != null) {
             result.onResult(DialogExtras.OK_EXTRA, adapter.globalController.selectionController.getSelectds());
         }
-        close();
+       // close();
     }
 
     @Override
@@ -244,6 +244,7 @@ public class ChooserDialog<T extends Selectable>
     @Override
     public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
         super.onClickItem(holder, item, position, mode);
+
         if (getInitialSelectionMode() == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
             onOk(holder.getItemView());
         } else {

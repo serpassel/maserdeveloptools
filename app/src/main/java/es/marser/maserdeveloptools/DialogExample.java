@@ -31,6 +31,7 @@ import es.marser.backgroundtools.dialogs.widget.territories.choosers.VillageChoo
 import es.marser.backgroundtools.dialogs.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.dialogs.widget.territories.model.VillageModel;
+import es.marser.generic.GenericFactory;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
 
@@ -110,12 +111,12 @@ public class DialogExample {
                         new OnResult<ExampleModelObject>() {
                             @Override
                             public void onResult(DialogExtras result, ExampleModelObject value) {
-                                Log.w(LOG_TAG.TAG, "Resultado");
+                               // Log.w(LOG_TAG.TAG, "Resultado");
                                 if (result == DialogExtras.OK_EXTRA) {
                                     Launch_toast.informationToast(context, value.toString());
-                                    Log.i(LOG_TAG.TAG, "Aceptar");
+                                 //   Log.i(LOG_TAG.TAG, "Aceptar");
                                 } else {
-                                    Log.i(LOG_TAG.TAG, "Cancelar");
+                                   // Log.i(LOG_TAG.TAG, "Cancelar");
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
@@ -579,8 +580,19 @@ public class DialogExample {
     }
 
     public static BaseDialog autonomousChooser(final Context context) {
+
+        AutonomousModel autonomousModel = GenericFactory
+                .BuildSingleObject(AutonomousModel.class,
+                        context.getResources().getString(R.string.all_spain_ccaa)
+                );
+
         AutonomousChooser dialog = AutonomousChooser.newInstance(context,
-                AutonomousChooser.createBundle(context, true, null, true),
+                AutonomousChooser.createBundle(
+                        context,
+                        false,
+                        autonomousModel.preSelectValue(),
+                        true),
+
                 new OnResult<List<AutonomousModel>>() {
                     @Override
                     public void onResult(DialogExtras result, List<AutonomousModel> value) {

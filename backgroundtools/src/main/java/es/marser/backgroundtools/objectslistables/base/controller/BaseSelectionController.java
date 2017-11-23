@@ -265,7 +265,9 @@ public abstract class BaseSelectionController<T> {
      * @param value valor de estado para la posición [EN]  status value for position
      */
     public void setSelected(int id, boolean value) {
-        selectedItems.put(id, value);
+        if (id > -1) {
+            selectedItems.put(id, value);
+        }
     }
 
     /**
@@ -277,9 +279,14 @@ public abstract class BaseSelectionController<T> {
      * @param value valor de preselección para la posición indicada [EN]  preset value for the indicated position
      */
     public void inputSelected(int id, boolean value) {
-        selectedItems.put(id, value);
-        this.lastposition = this.position;
-        this.position = id;
+        if (id > -1) {
+            selectedItems.put(id, value);
+            /*Indicar el último registro selecionado*/
+            if (value) {
+                this.lastposition = this.position;
+                this.position = id;
+            }
+        }
     }
 
     /**
@@ -427,6 +434,9 @@ public abstract class BaseSelectionController<T> {
         /*Actualizar las variables de posición [EN]  Update position variables*/
         this.lastposition = this.position;
         this.position = position;
+
+        Log.d(LOG_TAG.TAG, "lastposicion " + lastposition);
+        Log.d(LOG_TAG.TAG, "posicion " + lastposition);
 
         switch (selectionmode) {
             case NOT_SELECTION_MODE:

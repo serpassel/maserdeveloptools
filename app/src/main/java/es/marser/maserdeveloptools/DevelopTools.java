@@ -180,7 +180,7 @@ public class DevelopTools extends BaseActivityFragment{
 
         //DialogExample.arabaVillagesChooser(this);
 
-        //DialogExample.autonomousChooser(this);
+        DialogExample.autonomousChooser(this);
 
         //DialogExample.numberBox((this);
 

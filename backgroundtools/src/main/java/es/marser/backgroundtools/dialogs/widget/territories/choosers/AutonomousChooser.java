@@ -131,13 +131,13 @@ public class AutonomousChooser extends ChooserDialog<AutonomousModel> {
                 AutonomousModel item1 = GenericFactory.BuildSingleObject(AutonomousModel.class,
                         getContext().getResources().getString(R.string.all_spain_ccaa));
                 addItem(item1);
-                setSelected(getItemCount() - 1, preselect.contains(item1.preSelectValue()));
+                inputSelected(getItemCount() - 1, preselect.contains(item1.preSelectValue()));
             }
 
             for (String reg : values) {
                 AutonomousModel item = GenericFactory.BuildSingleObject(AutonomousModel.class, reg);
                 addItem(item);
-                setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
+                inputSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
             }
         }
     }

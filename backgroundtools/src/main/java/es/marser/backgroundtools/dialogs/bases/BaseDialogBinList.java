@@ -222,6 +222,18 @@ public abstract class BaseDialogBinList<T extends Parcelable>
     }
 
     /**
+     * Marcar como seleccionado
+     * <p>
+     * [EN]  Mark as selected
+     *
+     * @param id posición en el selecionador [EN]  position in the selector
+     * @param value valor de selección [EN]  selection value
+     */
+    public void inputSelected(int id, boolean value){
+        adapter.globalController.selectionController.inputSelected(id, value);
+    }
+
+    /**
      * Notificar cambios en el adapter
      * <p>
      * [EN]  Notify changes to the adapter

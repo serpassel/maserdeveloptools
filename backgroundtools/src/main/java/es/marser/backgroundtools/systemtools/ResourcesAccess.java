@@ -235,7 +235,7 @@ public class ResourcesAccess {
 
         for (String s : getStringArray(context, "holidays_" + year)) {
 
-            Log.i(LOG_TAG.TAG, "Entrada: " + s);
+            //Log.i(LOG_TAG.TAG, "Entrada: " + s);
 
             HolidayModel holidayModel = GenericFactory.BuildSingleObject(HolidayModel.class, s);
             if (holidayModel != null) {
