@@ -126,7 +126,7 @@ public class CalendarChooserFragment
         for (String name : names) {
             DayWeek value = new DayWeek();
             value.day.set(name);
-            getHeadGlobalController().arrayListController.add(value);
+            getHeadGlobalController().arrayListController.addItem(value);
         }
 
         //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
