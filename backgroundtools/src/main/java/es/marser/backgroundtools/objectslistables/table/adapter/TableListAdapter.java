@@ -8,6 +8,8 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
@@ -35,7 +37,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     /*Controlador de cuerpo [EN]  Body controller*/
     public GlobalController<B> bGlobalController;
 
-    protected SparseIntArray types;
+    protected List<Integer> types;
 
     /*Controlador de pulsaciones*/
     public ViewItemHandler<H> getHeadItemHandler() {
@@ -65,7 +67,6 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         bGlobalController.setChangedListener(this);
         bGlobalController.setViewItemHandler(getBodyItemHandler());
 
-        types = new SparseIntArray();
 
     }
 
