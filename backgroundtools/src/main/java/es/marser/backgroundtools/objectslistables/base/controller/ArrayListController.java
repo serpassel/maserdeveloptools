@@ -187,7 +187,7 @@ public class ArrayListController<T> extends ArrayList<T> {
 
         /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (onChangedListListener != null) {
-                onChangedListListener.onAddItem(position);
+                onChangedListListener.onInsertItem(position);
             }
         }
     }

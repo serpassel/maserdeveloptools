@@ -28,6 +28,15 @@ public interface OnItemChangedListener {
     void onRemoveItem(int position);
 
     /**
+     * Insertado un objeto en la posición indicada
+     * <p>
+     * [EN]  Inserted an object in the indicated position
+     *
+     * @param position posición de insercción [EN]  insertion position
+     */
+    void onInsertItem(int position);
+
+    /**
      * Cambios en un elemento
      * <p>
      * [EN]  Changes in an element

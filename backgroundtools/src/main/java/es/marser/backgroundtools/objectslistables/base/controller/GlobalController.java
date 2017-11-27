@@ -231,6 +231,24 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
+    /**
+     * Insertado un objeto en la posición indicada
+     * <p>
+     * [EN]  Inserted an object in the indicated position
+     *
+     * @param position posición de insercción [EN]  insertion position
+     */
+    @Override
+    public void onInsertItem(int index) {
+        if (expandController != null) {
+            expandController.clear();
+        }
+
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyItemInserted(index, viewHolderType);
+        }
+    }
+
     @Override
     public void onAddItem(int index) {
         if (expandController != null) {
@@ -238,7 +256,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyItemInserted(index, viewHolderType);
+            adapterNotifier.notifyAddItem(index, viewHolderType);
         }
     }
 
