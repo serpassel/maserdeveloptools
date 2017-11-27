@@ -66,8 +66,8 @@ public class DaysTerritoryTest {
                 ResourcesAccess.getStringArray(appContext, "text_holidays_" + year).length
         );
 
-        Log.i(LOG_TAG.TAG, "days " + ResourcesAccess.getAutonomyHolidays(appContext, year).length);
-        Log.i(LOG_TAG.TAG, "text " + ResourcesAccess.getStringArray(appContext, "text_holidays_" + year).length);
+       // Log.i(LOG_TAG.TAG, "days " + ResourcesAccess.getAutonomyHolidays(appContext, year).length);
+        //Log.i(LOG_TAG.TAG, "text " + ResourcesAccess.getStringArray(appContext, "text_holidays_" + year).length);
     }
 
     private void print(Context context, int year) {

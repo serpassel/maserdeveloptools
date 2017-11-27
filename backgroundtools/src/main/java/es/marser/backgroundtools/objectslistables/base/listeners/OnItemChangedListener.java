@@ -44,11 +44,11 @@ public interface OnItemChangedListener {
     void removeAllItems();
 
     /**
-     * Modificaciones en todos los elementos
+     * Agregar una colección de elementos
      * <p>
      * [EN]  Modifications in all elements
      */
-    void onAllChanged();
+    void onAddAll();
 
     /**
      * Cambios en la selección de elementos

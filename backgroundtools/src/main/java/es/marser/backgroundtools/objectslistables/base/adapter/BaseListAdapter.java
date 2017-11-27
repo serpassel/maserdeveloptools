@@ -65,7 +65,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
     public boolean animHolders;
 
-    private static String animHoldersKey = "anim_holders_key";
+    private static String[] animHoldersKey = {"anim_holders_key"};
 
 
 //SAVED AND RESTORE_____________________________________________________________
@@ -93,7 +93,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         }
 
         if (savedInstanceState != null) {
-            savedInstanceState.putBoolean(animHoldersKey, animHolders);
+            savedInstanceState.putBoolean(animHoldersKey[0], animHolders);
         }
     }
 
@@ -114,7 +114,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
                 globalController.onRestoreInstanceState(savedInstanceState);
             }
 
-            animHolders = savedInstanceState.getBoolean(animHoldersKey, false);
+            animHolders = savedInstanceState.getBoolean(animHoldersKey[0], false);
         }
 
         notifyDataSetChanged();
@@ -303,6 +303,16 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     @Override
     public void notifyItemInserted(int index, int viewType) {
         notifyItemInserted(flatPos(index, viewType));
+    }
+
+    @Override
+    public void notifyAddRange(int indexStart, int indexEnd, int viewType) {
+        notifyItemRangeInserted(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));
+    }
+
+    @Override
+    public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
+        notifyItemRangeRemoved(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));
     }
 
     //PROPERTIES_________________________________________________________________________________________

@@ -13,5 +13,6 @@ public enum ViewHolderType {
     GROUP,
     CHILD,
     HEAD,
-    BODY
+    BODY,
+    TITLE
 }

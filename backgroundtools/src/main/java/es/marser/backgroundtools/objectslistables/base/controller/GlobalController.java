@@ -135,7 +135,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     }
 
 
-
     public GlobalController() {
         this(ViewHolderType.SIMPLE.ordinal());
     }
@@ -278,14 +277,14 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyDataSetChanged(viewHolderType);
+            adapterNotifier.notifyRemoveRange(0, getItemCount() - 1, viewHolderType);
         }
     }
 
     @Override
-    public void onAllChanged() {
+    public void onAddAll() {
         if (adapterNotifier != null) {
-            adapterNotifier.notifyDataSetChanged(viewHolderType);
+            adapterNotifier.notifyAddRange(0, getItemCount() - 1, viewHolderType);
         }
     }
 }

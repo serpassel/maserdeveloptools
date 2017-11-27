@@ -129,7 +129,7 @@ public class CalendarChooserFragment
             getHeadGlobalController().arrayListController.add(value);
         }
 
-        Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
+        //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
     }
 
     /**

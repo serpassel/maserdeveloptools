@@ -229,7 +229,7 @@ public class ChooserDialog<T extends Selectable>
         if (result != null) {
             result.onResult(DialogExtras.OK_EXTRA, adapter.globalController.selectionController.getSelectds());
         }
-       // close();
+       close();
     }
 
     @Override

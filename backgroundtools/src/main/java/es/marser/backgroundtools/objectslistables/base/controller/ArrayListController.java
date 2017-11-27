@@ -76,15 +76,15 @@ public class ArrayListController<T> extends ArrayList<T> {
      * @param items lista de elementos [EN]  list of elements
      */
     public void addAllItems(List<T> items) {
-       // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
+        // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
         if (items != null) {
-         //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
+            //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
             /*Agregar la lista de registros [EN]  Add the list of records*/
             addAll(items);
 
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (onChangedListListener != null) {
-                onChangedListListener.onAllChanged();
+                onChangedListListener.onAddAll();
             }
         }
     }
@@ -97,14 +97,8 @@ public class ArrayListController<T> extends ArrayList<T> {
      * @param items nueva lista de registros [EN]  new list of records
      */
     public void replaceAllItems(List<T> items) {
-        if (items != null) {
-            setItems(items);
-
-         /*Notificar cambios de selección [EN]  Notify selection changes*/
-            if (onChangedListListener != null) {
-                onChangedListListener.removeAllItems();
-            }
-        }
+        removeAllITems();
+        addAllItems(items);
     }
 
     /**

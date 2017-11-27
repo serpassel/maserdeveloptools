@@ -7,6 +7,7 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
+import es.marser.backgroundtools.containers.fragments.widget.CalendarChooserFragment;
 import es.marser.backgroundtools.containers.fragments.widget.ProvinceChooserFragment;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
@@ -21,8 +22,8 @@ public class DevelopTools extends BaseActivityFragment{
 
     @Override
     protected BaseFragment instanceFragment() {
-       return ProvinceChooserFragment.newInstance();
-       //return CalendarChooserFragment.newInstance();
+       //return ProvinceChooserFragment.newInstance();
+       return CalendarChooserFragment.newInstance();
     }
 
     @Override
@@ -180,7 +181,7 @@ public class DevelopTools extends BaseActivityFragment{
 
         //DialogExample.arabaVillagesChooser(this);
 
-        DialogExample.autonomousChooser(this);
+        //DialogExample.autonomousChooser(this);
 
         //DialogExample.numberBox((this);
 

@@ -435,8 +435,8 @@ public abstract class BaseSelectionController<T> {
         this.lastposition = this.position;
         this.position = position;
 
-        Log.d(LOG_TAG.TAG, "lastposicion " + lastposition);
-        Log.d(LOG_TAG.TAG, "posicion " + lastposition);
+        //Log.d(LOG_TAG.TAG, "lastposicion " + lastposition);
+        //Log.d(LOG_TAG.TAG, "posicion " + lastposition);
 
         switch (selectionmode) {
             case NOT_SELECTION_MODE:

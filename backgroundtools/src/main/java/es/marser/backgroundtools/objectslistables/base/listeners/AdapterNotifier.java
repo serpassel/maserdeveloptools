@@ -12,6 +12,8 @@ public interface AdapterNotifier {
     void notifyItemRemoved(int index, int viewType);
     @SuppressWarnings("unused")
     void notifyDataSetChanged(int viewType);
+    void notifyAddRange(int indexStart, int indexEnd, int viewType);
+    void notifyRemoveRange(int indexStart, int indexEnd, int viewType);
     void notifyItemChanged(int index, int viewType);
     void notifyItemInserted(int index, int viewType);
 
