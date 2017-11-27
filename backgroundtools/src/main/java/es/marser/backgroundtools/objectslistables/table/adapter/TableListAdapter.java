@@ -35,6 +35,8 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     /*Controlador de cuerpo [EN]  Body controller*/
     public GlobalController<B> bGlobalController;
 
+    protected SparseIntArray types;
+
     /*Controlador de pulsaciones*/
     public ViewItemHandler<H> getHeadItemHandler() {
         return null;
@@ -62,6 +64,8 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         bGlobalController = new GlobalController<>(ViewHolderType.BODY.ordinal());
         bGlobalController.setChangedListener(this);
         bGlobalController.setViewItemHandler(getBodyItemHandler());
+
+        types = new SparseIntArray();
 
     }
 
