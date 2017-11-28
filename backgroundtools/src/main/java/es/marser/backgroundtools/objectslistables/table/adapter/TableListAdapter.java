@@ -8,7 +8,7 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -37,7 +37,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     /*Controlador de cuerpo [EN]  Body controller*/
     public GlobalController<B> bGlobalController;
 
-    protected List<Integer> types;
+    /*Controlador de tipos de vista [EN]  View type controller*/
+    protected ArrayList<Integer> types;
+
+    private static String[] extras = new String[]{"types_extras"};
 
     /*Controlador de pulsaciones*/
     public ViewItemHandler<H> getHeadItemHandler() {
@@ -67,6 +70,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         bGlobalController.setChangedListener(this);
         bGlobalController.setViewItemHandler(getBodyItemHandler());
 
+        types = new ArrayList<>();
 
     }
 
@@ -97,6 +101,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         if (bGlobalController != null) {
             bGlobalController.onSaveInstanceState(savedInstanceState);
         }
+
+        if(savedInstanceState != null){
+            savedInstanceState.putIntegerArrayList(extras[0], types);
+        }
     }
 
     /**
@@ -123,11 +131,14 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             }
         }
 
+        if(savedInstanceState != null){
+            types = savedInstanceState.getIntegerArrayList(extras[0]) != null
+            ? savedInstanceState.getIntegerArrayList(extras[0])
+            :  new ArrayList<Integer>();
+        }
+
         notifyDataSetChanged();
     }
-
-
-
 
     //METHODS FOR OVERWRITING__________________________________________________________________________
     public abstract int getHeadHolderLayout();
@@ -210,5 +221,42 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             default:
                 throw new ClassCastException("Type of view does not match");
         }
+    }
+
+    //NOTIFICATION_________________________________________________________________________
+
+    @Override
+    public void notifyDataSetChanged(int viewType) {
+        super.notifyDataSetChanged(viewType);
+    }
+
+    @Override
+    public void notifyItemRemoved(int index, int viewType) {
+        super.notifyItemRemoved(index, viewType);
+    }
+
+    @Override
+    public void notifyItemChanged(int index, int viewType) {
+        super.notifyItemChanged(index, viewType);
+    }
+
+    @Override
+    public void notifyItemInserted(int index, int viewType) {
+        super.notifyItemInserted(index, viewType);
+    }
+
+    @Override
+    public void notifyAddItem(int index, int viewType) {
+        super.notifyAddItem(index, viewType);
+    }
+
+    @Override
+    public void notifyAddRange(int indexStart, int indexEnd, int viewType) {
+        super.notifyAddRange(indexStart, indexEnd, viewType);
+    }
+
+    @Override
+    public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
+        super.notifyRemoveRange(indexStart, indexEnd, viewType);
     }
 }
