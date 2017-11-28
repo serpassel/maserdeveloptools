@@ -191,10 +191,13 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public int getItemViewType(int position) {
+        /*
         if (position < hGlobalController.size()) {
             return ViewHolderType.HEAD.ordinal();
         }
         return ViewHolderType.BODY.ordinal();
+        */
+        return types.get(position);
     }
 
     @Override
@@ -226,25 +229,15 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     //NOTIFICATION_________________________________________________________________________
 
     @Override
-    public void notifyDataSetChanged(int viewType) {
-        super.notifyDataSetChanged(viewType);
-    }
-
-    @Override
     public void notifyItemRemoved(int index, int viewType) {
         super.notifyItemRemoved(index, viewType);
         types.remove(flatPos(index, viewType));
     }
 
     @Override
-    public void notifyItemChanged(int index, int viewType) {
-        super.notifyItemChanged(index, viewType);
-    }
-
-    @Override
     public void notifyItemInserted(int index, int count, int viewType) {
-
-     //   types.add(index, viewType);
+        int pos = index == count - 1 ? getItemCount() - 1 : flatPos(index, viewType);
+        types.add(pos, viewType);
           /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
         super.notifyItemInserted(index, count, viewType);
     }
