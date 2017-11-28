@@ -202,15 +202,19 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public int flatPos(int indexPos, int viewType) {
-        ViewHolderType type = ViewHolderType.values()[viewType];
-        switch (type) {
-            case HEAD:
-                return indexPos;
-            case BODY:
-                return indexPos + hGlobalController.size();
-            default:
-                throw new ClassCastException("Type of view does not match");
+        int count = -1;
+
+        for (int i = 0; i <= types.lastIndexOf(viewType); ++i) {
+
+            if (types.get(i) == viewType) {
+                ++count;
+            }
+            if (count == indexPos && count > -1) {
+                return i;
+            }
         }
+        /*Lanzar un error si no se localiza una vista para la posición*/
+        throw new ClassCastException("Type of view does not match");
     }
 
     @Override
