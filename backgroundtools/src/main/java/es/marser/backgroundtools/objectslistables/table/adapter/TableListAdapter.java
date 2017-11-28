@@ -251,11 +251,6 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     }
 
     @Override
-    public void notifyAddRange(int indexStart, int indexEnd, int viewType) {
-        super.notifyAddRange(indexStart, indexEnd, viewType);
-    }
-
-    @Override
     public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
         super.notifyRemoveRange(indexStart, indexEnd, viewType);
     }

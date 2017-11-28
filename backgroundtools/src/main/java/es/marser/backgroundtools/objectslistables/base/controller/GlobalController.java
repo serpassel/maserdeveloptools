@@ -210,7 +210,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (adapterNotifier != null) {
-                adapterNotifier.notifyAddRange(0, size(), viewHolderType);
+                adapterNotifier.notifyDataSetChanged(viewHolderType);
             }
         }
     }

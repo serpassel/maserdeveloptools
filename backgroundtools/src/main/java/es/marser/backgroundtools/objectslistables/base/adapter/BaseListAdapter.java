@@ -308,12 +308,13 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         notifyItemInserted(flatPos(index, viewType));
     }
 
+    /*
     @Override
     public void notifyAddRange(int indexStart, int indexEnd, int viewType) {
         notifyDataSetChanged();
         //notifyItemRangeInserted(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));
     }
-
+*/
     @Override
     public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
         notifyItemRangeRemoved(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));

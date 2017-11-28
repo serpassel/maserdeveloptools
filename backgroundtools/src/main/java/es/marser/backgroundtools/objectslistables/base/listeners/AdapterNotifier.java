@@ -10,7 +10,7 @@ package es.marser.backgroundtools.objectslistables.base.listeners;
 
 public interface AdapterNotifier {
     @SuppressWarnings("unused")
-    void notifyAddRange(int indexStart, int indexEnd, int viewType);
+    //void notifyAddRange(int indexStart, int indexEnd, int viewType);
     void notifyItemInserted(int index, int viewType);
     void notifyAddItem(int index, int viewType);
 
