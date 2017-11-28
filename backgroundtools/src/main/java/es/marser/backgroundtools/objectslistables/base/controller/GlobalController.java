@@ -424,7 +424,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-
     /**
      * Sustituye todos los registros
      * <p>
