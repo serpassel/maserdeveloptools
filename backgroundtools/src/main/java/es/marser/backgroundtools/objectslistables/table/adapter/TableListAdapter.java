@@ -102,7 +102,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             bGlobalController.onSaveInstanceState(savedInstanceState);
         }
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             savedInstanceState.putIntegerArrayList(extras[0], types);
         }
     }
@@ -131,10 +131,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             }
         }
 
-        if(savedInstanceState != null){
+        if (savedInstanceState != null) {
             types = savedInstanceState.getIntegerArrayList(extras[0]) != null
-            ? savedInstanceState.getIntegerArrayList(extras[0])
-            :  new ArrayList<Integer>();
+                    ? savedInstanceState.getIntegerArrayList(extras[0])
+                    : new ArrayList<Integer>();
         }
 
         notifyDataSetChanged();
@@ -162,11 +162,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         switch (type) {
             case HEAD:
                 holder.bind(hGlobalController.getItemAt(position));
-                ((ViewHolderBinding<H>)holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
+                ((ViewHolderBinding<H>) holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
                 break;
             case BODY:
                 holder.bind(bGlobalController.getItemAt(position));
-                ((ViewHolderBinding<B>)holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
+                ((ViewHolderBinding<B>) holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
                 break;
         }
     }
@@ -191,9 +191,9 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public int getItemViewType(int position) {
-     if(position < hGlobalController.size()){
-         return ViewHolderType.HEAD.ordinal();
-     }
+        if (position < hGlobalController.size()) {
+            return ViewHolderType.HEAD.ordinal();
+        }
         return ViewHolderType.BODY.ordinal();
     }
 
@@ -233,6 +233,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     @Override
     public void notifyItemRemoved(int index, int viewType) {
         super.notifyItemRemoved(index, viewType);
+        types.remove(flatPos(index, viewType));
     }
 
     @Override
@@ -241,17 +242,35 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     }
 
     @Override
-    public void notifyItemInserted(int index, int viewType) {
-        super.notifyItemInserted(index, viewType);
+    public void notifyItemInserted(int index, int count, int viewType) {
+
+     //   types.add(index, viewType);
+          /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
+        super.notifyItemInserted(index, count, viewType);
     }
 
     @Override
     public void notifyDataAdd(int count, int viewType) {
+
+        /*Añadir n veces el tipo de vista [EN]  Add n times the type of view*/
+        for (int i = 0; i < count; ++i) {
+            types.add(viewType);
+        }
+
+       /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
         super.notifyDataAdd(count, viewType);
     }
 
     @Override
     public void notifyDataRemoved(int count, int viewType) {
+        /*Notificar al adapter previa eliminación [EN]  Notify adapter after elimination*/
         super.notifyDataRemoved(count, viewType);
+
+        /*Eliminar de la lista de tipos [EN]  Remove from the list of types*/
+        for (int i = 0; i <= types.lastIndexOf(viewType); ++i) {
+            if (types.get(i) == viewType) {
+                types.remove(i);
+            }
+        }
     }
 }

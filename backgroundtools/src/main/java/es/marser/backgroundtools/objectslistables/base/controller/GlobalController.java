@@ -231,7 +231,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             clearExpanded();
 
             if (adapterNotifier != null) {
-                adapterNotifier.notifyItemInserted(size() - 1, viewHolderType);
+                adapterNotifier.notifyItemInserted(size() - 1, size(),viewHolderType);
             }
         }
     }
@@ -254,7 +254,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             clearExpanded();
 
             if (adapterNotifier != null) {
-                adapterNotifier.notifyItemInserted(index, viewHolderType);
+                adapterNotifier.notifyItemInserted(index, size(), viewHolderType);
             }
         }
     }
@@ -376,8 +376,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public boolean isSelected(int posicion) {
-        // Log.d(LOG_TAG.TAG, "Selector nulo " + (selectionController == null));
-        // Log.d(LOG_TAG.TAG, "DialogProgressModello " + (adapterNotifier == null));
         return selectionController != null && adapterNotifier != null && selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 

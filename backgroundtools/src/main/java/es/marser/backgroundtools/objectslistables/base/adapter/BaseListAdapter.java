@@ -299,8 +299,11 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     }
 
     @Override
-    public void notifyItemInserted(int index, int viewType) {
-        notifyItemInserted(flatPos(index, viewType));
+    public void notifyItemInserted(int index, int count, int viewType) {
+        /*Comprobar si se agrega al final de la lista o es una insercción
+        [EN]  Check if it is added to the end of the list or is an insert*/
+       int pos = index == count -1 ? getItemCount() -1 : flatPos(index, viewType);
+        notifyItemInserted(pos);
     }
 
     @Override
