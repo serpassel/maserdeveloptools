@@ -117,14 +117,14 @@ public class CalendarChooserFragment
      */
     private void loadDayWeek() {
 
-        getHeadGlobalController().removeAllItems();
+        getHeadGlobalController().clear();
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
         for (String name : names) {
             DayWeek value = new DayWeek();
             value.day.set(name);
-            getHeadGlobalController().arrayListController.addItem(value);
+            getHeadGlobalController().add(value);
         }
 
         //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
@@ -157,7 +157,7 @@ public class CalendarChooserFragment
 
             @Override
             public void onFinish(List<CalendarObservable> finish) {
-                getBodyGlobalController().arrayListController.replaceAllItems(finish);
+                getBodyGlobalController().replaceAllItems(finish);
                 getBodyGlobalController().selectionController.inputSelected(datepos[0], true);
             }
 

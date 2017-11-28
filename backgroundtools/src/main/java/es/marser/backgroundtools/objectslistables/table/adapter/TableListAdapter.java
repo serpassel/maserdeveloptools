@@ -175,12 +175,12 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public int getItemCount() {
-        return hGlobalController.getItemCount() + bGlobalController.getItemCount();
+        return hGlobalController.size() + bGlobalController.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-     if(position < hGlobalController.getItemCount()){
+     if(position < hGlobalController.size()){
          return ViewHolderType.HEAD.ordinal();
      }
         return ViewHolderType.BODY.ordinal();
@@ -193,7 +193,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case HEAD:
                 return indexPos;
             case BODY:
-                return indexPos + hGlobalController.getItemCount();
+                return indexPos + hGlobalController.size();
             default:
                 throw new ClassCastException("Type of view does not match");
         }
@@ -206,7 +206,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case HEAD:
                 return flaPos;
             case BODY:
-                return flaPos - hGlobalController.getItemCount();
+                return flaPos - hGlobalController.size();
             default:
                 throw new ClassCastException("Type of view does not match");
         }

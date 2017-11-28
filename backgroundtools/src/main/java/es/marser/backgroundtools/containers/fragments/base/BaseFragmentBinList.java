@@ -13,7 +13,6 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
@@ -124,7 +123,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
 
     @Override
     public boolean isEmpty() {
-        return adapter.globalController.arrayListController.isEmpty();
+        return adapter.globalController.isEmpty();
     }
 
     @Override
@@ -174,17 +173,6 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         return adapter.globalController.selectionController;
     }
 
-    /**
-     * Acceso a los elementos de la lista
-     * <p>
-     * [EN]  Access to list items
-     *
-     * @return Controlador de la lista de elementos {@link ArrayListController}
-     * [EN]  Item List Controller {@link ArrayListController}
-     */
-    public ArrayListController<T> getArrayListController() {
-        return adapter.globalController.arrayListController;
-    }
 
     /**
      * Reemplaza todos los elementos del adaptador
@@ -195,7 +183,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void setItems(ArrayList<T> items) {
         if (items != null) {
-            adapter.globalController.arrayListController.replaceAllItems(items);
+            adapter.globalController.replaceAllItems(items);
         }
     }
 
@@ -206,7 +194,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.globalController.arrayListController.removeAllITems();
+        adapter.globalController.clear();
     }
 
     /**
@@ -218,7 +206,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.arrayListController.addItem(item);
+            adapter.globalController.add(item);
         }
     }
 
@@ -232,7 +220,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.arrayListController.insertItem(id, item);
+            adapter.globalController.add(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -248,7 +236,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.arrayListController.updateItem(id, item);
+            adapter.globalController.set(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -264,7 +252,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.arrayListController.removeItem(id);
+            adapter.globalController.remove(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();

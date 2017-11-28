@@ -187,7 +187,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
 
     @Override
     public boolean isEmpty() {
-        return getHeadGlobalController().arrayListController.isEmpty() && getBodyGlobalController().arrayListController.isEmpty();
+        return getHeadGlobalController().isEmpty() && getBodyGlobalController().isEmpty();
     }
 
     @Override
@@ -222,7 +222,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void setHeadItems(ArrayList<H> items) {
         if (items != null) {
-            getHeadGlobalController().arrayListController.replaceAllItems(items);
+            getHeadGlobalController().replaceAllItems(items);
         }
     }
 
@@ -232,7 +232,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      * [EN]  Delete item list
      */
     public void clearBody() {
-        getBodyGlobalController().arrayListController.removeAllITems();
+        getBodyGlobalController().clear();
     }
 
     /**
@@ -244,7 +244,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void addBodyItem(B item) {
         if (item != null) {
-            getBodyGlobalController().arrayListController.addItem(item);
+            getBodyGlobalController().add(item);
         }
     }
 
@@ -258,7 +258,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void insertBodyItem(int id, B item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            getBodyGlobalController().arrayListController.insertItem(id, item);
+            getBodyGlobalController().add(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -274,7 +274,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void updateBodyItem(int id, B item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            getBodyGlobalController().arrayListController.updateItem(id, item);
+            getBodyGlobalController().set(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -290,7 +290,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void deleteBodyItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.arrayListController.removeItem(id);
+            adapter.globalController.remove(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();

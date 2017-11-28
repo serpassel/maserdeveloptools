@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
@@ -21,7 +22,6 @@ import es.marser.backgroundtools.objectslistables.complex.listeners.ExpandCollap
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableList;
 import es.marser.backgroundtools.objectslistables.complex.models.ExpandableListPosition;
-import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 
 
 /**
@@ -68,7 +68,7 @@ public abstract class BaseComplexAdapter<
 
     public BaseComplexAdapter() {
         /*Inicio de variables de listas [EN]  Start List Variables*/
-        this.groups = new ArrayListController<>();
+        this.groups = new ArrayList<>();
         this.expandableList = new ExpandableList<>(groups);
 
         /*Inicio de controladores [EN]  Controllers startup*/

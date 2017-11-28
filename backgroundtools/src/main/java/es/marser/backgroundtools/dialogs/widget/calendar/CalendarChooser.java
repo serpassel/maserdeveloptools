@@ -185,7 +185,7 @@ public class CalendarChooser
         for (int i = 0; i < names.length; ++i) {
             DayWeek value = new DayWeek();
             value.day.set(names[i]);
-            getHeadGlobalController().arrayListController.add(value);
+            getHeadGlobalController().add(value);
         }
     }
 
@@ -216,7 +216,7 @@ public class CalendarChooser
 
             @Override
             public void onFinish(List<CalendarObservable> finish) {
-                getBodyGlobalController().arrayListController.replaceAllItems(finish);
+                getBodyGlobalController().replaceAllItems(finish);
                 getBodyGlobalController().selectionController.inputSelected(datepos[0], true);
             }
 

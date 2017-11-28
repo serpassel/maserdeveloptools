@@ -4,11 +4,12 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import es.marser.LOG_TAG;
+import java.util.ArrayList;
+import java.util.List;
+
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -29,7 +30,7 @@ import es.marser.tools.TextTools;
 public class GlobalController<T extends Parcelable> implements ViewHolderController<T>, OnItemChangedListener {
     /*Variables de control [EN]  Control variables*/
     public SelectionController<T> selectionController;
-    public ArrayListController<T> arrayListController;
+    public ArrayList<T> items;
     public ExpandController expandController;
 
     /*Oyente de cambios en la lista [EN]  Listener of changes in the list*/
@@ -45,15 +46,14 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         this.viewHolderType = viewHolderType;
 
          /*Nueva instancia de controladores [EN]  New controller instance*/
-        arrayListController = new ArrayListController<>();
+        items = new ArrayList<>();
         selectionController = new SelectionController<>(
-                arrayListController,
+                items,
                 ListExtra.SINGLE_SELECTION_MODE);
 
         expandController = new ExpandController();
 
      /*Definición de oyentes a los controladores [EN]  Definition of listeners to the controllers*/
-        arrayListController.setOnChangedListListener(this);
         selectionController.setOnSelectionChanged(this);
         expandController.setOnSelectionChanged(this);
     }
@@ -89,10 +89,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
         //ArrayList
         if (savedInstanceState != null) {
-            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, getItemCount());
+            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, size());
 
-            if (arrayListController != null && getItemCount() > 0) {
-                savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, arrayListController);
+            if (items != null && size() > 0) {
+                savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, items);
             }
         }
     }
@@ -108,9 +108,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.
      */
+    @SuppressWarnings("unchecked")
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-
-        Log.i(LOG_TAG.TAG, "Restore controller ");
 
         //Selection
         if (selectionController != null) {
@@ -124,10 +123,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
         //ArrayList
         if (savedInstanceState != null
-                && arrayListController != null) {
+                && items != null) {
 
             try {
-                arrayListController.addAll((ArrayListController<T>) savedInstanceState
+                items.addAll((ArrayList<T>) savedInstanceState
                         .getParcelableArrayList(TextTools.nc(viewHolderType) + itemskey));
             } catch (ClassCastException ignored) {
             }
@@ -146,8 +145,16 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @return [EN]  Total number of records
      */
-    public int getItemCount() {
-        return arrayListController != null ? arrayListController.size() : 0;
+    public int size() {
+        return items != null ? items.size() : 0;
+    }
+
+    /**
+     *
+     * @return verdadero si no hay registros [EN]  true if there are no records
+     */
+    public boolean isEmpty(){
+        return items != null && items.isEmpty();
     }
     //SET LISTENERS________________________________________________________________________________
 
@@ -178,11 +185,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     @Override
     public boolean isSelected(int posicion) {
-        // Log.d(LOG_TAG.TAG, "Selector nulo " + (selectionController == null));
-        // Log.d(LOG_TAG.TAG, "DialogProgressModello " + (adapterNotifier == null));
         return selectionController != null && adapterNotifier != null && selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
+    //EVENTOS DE PULSACIÓN___________________________________________________________________________
     @Override
     public void onClick(BaseViewHolder<T> holder, int posicion) {
         if (selectionController != null && adapterNotifier != null) {
@@ -195,14 +201,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         return selectionController.onLongClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
     }
 
-    @Override
-    public T getItemAt(int posicion) {
-        if (arrayListController == null || adapterNotifier == null) {
-            return null;
-        }
-        return arrayListController.getItemAt(adapterNotifier.indexPos(posicion, viewHolderType));
-    }
 
+    //SELECTION__________________________________________________________________________________
     @Override
     public void setSelected(int position, boolean value) {
         if (selectionController == null || adapterNotifier == null) {
@@ -231,62 +231,139 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
+    //CRUD_______________________________________________________________________________________
+
+    /*READ*/
+    @Override
+    public T getItemAt(int flatpos) {
+        if (items == null) {
+            return null;
+        }
+
+        if ((flatpos > -1 && flatpos < size())) {
+            int index = adapterNotifier != null ? adapterNotifier.indexPos(flatpos, viewHolderType) : flatpos;
+
+            return items.get(index);
+        }
+        return null;
+    }
+
+
+    /*WRITE*/
+
     /**
-     * Insertado un objeto en la posición indicada
+     * Agrega una lista de elementos
      * <p>
-     * [EN]  Inserted an object in the indicated position
+     * [EN]  Add a list of items
      *
-     * @param position posición de insercción [EN]  insertion position
+     * @param items lista de elementos [EN]  list of elements
      */
-    @Override
-    public void onInsertItem(int index) {
-        if (expandController != null) {
-            expandController.clear();
-        }
+    public void addAll(List<T> items) {
+        // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
+        if (items != null) {
+            //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
+            /*Agregar la lista de registros [EN]  Add the list of records*/
+            this.items.addAll(items);
 
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyItemInserted(index, viewHolderType);
-        }
-    }
-
-    @Override
-    public void onAddItem(int index) {
-        if (expandController != null) {
-            expandController.clear();
-        }
-
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyAddItem(index, viewHolderType);
-        }
-    }
-
-    @Override
-    public void onRemoveItem(int index) {
-        if (expandController != null) {
-            expandController.delete(index);
-        }
-        if (selectionController != null) {
-            selectionController.delete(index);
-        }
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyItemRemoved(index, viewHolderType);
-        }
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (expandController != null) {
-                        expandController.collapseAll();
-                    }
-                } catch (Exception ignored) {
-                }
+         /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyAddAll(viewHolderType);
             }
-        });
+        }
     }
 
-    @Override
-    public void removeAllItems() {
-        // Log.i(MainCRUD.TAG, "Eliminados todos los registros;");
+    /**
+     * Agrega elemento al final de la lista
+     * <p>
+     * [EN]  Add item to end of list
+     *
+     * @param item nuevo objeto genérico [EN]  new generic object
+     */
+    public void add(T item) {
+        if (item != null) {
+        /*Agregar elemento [EN]  Add Item*/
+            items.add(item);
+
+        /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (expandController != null) {
+                expandController.clear();
+            }
+
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyAddItem(size(), viewHolderType);
+            }
+        }
+    }
+
+    /**
+     * Agregar un registro en una posición definida
+     * <p>
+     * [EN]  Add a record in a defined position
+     *
+     * @param position posición para insertar elemento [EN]  position to insert element
+     * @param item     Nuevo elemento a insertar [EN]  New item to insert
+     */
+    public void add(int index, T item) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((index > -1 && index < size()) || item != null) {
+        /*Agregar elemento [EN]  Add Item*/
+            items.add(index, item);
+
+        /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (expandController != null) {
+                expandController.clear();
+            }
+
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyAddItem(index, viewHolderType);
+            }
+        }
+    }
+
+    /**
+     * Eliminar un elemento por su posición
+     * <p>
+     * [EN]  Delete an item by its position
+     *
+     * @param position posicion del elemento [EN]  position of the element
+     */
+    public void remove(int index) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((index > -1 && index < size())) {
+            if (expandController != null) {
+                expandController.delete(index);
+            }
+            if (selectionController != null) {
+                selectionController.delete(index);
+            }
+
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (expandController != null) {
+                            expandController.collapseAll();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            });
+
+            /*Eliminar elemento [EN]  Delete item*/
+            if (items != null) {
+                items.remove(index);
+            }
+             /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyRemoveItem(index, viewHolderType);
+            }
+        }
+    }
+
+    /**
+     * Procedimiento de eliminación de valiaables
+     */
+    public void clear() {
         if (selectionController != null) {
             selectionController.clear();
         }
@@ -294,16 +371,83 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             expandController.clear();
         }
 
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyRemoveRange(0, getItemCount(), viewHolderType);
+        if (items != null) {
+            items.clear();
         }
 
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyClear(viewHolderType);
+        }
     }
 
-    @Override
-    public void onAddAll() {
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyAddRange(0, getItemCount(), viewHolderType);
+    /**
+     * Actualiza el elemento de la posición indicada
+     * <p>
+     * [EN]  Update item from indicated position
+     *
+     * @param index posición sobre la que se actualiza [EN]  position on which it is updated
+     * @param item     elemento actualizado [EN]  item updated
+     */
+    public void set(Integer index, T item) {
+
+   /*Validar entrada [EN]  Validate entry*/
+        if (items != null && index != null && item != null && index > -1 && index < size()) {
+            /*Actualizar registro [EN]  Update record*/
+            items.set(index, item);
+       /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyItemChanged(index, viewHolderType);
+            }
+        }
+    }
+
+
+    //ELEMENT MANAGEMENT____________________________________________________________________________________
+
+    /**
+     * Sustituye todos los registros
+     * <p>
+     * [EN]  Replaces all records
+     *
+     * @param items nueva lista de registros [EN]  new list of records
+     */
+    public void replaceAllItems(List<T> items) {
+        clear();
+        addAll(items);
+    }
+
+    //ACCESS TO VARIABLES_________________________________________________________________________________________
+
+    /*Métodos de acceso de los datos de la variable [EN]  Methods of accessing the variable data */
+
+    /**
+     * Devolver lista de elementos
+     * No se notifica
+     * <p>
+     * [EN]  Return list of items
+     * [EN]  Not notified
+     *
+     * @return Lista de elementos [EN]  List of items
+     */
+    public ArrayList<T> getItems() {
+        return items;
+    }
+
+    /**
+     * Introducir una colección de elementos
+     * No se notifica
+     * <p>
+     * [EN]  Enter a collection of elements
+     * [EN]  Not notified
+     *
+     * @param items nuevos elementos [EN]  new elements
+     */
+    public void setItems(List<T> items) {
+        if (items != null) {
+        /*Limpiar la lista [EN]  Clear list*/
+            items.clear();
+        /*Agregar nuevos elementos [EN]  Add new items*/
+            addAll(items);
         }
     }
 }

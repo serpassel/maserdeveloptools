@@ -1,5 +1,6 @@
 package es.marser.backgroundtools.objectslistables.base.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
@@ -11,7 +12,6 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         Controlador de selección para listas simples
  *         <p>
  *         [EN]  Simple List Controller
- * @see es.marser.backgroundtools.objectslistables.base.controller.ArrayListController
  * @see BaseSelectionController
  * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
@@ -19,31 +19,30 @@ import es.marser.backgroundtools.enums.ListExtra;
 @SuppressWarnings("unused")
 public class SelectionController<T> extends BaseSelectionController<T> {
     /*Variable de arreglo de registros [EN]  Registry Array Variable*/
-    protected ArrayListController<T> arrayListController;
+    protected ArrayList<T> items;
 
-    public SelectionController(ArrayListController<T> arrayListController, ListExtra selectionmode) {
+    public SelectionController(ArrayList<T> items, ListExtra selectionmode) {
         super(selectionmode);
-        this.arrayListController = arrayListController;
+        this.items = items;
     }
-
 
     @Override
     protected int getItemsCount() {
-        return arrayListController.size();
+        return items.size();
     }
 
     @Override
     protected T getItemAt(int position) {
-        return arrayListController.get(position);
+        return items.get(position);
     }
 
     @Override
     protected void itemsClear() {
-        arrayListController.clear();
+        items.clear();
     }
 
     @Override
     protected void itemsAddAll(List<T> list) {
-        arrayListController.addAllItems(list);
+        items.addAll(list);
     }
 }
