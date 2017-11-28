@@ -191,7 +191,7 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
      */
     public void addBodyItem(B item) {
         if (item != null) {
-            getBodyGlobalController().addItem(item);
+            getBodyGlobalController().add(item);
         }
     }
 

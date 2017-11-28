@@ -155,9 +155,43 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         return items != null ? items.size() : 0;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return items != null && items.isEmpty();
     }
+    //CONTROLLERS MANAGER_______________________________________________________________________
+
+    /**
+     * Limpia los controladores
+     * <p>
+     * [EN]  Clean the drivers
+     */
+    private void clearControllers() {
+        clearSelected();
+        clearExpanded();
+    }
+
+    /**
+     * Limpia la lista de expansión
+     * <p>
+     * [EN]  Clean the expansion list
+     */
+    private void clearExpanded() {
+        if (expandController != null) {
+            expandController.clear();
+        }
+    }
+
+    /**
+     * Limpia los valores de selección
+     * <p>
+     * [EN]  Clean the selection values
+     */
+    private void clearSelected() {
+        if (selectionController != null) {
+            selectionController.clear();
+        }
+    }
+
     //SET LISTENERS________________________________________________________________________________
 
     /*Oyentes de pulsación [EN]  Pulsation listeners*/
@@ -246,6 +280,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
+
+    //CRUD_____________________________________________________________________________
     /**
      * Insertado un objeto en la posición indicada
      * <p>
@@ -260,16 +296,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
         if (adapterNotifier != null) {
             adapterNotifier.notifyItemInserted(index, viewHolderType);
-        }
-    }
-
-    public void onAddItem(int index) {
-        if (expandController != null) {
-            expandController.clear();
-        }
-
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyAddItem(index, viewHolderType);
         }
     }
 
@@ -311,9 +337,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     }
 
-    public void onAddAll() {
-
-    }
 
     //ELEMENT MANAGEMENT____________________________________________________________________________________
 
@@ -334,6 +357,27 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (adapterNotifier != null) {
                 adapterNotifier.notifyAddRange(0, size(), viewHolderType);
+            }
+        }
+    }
+
+    /**
+     * Agrega elemento al final de la lista
+     * <p>
+     * [EN]  Add item to end of list
+     *
+     * @param item nuevo objeto genérico [EN]  new generic object
+     */
+    public void add(T item) {
+        if (item != null) {
+        /*Agregar elemento [EN]  Add Item*/
+            this.items.add(item);
+
+        /*Notificar cambios de selección [EN]  Notify selection changes*/
+            clearExpanded();
+
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyAddItem(size() - 1, viewHolderType);
             }
         }
     }
@@ -380,22 +424,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    /**
-     * Agrega elemento al final de la lista
-     * <p>
-     * [EN]  Add item to end of list
-     *
-     * @param item nuevo objeto genérico [EN]  new generic object
-     */
-    public void addItem(T item) {
-        if (item != null) {
-        /*Agregar elemento [EN]  Add Item*/
-            this.items.add(item);
-
-        /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onAddItem(size() - 1);
-        }
-    }
 
     /**
      * Agregar un registro en una posición definida

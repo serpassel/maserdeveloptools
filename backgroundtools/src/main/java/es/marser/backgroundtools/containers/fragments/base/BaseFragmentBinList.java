@@ -205,7 +205,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.addItem(item);
+            adapter.globalController.add(item);
         }
     }
 

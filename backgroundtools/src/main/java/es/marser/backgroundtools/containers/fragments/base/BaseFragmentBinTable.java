@@ -244,7 +244,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void addBodyItem(B item) {
         if (item != null) {
-            getBodyGlobalController().addItem(item);
+            getBodyGlobalController().add(item);
         }
     }
 
