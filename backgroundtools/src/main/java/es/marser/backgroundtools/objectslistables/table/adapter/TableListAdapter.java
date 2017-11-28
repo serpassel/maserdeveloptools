@@ -4,23 +4,23 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import es.marser.LOG_TAG;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.table.holder.BodyViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.table.holder.HeaderViewHolderBinding;
-import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
+import es.marser.backgroundtools.objectslistables.table.holder.TitleViewHolderBinding;
 
 /**
  * @author sergio
@@ -34,6 +34,8 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
 public abstract class TableListAdapter<H extends Parcelable, B extends Parcelable>
         extends BaseListAdapter {
 
+    /*Controlador de cabecera [EN]  Header controller*/
+    public GlobalController<Selectable> tGlobalController;
     /*Controlador de cabecera [EN]  Header controller*/
     public GlobalController<H> hGlobalController;
     /*Controlador de cuerpo [EN]  Body controller*/
@@ -53,6 +55,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         return null;
     }
 
+    public ViewItemHandler<Selectable> getTitleItemHandler() {
+        return null;
+    }
+
     /*Control de pulsaciones en las vistas inferiores [EN]  Pulse control in the bottom views*/
     public TouchableViewHandler<H> getHeadTouchableViewHandler() {
         return null;
@@ -62,7 +68,16 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         return null;
     }
 
+    public TouchableViewHandler<Selectable> getTitleTouchableViewHandler() {
+        return null;
+    }
+
     public TableListAdapter() {
+
+
+        tGlobalController = new GlobalController<>(ViewHolderType.TITLE.ordinal());
+        tGlobalController.setChangedListener(this);
+        tGlobalController.setViewItemHandler(getTitleItemHandler());
 
         hGlobalController = new GlobalController<>(ViewHolderType.HEAD.ordinal());
         hGlobalController.setChangedListener(this);
@@ -96,6 +111,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+
+        if(tGlobalController != null){
+            tGlobalController.onSaveInstanceState(savedInstanceState);
+        }
+
         if (hGlobalController != null) {
             hGlobalController.onSaveInstanceState(savedInstanceState);
         }
@@ -121,6 +141,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (tGlobalController != null) {
+            if (savedInstanceState != null) {
+                tGlobalController.onRestoreInstanceState(savedInstanceState);
+            }
+        }
         if (hGlobalController != null) {
             if (savedInstanceState != null) {
                 hGlobalController.onRestoreInstanceState(savedInstanceState);
@@ -147,10 +172,15 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     public abstract int getBodyHolderLayout();
 
+    public int getTitleHolderLayout(){
+        return -1;
+    }
+
     //OVERRRIDE ADAPTER_________________________________________________________________________________
     @Override
     protected SparseIntArray sparseHolderLayout() {
         SparseIntArray intArray = new SparseIntArray();
+        intArray.put(ViewHolderType.TITLE.ordinal(), getTitleHolderLayout());
         intArray.put(ViewHolderType.HEAD.ordinal(), getHeadHolderLayout());
         intArray.put(ViewHolderType.BODY.ordinal(), getBodyHolderLayout());
         return intArray;
@@ -162,6 +192,10 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         ViewHolderType type = ViewHolderType.values()[holder.getIndexTypeView()];
 
         switch (type) {
+            case TITLE:
+                holder.bind(tGlobalController.getItemAt(position));
+                ((ViewHolderBinding<Selectable>) holder).attachTouchableViewHandler(getTitleTouchableViewHandler());
+                break;
             case HEAD:
                 holder.bind(hGlobalController.getItemAt(position));
                 ((ViewHolderBinding<H>) holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
@@ -177,6 +211,8 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     public BaseViewHolder onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
         ViewHolderType type = ViewHolderType.values()[viewType];
         switch (type) {
+            case TITLE:
+                return new TitleViewHolderBinding(dataBinding, tGlobalController);
             case HEAD:
                 return new HeaderViewHolderBinding<>(dataBinding, hGlobalController);
             case BODY:
@@ -188,7 +224,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public int getItemCount() {
-        return hGlobalController.size() + bGlobalController.size();
+        return types.size();
     }
 
     @Override
@@ -240,10 +276,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     @Override
     public void notifyItemInserted(int index, int count, int viewType) {
-        int pos = index == count - 1 ? getItemCount() - 1 : flatPos(index, viewType);
-        if(viewType == ViewHolderType.HEAD.ordinal()){
-            Log.i(LOG_TAG.TAG, "Posición de cabecera " + pos);
-        }
+        int pos = index == count - 1 ? getItemCount() : flatPos(index, viewType);
         types.add(pos, viewType);
           /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
         super.notifyItemInserted(index, count, viewType);

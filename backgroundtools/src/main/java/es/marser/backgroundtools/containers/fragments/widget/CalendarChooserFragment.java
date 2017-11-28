@@ -18,12 +18,14 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBinTable;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.dialogs.model.DayWeek;
+import es.marser.backgroundtools.dialogs.model.MonthTitle;
 import es.marser.backgroundtools.dialogs.widget.calendar.AsyncMonthDays;
 import es.marser.backgroundtools.dialogs.widget.calendar.DateLoader;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
@@ -61,17 +63,44 @@ public class CalendarChooserFragment
     }
 
     @Override
+    public int getTitleHolderLayout() {
+        return R.layout.mvp_item_calendar_month_title;
+    }
+
+    @Override
     protected int getFragmentLayout() {
         return R.layout.mvp_frag_calendar_chooser;
     }
 
     @Override
     protected RecyclerView.LayoutManager getLayoutManager() {
+        final GridLayoutManager manager;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return new GridLayoutManager(getContext(), 7);
+            manager = new GridLayoutManager(getContext(), 7);
         } else {
-            return new GridLayoutManager(getActivity(), 7);
+            manager = new GridLayoutManager(getActivity(), 7);
         }
+
+        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                ViewHolderType type = ViewHolderType.values()[adapter.getItemViewType(position)];
+
+                switch (type) {
+                    case TITLE:
+                        return manager.getSpanCount();
+                    case HEAD:
+                        return 1;
+                    case BODY:
+                        return 1;
+                    default:
+                        return -1;
+                }
+            }
+        });
+
+        return manager;
     }
 
     @Override
@@ -99,7 +128,7 @@ public class CalendarChooserFragment
             getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
 
             //getHeadGlobalController().clear();
-           // loadDayWeek();
+            // loadDayWeek();
             load(null);
 
             //loadDayWeek();
@@ -124,6 +153,8 @@ public class CalendarChooserFragment
     private void loadDayWeek() {
 
         // getHeadGlobalController().clear();
+
+        getTitleGlobalController().add(new MonthTitle("OCTUBRE"));
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 

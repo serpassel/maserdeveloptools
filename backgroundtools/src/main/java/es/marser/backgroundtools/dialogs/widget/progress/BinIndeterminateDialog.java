@@ -2,7 +2,6 @@ package es.marser.backgroundtools.dialogs.widget.progress;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;

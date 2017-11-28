@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -68,6 +69,10 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
     public abstract int getHeadHolderLayout();
 
     public abstract int getBodyHolderLayout();
+
+    public int getTitleHolderLayout(){
+        return -1;
+    }
 
     //OPTIONAL OVERWRITE________________________________________________________________________________
     /*Controlador de pulsaciones*/
@@ -149,6 +154,11 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
                 }
 
                 @Override
+                public int getTitleHolderLayout() {
+                    return BaseFragmentBinTable.this.getTitleHolderLayout();
+                }
+
+                @Override
                 public ViewItemHandler<H> getHeadItemHandler() {
                     return BaseFragmentBinTable.this.getHeadItemHandler();
                 }
@@ -211,6 +221,14 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public GlobalController<B> getBodyGlobalController() {
         return adapter.bGlobalController;
+    }
+
+    /**
+     * @return Controladora de títulos
+     * [EN]  Controller of titles
+     */
+    public GlobalController<Selectable> getTitleGlobalController(){
+        return adapter.tGlobalController;
     }
 
     /**

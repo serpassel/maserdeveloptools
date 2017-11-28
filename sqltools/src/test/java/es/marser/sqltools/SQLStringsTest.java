@@ -11,7 +11,6 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import es.marser.sqltools.examples.PojoExample;
-import es.marser.tools.SystemColor;
 
 import static org.mockito.Mockito.when;
 

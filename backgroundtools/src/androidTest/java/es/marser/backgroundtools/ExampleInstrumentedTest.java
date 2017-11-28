@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.Log;
-import android.util.SparseIntArray;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -13,7 +12,6 @@ import java.io.File;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
-import es.marser.tools.SystemColor;
 
 import static org.junit.Assert.assertEquals;
 

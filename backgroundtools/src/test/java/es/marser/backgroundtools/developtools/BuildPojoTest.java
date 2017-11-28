@@ -149,4 +149,24 @@ public class BuildPojoTest {
         BuildPojo buildPojo = new BuildPojo(tablename, nameclass, list);
         System.out.println(SystemColor.ANSI_GREEN+ buildPojo.writeClass(classpath, packagen2, buildPojo.print(true), path, nameclass));
     }
+
+    @Test
+    public void buildMonthModel() {
+
+        String tablename = null;
+
+        String classpath = "/home/sergio/Dropbox/MaserDevelopTools/backgroundtools";
+        String path = "dialogs/model";
+        String packagen2 = "es.marser.backgroundtools";
+
+        String nameclass = "MonthTitle";
+
+        BuildPojo.FieldBuilder[] list = {
+
+                BuildPojo.newfb("name", String.class)
+        };
+
+        BuildPojo buildPojo = new BuildPojo(null, nameclass, list);
+        System.out.println(SystemColor.ANSI_GREEN+ buildPojo.writeClass(classpath, packagen2, buildPojo.print(true), path, nameclass));
+    }
 }

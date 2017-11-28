@@ -8,6 +8,7 @@ package es.marser.backgroundtools.objectslistables.base.listeners;
  *         [EN]  Adapter Notifier
  */
 
+@SuppressWarnings("unused")
 public interface AdapterNotifier {
     @SuppressWarnings("unused")
 

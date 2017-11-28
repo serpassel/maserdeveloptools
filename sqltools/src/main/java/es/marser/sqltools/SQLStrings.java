@@ -1,7 +1,6 @@
 package es.marser.sqltools;
 
 import android.database.Cursor;
-import android.util.Log;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -11,7 +10,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.annotation.DbColumn;
 import es.marser.annotation.DbColumnInclosed;
 import es.marser.annotation.DbPrimaryKey;

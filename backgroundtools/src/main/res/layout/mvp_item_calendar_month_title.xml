@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <!--DATA MODEL-->
+        <import type="es.marser.backgroundtools.definition.Selectable" />
+
+        <variable
+            name="item"
+            type="Selectable" />
+    </data>
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/box_default_medium_margin"
+        android:background="?attr/dialogs_head_background_tint"
+        android:orientation="vertical">
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:text="@{item.toSpannableString()}"
+            android:textColor="?attr/dialogs_head_text_color"
+            android:textSize="13sp"
+            />
+    </android.support.v7.widget.ContentFrameLayout>
+</layout>

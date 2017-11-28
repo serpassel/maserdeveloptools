@@ -24,6 +24,7 @@ import es.marser.tools.TextTools;
  *
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
+@SuppressWarnings("unused")
 @RunWith(AndroidJUnit4.class)
 public class DaysTerritoryTest {
     @Test
