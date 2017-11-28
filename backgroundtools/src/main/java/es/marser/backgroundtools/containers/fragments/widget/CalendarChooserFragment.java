@@ -117,7 +117,7 @@ public class CalendarChooserFragment
      */
     private void loadDayWeek() {
 
-        getHeadGlobalController().removeAllItems();
+        getHeadGlobalController().clear();
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 

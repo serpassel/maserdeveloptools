@@ -133,7 +133,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        getController().removeAllITems();
+        getController().clear();
     }
 
     /**

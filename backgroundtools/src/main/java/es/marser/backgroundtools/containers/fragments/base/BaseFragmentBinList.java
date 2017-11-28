@@ -193,7 +193,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.globalController.removeAllITems();
+        adapter.globalController.clear();
     }
 
     /**

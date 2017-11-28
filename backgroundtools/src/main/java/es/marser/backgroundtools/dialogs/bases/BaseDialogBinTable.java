@@ -179,7 +179,7 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
      * [EN]  Delete item list
      */
     public void clearBody() {
-        getBodyGlobalController().removeAllITems();
+        getBodyGlobalController().clear();
     }
 
     /**

@@ -232,7 +232,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      * [EN]  Delete item list
      */
     public void clearBody() {
-        getBodyGlobalController().removeAllITems();
+        getBodyGlobalController().clear();
     }
 
     /**

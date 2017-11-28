@@ -287,20 +287,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     }
 
-    public void removeAllItems() {
-        // Log.i(MainCRUD.TAG, "Eliminados todos los registros;");
-        if (selectionController != null) {
-            selectionController.clear();
-        }
-        if (expandController != null) {
-            expandController.clear();
-        }
-
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyRemoveRange(0, size(), viewHolderType);
-        }
-
-    }
 
 
     //ELEMENT MANAGEMENT____________________________________________________________________________________
@@ -411,6 +397,24 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     }
 
     /**
+     * Eliminar todos los elementos de la lista
+     * <p>
+     * [EN]  Remove all items from the list
+     */
+    public void clear() {
+          /*Notificar cambios de selección [EN]  Notify selection changes*/
+        clearControllers();
+
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyRemoveRange(0, size(), viewHolderType);
+        }
+
+          /*Limpiar lista [EN]  Clean list*/
+        this.items.clear();
+    }
+
+
+    /**
      * Sustituye todos los registros
      * <p>
      * [EN]  Replaces all records
@@ -418,21 +422,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * @param items nueva lista de registros [EN]  new list of records
      */
     public void replaceAllItems(List<T> items) {
-        removeAllITems();
+        clear();
         addAll(items);
-    }
-
-
-    /**
-     * Eliminar todos los elementos de la lista
-     * <p>
-     * [EN]  Remove all items from the list
-     */
-    public void removeAllITems() {
-          /*Notificar cambios de selección [EN]  Notify selection changes*/
-        removeAllItems();
-          /*Limpiar lista [EN]  Clean list*/
-        this.items.clear();
     }
 
 
