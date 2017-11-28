@@ -91,9 +91,9 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
         //ArrayList
         if (savedInstanceState != null) {
-            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, getItemCount());
+            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, size());
 
-            if (items != null && getItemCount() > 0) {
+            if (items != null && size() > 0) {
                 savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, items);
             }
         }
@@ -151,7 +151,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @return [EN]  Total number of records
      */
-    public int getItemCount() {
+    public int size() {
         return items != null ? items.size() : 0;
     }
 
@@ -310,7 +310,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyRemoveRange(0, getItemCount(), viewHolderType);
+            adapterNotifier.notifyRemoveRange(0, size(), viewHolderType);
         }
 
     }
@@ -318,7 +318,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     @Override
     public void onAddAll() {
         if (adapterNotifier != null) {
-            adapterNotifier.notifyAddRange(0, getItemCount(), viewHolderType);
+            adapterNotifier.notifyAddRange(0, size(), viewHolderType);
         }
     }
 
@@ -377,7 +377,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      */
     public void removeItem(int position) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < getItemCount())) {
+        if ((position > -1 && position < size())) {
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             onRemoveItem(position);
             /*Eliminar elemento [EN]  Delete item*/
@@ -398,7 +398,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             this.items.add(item);
 
         /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onAddItem(getItemCount() - 1);
+            onAddItem(size() - 1);
         }
     }
 
@@ -412,7 +412,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      */
     public void insertItem(int position, T item) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < getItemCount()) || item != null) {
+        if ((position > -1 && position < size()) || item != null) {
         /*Agregar elemento [EN]  Add Item*/
             this.items.add(position, item);
 
@@ -432,7 +432,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     public void updateItem(Integer position, T item) {
 
    /*Validar entrada [EN]  Validate entry*/
-        if (position != null && item != null && position > -1 && position < getItemCount()) {
+        if (position != null && item != null && position > -1 && position < size()) {
             /*Actualizar registro [EN]  Update record*/
             this.items.set(position, item);
        /*Notificar cambios de selección [EN]  Notify selection changes*/

@@ -201,7 +201,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
     @Override
     public int getItemCount() {
-        return globalController.getItemCount();
+        return globalController.size();
     }
 
 
