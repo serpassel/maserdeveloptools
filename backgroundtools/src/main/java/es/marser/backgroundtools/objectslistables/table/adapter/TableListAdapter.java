@@ -169,7 +169,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case BODY:
                 return new BodyViewHolderBinding<>(dataBinding, bGlobalController);
             default:
-                throw new ClassCastException("Undefined view es");
+                throw new ClassCastException("Undefined view");
         }
     }
 
@@ -210,5 +210,35 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             default:
                 throw new ClassCastException("Type of view does not match");
         }
+    }
+
+    @Override
+    public void notifyDataSetChanged(int viewType) {
+        super.notifyDataSetChanged(viewType);
+    }
+
+    @Override
+    public void notifyItemChanged(int index, int viewType) {
+        super.notifyItemChanged(index, viewType);
+    }
+
+    @Override
+    public void notifyAddItem(int index, int viewType) {
+        super.notifyAddItem(index, viewType);
+    }
+
+    @Override
+    public void notifyAddAll(int viewType) {
+        super.notifyAddAll(viewType);
+    }
+
+    @Override
+    public void notifyRemoveItem(int index, int viewType) {
+        super.notifyRemoveItem(index, viewType);
+    }
+
+    @Override
+    public void notifyClear(int viewType) {
+        super.notifyClear(viewType);
     }
 }

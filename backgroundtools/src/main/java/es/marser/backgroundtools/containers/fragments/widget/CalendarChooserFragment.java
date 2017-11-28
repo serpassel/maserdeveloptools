@@ -127,6 +127,12 @@ public class CalendarChooserFragment
             getHeadGlobalController().add(value);
         }
 
+        for (String name : names) {
+            DayWeek value = new DayWeek();
+            value.day.set(name);
+            getHeadGlobalController().add(value);
+        }
+
         //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
     }
 
