@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
@@ -45,6 +46,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <p>
  *         </ul>
  * @see SelectionController
+ * @see ArrayListController
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController
@@ -199,7 +201,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
     @Override
     public int getItemCount() {
-        return globalController.size();
+        return globalController.getItemCount();
     }
 
 
@@ -289,8 +291,18 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     }
 
     @Override
+    public void notifyItemRemoved(int index, int viewType) {
+        notifyItemRemoved(flatPos(index, viewType));
+    }
+
+    @Override
     public void notifyItemChanged(int index, int viewType) {
         notifyItemChanged(flatPos(index, viewType));
+    }
+
+    @Override
+    public void notifyItemInserted(int index, int viewType) {
+        notifyItemInserted(flatPos(index, viewType));
     }
 
     @Override
@@ -299,18 +311,13 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     }
 
     @Override
-    public void notifyAddAll(int viewType) {
-       notifyDataSetChanged();
+    public void notifyAddRange(int indexStart, int indexEnd, int viewType) {
+        notifyItemRangeInserted(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));
     }
 
     @Override
-    public void notifyRemoveItem(int index, int viewType) {
-        notifyItemRemoved(flatPos(index, viewType));
-    }
-
-    @Override
-    public void notifyClear(int viewType) {
-        notifyDataSetChanged();
+    public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
+        notifyItemRangeRemoved(flatPos(indexStart, viewType), flatPos(indexEnd, viewType));
     }
 
     //PROPERTIES_________________________________________________________________________________________

@@ -2,10 +2,10 @@ package es.marser.backgroundtools.objectslistables.complex.models;
 
 import android.databinding.BaseObservable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.async.TaskLoadingResult;
+import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 
 /**
  * @author sergio
@@ -31,17 +31,17 @@ import es.marser.async.TaskLoadingResult;
 
 @SuppressWarnings("unused")
 public abstract class ListableItems<T> extends BaseObservable {
-    protected ArrayList<T> items;
+    protected ArrayListController<T> arrayListController;
 
     //CONSTRUCTORS________________________________________________________________________________
     public ListableItems() {
-        items = new ArrayList<>();
+        arrayListController = new ArrayListController<>();
     }
 
     public ListableItems(List<T> list) {
         this();
         if (list != null) {
-            items.addAll(list);
+            arrayListController.addAllItems(list);
         }
     }
 
@@ -55,10 +55,10 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @return número de elementos anidados [EN]  number of nested elements
      */
     public int getItemCount() {
-        if (items.isEmpty()) {
-            items.addAll(getItems(null));
+        if (arrayListController.isEmpty()) {
+            arrayListController.addAll(getItems(null));
         }
-        return items.size();
+        return arrayListController.size();
     }
 
     /**
@@ -88,12 +88,12 @@ public abstract class ListableItems<T> extends BaseObservable {
     public List<T> getItems(TaskLoadingResult<T> onResult) {
         if (onResult != null) {
             onResult.onStart(null);
-            for (T t : items) {
+            for (T t : arrayListController) {
                 onResult.onUpdate(t);
             }
             onResult.onFinish(null);
         }
-        return items;
+        return arrayListController;
     }
 
     /**
@@ -103,8 +103,8 @@ public abstract class ListableItems<T> extends BaseObservable {
      */
     protected void loadData() {
         /*Comprobar si la lista está vacía [EN]  Check if the list is empty*/
-        if (items.isEmpty()) {
-            items.addAll(getItems());
+        if (arrayListController.isEmpty()) {
+            arrayListController.addAll(getItems());
         }
     }
 
@@ -116,8 +116,7 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @param list Nueva listas de elementos [EN]  New item lists
      */
     public void setItems(List<T> list) {
-        items.clear();
-        items.addAll(list);
+        arrayListController.replaceAllItems(list);
     }
 
     /**
@@ -133,7 +132,7 @@ public abstract class ListableItems<T> extends BaseObservable {
         loadData();
         /*Eliminar los elementos de la lista [EN]  Remove items from the list*/
         for (int i : todelete) {
-            items.remove(i);
+            arrayListController.remove(i);
         }
         /*Grabar datos [EN]  Save data*/
         save();
@@ -145,7 +144,7 @@ public abstract class ListableItems<T> extends BaseObservable {
      * [EN]  Recording Elements
      */
     public void save() {
-        setItems(items);
+        setItems(arrayListController.getItems());
     }
 
 //MANIPULATION OF ELEMENTS, UNIT_____________________________________________________________________
@@ -163,8 +162,8 @@ public abstract class ListableItems<T> extends BaseObservable {
         loadData();
         /*Comprobar si la posición está dentro del rango de elementos
         * [EN]  Check if the position is within the range of elements*/
-        if (position > -1 && position < items.size()) {
-            return items.get(position);
+        if (position > -1 && position < arrayListController.size()) {
+            return arrayListController.get(position);
         } else {
             return null;
         }
@@ -178,7 +177,7 @@ public abstract class ListableItems<T> extends BaseObservable {
      * @return Objeto genérico [EN]  Generic object
      */
     public T getLastItem() {
-        return getItem(items.size() - 1);
+        return getItem(arrayListController.size() - 1);
     }
 
     /**
@@ -192,7 +191,7 @@ public abstract class ListableItems<T> extends BaseObservable {
         /*Recargar la lista [EN]  Reload the list*/
         loadData();
         /*Agregar elemento a la lista [EN]  Add item to list*/
-        items.add(item);
+        arrayListController.addItem(item);
         /*Grabar cambios [EN]  Record Changes*/
         save();
     }
@@ -208,10 +207,10 @@ public abstract class ListableItems<T> extends BaseObservable {
           /*Recargar la lista [EN]  Reload the list*/
         loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if (position > -1 && position < items.size()) {
+        if (position > -1 && position < arrayListController.size()) {
 
         /*Eliminar elemento de la lista [EN]  Remove item from the list*/
-            items.remove(position);
+            arrayListController.remove(position);
         /*Grabar cambios [EN]  Record Changes*/
             save();
         }
@@ -229,10 +228,10 @@ public abstract class ListableItems<T> extends BaseObservable {
            /*Recargar la lista [EN]  Reload the list*/
         loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < items.size()) || item == null) {
+        if ((position > -1 && position < arrayListController.size()) || item == null) {
 
         /*Actualizar el elemento [EN]  Update item*/
-            items.set(position, item);
+            arrayListController.updateItem(position, item);
         /*Grabar cambios [EN]  Record Changes*/
             save();
         }
@@ -250,11 +249,21 @@ public abstract class ListableItems<T> extends BaseObservable {
             /*Recargar la lista [EN]  Reload the list*/
         loadData();
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < items.size()) || item == null) {
+        if ((position > -1 && position < arrayListController.size()) || item == null) {
         /*Insertar el elemento en la posición indicada [EN]  Insert the element in the indicated position*/
-            items.add(position, item);
+            arrayListController.insertItem(position, item);
         /*Grabar cambios [EN]  Record Changes*/
             save();
         }
     }
+
+    //ACCESS TO VARIABLES_____________________________________________________________________________
+
+    /**
+     * @return Controlador de elementos [EN]  Element Controller
+     */
+    public ArrayListController<T> getArrayListController() {
+        return arrayListController;
+    }
+
 }

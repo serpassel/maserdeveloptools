@@ -173,7 +173,6 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         return adapter.globalController.selectionController;
     }
 
-
     /**
      * Reemplaza todos los elementos del adaptador
      * <p>
@@ -194,7 +193,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.globalController.clear();
+        adapter.globalController.removeAllITems();
     }
 
     /**
@@ -206,7 +205,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.add(item);
+            adapter.globalController.addItem(item);
         }
     }
 
@@ -220,7 +219,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.add(id, item);
+            adapter.globalController.insertItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -236,7 +235,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.set(id, item);
+            adapter.globalController.updateItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -252,7 +251,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.remove(id);
+            adapter.globalController.removeItem(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();

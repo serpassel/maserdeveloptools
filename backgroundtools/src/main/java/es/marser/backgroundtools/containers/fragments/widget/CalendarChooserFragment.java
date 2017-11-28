@@ -117,20 +117,14 @@ public class CalendarChooserFragment
      */
     private void loadDayWeek() {
 
-        getHeadGlobalController().clear();
+        getHeadGlobalController().removeAllItems();
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
         for (String name : names) {
             DayWeek value = new DayWeek();
             value.day.set(name);
-            getHeadGlobalController().add(value);
-        }
-
-        for (String name : names) {
-            DayWeek value = new DayWeek();
-            value.day.set(name);
-            getHeadGlobalController().add(value);
+            getHeadGlobalController().addItem(value);
         }
 
         //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());

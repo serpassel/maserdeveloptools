@@ -169,18 +169,18 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case BODY:
                 return new BodyViewHolderBinding<>(dataBinding, bGlobalController);
             default:
-                throw new ClassCastException("Undefined view");
+                throw new ClassCastException("Undefined view es");
         }
     }
 
     @Override
     public int getItemCount() {
-        return hGlobalController.size() + bGlobalController.size();
+        return hGlobalController.getItemCount() + bGlobalController.getItemCount();
     }
 
     @Override
     public int getItemViewType(int position) {
-     if(position < hGlobalController.size()){
+     if(position < hGlobalController.getItemCount()){
          return ViewHolderType.HEAD.ordinal();
      }
         return ViewHolderType.BODY.ordinal();
@@ -193,7 +193,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case HEAD:
                 return indexPos;
             case BODY:
-                return indexPos + hGlobalController.size();
+                return indexPos + hGlobalController.getItemCount();
             default:
                 throw new ClassCastException("Type of view does not match");
         }
@@ -206,39 +206,9 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
             case HEAD:
                 return flaPos;
             case BODY:
-                return flaPos - hGlobalController.size();
+                return flaPos - hGlobalController.getItemCount();
             default:
                 throw new ClassCastException("Type of view does not match");
         }
-    }
-
-    @Override
-    public void notifyDataSetChanged(int viewType) {
-        super.notifyDataSetChanged(viewType);
-    }
-
-    @Override
-    public void notifyItemChanged(int index, int viewType) {
-        super.notifyItemChanged(index, viewType);
-    }
-
-    @Override
-    public void notifyAddItem(int index, int viewType) {
-        super.notifyAddItem(index, viewType);
-    }
-
-    @Override
-    public void notifyAddAll(int viewType) {
-        super.notifyAddAll(viewType);
-    }
-
-    @Override
-    public void notifyRemoveItem(int index, int viewType) {
-        super.notifyRemoveItem(index, viewType);
-    }
-
-    @Override
-    public void notifyClear(int viewType) {
-        super.notifyClear(viewType);
     }
 }

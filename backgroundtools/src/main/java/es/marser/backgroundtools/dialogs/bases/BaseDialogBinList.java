@@ -133,7 +133,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        getController().clear();
+        getController().removeAllITems();
     }
 
     /**
@@ -156,7 +156,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.add(item);
+            adapter.globalController.addItem(item);
         }
     }
 
@@ -170,7 +170,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.add(id, item);
+            adapter.globalController.insertItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -186,7 +186,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.set(id, item);
+            adapter.globalController.updateItem(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -202,7 +202,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.remove(id);
+            adapter.globalController.removeItem(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();
