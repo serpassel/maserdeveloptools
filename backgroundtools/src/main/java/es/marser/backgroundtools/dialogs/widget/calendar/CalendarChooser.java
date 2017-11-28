@@ -216,7 +216,7 @@ public class CalendarChooser
 
             @Override
             public void onFinish(List<CalendarObservable> finish) {
-                getBodyGlobalController().replaceAllItems(finish);
+                getBodyGlobalController().replace(finish);
                 getBodyGlobalController().selectionController.inputSelected(datepos[0], true);
             }
 

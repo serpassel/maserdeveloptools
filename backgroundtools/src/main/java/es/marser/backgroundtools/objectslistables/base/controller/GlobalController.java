@@ -432,7 +432,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @param items nueva lista de registros [EN]  new list of records
      */
-    public void replaceAllItems(List<T> items) {
+    public void replace(List<T> items) {
         clear();
         addAll(items);
     }

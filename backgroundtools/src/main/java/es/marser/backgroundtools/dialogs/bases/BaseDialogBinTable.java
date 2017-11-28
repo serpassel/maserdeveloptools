@@ -169,7 +169,7 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
      */
     public void setHeadItems(ArrayList<H> items) {
         if (items != null) {
-            getHeadGlobalController().replaceAllItems(items);
+            getHeadGlobalController().replace(items);
         }
     }
 

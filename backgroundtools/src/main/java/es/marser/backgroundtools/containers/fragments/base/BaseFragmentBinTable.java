@@ -222,7 +222,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void setHeadItems(ArrayList<H> items) {
         if (items != null) {
-            getHeadGlobalController().replaceAllItems(items);
+            getHeadGlobalController().replace(items);
         }
     }
 

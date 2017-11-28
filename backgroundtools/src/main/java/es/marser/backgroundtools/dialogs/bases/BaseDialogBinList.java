@@ -123,7 +123,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void setItems(ArrayList<T> items) {
         if (items != null) {
-            adapter.globalController.replaceAllItems(items);
+            adapter.globalController.replace(items);
         }
     }
 
