@@ -312,9 +312,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     }
 
     public void onAddAll() {
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyAddRange(0, size(), viewHolderType);
-        }
+
     }
 
     //ELEMENT MANAGEMENT____________________________________________________________________________________
@@ -326,7 +324,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @param items lista de elementos [EN]  list of elements
      */
-    public void addAllItems(List<T> items) {
+    public void addAll(List<T> items) {
         // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
         if (items != null) {
             //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
@@ -334,7 +332,9 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             this.items.addAll(items);
 
          /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onAddAll();
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyAddRange(0, size(), viewHolderType);
+            }
         }
     }
 
@@ -347,7 +347,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      */
     public void replaceAllItems(List<T> items) {
         removeAllITems();
-        addAllItems(items);
+        addAll(items);
     }
 
 

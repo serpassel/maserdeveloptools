@@ -189,7 +189,7 @@ public class ChooserDialog<T extends Selectable>
         final String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), null);
         if (values != null) {
             if (preselect == null) {
-                adapter.globalController.addAllItems(values);
+                adapter.globalController.addAll(values);
                 return;
             }
 
