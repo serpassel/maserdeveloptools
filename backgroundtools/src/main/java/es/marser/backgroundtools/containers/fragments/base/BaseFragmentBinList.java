@@ -219,7 +219,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.insertItem(id, item);
+            adapter.globalController.add(id, item);
             scrollToId(id);
             savedScroll();
         }

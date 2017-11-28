@@ -282,22 +282,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
 
     //CRUD_____________________________________________________________________________
-    /**
-     * Insertado un objeto en la posición indicada
-     * <p>
-     * [EN]  Inserted an object in the indicated position
-     *
-     * @param position posición de insercción [EN]  insertion position
-     */
-    public void onInsertItem(int index) {
-        if (expandController != null) {
-            expandController.clear();
-        }
-
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyItemInserted(index, viewHolderType);
-        }
-    }
 
     public void onRemoveItem(int index) {
         if (expandController != null) {
@@ -383,6 +367,30 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     }
 
     /**
+     * Agregar un registro en una posición definida
+     * <p>
+     * [EN]  Add a record in a defined position
+     *
+     * @param position posición para insertar elemento [EN]  position to insert element
+     * @param item     Nuevo elemento a insertar [EN]  New item to insert
+     */
+    public void add(int index, T item) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((index > -1 && index < size()) || item != null) {
+        /*Agregar elemento [EN]  Add Item*/
+            this.items.add(index, item);
+
+        /*Notificar cambios de selección [EN]  Notify selection changes*/
+            clearExpanded();
+
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyItemInserted(index, viewHolderType);
+            }
+        }
+    }
+
+
+    /**
      * Sustituye todos los registros
      * <p>
      * [EN]  Replaces all records
@@ -424,25 +432,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-
-    /**
-     * Agregar un registro en una posición definida
-     * <p>
-     * [EN]  Add a record in a defined position
-     *
-     * @param position posición para insertar elemento [EN]  position to insert element
-     * @param item     Nuevo elemento a insertar [EN]  New item to insert
-     */
-    public void insertItem(int position, T item) {
-         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < size()) || item != null) {
-        /*Agregar elemento [EN]  Add Item*/
-            this.items.add(position, item);
-
-        /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onInsertItem(position);
-        }
-    }
 
     /**
      * Actualiza el elemento de la posición indicada
