@@ -192,95 +192,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    //SET LISTENERS________________________________________________________________________________
-
-    /*Oyentes de pulsación [EN]  Pulsation listeners*/
-    public void removeViewItemHandler() {
-        selectionController.removeItemHandler();
-    }
-
-    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        selectionController.setItemHandler(viewItemHandler);
-    }
-
-    public void removeAdapterNotifier() {
-        this.adapterNotifier = null;
-    }
-
-    public void setChangedListener(AdapterNotifier adapterNotifier) {
-        this.adapterNotifier = adapterNotifier;
-    }
-
-    /**
-     * {@link ViewHolderController}
-     */
-    @Override
-    public boolean isExpaned(int posicion) {
-        return expandController != null && adapterNotifier != null && expandController.get(adapterNotifier.indexPos(posicion, viewHolderType));
-    }
-
-    @Override
-    public boolean isSelected(int posicion) {
-        // Log.d(LOG_TAG.TAG, "Selector nulo " + (selectionController == null));
-        // Log.d(LOG_TAG.TAG, "DialogProgressModello " + (adapterNotifier == null));
-        return selectionController != null && adapterNotifier != null && selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
-    }
-
-    @Override
-    public void onClick(BaseViewHolder<T> holder, int posicion) {
-        if (selectionController != null && adapterNotifier != null) {
-            selectionController.onClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
-        }
-    }
-
-    @Override
-    public boolean onLongClick(BaseViewHolder<T> holder, int posicion) {
-        return selectionController.onLongClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
-    }
-
-    @Override
-    public T getItemAt(int position) {
-        if (items == null || adapterNotifier == null) {
-            return null;
-        }
-
-        int index = adapterNotifier.indexPos(position, viewHolderType);
-
-        if ((index > -1 && index < this.items.size())) {
-            return this.items.get(index);
-        }
-        return null;
-    }
-
-    @Override
-    public void setSelected(int position, boolean value) {
-        if (selectionController == null || adapterNotifier == null) {
-            return;
-        }
-        selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
-    }
-
-
-    /* {@link OnItemChangedListener}*/
-
-    /**
-     * {@link OnItemChangedListener}
-     */
-    @Override
-    public void onSelectionChanged() {
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyDataSetChanged(viewHolderType);
-        }
-    }
-
-    @Override
-    public void onItemChaged(int index) {
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyItemChanged(index, viewHolderType);
-        }
-    }
-
-
     //CRUD_____________________________________________________________________________
 
     /**
@@ -435,4 +346,93 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         clear();
         addAll(items);
     }
+
+    //SET LISTENERS________________________________________________________________________________
+
+    /*Oyentes de pulsación [EN]  Pulsation listeners*/
+    public void removeViewItemHandler() {
+        selectionController.removeItemHandler();
+    }
+
+    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
+        selectionController.setItemHandler(viewItemHandler);
+    }
+
+    public void removeAdapterNotifier() {
+        this.adapterNotifier = null;
+    }
+
+    public void setChangedListener(AdapterNotifier adapterNotifier) {
+        this.adapterNotifier = adapterNotifier;
+    }
+
+    /**
+     * {@link ViewHolderController}
+     */
+    @Override
+    public boolean isExpaned(int posicion) {
+        return expandController != null && adapterNotifier != null && expandController.get(adapterNotifier.indexPos(posicion, viewHolderType));
+    }
+
+    @Override
+    public boolean isSelected(int posicion) {
+        // Log.d(LOG_TAG.TAG, "Selector nulo " + (selectionController == null));
+        // Log.d(LOG_TAG.TAG, "DialogProgressModello " + (adapterNotifier == null));
+        return selectionController != null && adapterNotifier != null && selectionController.get(adapterNotifier.indexPos(posicion, viewHolderType));
+    }
+
+    @Override
+    public void onClick(BaseViewHolder<T> holder, int posicion) {
+        if (selectionController != null && adapterNotifier != null) {
+            selectionController.onClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+        }
+    }
+
+    @Override
+    public boolean onLongClick(BaseViewHolder<T> holder, int posicion) {
+        return selectionController.onLongClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+    }
+
+    @Override
+    public T getItemAt(int position) {
+        if (items == null || adapterNotifier == null) {
+            return null;
+        }
+
+        int index = adapterNotifier.indexPos(position, viewHolderType);
+
+        if ((index > -1 && index < this.items.size())) {
+            return this.items.get(index);
+        }
+        return null;
+    }
+
+    @Override
+    public void setSelected(int position, boolean value) {
+        if (selectionController == null || adapterNotifier == null) {
+            return;
+        }
+        selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
+    }
+
+
+    /* {@link OnItemChangedListener}*/
+
+    /**
+     * {@link OnItemChangedListener}
+     */
+    @Override
+    public void onSelectionChanged() {
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyDataSetChanged(viewHolderType);
+        }
+    }
+
+    @Override
+    public void onItemChaged(int index) {
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyItemChanged(index, viewHolderType);
+        }
+    }
+
 }
