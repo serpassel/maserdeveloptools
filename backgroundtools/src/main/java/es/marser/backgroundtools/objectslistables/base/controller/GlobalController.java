@@ -253,7 +253,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @param position posición de insercción [EN]  insertion position
      */
-    @Override
     public void onInsertItem(int index) {
         if (expandController != null) {
             expandController.clear();
@@ -264,7 +263,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    @Override
     public void onAddItem(int index) {
         if (expandController != null) {
             expandController.clear();
@@ -275,7 +273,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    @Override
     public void onRemoveItem(int index) {
         if (expandController != null) {
             expandController.delete(index);
@@ -299,7 +296,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         });
     }
 
-    @Override
     public void removeAllItems() {
         // Log.i(MainCRUD.TAG, "Eliminados todos los registros;");
         if (selectionController != null) {
@@ -315,7 +311,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     }
 
-    @Override
     public void onAddAll() {
         if (adapterNotifier != null) {
             adapterNotifier.notifyAddRange(0, size(), viewHolderType);

@@ -14,7 +14,6 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
@@ -46,7 +45,6 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <p>
  *         </ul>
  * @see SelectionController
- * @see ArrayListController
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController

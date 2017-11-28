@@ -7,8 +7,6 @@ import android.util.SparseBooleanArray;
 import java.util.ArrayList;
 import java.util.List;
 
-import es.marser.backgroundtools.objectslistables.base.controller.ArrayListController;
-
 /**
  * @author sergio
  *         <p>
@@ -95,7 +93,7 @@ public class ExpandableGroup<T extends Parcelable> extends ListableItems<T> impl
     public boolean isChildSelected(int position) {
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         try {
-            return (position > -1 && position < arrayListController.size()) && selectedChildren.get(position);
+            return (position > -1 && position < items.size()) && selectedChildren.get(position);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -112,7 +110,7 @@ public class ExpandableGroup<T extends Parcelable> extends ListableItems<T> impl
      */
     public void setSelected(int position, boolean selected) {
         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < arrayListController.size())) {
+        if ((position > -1 && position < items.size())) {
             selectedChildren.put(position, selected);
         }
     }
@@ -145,7 +143,7 @@ public class ExpandableGroup<T extends Parcelable> extends ListableItems<T> impl
     public String toString() {
         return "ExpandableGroup{" +
                 "title='" + title + '\'' +
-                ", items=" + arrayListController.getItems() +
+                ", items=" + items +
                 '}';
     }
 
@@ -156,13 +154,13 @@ public class ExpandableGroup<T extends Parcelable> extends ListableItems<T> impl
         byte hasItems = in.readByte();
         int size = in.readInt();
         if (hasItems == 0x01) {
-            arrayListController = new ArrayListController<>(size);
-            if (arrayListController.size() > 0) {
+            items = new ArrayList<>(size);
+            if (items.size() > 0) {
                 Class<?> type = (Class<?>) in.readSerializable();
-                in.readList(arrayListController, type.getClassLoader());
+                in.readList(items, type.getClassLoader());
             }
         } else {
-            arrayListController = new ArrayListController<>();
+            items = new ArrayList<>();
         }
 
     }
@@ -176,17 +174,17 @@ public class ExpandableGroup<T extends Parcelable> extends ListableItems<T> impl
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(title);
         dest.writeSparseBooleanArray(selectedChildren);
-        if (arrayListController == null) {
+        if (items == null) {
             dest.writeByte((byte) (0x00));
             dest.writeInt(0);
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeInt(arrayListController.size());
-            if (!arrayListController.isEmpty()) {
-                final Class<?> objectsType = arrayListController.get(0).getClass();
+            dest.writeInt(items.size());
+            if (!items.isEmpty()) {
+                final Class<?> objectsType = items.get(0).getClass();
                 dest.writeSerializable(objectsType);
             }
-            dest.writeList(arrayListController);
+            dest.writeList(items);
 
         }
     }

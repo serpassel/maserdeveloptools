@@ -12,7 +12,6 @@ import es.marser.backgroundtools.enums.ListExtra;
  *         Controlador de selección para listas simples
  *         <p>
  *         [EN]  Simple List Controller
- * @see es.marser.backgroundtools.objectslistables.base.controller.ArrayListController
  * @see BaseSelectionController
  * @see es.marser.backgroundtools.recyclerviews.simple.adapter.BaseBindAdapterList
  */
