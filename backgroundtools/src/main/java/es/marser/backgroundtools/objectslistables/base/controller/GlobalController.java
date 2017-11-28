@@ -295,14 +295,15 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyRemoveRange(0, getItemCount() - 1, viewHolderType);
+            adapterNotifier.notifyRemoveRange(0, getItemCount(), viewHolderType);
         }
+
     }
 
     @Override
     public void onAddAll() {
         if (adapterNotifier != null) {
-            adapterNotifier.notifyAddRange(0, getItemCount() - 1, viewHolderType);
+            adapterNotifier.notifyAddRange(0, getItemCount(), viewHolderType);
         }
     }
 }

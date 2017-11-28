@@ -124,12 +124,12 @@ public class ArrayListController<T> extends ArrayList<T> {
      * [EN]  Remove all items from the list
      */
     public void removeAllITems() {
-        /*Limpiar lista [EN]  Clean list*/
-        clear();
           /*Notificar cambios de selección [EN]  Notify selection changes*/
         if (onChangedListListener != null) {
             onChangedListListener.removeAllItems();
         }
+          /*Limpiar lista [EN]  Clean list*/
+        clear();
     }
 
     /**
@@ -142,13 +142,12 @@ public class ArrayListController<T> extends ArrayList<T> {
     public void removeItem(int position) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((position > -1 && position < size())) {
-         /*Eliminar elemento [EN]  Delete item*/
-            remove(position);
-
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (onChangedListListener != null) {
                 onChangedListListener.onRemoveItem(position);
             }
+            /*Eliminar elemento [EN]  Delete item*/
+            remove(position);
         }
     }
 
