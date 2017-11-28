@@ -284,26 +284,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     //CRUD_____________________________________________________________________________
 
     public void onRemoveItem(int index) {
-        if (expandController != null) {
-            expandController.delete(index);
-        }
-        if (selectionController != null) {
-            selectionController.delete(index);
-        }
-        if (adapterNotifier != null) {
-            adapterNotifier.notifyItemRemoved(index, viewHolderType);
-        }
-        AsyncTask.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (expandController != null) {
-                        expandController.collapseAll();
-                    }
-                } catch (Exception ignored) {
-                }
-            }
-        });
+
     }
 
     public void removeAllItems() {
@@ -389,6 +370,45 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
+    /**
+     * Eliminar un elemento por su posición
+     * <p>
+     * [EN]  Delete an item by its position
+     *
+     * @param index posicion del elemento [EN]  position of the element
+     */
+    public void remove(int index) {
+         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
+        if ((index > -1 && index < size())) {
+         /*Notificar cambios de selección [EN]  Notify selection changes*/
+            onRemoveItem(index);
+            if (expandController != null) {
+                expandController.delete(index);
+            }
+            if (selectionController != null) {
+                selectionController.delete(index);
+            }
+            if (adapterNotifier != null) {
+                adapterNotifier.notifyItemRemoved(index, viewHolderType);
+            }
+            AsyncTask.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if (expandController != null) {
+                            expandController.collapseAll();
+                        }
+                    } catch (Exception ignored) {
+                    }
+                }
+            });
+
+
+
+            /*Eliminar elemento [EN]  Delete item*/
+            this.items.remove(index);
+        }
+    }
 
     /**
      * Sustituye todos los registros
@@ -413,23 +433,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         removeAllItems();
           /*Limpiar lista [EN]  Clean list*/
         this.items.clear();
-    }
-
-    /**
-     * Eliminar un elemento por su posición
-     * <p>
-     * [EN]  Delete an item by its position
-     *
-     * @param position posicion del elemento [EN]  position of the element
-     */
-    public void removeItem(int position) {
-         /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
-        if ((position > -1 && position < size())) {
-         /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onRemoveItem(position);
-            /*Eliminar elemento [EN]  Delete item*/
-            this.items.remove(position);
-        }
     }
 
 

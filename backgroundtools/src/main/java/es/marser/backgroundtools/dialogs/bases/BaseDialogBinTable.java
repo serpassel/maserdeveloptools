@@ -237,7 +237,7 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
      */
     public void deleteBodyItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.removeItem(id);
+            adapter.globalController.remove(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();

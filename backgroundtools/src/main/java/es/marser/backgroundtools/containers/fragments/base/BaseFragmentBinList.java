@@ -251,7 +251,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.removeItem(id);
+            adapter.globalController.remove(id);
             adapter.globalController.selectionController.clear();
             scrollToId(id);
             savedScroll();
