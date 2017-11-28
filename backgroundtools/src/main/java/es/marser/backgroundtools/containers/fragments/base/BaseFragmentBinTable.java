@@ -274,7 +274,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void updateBodyItem(int id, B item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            getBodyGlobalController().updateItem(id, item);
+            getBodyGlobalController().set(id, item);
             scrollToId(id);
             savedScroll();
         }

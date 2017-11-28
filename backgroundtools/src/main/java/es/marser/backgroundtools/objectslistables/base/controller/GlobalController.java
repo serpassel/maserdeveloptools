@@ -283,14 +283,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     //CRUD_____________________________________________________________________________
 
-    public void onRemoveItem(int index) {
-
-    }
-
-
-
-    //ELEMENT MANAGEMENT____________________________________________________________________________________
-
     /**
      * Agrega una lista de elementos
      * <p>
@@ -366,8 +358,8 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     public void remove(int index) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size())) {
+
          /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onRemoveItem(index);
             if (expandController != null) {
                 expandController.delete(index);
             }
@@ -413,6 +405,25 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         this.items.clear();
     }
 
+    /**
+     * Actualiza el elemento de la posición indicada
+     * <p>
+     * [EN]  Update item from indicated position
+     *
+     * @param index posición sobre la que se actualiza [EN]  index on which it is updated
+     * @param item     elemento actualizado [EN]  item updated
+     */
+    public void set(Integer index, T item) {
+
+   /*Validar entrada [EN]  Validate entry*/
+        if (index != null && item != null && index > -1 && index < size()) {
+            /*Actualizar registro [EN]  Update record*/
+            this.items.set(index, item);
+       /*Notificar cambios de selección [EN]  Notify selection changes*/
+            onItemChaged(index);
+        }
+    }
+
 
     /**
      * Sustituye todos los registros
@@ -425,25 +436,4 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         clear();
         addAll(items);
     }
-
-
-    /**
-     * Actualiza el elemento de la posición indicada
-     * <p>
-     * [EN]  Update item from indicated position
-     *
-     * @param position posición sobre la que se actualiza [EN]  position on which it is updated
-     * @param item     elemento actualizado [EN]  item updated
-     */
-    public void updateItem(Integer position, T item) {
-
-   /*Validar entrada [EN]  Validate entry*/
-        if (position != null && item != null && position > -1 && position < size()) {
-            /*Actualizar registro [EN]  Update record*/
-            this.items.set(position, item);
-       /*Notificar cambios de selección [EN]  Notify selection changes*/
-            onItemChaged(position);
-        }
-    }
-
 }

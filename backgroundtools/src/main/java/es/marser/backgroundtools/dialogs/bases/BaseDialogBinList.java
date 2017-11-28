@@ -186,7 +186,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.updateItem(id, item);
+            adapter.globalController.set(id, item);
             scrollToId(id);
             savedScroll();
         }
