@@ -4,12 +4,14 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
@@ -239,6 +241,9 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     @Override
     public void notifyItemInserted(int index, int count, int viewType) {
         int pos = index == count - 1 ? getItemCount() - 1 : flatPos(index, viewType);
+        if(viewType == ViewHolderType.HEAD.ordinal()){
+            Log.i(LOG_TAG.TAG, "Posición de cabecera " + pos);
+        }
         types.add(pos, viewType);
           /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
         super.notifyItemInserted(index, count, viewType);

@@ -97,9 +97,15 @@ public class CalendarChooserFragment
         super.bindAdapter(savedInstanceState);
         if (savedInstanceState == null) {
             getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
-            loadDayWeek();
+
+            //getHeadGlobalController().clear();
+           // loadDayWeek();
             load(null);
-        }else{
+
+            //loadDayWeek();
+            load(null);
+
+        } else {
             adapter.onRestoreInstanceState(savedInstanceState);
         }
     }
@@ -117,7 +123,7 @@ public class CalendarChooserFragment
      */
     private void loadDayWeek() {
 
-        getHeadGlobalController().clear();
+        // getHeadGlobalController().clear();
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
@@ -157,7 +163,8 @@ public class CalendarChooserFragment
 
             @Override
             public void onFinish(List<CalendarObservable> finish) {
-                getBodyGlobalController().replace(finish);
+                loadDayWeek();
+                getBodyGlobalController().addAll(finish);
                 getBodyGlobalController().selectionController.inputSelected(datepos[0], true);
             }
 
@@ -207,12 +214,12 @@ public class CalendarChooserFragment
     @Override
     public boolean onLongClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         changedDate(item.getCalendar());
-        if(item.isOtherholiday()){
+        if (item.isOtherholiday()) {
             String list = ResourcesAccess.getHolidayText(getContext(), item.getCalendar());
 
-            if(!TextTools.isEmpty(list)){
+            if (!TextTools.isEmpty(list)) {
                 String title = "Día festivo en, ";
-               list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
+                list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
                 NotificationDialogBinModel dialog =
                         NotificationDialogBinModel.newInstance(
                                 getContext(),
