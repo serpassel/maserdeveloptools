@@ -246,12 +246,12 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     }
 
     @Override
-    public void notifyAddItem(int index, int viewType) {
-        super.notifyAddItem(index, viewType);
+    public void notifyDataAdd(int count, int viewType) {
+        super.notifyDataAdd(count, viewType);
     }
 
     @Override
-    public void notifyRemoveRange(int indexStart, int indexEnd, int viewType) {
-        super.notifyRemoveRange(indexStart, indexEnd, viewType);
+    public void notifyDataRemoved(int count, int viewType) {
+        super.notifyDataRemoved(count, viewType);
     }
 }

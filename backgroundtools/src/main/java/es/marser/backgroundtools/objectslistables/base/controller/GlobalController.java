@@ -210,7 +210,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
          /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (adapterNotifier != null) {
-                adapterNotifier.notifyDataSetChanged(viewHolderType);
+                adapterNotifier.notifyDataAdd(items.size(), viewHolderType);
             }
         }
     }
@@ -231,7 +231,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             clearExpanded();
 
             if (adapterNotifier != null) {
-                adapterNotifier.notifyAddItem(size() - 1, viewHolderType);
+                adapterNotifier.notifyItemInserted(size() - 1, viewHolderType);
             }
         }
     }
@@ -309,7 +309,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         clearControllers();
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyRemoveRange(0, size(), viewHolderType);
+            adapterNotifier.notifyDataRemoved(size(), viewHolderType);
         }
 
           /*Limpiar lista [EN]  Clean list*/
@@ -322,7 +322,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * [EN]  Update item from indicated position
      *
      * @param index posición sobre la que se actualiza [EN]  index on which it is updated
-     * @param item     elemento actualizado [EN]  item updated
+     * @param item  elemento actualizado [EN]  item updated
      */
     public void set(Integer index, T item) {
 
