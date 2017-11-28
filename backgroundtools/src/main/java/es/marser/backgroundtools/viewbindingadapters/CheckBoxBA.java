@@ -25,7 +25,6 @@ public class CheckBoxBA {
     public static void setOnCheckedChangeListener(AppCompatCheckBox checkBox,
                                                   CompoundButton.OnCheckedChangeListener changeListener) {
         checkBox.setOnCheckedChangeListener(changeListener);
-        Log.i(LOG_TAG.TAG, "SETEADO listener");
     }
 
 /*

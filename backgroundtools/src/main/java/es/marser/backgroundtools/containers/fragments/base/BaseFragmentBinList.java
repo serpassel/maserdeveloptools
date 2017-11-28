@@ -97,6 +97,8 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         return R.layout.mvc_frag_simple_list;
     }
 
+
+
     @Override
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         adapter = new SimpleListAdapter<T>() {

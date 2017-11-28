@@ -5,6 +5,11 @@
 
     <data>
 
+        <!--PRESENTERS-->
+        <variable
+            name="presenter"
+            type="es.marser.backgroundtools.presenters.ListPresenter"/>
+
         <!--MODELO de objeto independiente [EN]  Independent object model -->
         <variable
             name="model"

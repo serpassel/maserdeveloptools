@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="es.marser.backgroundtools.presenters.ListPresenter" />
+
+        <variable
+            name="presenter"
+            type="ListPresenter" />
+    </data>
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:adapter="@{presenter.adapter}"
+            android:layoutManager="@{presenter.layoutManager}"
+            android:hasFixedSize="@{presenter.hasFixedSize}"
+            android:layout_margin="?attr/box_default_medium_margin"
+            android:background="@color/bt_white"
+            android:minHeight="100dp" />
+    </android.support.v7.widget.ContentFrameLayout>
+</layout>
