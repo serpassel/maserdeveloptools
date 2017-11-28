@@ -47,6 +47,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
          /*Nueva instancia de controladores [EN]  New controller instance*/
         items = new ArrayList<>();
+
         selectionController = new SelectionController<>(
                 items,
                 ListExtra.SINGLE_SELECTION_MODE);
@@ -282,7 +283,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     public void add(T item) {
         if (item != null) {
         /*Agregar elemento [EN]  Add Item*/
-            items.add(item);
+            this.items.add(item);
 
         /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (expandController != null) {
@@ -307,7 +308,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size()) || item != null) {
         /*Agregar elemento [EN]  Add Item*/
-            items.add(index, item);
+            this.items.add(index, item);
 
         /*Notificar cambios de selección [EN]  Notify selection changes*/
             if (expandController != null) {
@@ -412,8 +413,12 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      * @param items nueva lista de registros [EN]  new list of records
      */
     public void replaceAllItems(List<T> items) {
-        clear();
-        addAll(items);
+        this.items.clear();
+        this.items.addAll(items);
+
+        if (adapterNotifier != null) {
+            adapterNotifier.notifyDataSetChanged(viewHolderType);
+        }
     }
 
     //ACCESS TO VARIABLES_________________________________________________________________________________________
@@ -442,12 +447,10 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
      *
      * @param items nuevos elementos [EN]  new elements
      */
-    public void setItems(List<T> items) {
-        if (items != null) {
-        /*Limpiar la lista [EN]  Clear list*/
-            items.clear();
-        /*Agregar nuevos elementos [EN]  Add new items*/
-            addAll(items);
-        }
+
+
+    public void setItems(ArrayList<T> items) {
+        this.items = items;
     }
+
 }
