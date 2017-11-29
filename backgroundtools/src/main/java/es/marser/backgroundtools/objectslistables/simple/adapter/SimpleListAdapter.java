@@ -14,6 +14,8 @@ import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
@@ -28,7 +30,7 @@ import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager
 @SuppressWarnings("unused")
 public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
-        implements AdapterItemsManager<T>, SelectionItemsManager {
+        implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager {
 
     private int holderLayout;
     private TouchableViewHandler<T> touchableViewHandler;
@@ -86,13 +88,13 @@ public class SimpleListAdapter<T extends Parcelable>
     }
 
     public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        if(adapterController != null){
+        if (adapterController != null) {
             adapterController.setViewItemHandler(viewItemHandler);
         }
     }
 
-    public void removeViewItemHandler(){
-        if(adapterController != null){
+    public void removeViewItemHandler() {
+        if (adapterController != null) {
             adapterController.removeViewItemHandler();
         }
     }
@@ -146,7 +148,7 @@ public class SimpleListAdapter<T extends Parcelable>
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-       super.onSaveInstanceState(savedInstanceState);
+        super.onSaveInstanceState(savedInstanceState);
         if (adapterController != null) {
             adapterController.onSaveInstanceState(savedInstanceState);
         }
@@ -191,5 +193,14 @@ public class SimpleListAdapter<T extends Parcelable>
     @Override
     public SelectionItemsController getSelectionItemsController() {
         return adapterController != null ? adapterController.getSelectionItemsController() : null;
+    }
+
+    /**
+     * @return Devuelve el objeto de control de expansión de objetos [EN]  Returns the object expansion control object
+     */
+    @Nullable
+    @Override
+    public ExpandItemsController getExpandItemsController() {
+        return adapterController != null ? adapterController.getExpandItemsController() : null;
     }
 }

@@ -19,6 +19,8 @@ import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
@@ -37,7 +39,7 @@ public class AdapterController<T extends Parcelable>
         implements ViewHolderController<T>,
         OnItemChangedListener,
         AdapterItemsController<T>,
-        SelectionItemModel<T>, SelectionItemsManager {
+        SelectionItemModel<T>, SelectionItemsManager, ExpandItemsManager {
 
 
     /*Variables de control [EN]  Control variables*/
@@ -199,7 +201,7 @@ public class AdapterController<T extends Parcelable>
         }
     }
 
-    //CRUD_____________________________________________________________________________
+    //ITEMS CONTROLLER_____________________________________________________________________________
 
     @Override
     public int size() {
@@ -430,7 +432,7 @@ public class AdapterController<T extends Parcelable>
         if (selectionController != null) {
 
             int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
-            
+
             /*Actualizar las variables de posición [EN]  Update position variables*/
             selectionController.setLastposition(selectionController.getPosition());
             selectionController.setPosition(index);
@@ -591,12 +593,15 @@ public class AdapterController<T extends Parcelable>
         this.selectionmode = selectionmode;
     }
 
-    /**
-     * @return Devuelve la controladora de selección [EN]  Returns the selection controller
-     */
     @Nullable
     @Override
     public SelectionItemsController getSelectionItemsController() {
         return this.selectionController;
+    }
+
+    @Nullable
+    @Override
+    public ExpandItemsController getExpandItemsController() {
+        return this.expandController;
     }
 }

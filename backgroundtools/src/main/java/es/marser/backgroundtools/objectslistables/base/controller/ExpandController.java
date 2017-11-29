@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
 import es.marser.tools.TextTools;
 
 /**
@@ -31,7 +33,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class ExpandController {
+public class ExpandController implements ExpandItemsController {
 
     /*Variable de control [EN]  Control variable*/
     protected SparseBooleanArray expandItems;
@@ -51,6 +53,8 @@ public class ExpandController {
         this();
         this.onSelectionChanged = onSelectionChanged;
     }
+
+    //SAVED AND RESTORED_______________________________________________________________________________________
 
     /**
      * Called to ask the fragment to save its current dynamic state, so it
@@ -103,15 +107,7 @@ public class ExpandController {
 
     //VIEW EXPANSION AND CONTRACTION OPERATIONS________________________________________________________________________
 
-    /**
-     * Establecer valor de estado de expansión en un posición
-     * <p>
-     * [EN]  Set Expansion State Value in a Position
-     *
-     * @param id    posición [EN]  position
-     * @param value verdadero expandida [EN]  true expanded
-     */
-    @SuppressWarnings("All")
+    @Override
     public void setExpand(int id, boolean value) {
         expandItems.put(id, value);
 
@@ -121,24 +117,12 @@ public class ExpandController {
         }
     }
 
-    /**
-     * Comprueba el estado de una posición
-     * <p>
-     * [EN]  Check the status of a position
-     *
-     * @param position posición
-     * @return verdadero si está expandido [EN]  true if expanded
-     */
+    @Override
     public boolean isExpaned(int position) {
         return position > -1 && position < expandItems.size() && get(position);
     }
 
-
-    /**
-     * Colapsa todas las vistas
-     * <p>
-     * [EN]  Collapse all views
-     */
+    @Override
     public void collapseAll() {
 
         for (int i = 0; i < expandItems.size(); ++i) {
@@ -154,13 +138,7 @@ public class ExpandController {
         }
     }
 
-    /**
-     * Eliminar la varible de expansión de una posición
-     * <p>
-     * [EN]  Remove the expansion variable from a position
-     *
-     * @param position posición a eliminar [EN]  position to be deleted
-     */
+    @Override
     public void delete(int position) {
         try {
             expandItems.delete(position);
@@ -168,14 +146,7 @@ public class ExpandController {
         }
     }
 
-    /**
-     * Invertir el estad de expansión de una posición
-     * <p>
-     * [EN]  Invert the expansion state of a position
-     *
-     * @param id posición a invertir [EN]  position to invest
-     * @return valor del nuevo estado de la posición [EN]  value of the new status of the position
-     */
+    @Override
     public boolean toggleExpand(int id) {
        /*Invertir estado de expansión [EN]  Invert Expanding State*/
         expandItems.put(id, !isExpaned(id));
@@ -187,11 +158,7 @@ public class ExpandController {
         return expandItems.get(id);
     }
 
-    /**
-     * Limpiar selección. Notificada
-     * <p>
-     * [EN]  Clear selection.  Notified
-     */
+    @Override
     public void deselectedAll() {
         /*Limpiar [EN]  Clean*/
         expandItems.clear();
@@ -202,31 +169,29 @@ public class ExpandController {
         }
     }
 
-//ACCESS TO VARIABLES_________________________________________________________________________________________
-
-    /*Métodos de acceso de los datos de la variable [EN]  Methods of accessing the variable data */
-
-    /**
-     * Estado de expansión de una posición
-     * <p>
-     * [EN]  Expansion status of a position
-     *
-     * @param position posición consultada [EN]  consulted position
-     * @return verdadero si la vista está expandida [EN]  true if the view is expanded
-     */
+    @Override
     public boolean get(int position) {
         return expandItems.get(position);
     }
 
-    /**
-     * Limpiar la lista de estados de expansión
-     * <p>
-     * [EN]  Clear list of expansion states
-     */
+    @Override
     public void clear() {
         expandItems.clear();
     }
 
+    @Override
+    @NonNull
+    public ArrayList<Integer> getIdExpaned() {
+        ArrayList<Integer> selected = new ArrayList<>();
+        for (int i = 0; i < expandItems.size(); i++) {
+            if (expandItems.get(i)) {
+                selected.add(i);
+            }
+        }
+        return selected;
+    }
+
+//ACCESS TO VARIABLES_________________________________________________________________________________________
 
     /*Variables de oyentes [EN]  Listener Variables*/
     @SuppressWarnings("UnusedReturnValue")
@@ -240,20 +205,4 @@ public class ExpandController {
         return this;
     }
 
-    /**
-     * Devuelve la lista de las posiciones expandidas
-     * <p>
-     * [EN]  Returns the list of expanded items
-     *
-     * @return Listas con las posiciones expandidas [EN]  Lists with expanded positions
-     */
-    public ArrayList<Integer> getIdExpaned() {
-        ArrayList<Integer> selected = new ArrayList<>();
-        for (int i = 0; i < expandItems.size(); i++) {
-            if (expandItems.get(i)) {
-                selected.add(i);
-            }
-        }
-        return selected;
-    }
 }
