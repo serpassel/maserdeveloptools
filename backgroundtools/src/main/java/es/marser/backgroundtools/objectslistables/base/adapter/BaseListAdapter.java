@@ -13,9 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
 import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
