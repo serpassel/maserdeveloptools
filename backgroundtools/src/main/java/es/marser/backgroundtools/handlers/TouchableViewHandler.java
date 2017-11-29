@@ -31,6 +31,7 @@ public interface TouchableViewHandler<T> {
      * [EN]  Single-pulse event handler for push-button elements
      * TAG @string/INCLUDE_ITEM_ACTIONS
      *
+     * @param view  Vista que inicia la acción [EN]  View that initiates the action
      * @param v        vista pulsada [EN]  pulsed view
      * @param position posición en el adpater [EN]  position in the adpater
      * @param item     objeto de datos [EN]  data object
@@ -45,6 +46,7 @@ public interface TouchableViewHandler<T> {
      * <p>
      * TAG @string/INCLUDE_ITEM_ACTIONS
      *
+     * @param view  Vista que inicia la acción [EN]  View that initiates the action
      * @param v        vista pulsada [EN]  pulsed view
      * @param position posición en el adpater [EN]  position in the adpater
      * @param item     objeto de datos [EN]  data object
