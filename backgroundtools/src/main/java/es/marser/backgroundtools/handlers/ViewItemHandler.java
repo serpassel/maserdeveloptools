@@ -20,6 +20,7 @@ public interface ViewItemHandler<T> {
      * <p>
      * [EN]  Short press on element view
      *
+     * @param holder vista reciclable
      * @param v        vista principal
      * @param item     Objeto de datos
      * @param position posición de datos
@@ -31,7 +32,8 @@ public interface ViewItemHandler<T> {
      *  Pulsación larga sobre vista del elemento
      * <p>
      * [EN]  Long press on element view
-
+     *
+     * @param holder vista reciclable
      * @param v        vista principal
      * @param item     Objeto de datos
      * @param position posición de datos

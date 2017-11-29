@@ -15,7 +15,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
+import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
 
 /**
  * @author sergio
@@ -48,7 +48,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         ViewItemHandler<T> {
 
 
-    protected SimpleListAdapter<T> adapter;
+    protected SimpleListAdapterDecrep<T> adapter;
 
     //SAVED AND RESTORE_________________________________________________________________________________
 
@@ -101,7 +101,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
 
     @Override
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
-        adapter = new SimpleListAdapter<T>() {
+        adapter = new SimpleListAdapterDecrep<T>() {
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {

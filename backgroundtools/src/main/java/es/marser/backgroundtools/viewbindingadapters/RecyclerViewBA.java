@@ -6,7 +6,7 @@ import android.databinding.BindingMethods;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 
 /**
  * @author sergio
@@ -25,7 +25,7 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 public class RecyclerViewBA {
 
     @BindingAdapter("android:adapter")
-    public static void setAdapter(RecyclerView view, BaseListAdapter adapter) {
+    public static void setAdapter(RecyclerView view, BaseListAdapterDecrep adapter) {
         view.setAdapter(adapter);
     }
 

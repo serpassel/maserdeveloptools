@@ -8,6 +8,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
+import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
 
 /**
  * @author sergio
@@ -16,7 +17,7 @@ import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderCont
  *         <p>
  *         [EN]  Recyclable Data Binding Object for View Adapters
  * @see es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController
- * @see es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter
+ * @see SimpleListAdapterDecrep
  * @see es.marser.backgroundtools.res tag_item_view.xml
  */
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
@@ -32,7 +32,7 @@ import es.marser.backgroundtools.objectslistables.table.holder.TitleViewHolderBi
 
 @SuppressWarnings({"SameReturnValue", "unused"})
 public abstract class TableListAdapter<H extends Parcelable, B extends Parcelable>
-        extends BaseListAdapter {
+        extends BaseListAdapterDecrep {
 
     /*Controlador de cabecera [EN]  Header controller*/
     public GlobalController<Selectable> tGlobalController;

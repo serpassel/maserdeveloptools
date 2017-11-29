@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinList;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentListBin;
 import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.generic.GenericFactory;
 

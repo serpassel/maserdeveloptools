@@ -4,9 +4,8 @@ import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
 import android.util.SparseIntArray;
 
-import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 
@@ -15,36 +14,16 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  *         Created by sergio on 1/11/17.
  */
 
-@SuppressWarnings("unused")
-public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, ViewHolderBinding<T>> {
+public abstract class SimpleListAdapterDecrep<T extends Parcelable> extends BaseListAdapterDecrep<T, ViewHolderBinding<T>> {
 
-    private int holderLayout;
-    private TouchableViewHandler<T> touchableViewHandler;
-
-//CONSTRUCTORS_______________________________________________________________________________
-    public SimpleListAdapter() {
-        this(R.layout.mvp_item_object_chooser);
-    }
-
-    public SimpleListAdapter(int holderLayout) {
-        this.holderLayout = holderLayout;
-        this.touchableViewHandler = null;
-    }
-
-
-    //VARIABLE ACCESS___________________________________________________________________________________
-
-    public int getHolderLayout() {
-        return holderLayout;
-    }
-
-    public void setHolderLayout(int holderLayout) {
-        this.holderLayout = holderLayout;
-    }
-
-    public void setTouchableViewHandler(TouchableViewHandler<T> touchableViewHandler) {
-        this.touchableViewHandler = touchableViewHandler;
-    }
+    /**
+     * Vista del item
+     * <p>
+     * [EN]  Item view
+     *
+     * @return variable de vista de los elementos [EN]  variable view of the elements
+     */
+    protected abstract int getHolderLayout();
 
     /**
      * Variable de oyente para pulsaciones de las vistas anidadas a la vista raiz del elemento
@@ -54,15 +33,14 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
      * @return Variable de oyente de tipo {@link TouchableViewHandler}
      */
     public TouchableViewHandler<T> getTouchableViewHandler() {
-        return touchableViewHandler;
+        return null;
     }
-
 
     //OVERRIDE SUPERCLASS______________________________________________________________________________
     @Override
     protected SparseIntArray sparseHolderLayout() {
         SparseIntArray intArray = new SparseIntArray();
-        intArray.put(ViewHolderType.SIMPLE.ordinal(), holderLayout);
+        intArray.put(ViewHolderType.SIMPLE.ordinal(), getHolderLayout());
         return intArray;
     }
 

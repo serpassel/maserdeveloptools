@@ -34,6 +34,7 @@ public interface ListModel {
      * [EN] true if the app has specified that changes
      * in adapter content cannot change the size of the RecyclerView itself.
      */
+    @SuppressWarnings("SameReturnValue")
     boolean isHasFixedSize();
 
     /**

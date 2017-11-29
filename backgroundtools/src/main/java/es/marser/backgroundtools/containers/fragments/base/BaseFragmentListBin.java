@@ -57,30 +57,9 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     }
 
     private void init(){
-        adapter = new SimpleListAdapter<T>() {
-
-            /**
-             * Vista del item
-             * <p>
-             * [EN]  Item view
-             *
-             * @return variable de vista de los elementos [EN]  variable view of the elements
-             */
-            @Override
-            protected int getHolderLayout() {
-                return BaseFragmentListBin.this.getHolderLayout();
-            }
-
-            @Override
-            public TouchableViewHandler<T> getTouchableViewHandler() {
-                return BaseFragmentListBin.this;
-            }
-
-            @Override
-            public ViewItemHandler<T> getItemHandler() {
-                return BaseFragmentListBin.this;
-            }
-        };
+        adapter = new SimpleListAdapter<>(getHolderLayout());
+        adapter.setTouchableViewHandler(BaseFragmentListBin.this);
+        adapter.setViewItemHandler(BaseFragmentListBin.this);
     }
 
     /**
@@ -132,6 +111,7 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         return ListExtra.SINGLE_SELECTION_MODE;
     }
 
+    @SuppressWarnings("EmptyMethod")
     protected void binObjects(@Nullable Bundle savedInstanceState) {
     }
 

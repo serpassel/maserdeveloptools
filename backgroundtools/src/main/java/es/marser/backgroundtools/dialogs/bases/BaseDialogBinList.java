@@ -11,7 +11,7 @@ import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
+import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
 
 /**
  * @author sergio
@@ -28,7 +28,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
         TouchableViewHandler<T>,
         ViewItemHandler<T> {
 
-    protected SimpleListAdapter<T> adapter;
+    protected SimpleListAdapterDecrep<T> adapter;
 
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
@@ -46,7 +46,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
 
     @Override
     protected void bindAdapter() {
-        adapter = new SimpleListAdapter<T>() {
+        adapter = new SimpleListAdapterDecrep<T>() {
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {

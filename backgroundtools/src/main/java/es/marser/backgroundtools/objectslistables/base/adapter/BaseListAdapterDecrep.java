@@ -52,7 +52,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  */
 
 @SuppressWarnings({"SameReturnValue", "unused", "EmptyMethod"})
-public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewHolder<T>>
+public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends BaseViewHolder<T>>
         extends
         RecyclerView.Adapter<VH>
         implements
@@ -60,8 +60,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
     /*Variables de control [EN]  Control variables*/
     public GlobalController<T> globalController;
-
-    private ViewItemHandler<T> viewItemHandler;
 
     public boolean animHolders;
 
@@ -122,15 +120,15 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
 
     //CONSTRUCTORS____________________________________________________________________________________________
-    public BaseListAdapter() {
-        this.viewItemHandler = null;
+    public BaseListAdapterDecrep() {
         globalController = new GlobalController<>();
 
         globalController.setChangedListener(this);
-        globalController.setViewItemHandler(getViewItemHandler());
+        globalController.setViewItemHandler(getItemHandler());
 
         animHolders = false;
     }
+
 
     //ANIMATIONS_____________________________________________________________________
 
@@ -171,6 +169,9 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         }
     }
 
+    //ACTION EVENTS_______________________________________________________________________________________________
+    /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
+
     /**
      * Variable de oyente para las pulsaciones sobre la vista raíz
      * <p>
@@ -178,16 +179,9 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      *
      * @return Variable de oyente de tipo {@link ViewItemHandler}
      */
-    public ViewItemHandler<T> getViewItemHandler() {
-        return viewItemHandler;
+    public ViewItemHandler<T> getItemHandler() {
+        return null;
     }
-
-    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        this.viewItemHandler = viewItemHandler;
-    }
-
-    //ACTION EVENTS_______________________________________________________________________________________________
-    /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
 
     /**
      * Selector de vista.
