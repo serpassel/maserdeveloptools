@@ -52,12 +52,12 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
     @Override
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         super.bindAdapter(savedInstanceState);
-        adapter.setAnimHolders(true);
+        listModel.getAdapter().setAnimHolders(true);
 
         if (savedInstanceState == null) {
             load(createBundle(1, "", true));
         } else {
-            adapter.onRestoreInstanceState(savedInstanceState);
+            listModel.getAdapter().onRestoreInstanceState(savedInstanceState);
         }
     }
 
@@ -77,17 +77,18 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
                 ProvincieModel item1 = GenericFactory.BuildSingleObject(ProvincieModel.class,
                         getContext().getResources().getString(R.string.all_spain_pro));
 
-                adapter.globalController.add(item1);
-
-                adapter.globalController.setSelected(getItemCount() - 1, preselect.contains(item1.preSelectValue()));
+                if (listModel.getListCrud() != null) {
+                    listModel.getListCrud().add(item1);
+                }
             }
 
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
                 //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
-                adapter.globalController.add(item);
-                adapter.globalController.setSelected(getItemCount() - 1, preselect.contains(item.preSelectValue()));
+                if (listModel.getListCrud() != null) {
+                    listModel.getListCrud().add(item);
+                }
             }
         }
     }

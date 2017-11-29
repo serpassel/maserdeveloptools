@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
@@ -17,10 +18,14 @@ import es.marser.backgroundtools.presenters.base.ListModel;
 /**
  * @author sergio
  *         Created by sergio on 29/11/17.
+ *         Modelo de configuración de listas simples para patrón de diseño MVP
+ *         <p>
+ *         [EN]  Simple list configuration model for MVP design pattern
  */
 
 @SuppressWarnings("unused")
-public class SimpleListModel<T extends Parcelable> implements ListModel, ListCrudManager<T> {
+public class SimpleListModel<T extends Parcelable>
+        implements ListModel, ListCrudManager<T> {
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;
@@ -39,6 +44,7 @@ public class SimpleListModel<T extends Parcelable> implements ListModel, ListCru
     }
 
     //LIST MODEL_________________________________________________
+
     /**
      * @return Adaptador de listas {@link BaseListAdapterDecrep}
      */
@@ -82,19 +88,31 @@ public class SimpleListModel<T extends Parcelable> implements ListModel, ListCru
     //SETTERS____________________________________________________
 
     public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        if(adapter != null){
+        if (adapter != null) {
             adapter.setViewItemHandler(viewItemHandler);
         }
     }
 
-    public void removeViewItemHandler(){
-        if(adapter != null){
+    public void removeViewItemHandler() {
+        if (adapter != null) {
             adapter.removeViewItemHandler();
         }
     }
 
+    public void setTouchableViewHandler(TouchableViewHandler<T> touchableViewHandler) {
+        if (adapter != null) {
+            adapter.setTouchableViewHandler(touchableViewHandler);
+        }
+    }
+
+    public void removeTouchableViewHandler() {
+        if (adapter != null) {
+            adapter.removeTouchableViewHandler();
+        }
+    }
 
     //CRUD_______________________________________________________
+
     /**
      * @return devuelve el gestor de lectura y escritura asignado al manejador
      * <p>

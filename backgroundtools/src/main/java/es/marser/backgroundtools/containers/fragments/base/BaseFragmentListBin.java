@@ -5,7 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +15,9 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 import es.marser.backgroundtools.presenters.base.ListModel;
+import es.marser.backgroundtools.presenters.simple.SimpleListModel;
 
 /**
  * @author sergio
@@ -32,11 +30,11 @@ import es.marser.backgroundtools.presenters.base.ListModel;
 @SuppressWarnings("unused")
 public abstract class BaseFragmentListBin<T extends Parcelable>
         extends BaseFragment
-        implements ListModel, TouchableViewHandler<T>, ViewItemHandler<T> {
+        implements TouchableViewHandler<T>, ViewItemHandler<T> {
 
     protected ViewDataBinding viewDataBinding;
     protected RecyclerView recyclerView;
-    protected SimpleListAdapter<T> adapter;
+    protected SimpleListModel<T> listModel;
 
     protected Integer lastScroll;
 
@@ -57,9 +55,9 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     }
 
     private void init(){
-        adapter = new SimpleListAdapter<>(getHolderLayout());
-        adapter.setTouchableViewHandler(BaseFragmentListBin.this);
-        adapter.setViewItemHandler(BaseFragmentListBin.this);
+        listModel = new SimpleListModel<>(getContext(), getHolderLayout());
+        listModel.setTouchableViewHandler(BaseFragmentListBin.this);
+        listModel.setViewItemHandler(BaseFragmentListBin.this);
     }
 
     /**
@@ -86,19 +84,8 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         return R.layout.mvp_frag_simple_list;
     }
 
-    @Override
-    public RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-    }
-
-    @SuppressWarnings("SameReturnValue")
-    @Override
-    public boolean isHasFixedSize() {
-        return true;
-    }
 
     /*Inicio de métodos [EN]  Start of methods*/
-
     /**
      * Modo de selección inicial de la lista. Por defecto Mode de selección sencilla
      * <p>
@@ -118,22 +105,8 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     protected abstract int getHolderLayout();
 
     protected void bindAdapter(@Nullable Bundle savedInstanceState){
-        viewDataBinding.setVariable(BR.listmodel, this);
+        viewDataBinding.setVariable(BR.listmodel, listModel);
         viewDataBinding.executePendingBindings();
-    }
-
-    @Override
-    public BaseListAdapter getAdapter() {
-        adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
-        return adapter;
-    }
-
-    public boolean isEmpty() {
-        return adapter.globalController.isEmpty();
-    }
-
-    public int getItemCount() {
-        return adapter.getItemCount();
     }
 
     //VIEW EVENT HANDLERS_____________________________________________________________________________
