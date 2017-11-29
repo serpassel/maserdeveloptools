@@ -14,7 +14,7 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
  *         [EN]  Model for lists
  */
 
-public interface AdapterItemsModel {
+public interface AdapterModel {
 
     /**
      *

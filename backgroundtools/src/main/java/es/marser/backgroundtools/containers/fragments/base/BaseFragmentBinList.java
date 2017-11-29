@@ -41,6 +41,7 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
  */
 
 @SuppressWarnings({"JavaDoc", "unused"})
+@Deprecated
 public abstract class BaseFragmentBinList<T extends Parcelable>
         extends BaseFragmentList
         implements

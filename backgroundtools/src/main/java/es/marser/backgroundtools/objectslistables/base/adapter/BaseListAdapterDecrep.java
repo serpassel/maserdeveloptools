@@ -52,6 +52,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  */
 
 @SuppressWarnings({"SameReturnValue", "unused", "EmptyMethod"})
+@Deprecated
 public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends BaseViewHolder<T>>
         extends
         RecyclerView.Adapter<VH>

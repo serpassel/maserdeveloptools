@@ -12,7 +12,7 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
-import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsModel;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterModel;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 
 /**
@@ -25,7 +25,7 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
 
 @SuppressWarnings("unused")
 public class SimpleListModel<T extends Parcelable>
-        implements AdapterItemsModel, AdapterItemsManager<T> {
+        implements AdapterModel, AdapterItemsManager<T> {
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;

@@ -5,7 +5,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +31,6 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         implements TouchableViewHandler<T>, ViewItemHandler<T> {
 
     protected ViewDataBinding viewDataBinding;
-    protected RecyclerView recyclerView;
     protected SimpleListModel<T> listModel;
 
     protected Integer lastScroll;
