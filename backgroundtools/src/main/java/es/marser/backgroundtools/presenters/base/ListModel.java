@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.presenters;
+package es.marser.backgroundtools.presenters.base;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,10 +9,17 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 /**
  * @author sergio
  *         Created by sergio on 28/11/17.
+ *         Modelo para listas
+ *         <p>
+ *         [EN]  Model for lists
  */
 
-public interface ListPresenter {
+public interface ListModel {
 
+    /**
+     *
+     * @return Adaptador de listas {@link BaseListAdapter}
+     */
     BaseListAdapter getAdapter();
 
     /**

@@ -7,8 +7,8 @@
 
         <!--PRESENTERS-->
         <variable
-            name="presenter"
-            type="es.marser.backgroundtools.presenters.ListPresenter"/>
+            name="listmodel"
+            type="es.marser.backgroundtools.presenters.base.ListModel"/>
 
         <!--MODELO de objeto independiente [EN]  Independent object model -->
         <variable

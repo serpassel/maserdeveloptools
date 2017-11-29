@@ -7,12 +7,10 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
@@ -21,7 +19,7 @@ import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
-import es.marser.backgroundtools.presenters.ListPresenter;
+import es.marser.backgroundtools.presenters.base.ListModel;
 
 /**
  * @author sergio
@@ -34,7 +32,7 @@ import es.marser.backgroundtools.presenters.ListPresenter;
 @SuppressWarnings("unused")
 public abstract class BaseFragmentListBin<T extends Parcelable>
         extends BaseFragment
-        implements ListPresenter, TouchableViewHandler<T>, ViewItemHandler<T> {
+        implements ListModel, TouchableViewHandler<T>, ViewItemHandler<T> {
 
     protected ViewDataBinding viewDataBinding;
     protected RecyclerView recyclerView;
@@ -140,13 +138,12 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     protected abstract int getHolderLayout();
 
     protected void bindAdapter(@Nullable Bundle savedInstanceState){
-        viewDataBinding.setVariable(BR.presenter, this);
+        viewDataBinding.setVariable(BR.listmodel, this);
         viewDataBinding.executePendingBindings();
-    };
+    }
 
     @Override
     public BaseListAdapter getAdapter() {
-
         adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
         return adapter;
     }

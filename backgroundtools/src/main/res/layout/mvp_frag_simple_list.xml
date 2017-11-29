@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.presenters.ListPresenter" />
+        <import type="es.marser.backgroundtools.presenters.base.ListModel" />
 
         <variable
-            name="presenter"
-            type="ListPresenter" />
+            name="listmodel"
+            type="es.marser.backgroundtools.presenters.base.ListModel" />
     </data>
 
     <android.support.v7.widget.ContentFrameLayout
@@ -19,9 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center_horizontal"
-            android:adapter="@{presenter.adapter}"
-            android:layoutManager="@{presenter.layoutManager}"
-            android:hasFixedSize="@{presenter.hasFixedSize}"
+            android:adapter="@{listmodel.adapter}"
+            android:layoutManager="@{listmodel.layoutManager}"
+            android:hasFixedSize="@{listmodel.hasFixedSize}"
             android:layout_margin="?attr/box_default_medium_margin"
             android:background="@color/bt_white"
             android:minHeight="100dp" />
