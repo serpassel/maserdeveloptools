@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.presenters.base;
+package es.marser.backgroundtools.objectslistables.base.model;
 
 import android.os.Parcelable;
 
@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unused")
-public interface ListCrud<T extends Parcelable> {
+public interface AdapterItemsController<T extends Parcelable> {
     //CRUD_____________________________________________________________________________
 
     /**

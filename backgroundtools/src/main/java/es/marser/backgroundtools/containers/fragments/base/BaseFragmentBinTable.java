@@ -14,7 +14,7 @@ import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
+import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.table.adapter.TableListAdapter;
 
@@ -178,8 +178,8 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
                     return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
                 }
             };
-            adapter.hGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
-            adapter.bGlobalController.selectionController.setSelectionMode(getInitialSelectionMode());
+            adapter.hAdapterController.setSelectionmode(getInitialSelectionMode());
+            adapter.bAdapterController.setSelectionmode(getInitialSelectionMode());
         }
 
        // Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador pre-set: " + (recyclerView.getAdapter() == null));
@@ -211,24 +211,24 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      * @return controladora de cabecera
      * [EN]  header controller
      */
-    public GlobalController<H> getHeadGlobalController() {
-        return adapter.hGlobalController;
+    public AdapterController<H> getHeadGlobalController() {
+        return adapter.hAdapterController;
     }
 
     /**
      * @return Controladora de cuerpo
      * [EN]  Body controller
      */
-    public GlobalController<B> getBodyGlobalController() {
-        return adapter.bGlobalController;
+    public AdapterController<B> getBodyGlobalController() {
+        return adapter.bAdapterController;
     }
 
     /**
      * @return Controladora de títulos
      * [EN]  Controller of titles
      */
-    public GlobalController<Selectable> getTitleGlobalController(){
-        return adapter.tGlobalController;
+    public AdapterController<Selectable> getTitleGlobalController(){
+        return adapter.tAdapterController;
     }
 
     /**
@@ -308,8 +308,8 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      */
     public void deleteBodyItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.remove(id);
-            adapter.globalController.selectionController.clear();
+            adapter.adapterController.remove(id);
+            adapter.adapterController.selectionController.clear();
             scrollToId(id);
             savedScroll();
         }

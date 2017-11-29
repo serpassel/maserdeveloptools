@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
 import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
@@ -42,7 +42,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- * @see SelectionController
+ * @see SelectionControllerD
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController

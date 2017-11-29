@@ -14,7 +14,7 @@ import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
+import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
@@ -35,11 +35,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         extends BaseListAdapterDecrep {
 
     /*Controlador de cabecera [EN]  Header controller*/
-    public GlobalController<Selectable> tGlobalController;
+    public AdapterController<Selectable> tAdapterController;
     /*Controlador de cabecera [EN]  Header controller*/
-    public GlobalController<H> hGlobalController;
+    public AdapterController<H> hAdapterController;
     /*Controlador de cuerpo [EN]  Body controller*/
-    public GlobalController<B> bGlobalController;
+    public AdapterController<B> bAdapterController;
 
     /*Controlador de tipos de vista [EN]  View type controller*/
     protected ArrayList<Integer> types;
@@ -75,17 +75,17 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     public TableListAdapter() {
 
 
-        tGlobalController = new GlobalController<>(ViewHolderType.TITLE.ordinal());
-        tGlobalController.setChangedListener(this);
-        tGlobalController.setViewItemHandler(getTitleItemHandler());
+        tAdapterController = new AdapterController<>(ViewHolderType.TITLE.ordinal());
+        tAdapterController.setChangedListener(this);
+        tAdapterController.setViewItemHandler(getTitleItemHandler());
 
-        hGlobalController = new GlobalController<>(ViewHolderType.HEAD.ordinal());
-        hGlobalController.setChangedListener(this);
-        hGlobalController.setViewItemHandler(getHeadItemHandler());
+        hAdapterController = new AdapterController<>(ViewHolderType.HEAD.ordinal());
+        hAdapterController.setChangedListener(this);
+        hAdapterController.setViewItemHandler(getHeadItemHandler());
 
-        bGlobalController = new GlobalController<>(ViewHolderType.BODY.ordinal());
-        bGlobalController.setChangedListener(this);
-        bGlobalController.setViewItemHandler(getBodyItemHandler());
+        bAdapterController = new AdapterController<>(ViewHolderType.BODY.ordinal());
+        bAdapterController.setChangedListener(this);
+        bAdapterController.setViewItemHandler(getBodyItemHandler());
 
         types = new ArrayList<>();
 
@@ -112,16 +112,16 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
 
-        if(tGlobalController != null){
-            tGlobalController.onSaveInstanceState(savedInstanceState);
+        if(tAdapterController != null){
+            tAdapterController.onSaveInstanceState(savedInstanceState);
         }
 
-        if (hGlobalController != null) {
-            hGlobalController.onSaveInstanceState(savedInstanceState);
+        if (hAdapterController != null) {
+            hAdapterController.onSaveInstanceState(savedInstanceState);
         }
 
-        if (bGlobalController != null) {
-            bGlobalController.onSaveInstanceState(savedInstanceState);
+        if (bAdapterController != null) {
+            bAdapterController.onSaveInstanceState(savedInstanceState);
         }
 
         if (savedInstanceState != null) {
@@ -141,20 +141,20 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
      *                           a previous saved state, this is the state.
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (tGlobalController != null) {
+        if (tAdapterController != null) {
             if (savedInstanceState != null) {
-                tGlobalController.onRestoreInstanceState(savedInstanceState);
+                tAdapterController.onRestoreInstanceState(savedInstanceState);
             }
         }
-        if (hGlobalController != null) {
+        if (hAdapterController != null) {
             if (savedInstanceState != null) {
-                hGlobalController.onRestoreInstanceState(savedInstanceState);
+                hAdapterController.onRestoreInstanceState(savedInstanceState);
             }
         }
 
-        if (bGlobalController != null) {
+        if (bAdapterController != null) {
             if (savedInstanceState != null) {
-                bGlobalController.onRestoreInstanceState(savedInstanceState);
+                bAdapterController.onRestoreInstanceState(savedInstanceState);
             }
         }
 
@@ -193,15 +193,15 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
         switch (type) {
             case TITLE:
-                holder.bind(tGlobalController.getItemAt(position));
+                holder.bind(tAdapterController.getItemAt(position));
                 ((ViewHolderBinding<Selectable>) holder).attachTouchableViewHandler(getTitleTouchableViewHandler());
                 break;
             case HEAD:
-                holder.bind(hGlobalController.getItemAt(position));
+                holder.bind(hAdapterController.getItemAt(position));
                 ((ViewHolderBinding<H>) holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
                 break;
             case BODY:
-                holder.bind(bGlobalController.getItemAt(position));
+                holder.bind(bAdapterController.getItemAt(position));
                 ((ViewHolderBinding<B>) holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
                 break;
         }
@@ -212,11 +212,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         ViewHolderType type = ViewHolderType.values()[viewType];
         switch (type) {
             case TITLE:
-                return new TitleViewHolderBinding(dataBinding, tGlobalController);
+                return new TitleViewHolderBinding(dataBinding, tAdapterController);
             case HEAD:
-                return new HeaderViewHolderBinding<>(dataBinding, hGlobalController);
+                return new HeaderViewHolderBinding<>(dataBinding, hAdapterController);
             case BODY:
-                return new BodyViewHolderBinding<>(dataBinding, bGlobalController);
+                return new BodyViewHolderBinding<>(dataBinding, bAdapterController);
             default:
                 throw new ClassCastException("Undefined view es");
         }

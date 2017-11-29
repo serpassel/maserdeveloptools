@@ -15,8 +15,8 @@ import android.view.animation.AnimationUtils;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
 import es.marser.backgroundtools.objectslistables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
@@ -44,7 +44,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- * @see SelectionController
+ * @see SelectionControllerD
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController
@@ -59,7 +59,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
         AdapterNotifier {
 
     /*Variables de control [EN]  Control variables*/
-    public GlobalController<T> globalController;
+    public AdapterController<T> adapterController;
 
     public boolean animHolders;
 
@@ -86,8 +86,8 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-        if (globalController != null) {
-            globalController.onSaveInstanceState(savedInstanceState);
+        if (adapterController != null) {
+            adapterController.onSaveInstanceState(savedInstanceState);
         }
 
         if (savedInstanceState != null) {
@@ -108,8 +108,8 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            if (globalController != null) {
-                globalController.onRestoreInstanceState(savedInstanceState);
+            if (adapterController != null) {
+                adapterController.onRestoreInstanceState(savedInstanceState);
             }
 
             animHolders = savedInstanceState.getBoolean(animHoldersKey[0], false);
@@ -121,10 +121,10 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
 
     //CONSTRUCTORS____________________________________________________________________________________________
     public BaseListAdapterDecrep() {
-        globalController = new GlobalController<>();
+        adapterController = new AdapterController<>();
 
-        globalController.setChangedListener(this);
-        globalController.setViewItemHandler(getItemHandler());
+        adapterController.setChangedListener(this);
+        adapterController.setViewItemHandler(getItemHandler());
 
         animHolders = false;
     }
@@ -199,7 +199,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
     /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
     @Override
     public int getItemCount() {
-        return globalController.size();
+        return adapterController.size();
     }
 
 

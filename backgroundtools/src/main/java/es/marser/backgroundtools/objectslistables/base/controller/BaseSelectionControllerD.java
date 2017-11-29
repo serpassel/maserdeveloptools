@@ -2,12 +2,14 @@ package es.marser.backgroundtools.objectslistables.base.controller;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
@@ -36,33 +38,39 @@ import es.marser.tools.TextTools;
  *         <il>Action Events</il>
  *         </ul>
  *         Tigger by {@link ViewItemHandler}
- * @see ViewItemHandler
- * @see OnItemChangedListener
- * @see ListExtra
+ * @see es.marser.backgroundtools.handlers.ViewItemHandler
+ * @see es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener
+ * @see es.marser.backgroundtools.enums.ListExtra
  */
 
 @SuppressWarnings("unused")
-public class SelectionController implements SelectionModel {
+@Deprecated
+public class BaseSelectionControllerD<T> implements SelectionModel {
 
     /*Variables de marcado [EN]  Marking Variables*/
     protected SparseBooleanArray selectedItems;
-
+    /*Variable de modo de selección [EN]  Selection Mode Variable*/
+    protected ListExtra selectionmode;
     /*Variables de control de posición de pulsaciones [EN]  Pulse Position Control Variables*/
     protected int lastposition, position;
 
     /*Variable oyente de modificaciones de slección*/
-    protected OnItemChangedListener onSelectionChanged;
+  protected OnItemChangedListener onSelectionChanged;
 
-    private static String[] extras = new String[]{"selected_ids", "last_position", "position"};
+    public static String selectedIdkey = "selected_ids";
+    public static String lastpositionkey = "last_position";
+    public static String positionkey = "position";
 
-    public SelectionController() {
+    public BaseSelectionControllerD(ListExtra selectionmode) {
 
         this.selectedItems = new SparseBooleanArray();
+        this.selectionmode = selectionmode;
 
         this.position = -1;
         this.lastposition = -1;
 
         this.onSelectionChanged = null;
+    //    this.itemHandler = null;
     }
 
     /**
@@ -84,9 +92,9 @@ public class SelectionController implements SelectionModel {
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState, String id) {
         if (savedInstanceState != null) {
-            savedInstanceState.putIntegerArrayList(TextTools.nc(id) + extras[0], getIdSelecteds());
-            savedInstanceState.putInt(extras[1], lastposition);
-            savedInstanceState.putInt(extras[2], position);
+            savedInstanceState.putIntegerArrayList(TextTools.nc(id) + selectedIdkey, getIdSelecteds());
+            savedInstanceState.putInt(lastpositionkey, lastposition);
+            savedInstanceState.putInt(positionkey, position);
         }
     }
 
@@ -104,18 +112,19 @@ public class SelectionController implements SelectionModel {
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id) {
 
         if (savedInstanceState != null) {
-            ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList(TextTools.nc(id) + extras[0]);
+            ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList(TextTools.nc(id) + selectedIdkey);
             if (selectedItems == null) {
                 this.selectedItems = new SparseBooleanArray();
             }
             if (ids != null) {
                 for (Integer i : ids) {
+                    Log.w(LOG_TAG.TAG, "Restore selector " + i);
                     selectedItems.put(i, true);
                 }
             }
 
-            lastposition = savedInstanceState.getInt(extras[1], -1);
-            position = savedInstanceState.getInt(extras[2], -1);
+            lastposition = savedInstanceState.getInt(lastpositionkey, -1);
+            position = savedInstanceState.getInt(positionkey, -1);
         }
     }
 
@@ -219,6 +228,15 @@ public class SelectionController implements SelectionModel {
     }
 
     //ACCESS TO VARIABLES_________________________________________________________________________________________
+
+    /*Variable mode de selección [EN]  Variable selection mode*/
+    public ListExtra getSelectionmode() {
+        return selectionmode;
+    }
+
+    public void setSelectionMode(ListExtra selectionmode) {
+        this.selectionmode = selectionmode;
+    }
 
     /*Variables de control de selección [EN]  Selection control variables*/
     @Override

@@ -125,7 +125,7 @@ public class CalendarChooserFragment
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         super.bindAdapter(savedInstanceState);
         if (savedInstanceState == null) {
-            getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
+            getHeadGlobalController().setSelectionmode(ListExtra.NOT_SELECTION_MODE);
 
             //getHeadGlobalController().clear();
             // loadDayWeek();

@@ -242,8 +242,8 @@ public class FileChooserDialog
             public void onFinish(Void finish) {
                 Collections.sort(directory, comparator);
                 Collections.sort(file, comparator);
-                adapter.   globalController.addAll(directory);
-                adapter.   globalController.addAll(file);
+                adapter.adapterController.addAll(directory);
+                adapter.adapterController.addAll(file);
             }
 
             @Override

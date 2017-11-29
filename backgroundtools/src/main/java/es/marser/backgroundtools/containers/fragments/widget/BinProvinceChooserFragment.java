@@ -77,17 +77,16 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
                 ProvincieModel item1 = GenericFactory.BuildSingleObject(ProvincieModel.class,
                         getContext().getResources().getString(R.string.all_spain_pro));
 
-                if (listModel.getListCrud() != null) {
-                    listModel.getListCrud().add(item1);
+                if (listModel.getAdapterItemsController() != null) {
+                    listModel.getAdapterItemsController().add(item1);
                 }
             }
-
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
                 //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
-                if (listModel.getListCrud() != null) {
-                    listModel.getListCrud().add(item);
+                if (listModel.getAdapterItemsController() != null) {
+                    listModel.getAdapterItemsController().add(item);
                 }
             }
         }

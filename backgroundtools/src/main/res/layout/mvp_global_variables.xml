@@ -8,7 +8,7 @@
         <!--PRESENTERS-->
         <variable
             name="listmodel"
-            type="es.marser.backgroundtools.presenters.base.ListModel"/>
+            type="es.marser.backgroundtools.objectslistables.base.model.AdapterItemsModel"/>
 
         <!--MODELO de objeto independiente [EN]  Independent object model -->
         <variable

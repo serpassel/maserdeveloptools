@@ -18,7 +18,8 @@ import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.presenters.base.ListCrud;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemModel;
 import es.marser.tools.TextTools;
 
 /**
@@ -30,36 +31,57 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class GlobalController<T extends Parcelable>
-        implements ViewHolderController<T>, OnItemChangedListener, ListCrud<T> {
+public class AdapterController<T extends Parcelable>
+        implements ViewHolderController<T>,
+        OnItemChangedListener,
+        AdapterItemsController<T>,
+        SelectionItemModel<T> {
+
+
     /*Variables de control [EN]  Control variables*/
-    public SelectionController<T> selectionController;
-    public ArrayList<T> items;
+    public SelectionController selectionController;
     public ExpandController expandController;
+
+    /*Registro de elementos [EN]  Registration of elements*/
+    public ArrayList<T> items;
 
     /*Oyente de cambios en la lista [EN]  Listener of changes in the list*/
     protected AdapterNotifier adapterNotifier;
 
-    public static String itemskey = "items_key";
-    public static String itemscountkey = "items_count_key";
-    public static String viewholdertypekey = "view_holder_type_key";
+    /*Variable de modo de selección [EN]  Selection Mode Variable*/
+    protected ListExtra selectionmode;
+
+    /*Variable de captación de eventos de pulsación [EN]  Pulse Pickup Variable*/
+    protected ViewItemHandler<T> viewItemHandler;
+
+    /*EXTRAS*/
+    public static String[] extras = new String[]{"items_key", "items_count_key"};
 
     public int viewHolderType;
 
-    public GlobalController(int viewHolderType) {
+    //CONTRUCTORS______________________________________________________________________________________
+    public AdapterController() {
+        this(ViewHolderType.SIMPLE.ordinal());
+    }
+
+    public AdapterController(int viewHolderType) {
         this.viewHolderType = viewHolderType;
 
          /*Nueva instancia de controladores [EN]  New controller instance*/
         items = new ArrayList<>();
-        selectionController = new SelectionController<>(
-                items,
-                ListExtra.SINGLE_SELECTION_MODE);
-
+        selectionController = new SelectionController();
         expandController = new ExpandController();
 
      /*Definición de oyentes a los controladores [EN]  Definition of listeners to the controllers*/
         selectionController.setOnSelectionChanged(this);
         expandController.setOnSelectionChanged(this);
+
+        /*Oyentes [EN]  Listeners*/
+        viewItemHandler = null;
+        adapterNotifier = null;
+
+        /*Variable de modo de selección [EN]  Variable of selection mode*/
+        selectionmode = ListExtra.SINGLE_SELECTION_MODE;
     }
 
     //SAVED AND RESTORE_____________________________________________________________
@@ -93,10 +115,10 @@ public class GlobalController<T extends Parcelable>
 
         //ArrayList
         if (savedInstanceState != null) {
-            savedInstanceState.putInt(TextTools.nc(viewHolderType) + itemscountkey, size());
+            savedInstanceState.putInt(TextTools.nc(viewHolderType) + extras[1], size());
 
             if (items != null && size() > 0) {
-                savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + itemskey, items);
+                savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + extras[0], items);
             }
         }
     }
@@ -132,20 +154,14 @@ public class GlobalController<T extends Parcelable>
                 && items != null) {
 
             try {
-                items.addAll(savedInstanceState.getParcelableArrayList(TextTools.nc(viewHolderType) + itemskey) != null
-                        ? (ArrayList<T>) savedInstanceState.getParcelableArrayList(TextTools.nc(viewHolderType) + itemskey)
+                items.addAll(savedInstanceState.getParcelableArrayList(TextTools.nc(viewHolderType) + extras[0]) != null
+                        ? (ArrayList<T>) savedInstanceState.getParcelableArrayList(TextTools.nc(viewHolderType) + extras[0])
                         : new ArrayList<T>()
                 );
             } catch (ClassCastException ignored) {
             }
         }
     }
-
-
-    public GlobalController() {
-        this(ViewHolderType.SIMPLE.ordinal());
-    }
-
 
     //CONTROLLERS MANAGER_______________________________________________________________________
 
@@ -223,7 +239,7 @@ public class GlobalController<T extends Parcelable>
         }
     }
 
-   @Override
+    @Override
     public void add(int index, T item) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size()) || item != null) {
@@ -298,23 +314,70 @@ public class GlobalController<T extends Parcelable>
         }
     }
 
-   @Override
+    @Override
     public void replace(List<T> items) {
         clear();
         addAll(items);
     }
 
-    //SET LISTENERS________________________________________________________________________________
+    //SELECTION ITEM MODEL____________________________________________________________________
+    @Override
+    public List<T> removeSelectedItems() {
+        List<T> toRemove = new ArrayList<>();
+        List<T> toSave = new ArrayList<>();
+        for (int i = 0; i < size(); i++) {
+
+            if (selectionController.get(i)) {
+                toRemove.add(getItemAt(i));
+                remove(i);
+            } else {
+                toSave.add(getItemAt(i));
+            }
+        }
+
+        clear();//Limpiar lista de elementos [EN]  Clean item list
+        addAll(toSave);//Agregar los elementos no borrados [EN]  Add items not deleted
+
+        selectionController.setLastposition(-1);
+        selectionController.setPosition(-1);
+        return toRemove;
+    }
+
+    @Override
+    public List<T> getSelectds() {
+        List<T> selected = new ArrayList<>();
+        for (int i = 0; i < size(); i++) {
+            if (selectionController.get(i)) {
+                selected.add(getItemAt(i));
+            }
+        }
+        return selected;
+    }
+
+    @Override
+    public T getItemSelected() {
+        if (selectionController.get(selectionController.getPosition())) {
+            return getItemAt(selectionController.getPosition());
+        }
+        for (int i = 0; i <= size(); i++) {
+            if (selectionController.get(i))
+                return getItemAt(i);
+        }
+        return null;
+    }
+
+    //SET LISTENERS____________________________________________________________________________
 
     /*Oyentes de pulsación [EN]  Pulsation listeners*/
     public void removeViewItemHandler() {
-        selectionController.removeItemHandler();
+        this.viewItemHandler = null;
     }
 
     public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        selectionController.setItemHandler(viewItemHandler);
+        this.viewItemHandler = viewItemHandler;
     }
 
+    /*Oyentes de cambio [EN]  Change listeners*/
     public void removeAdapterNotifier() {
         this.adapterNotifier = null;
     }
@@ -323,9 +386,7 @@ public class GlobalController<T extends Parcelable>
         this.adapterNotifier = adapterNotifier;
     }
 
-    /**
-     * {@link ViewHolderController}
-     */
+    //VIEW HOLDER CONTROLLER____________________________________________________________________________
     @Override
     public boolean isExpaned(int posicion) {
         return expandController != null && adapterNotifier != null && expandController.get(adapterNotifier.indexPos(posicion, viewHolderType));
@@ -337,15 +398,111 @@ public class GlobalController<T extends Parcelable>
     }
 
     @Override
-    public void onClick(BaseViewHolder<T> holder, int posicion) {
-        if (selectionController != null && adapterNotifier != null) {
-            selectionController.onClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+    public void onClick(BaseViewHolder<T> holder, int position) {
+        if (selectionController != null) {
+
+            int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
+
+            int lastposition = selectionController.getLastposition();
+            int posicion = selectionController.getPosition();
+        
+         /*Actualizar las variables de posición [EN]  Update position variables*/
+            selectionController.setLastposition(posicion);
+
+            switch (selectionmode) {
+                case NOT_SELECTION_MODE:
+                    return;
+
+                case ONLY_SINGLE_SELECTION_MODE:
+                case SINGLE_SELECTION_MODE:
+                    if (lastposition != position) {
+                        //Comprobamos que no estamos en el mismo registro
+                        selectionController.setSelected(lastposition, false);
+
+                    /*Notificar cambios de selección [EN]  Notify selection changes*/
+                        onItemChaged(lastposition);
+                        onItemChaged(position);
+                    }
+
+                    selectionController.setSelected(position, !holder.getItemView().isSelected());
+
+                /*Notificar cambios de selección [EN]  Notify selection changes*/
+                    onItemChaged(position);
+                    break;
+                case ONLY_MULTIPLE_SELECTION_MODE:
+                case MULTIPLE_SELECTION_MODE:
+
+                    selectionController.setSelected(position, !holder.getItemView().isSelected());
+
+                /*Notificar cambios de selección [EN]  Notify selection changes*/
+                    onItemChaged(position);
+
+                    //Si es el ultimo registro pasar a selección sencilla
+                    //[EN]  If the last record goes to simple selection
+                    if (selectionController.isEmptySelected() && selectionmode == ListExtra.MULTIPLE_SELECTION_MODE) {
+                        //Si no hay elementos seleccionados pasar a modo singular
+                        //[EN]   If there are no selected elements go to singular mode
+                        selectionmode = ListExtra.SINGLE_SELECTION_MODE;
+                    }
+                    break;
+            }
+
+          /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+            if (viewItemHandler != null) {
+                viewItemHandler.onClickItem(holder, getItemAt(position), position, selectionmode);
+            }
         }
     }
 
     @Override
-    public boolean onLongClick(BaseViewHolder<T> holder, int posicion) {
-        return selectionController.onLongClick(holder, adapterNotifier.indexPos(posicion, viewHolderType));
+    public boolean onLongClick(BaseViewHolder<T> holder, int position) {
+
+        if (selectionController != null) {
+
+            int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
+
+            int lastposition = selectionController.getLastposition();
+            int posicion = selectionController.getPosition();
+
+            switch (selectionmode) {
+                case NOT_SELECTION_MODE:
+                    return true;
+                case ONLY_SINGLE_SELECTION_MODE:
+                case SINGLE_SELECTION_MODE:
+                /*Deseleccionar la posición anterior [EN]  Deselect previous position*/
+                    if (lastposition != position) {
+
+                    /*Comprobar si se ha cambiado el registro [EN]  To compute if the record has been changed*/
+                        selectionController.setSelected(lastposition, false);
+
+                    /*Notificar cambios de selección [EN]  Notify selection changes*/
+                        onItemChaged(lastposition);
+                    }
+
+                    selectionController.setSelected(position, true);
+
+                /*Notificar cambios de selección [EN]  Notify selection changes*/
+                    onItemChaged(position);
+                    if (selectionmode == ListExtra.SINGLE_SELECTION_MODE) {
+                    /*Activar selección multiple [EN]  Enable multiple selection*/
+                        selectionmode = ListExtra.MULTIPLE_SELECTION_MODE;
+                    }
+                    break;
+
+                case MULTIPLE_SELECTION_MODE:
+                /*Limpiar selección [EN]  Clear Selection*/
+                    selectionController.deselectedAll();
+                /*Activar selección simple [EN]  Enable simple selection*/
+                    selectionmode = ListExtra.SINGLE_SELECTION_MODE;
+                    break;
+            }
+
+        /*Lanzar la pulsación sobre el elemento [EN]  Release the key on the element*/
+            if (viewItemHandler != null) {
+                viewItemHandler.onLongClickItem(holder, getItemAt(position), position, selectionmode);
+            }
+        }
+        return true;
     }
 
     @Override
@@ -370,8 +527,7 @@ public class GlobalController<T extends Parcelable>
         return null;
     }
 
-
-    /* {@link OnItemChangedListener}*/
+    //ON CHANGED SELECTION LISTENER______________________________________________________________________
 
     /**
      * {@link OnItemChangedListener}
@@ -390,4 +546,12 @@ public class GlobalController<T extends Parcelable>
         }
     }
 
+    //SETTER AND GETTER___________________________________________________________________________
+    public ListExtra getSelectionmode() {
+        return selectionmode;
+    }
+
+    public void setSelectionmode(ListExtra selectionmode) {
+        this.selectionmode = selectionmode;
+    }
 }

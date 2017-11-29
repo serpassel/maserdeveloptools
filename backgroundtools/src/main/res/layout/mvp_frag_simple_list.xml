@@ -3,11 +3,11 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.presenters.base.ListModel" />
+        <import type="es.marser.backgroundtools.objectslistables.base.model.AdapterItemsModel" />
 
         <variable
             name="listmodel"
-            type="es.marser.backgroundtools.presenters.base.ListModel" />
+            type="AdapterItemsModel" />
     </data>
 
     <android.support.v7.widget.ContentFrameLayout

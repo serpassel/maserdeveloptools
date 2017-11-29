@@ -189,7 +189,7 @@ public class ChooserDialog<T extends Selectable>
         final String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), null);
         if (values != null) {
             if (preselect == null) {
-                adapter.globalController.addAll(values);
+                adapter.adapterController.addAll(values);
                 return;
             }
 
@@ -218,7 +218,7 @@ public class ChooserDialog<T extends Selectable>
       //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
         multiselect_flag = false;
         boolean old = multiselect.get();
-        multiselect.set(getItemCount() == adapter.globalController.selectionController.getIdSelecteds().size());
+        multiselect.set(getItemCount() == adapter.adapterController.selectionController.getIdSelecteds().size());
 
         multiselect_flag = (old == multiselect.get());
     }
@@ -227,7 +227,7 @@ public class ChooserDialog<T extends Selectable>
     @Override
     public void onOk(View view) {
         if (result != null) {
-            result.onResult(DialogExtras.OK_EXTRA, adapter.globalController.selectionController.getSelectds());
+            result.onResult(DialogExtras.OK_EXTRA, adapter.adapterController.getSelectds());
         }
        close();
     }
@@ -265,9 +265,9 @@ public class ChooserDialog<T extends Selectable>
     public void onClick(View view, Boolean isChecked) {
         if (multiselect_flag) {
             if (isChecked) {
-                adapter.globalController.selectionController.selectedAll();
+                adapter.adapterController.selectionController.selectedAll(adapter.getItemCount());
             } else {
-                adapter.globalController.selectionController.deselectedAll();
+                adapter.adapterController.selectionController.deselectedAll();
             }
         }
         multiselect_flag = true;

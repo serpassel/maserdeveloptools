@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.presenters.simple;
+package es.marser.backgroundtools.objectslistables.base.model;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -11,9 +11,6 @@ import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
-import es.marser.backgroundtools.presenters.base.ListCrud;
-import es.marser.backgroundtools.presenters.base.ListCrudManager;
-import es.marser.backgroundtools.presenters.base.ListModel;
 
 /**
  * @author sergio
@@ -25,12 +22,12 @@ import es.marser.backgroundtools.presenters.base.ListModel;
 
 @SuppressWarnings("unused")
 public class SimpleListModel<T extends Parcelable>
-        implements ListModel, ListCrudManager<T> {
+        implements AdapterItemsModel, AdapterItemsManager<T> {
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;
 
-    protected ListCrud<T> listcrud;
+    protected AdapterItemsController<T> listcrud;
 
     //CONSTRUCTORS_____________________________________________
     public SimpleListModel(Context context) {
@@ -112,7 +109,6 @@ public class SimpleListModel<T extends Parcelable>
     }
 
     //CRUD_______________________________________________________
-
     /**
      * @return devuelve el gestor de lectura y escritura asignado al manejador
      * <p>
@@ -120,9 +116,7 @@ public class SimpleListModel<T extends Parcelable>
      */
     @Nullable
     @Override
-    public ListCrud<T> getListCrud() {
-        return adapter != null ? adapter.getListCrud() : null;
+    public AdapterItemsController<T> getAdapterItemsController() {
+        return adapter != null ? adapter.getAdapterItemsController() : null;
     }
-
-
 }

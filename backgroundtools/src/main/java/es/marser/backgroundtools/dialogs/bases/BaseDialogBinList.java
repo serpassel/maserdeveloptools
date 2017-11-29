@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
 
@@ -65,7 +65,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
         };
 
         recyclerView.setAdapter(adapter);
-        adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
+        adapter.adapterController.setSelectionmode(getInitialSelectionMode());
     }
 
     @Override
@@ -108,10 +108,10 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      * <p>
      * [EN]  Access to the items Adapter Selection Controller
      *
-     * @return Controlador de selección {@link SelectionController} [EN]  Selection controller {@link SelectionController}
+     * @return Controlador de selección {@link SelectionControllerD} [EN]  Selection controller {@link SelectionControllerD}
      */
-    public GlobalController<T> getController() {
-        return adapter.globalController;
+    public AdapterController<T> getController() {
+        return adapter.adapterController;
     }
 
     /**
@@ -123,7 +123,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void setItems(ArrayList<T> items) {
         if (items != null) {
-            adapter.globalController.replace(items);
+            adapter.adapterController.replace(items);
         }
     }
 
@@ -156,7 +156,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.add(item);
+            adapter.adapterController.add(item);
         }
     }
 
@@ -170,7 +170,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.add(id, item);
+            adapter.adapterController.add(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -186,7 +186,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.set(id, item);
+            adapter.adapterController.set(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -202,8 +202,8 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.remove(id);
-            adapter.globalController.selectionController.clear();
+            adapter.adapterController.remove(id);
+            adapter.adapterController.selectionController.clear();
             scrollToId(id);
             savedScroll();
         }
@@ -218,7 +218,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      * @param value valor de selección [EN]  selection value
      */
     public void setSelected(int id, boolean value) {
-        adapter.globalController.selectionController.setSelected(id, value);
+        adapter.adapterController.selectionController.setSelected(id, value);
     }
 
     /**
@@ -230,7 +230,7 @@ public abstract class BaseDialogBinList<T extends Parcelable>
      * @param value valor de selección [EN]  selection value
      */
     public void inputSelected(int id, boolean value){
-        adapter.globalController.selectionController.inputSelected(id, value);
+        adapter.adapterController.selectionController.inputSelected(id, value);
     }
 
     /**

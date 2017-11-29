@@ -132,7 +132,7 @@ public class CalendarChooser
     @Override
     protected void postBuild() {
         super.postBuild();
-        getHeadGlobalController().selectionController.setSelectionMode(ListExtra.NOT_SELECTION_MODE);
+        getHeadGlobalController().setSelectionmode(ListExtra.NOT_SELECTION_MODE);
         loadDayWeek();
         load();
     }

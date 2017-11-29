@@ -12,11 +12,11 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
-import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
+import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
-import es.marser.backgroundtools.presenters.base.ListCrud;
-import es.marser.backgroundtools.presenters.base.ListCrudManager;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
 
 /**
  * @author sergio
@@ -26,12 +26,12 @@ import es.marser.backgroundtools.presenters.base.ListCrudManager;
 @SuppressWarnings("unused")
 public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
-        implements ListCrudManager<T>{
+        implements AdapterItemsManager<T> {
 
     private int holderLayout;
     private TouchableViewHandler<T> touchableViewHandler;
     /*Variables de control [EN]  Control variables*/
-    private GlobalController<T> globalController;
+    private AdapterController<T> adapterController;
 
     //CONSTRUCTORS_______________________________________________________________________________
     public SimpleListAdapter() {
@@ -42,15 +42,15 @@ public class SimpleListAdapter<T extends Parcelable>
         this.holderLayout = holderLayout;
         this.touchableViewHandler = null;
 
-        globalController = new GlobalController<>();
-        globalController.setChangedListener(this);
+        adapterController = new AdapterController<>();
+        adapterController.setChangedListener(this);
     }
 
     //OVERRIDE SUPERCLASS_____________________________________________________________________________
         /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
     @Override
     public int getItemCount() {
-        return globalController.size();
+        return adapterController.size();
     }
 
 
@@ -84,23 +84,23 @@ public class SimpleListAdapter<T extends Parcelable>
     }
 
     public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        if(globalController != null){
-            globalController.setViewItemHandler(viewItemHandler);
+        if(adapterController != null){
+            adapterController.setViewItemHandler(viewItemHandler);
         }
     }
 
     public void removeViewItemHandler(){
-        if(globalController != null){
-            globalController.removeViewItemHandler();
+        if(adapterController != null){
+            adapterController.removeViewItemHandler();
         }
     }
 
-    public GlobalController<T> getGlobalController() {
-        return globalController;
+    public AdapterController<T> getAdapterController() {
+        return adapterController;
     }
 
-    public void setGlobalController(GlobalController<T> globalController) {
-        this.globalController = globalController;
+    public void setAdapterController(AdapterController<T> adapterController) {
+        this.adapterController = adapterController;
     }
 
     //OVERRIDE SUPERCLASS______________________________________________________________________________
@@ -114,14 +114,14 @@ public class SimpleListAdapter<T extends Parcelable>
     @Override
     public void onBindVH(ViewHolderBinding<T> holder, int position) {
         /*Introducir la variable de modelo de datos [EN]  Enter the data model variable*/
-        holder.bind(globalController.getItemAt(position));
+        holder.bind(adapterController.getItemAt(position));
         /*Manejador de eventos de las subvistas  [EN]  Event manager of subviews*/
         holder.attachTouchableViewHandler(getTouchableViewHandler());
     }
 
     @Override
     public ViewHolderBinding<T> onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
-        return new ViewHolderBinding<>(dataBinding, globalController);
+        return new ViewHolderBinding<>(dataBinding, adapterController);
     }
 
     //SAVED AND RESTORE_____________________________________________________________
@@ -145,8 +145,8 @@ public class SimpleListAdapter<T extends Parcelable>
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
        super.onSaveInstanceState(savedInstanceState);
-        if (globalController != null) {
-            globalController.onSaveInstanceState(savedInstanceState);
+        if (adapterController != null) {
+            adapterController.onSaveInstanceState(savedInstanceState);
         }
     }
 
@@ -163,8 +163,8 @@ public class SimpleListAdapter<T extends Parcelable>
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            if (globalController != null) {
-                globalController.onRestoreInstanceState(savedInstanceState);
+            if (adapterController != null) {
+                adapterController.onRestoreInstanceState(savedInstanceState);
             }
         }
 
@@ -178,9 +178,8 @@ public class SimpleListAdapter<T extends Parcelable>
      */
     @Nullable
     @Override
-    public ListCrud<T> getListCrud() {
-        return getGlobalController();
+    public AdapterItemsController<T> getAdapterItemsController() {
+        return getAdapterController();
     }
 
-    //CRUD LIST______________________________________________________________________
 }

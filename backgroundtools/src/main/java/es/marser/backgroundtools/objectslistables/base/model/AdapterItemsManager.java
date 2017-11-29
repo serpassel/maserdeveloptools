@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.presenters.base;
+package es.marser.backgroundtools.objectslistables.base.model;
 
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -12,12 +12,12 @@ import android.support.annotation.Nullable;
  */
 
 @SuppressWarnings("unused")
-public interface ListCrudManager<T extends Parcelable> {
+public interface AdapterItemsManager<T extends Parcelable> {
     /**
      * @return devuelve el gestor de lectura y escritura asignado al manejador
      * <p>
      * [EN]  returns the read and write manager assigned to the handler
      */
     @Nullable
-    ListCrud<T> getListCrud();
+    AdapterItemsController<T> getAdapterItemsController();
 }

@@ -13,7 +13,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionController;
+import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
 
@@ -120,12 +120,12 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         };
 
         recyclerView.setAdapter(adapter);
-        adapter.globalController.selectionController.setSelectionMode(getInitialSelectionMode());
+        adapter.adapterController.setSelectionmode(getInitialSelectionMode());
     }
 
     @Override
     public boolean isEmpty() {
-        return adapter.globalController.isEmpty();
+        return adapter.adapterController.isEmpty();
     }
 
     @Override
@@ -169,10 +169,10 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * <p>
      * [EN]  Access to the items Adapter Selection Controller
      *
-     * @return Controlador de selección {@link SelectionController} [EN]  Selection controller {@link SelectionController}
+     * @return Controlador de selección {@link SelectionControllerD} [EN]  Selection controller {@link SelectionControllerD}
      */
-    public SelectionController<T> getSelectionController() {
-        return adapter.globalController.selectionController;
+    public SelectionControllerD<T> getSelectionController() {
+        return null;
     }
 
     /**
@@ -184,7 +184,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void setItems(ArrayList<T> items) {
         if (items != null) {
-            adapter.globalController.replace(items);
+            adapter.adapterController.replace(items);
         }
     }
 
@@ -195,7 +195,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * [EN]  Delete item list
      */
     public void clear() {
-        adapter.globalController.clear();
+        adapter.adapterController.clear();
     }
 
     /**
@@ -207,7 +207,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void addItem(T item) {
         if (item != null) {
-            adapter.globalController.add(item);
+            adapter.adapterController.add(item);
         }
     }
 
@@ -221,7 +221,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void insertItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.add(id, item);
+            adapter.adapterController.add(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -237,7 +237,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void updateItem(int id, T item) {
         if (item != null && id > -1 && id < getItemCount()) {
-            adapter.globalController.set(id, item);
+            adapter.adapterController.set(id, item);
             scrollToId(id);
             savedScroll();
         }
@@ -253,8 +253,8 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      */
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
-            adapter.globalController.remove(id);
-            adapter.globalController.selectionController.clear();
+            adapter.adapterController.remove(id);
+            adapter.adapterController.selectionController.clear();
             scrollToId(id);
             savedScroll();
         }
@@ -269,7 +269,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * @param value valor de selección [EN]  selection value
      */
     public void setSelected(int id, boolean value) {
-        adapter.globalController.selectionController.setSelected(id, value);
+        adapter.adapterController.selectionController.setSelected(id, value);
     }
 
     /**
