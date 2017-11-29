@@ -42,8 +42,6 @@ public class SimpleListModel<T extends Parcelable>
     protected Context context;
     protected SimpleListAdapter<T> adapter;
 
-    protected AdapterItemsController<T> listcrud;
-
     //CONSTRUCTORS_____________________________________________
     public SimpleListModel(Context context) {
         this.context = context;

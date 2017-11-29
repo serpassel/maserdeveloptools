@@ -3,6 +3,7 @@ package es.marser.backgroundtools.objectslistables.base.controller;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,7 @@ import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
 import es.marser.tools.TextTools;
 
 /**
@@ -41,7 +43,8 @@ public class AdapterController<T extends Parcelable>
         AdapterItemsController<T>,
         SelectedsModel<T>,
         SelectionItemsManager,
-        ExpandItemsManager {
+        ExpandItemsManager,
+        Selectionable {
 
 
     /*Variables de control [EN]  Control variables*/
@@ -590,11 +593,14 @@ public class AdapterController<T extends Parcelable>
     }
 
     //SETTER AND GETTER___________________________________________________________________________
+    @Override
+    @NonNull
     public ListExtra getSelectionmode() {
         return selectionmode;
     }
 
-    public void setSelectionmode(ListExtra selectionmode) {
+    @Override
+    public void setSelectionmode(@NonNull ListExtra selectionmode) {
         this.selectionmode = selectionmode;
     }
 

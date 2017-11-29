@@ -20,6 +20,7 @@ import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.SelectedsModelManager;
+import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
@@ -175,7 +176,6 @@ public class SimpleListAdapter<T extends Parcelable>
     }
 
     //MANAGERS_______________________________________________________________________
-
     /**
      * @return devuelve el gestor de lectura y escritura asignado al manejador
      * <p>
@@ -201,6 +201,12 @@ public class SimpleListAdapter<T extends Parcelable>
     @Override
     @Nullable
     public SelectedsModel<T> getSelectedsModel() {
+        return this.adapterController;
+    }
+
+    @Override
+    @Nullable
+    public Selectionable getSelectionable(@Nullable Class cls) {
         return this.adapterController;
     }
 }

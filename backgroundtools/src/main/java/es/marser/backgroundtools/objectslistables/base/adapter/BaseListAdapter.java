@@ -20,6 +20,7 @@ import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionableManager;
 
 
 /**
@@ -42,7 +43,6 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- * @see SelectionControllerD
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController
@@ -54,7 +54,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         extends
         RecyclerView.Adapter<VH>
         implements
-        AdapterNotifier {
+        AdapterNotifier, SelectionableManager {
 
     public boolean animHolders;
 
@@ -288,4 +288,5 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     public void setAnimHolders(boolean animHolders) {
         this.animHolders = animHolders;
     }
+
 }

@@ -1,5 +1,7 @@
 package es.marser.backgroundtools.objectslistables.base.controller;
 
+import es.marser.backgroundtools.enums.ListExtra;
+
 /**
  * @author sergio
  *         Created by sergio on 22/10/17.
@@ -9,7 +11,7 @@ package es.marser.backgroundtools.objectslistables.base.controller;
  */
 
 @SuppressWarnings({"UnusedReturnValue", "unused"})
-public interface ViewHolderController<T> extends OnViewHolderClickListener<T>{
+public interface ViewHolderController<T> extends OnViewHolderClickListener<T> {
     /**
      * Indica si la vista esta expandida
      * <p>
@@ -49,5 +51,4 @@ public interface ViewHolderController<T> extends OnViewHolderClickListener<T>{
      * @param value    valor del estado de selección [EN]  Selection status value
      */
     void setSelected(int position, boolean value);
-
 }
