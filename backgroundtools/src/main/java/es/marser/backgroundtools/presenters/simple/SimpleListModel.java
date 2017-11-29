@@ -4,14 +4,10 @@ import android.content.Context;
 import android.os.Parcelable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
-import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 import es.marser.backgroundtools.presenters.base.ListModel;
 
@@ -21,18 +17,18 @@ import es.marser.backgroundtools.presenters.base.ListModel;
  */
 
 @SuppressWarnings("unused")
-public class SimpleListPresenter<T extends Parcelable> implements ListModel, TouchableViewHandler<T>, ViewItemHandler<T> {
+public class SimpleListModel<T extends Parcelable> implements ListModel{
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;
 
     //CONSTRUCTORS_____________________________________________
-    public SimpleListPresenter(Context context) {
+    public SimpleListModel(Context context) {
         this.context = context;
         adapter = new SimpleListAdapter<>();
     }
 
-    public SimpleListPresenter(Context context, int holderLayout) {
+    public SimpleListModel(Context context, int holderLayout) {
         this.context = context;
         adapter = new SimpleListAdapter<>(holderLayout);
     }
@@ -78,27 +74,18 @@ public class SimpleListPresenter<T extends Parcelable> implements ListModel, Tou
         return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
     }
 
+    //SETTERS____________________________________________________
 
-    //EVENTS_______________________________________________________
-    /* {@link ViewItemHandler}*/
-    @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-
+    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
+        if(adapter != null){
+            adapter.setViewItemHandler(viewItemHandler);
+        }
     }
 
-    @Override
-    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        return false;
+    public void removeViewItemHandler(){
+        if(adapter != null){
+            adapter.removeViewItemHandler();
+        }
     }
 
-    /* {@link TouchableViewHandler}*/
-    @Override
-    public void onClick(View view, int position, T item, View root) {
-
-    }
-
-    @Override
-    public boolean onLongClick(View view, int position, T item, View root) {
-        return false;
-    }
 }

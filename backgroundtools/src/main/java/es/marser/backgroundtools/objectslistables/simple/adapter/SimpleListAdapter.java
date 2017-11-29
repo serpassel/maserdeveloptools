@@ -1,12 +1,18 @@
 package es.marser.backgroundtools.objectslistables.simple.adapter;
 
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.util.SparseIntArray;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
+import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
+import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 
@@ -20,8 +26,10 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
 
     private int holderLayout;
     private TouchableViewHandler<T> touchableViewHandler;
+    /*Variables de control [EN]  Control variables*/
+    public GlobalController<T> globalController;
 
-//CONSTRUCTORS_______________________________________________________________________________
+    //CONSTRUCTORS_______________________________________________________________________________
     public SimpleListAdapter() {
         this(R.layout.mvp_item_object_chooser);
     }
@@ -29,6 +37,16 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
     public SimpleListAdapter(int holderLayout) {
         this.holderLayout = holderLayout;
         this.touchableViewHandler = null;
+
+        globalController = new GlobalController<>();
+        globalController.setChangedListener(this);
+    }
+
+    //OVERRIDE SUPERCLASS_____________________________________________________________________________
+        /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
+    @Override
+    public int getItemCount() {
+        return globalController.size();
     }
 
 
@@ -57,6 +75,21 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
         return touchableViewHandler;
     }
 
+    public void removeTouchableViewHandler() {
+        setTouchableViewHandler(null);
+    }
+
+    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
+        if(globalController != null){
+            globalController.setViewItemHandler(viewItemHandler);
+        }
+    }
+
+    public void removeViewItemHandler(){
+        if(globalController != null){
+            globalController.removeViewItemHandler();
+        }
+    }
 
     //OVERRIDE SUPERCLASS______________________________________________________________________________
     @Override
@@ -77,5 +110,52 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
     @Override
     public ViewHolderBinding<T> onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
         return new ViewHolderBinding<>(dataBinding, globalController);
+    }
+
+    //SAVED AND RESTORE_____________________________________________________________
+
+    /**
+     * Called to ask the fragment to save its current dynamic state, so it
+     * can later be reconstructed in a new instance of its process is
+     * restarted.  If a new instance of the fragment later needs to be
+     * created, the data you place in the Bundle here will be available
+     * in the Bundle given to {@link #onCreate(Bundle)},
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
+     * {@link #onActivityCreated(Bundle)}.
+     * <p>
+     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
+     * applies here as well.  Note however: <em>this method may be called
+     * at any time before {@link #onDestroy()}</em>.  There are many situations
+     * where a fragment may be mostly torn down (such as when placed on the
+     * back stack with no UI showing), but its state will not be saved until
+     * its owning activity actually needs to save its state.
+     */
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+       super.onSaveInstanceState(savedInstanceState);
+        if (globalController != null) {
+            globalController.onSaveInstanceState(savedInstanceState);
+        }
+    }
+
+    /**
+     * Called when all saved state has been restored into the view hierarchy
+     * of the fragment.  This can be used to do initialization based on saved
+     * state that you are letting the view hierarchy track itself, such as
+     * whether check box widgets are currently checked.  This is called
+     * after {@link #onActivityCreated(Bundle)} and before
+     * {@link #onStart()}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (globalController != null) {
+                globalController.onRestoreInstanceState(savedInstanceState);
+            }
+        }
+
+        super.onRestoreInstanceState(savedInstanceState);
     }
 }

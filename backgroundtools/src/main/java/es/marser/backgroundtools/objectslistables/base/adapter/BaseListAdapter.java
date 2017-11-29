@@ -58,11 +58,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         implements
         AdapterNotifier {
 
-    /*Variables de control [EN]  Control variables*/
-    public GlobalController<T> globalController;
-
-    private ViewItemHandler<T> viewItemHandler;
-
     public boolean animHolders;
 
     private static String[] animHoldersKey = {"anim_holders_key"};
@@ -88,10 +83,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      * its owning activity actually needs to save its state.
      */
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-        if (globalController != null) {
-            globalController.onSaveInstanceState(savedInstanceState);
-        }
-
         if (savedInstanceState != null) {
             savedInstanceState.putBoolean(animHoldersKey[0], animHolders);
         }
@@ -110,10 +101,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
      */
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            if (globalController != null) {
-                globalController.onRestoreInstanceState(savedInstanceState);
-            }
-
             animHolders = savedInstanceState.getBoolean(animHoldersKey[0], false);
         }
 
@@ -123,12 +110,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
     //CONSTRUCTORS____________________________________________________________________________________________
     public BaseListAdapter() {
-        this.viewItemHandler = null;
-        globalController = new GlobalController<>();
-
-        globalController.setChangedListener(this);
-        globalController.setViewItemHandler(getViewItemHandler());
-
         animHolders = false;
     }
 
@@ -171,20 +152,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         }
     }
 
-    /**
-     * Variable de oyente para las pulsaciones sobre la vista raíz
-     * <p>
-     * [EN]  Listener variable for the keystrokes on the root view
-     *
-     * @return Variable de oyente de tipo {@link ViewItemHandler}
-     */
-    public ViewItemHandler<T> getViewItemHandler() {
-        return viewItemHandler;
-    }
-
-    public void setViewItemHandler(ViewItemHandler<T> viewItemHandler) {
-        this.viewItemHandler = viewItemHandler;
-    }
 
     //ACTION EVENTS_______________________________________________________________________________________________
     /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
@@ -201,13 +168,6 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     protected abstract SparseIntArray sparseHolderLayout();
 
     //OVERRIDE SUPERCLASS__________________________________________________________________________
-
-    /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
-    @Override
-    public int getItemCount() {
-        return globalController.size();
-    }
-
 
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
