@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.objectslistables.base.model.SelectionModel;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.tools.TextTools;
 
 
@@ -42,7 +42,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class SelectionController implements SelectionModel {
+public class SelectionController implements SelectionItemsController {
 
     /*Variables de marcado [EN]  Marking Variables*/
     protected SparseBooleanArray selectedItems;
@@ -121,7 +121,7 @@ public class SelectionController implements SelectionModel {
 
 //SELECTION MODEL______________________________________________________________________________________
 
-    /*{@link SelectionModel}*/
+    /*{@link SelectionItemsController}*/
     @Override
     public boolean get(int position) {
         return selectedItems.get(position);

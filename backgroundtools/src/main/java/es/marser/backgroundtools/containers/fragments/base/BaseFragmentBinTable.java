@@ -309,7 +309,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
     public void deleteBodyItem(int id) {
         if (id > -1 && id < getItemCount()) {
             adapter.adapterController.remove(id);
-            adapter.adapterController.selectionController.clear();
+            adapter.adapterController.getSelectionItemsController().clear();
             scrollToId(id);
             savedScroll();
         }

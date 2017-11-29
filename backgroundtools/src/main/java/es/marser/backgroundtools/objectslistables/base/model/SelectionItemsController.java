@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 
 @SuppressWarnings("unused")
-public interface SelectionModel {
+public interface SelectionItemsController {
 
     /**
      * Indica el estado de selección para la posición  indicada

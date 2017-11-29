@@ -254,7 +254,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
     public void deleteItem(int id) {
         if (id > -1 && id < getItemCount()) {
             adapter.adapterController.remove(id);
-            adapter.adapterController.selectionController.clear();
+            adapter.adapterController.getSelectionItemsController().clear();
             scrollToId(id);
             savedScroll();
         }
@@ -269,7 +269,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      * @param value valor de selección [EN]  selection value
      */
     public void setSelected(int id, boolean value) {
-        adapter.adapterController.selectionController.setSelected(id, value);
+        adapter.adapterController.getSelectionItemsController().setSelected(id, value);
     }
 
     /**

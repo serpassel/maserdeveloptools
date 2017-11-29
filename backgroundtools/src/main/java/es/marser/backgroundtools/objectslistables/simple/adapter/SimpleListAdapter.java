@@ -14,6 +14,8 @@ import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
@@ -26,7 +28,7 @@ import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager
 @SuppressWarnings("unused")
 public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
-        implements AdapterItemsManager<T> {
+        implements AdapterItemsManager<T>, SelectionItemsManager {
 
     private int holderLayout;
     private TouchableViewHandler<T> touchableViewHandler;
@@ -182,4 +184,12 @@ public class SimpleListAdapter<T extends Parcelable>
         return getAdapterController();
     }
 
+    /**
+     * @return Devuelve la controladora de selección [EN]  Returns the selection controller
+     */
+    @Nullable
+    @Override
+    public SelectionItemsController getSelectionItemsController() {
+        return adapterController != null ? adapterController.getSelectionItemsController() : null;
+    }
 }

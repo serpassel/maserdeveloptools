@@ -20,6 +20,8 @@ import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemModel;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.tools.TextTools;
 
 /**
@@ -35,15 +37,15 @@ public class AdapterController<T extends Parcelable>
         implements ViewHolderController<T>,
         OnItemChangedListener,
         AdapterItemsController<T>,
-        SelectionItemModel<T> {
+        SelectionItemModel<T>, SelectionItemsManager {
 
 
     /*Variables de control [EN]  Control variables*/
-    public SelectionController selectionController;
+    protected SelectionController selectionController;
     public ExpandController expandController;
 
     /*Registro de elementos [EN]  Registration of elements*/
-    public ArrayList<T> items;
+    protected ArrayList<T> items;
 
     /*Oyente de cambios en la lista [EN]  Listener of changes in the list*/
     protected AdapterNotifier adapterNotifier;
@@ -209,8 +211,34 @@ public class AdapterController<T extends Parcelable>
         return items != null && items.isEmpty();
     }
 
+    /**
+     * Devuelve la lista de elementos
+     * <p>
+     * [EN]  Returns the list of elements
+     *
+     * @return Lista de elementos [EN]  List of items
+     */
     @Override
-    public void addAll(List<T> items) {
+    @Nullable
+    public List<T> getItems() {
+        return items;
+    }
+
+    /**
+     * Devuelve el resgitro para la posición indicada
+     * <p>
+     * [EN]  Returns the resgitro for the indicated position
+     *
+     * @param index posición del elemento
+     */
+    @Override
+    @Nullable
+    public T get(int index) {
+        return items != null && index > -1 && index < size() ? items.get(index) : null;
+    }
+
+    @Override
+    public void addAll(@Nullable List<T> items) {
         // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
         if (items != null) {
             //   Log.d(LOG_TAG.TAG, "Añadidos " + items.size());
@@ -225,7 +253,7 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
-    public void add(T item) {
+    public void add(@Nullable T item) {
         if (item != null) {
         /*Agregar elemento [EN]  Add Item*/
             this.items.add(item);
@@ -240,7 +268,7 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
-    public void add(int index, T item) {
+    public void add(int index, @Nullable T item) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size()) || item != null) {
         /*Agregar elemento [EN]  Add Item*/
@@ -303,7 +331,7 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
-    public void set(Integer index, T item) {
+    public void set(@Nullable Integer index, @Nullable T item) {
 
    /*Validar entrada [EN]  Validate entry*/
         if (index != null && item != null && index > -1 && index < size()) {
@@ -402,12 +430,14 @@ public class AdapterController<T extends Parcelable>
         if (selectionController != null) {
 
             int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
+            
+            /*Actualizar las variables de posición [EN]  Update position variables*/
+            selectionController.setLastposition(selectionController.getPosition());
+            selectionController.setPosition(index);
+
 
             int lastposition = selectionController.getLastposition();
             int posicion = selectionController.getPosition();
-        
-         /*Actualizar las variables de posición [EN]  Update position variables*/
-            selectionController.setLastposition(posicion);
 
             switch (selectionmode) {
                 case NOT_SELECTION_MODE:
@@ -461,8 +491,14 @@ public class AdapterController<T extends Parcelable>
 
             int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
 
+           /*Actualizar las variables de posición [EN]  Update position variables*/
+            selectionController.setLastposition(selectionController.getPosition());
+            selectionController.setPosition(index);
+
+
             int lastposition = selectionController.getLastposition();
             int posicion = selectionController.getPosition();
+
 
             switch (selectionmode) {
                 case NOT_SELECTION_MODE:
@@ -553,5 +589,14 @@ public class AdapterController<T extends Parcelable>
 
     public void setSelectionmode(ListExtra selectionmode) {
         this.selectionmode = selectionmode;
+    }
+
+    /**
+     * @return Devuelve la controladora de selección [EN]  Returns the selection controller
+     */
+    @Nullable
+    @Override
+    public SelectionItemsController getSelectionItemsController() {
+        return this.selectionController;
     }
 }

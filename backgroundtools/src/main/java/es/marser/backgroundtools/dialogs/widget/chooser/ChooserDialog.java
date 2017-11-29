@@ -218,7 +218,7 @@ public class ChooserDialog<T extends Selectable>
       //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
         multiselect_flag = false;
         boolean old = multiselect.get();
-        multiselect.set(getItemCount() == adapter.adapterController.selectionController.getIdSelecteds().size());
+        multiselect.set(getItemCount() == adapter.adapterController.getSelectionItemsController().getIdSelecteds().size());
 
         multiselect_flag = (old == multiselect.get());
     }
@@ -265,9 +265,9 @@ public class ChooserDialog<T extends Selectable>
     public void onClick(View view, Boolean isChecked) {
         if (multiselect_flag) {
             if (isChecked) {
-                adapter.adapterController.selectionController.selectedAll(adapter.getItemCount());
+                adapter.adapterController.getSelectionItemsController().selectedAll(adapter.getItemCount());
             } else {
-                adapter.adapterController.selectionController.deselectedAll();
+                adapter.adapterController.getSelectionItemsController().deselectedAll();
             }
         }
         multiselect_flag = true;

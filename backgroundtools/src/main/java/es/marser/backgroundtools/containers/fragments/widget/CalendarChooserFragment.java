@@ -196,7 +196,7 @@ public class CalendarChooserFragment
             public void onFinish(List<CalendarObservable> finish) {
                 loadDayWeek();
                 getBodyGlobalController().addAll(finish);
-                getBodyGlobalController().selectionController.inputSelected(datepos[0], true);
+                getBodyGlobalController().getSelectionItemsController().inputSelected(datepos[0], true);
             }
 
             @Override
