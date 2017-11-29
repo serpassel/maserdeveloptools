@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.objectslistables.base.model;
+package es.marser.backgroundtools.objectslistables.simple.model;
 
 import android.content.Context;
 import android.os.Parcelable;
@@ -10,6 +10,9 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsModel;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 
 /**

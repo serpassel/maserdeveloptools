@@ -16,7 +16,7 @@ import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.base.model.SimpleListModel;
+import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 
 /**
  * @author sergio

@@ -32,7 +32,10 @@ public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
         implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager {
 
+    /*Variable vista de los elementos [EN]  Variable view of the elements*/
     private int holderLayout;
+
+    /*Variables de Eventos de pulsación en vistas menores [EN]  Pulse events variables in child views*/
     private TouchableViewHandler<T> touchableViewHandler;
     /*Variables de control [EN]  Control variables*/
     private AdapterController<T> adapterController;
@@ -57,12 +60,7 @@ public class SimpleListAdapter<T extends Parcelable>
         return adapterController.size();
     }
 
-
     //VARIABLE ACCESS___________________________________________________________________________________
-
-    public int getHolderLayout() {
-        return holderLayout;
-    }
 
     public void setHolderLayout(int holderLayout) {
         this.holderLayout = holderLayout;
@@ -129,7 +127,6 @@ public class SimpleListAdapter<T extends Parcelable>
     }
 
     //SAVED AND RESTORE_____________________________________________________________
-
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is
@@ -174,6 +171,8 @@ public class SimpleListAdapter<T extends Parcelable>
 
         super.onRestoreInstanceState(savedInstanceState);
     }
+
+    //MANAGERS_______________________________________________________________________
 
     /**
      * @return devuelve el gestor de lectura y escritura asignado al manejador
