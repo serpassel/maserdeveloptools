@@ -23,7 +23,7 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
 
 @SuppressWarnings("unused")
 @Deprecated
-public abstract class BaseDialogBinList<T extends Parcelable>
+public abstract class BaseDialogBinListD<T extends Parcelable>
         extends BaseDialogList
         implements
         TouchableViewHandler<T>,
@@ -51,17 +51,17 @@ public abstract class BaseDialogBinList<T extends Parcelable>
 
             @Override
             public TouchableViewHandler<T> getTouchableViewHandler() {
-                return BaseDialogBinList.this;
+                return BaseDialogBinListD.this;
             }
 
             @Override
             public ViewItemHandler<T> getItemHandler() {
-                return BaseDialogBinList.this;
+                return BaseDialogBinListD.this;
             }
 
             @Override
             protected int getHolderLayout() {
-                return BaseDialogBinList.this.getHolderLayout();
+                return BaseDialogBinListD.this.getHolderLayout();
             }
         };
 

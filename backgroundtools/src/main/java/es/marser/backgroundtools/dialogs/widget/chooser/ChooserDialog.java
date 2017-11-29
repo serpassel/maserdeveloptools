@@ -13,7 +13,7 @@ import java.util.List;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Selectable;
-import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinListD;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -34,7 +34,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T> implements ViewHandler<Boolean> {
+        extends BaseDialogBinListD<T> implements ViewHandler<Boolean> {
 
     protected OnResult<List<T>> result;
 
@@ -165,7 +165,7 @@ public class ChooserDialog<T extends Selectable>
         viewDataBinding.executePendingBindings();
     }
 
-    /*{@link BaseDialogBinList}*/
+    /*{@link BaseDialogBinListD}*/
     @Override
     protected int getHolderLayout() {
         return R.layout.mvp_item_object_chooser;

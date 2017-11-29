@@ -19,7 +19,7 @@ import es.marser.async.DataUploaderTask;
 import es.marser.async.Result;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinListD;
 import es.marser.backgroundtools.dialogs.model.FileModel;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
@@ -42,7 +42,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class FileChooserDialog
-        extends BaseDialogBinList<FileModel>
+        extends BaseDialogBinListD<FileModel>
         implements ViewHandler<Void> {
 
     protected OnResult<FileModel> result;
@@ -188,7 +188,7 @@ public class FileChooserDialog
         load();
     }
 
-    /*{@link BaseDialogBinList}*/
+    /*{@link BaseDialogBinListD}*/
     @Override
     protected int getHolderLayout() {
         return R.layout.mvp_item_file_model;
