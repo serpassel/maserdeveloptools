@@ -18,6 +18,7 @@ import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
+import es.marser.backgroundtools.presenters.base.ListCrud;
 import es.marser.tools.TextTools;
 
 /**
@@ -29,7 +30,8 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class GlobalController<T extends Parcelable> implements ViewHolderController<T>, OnItemChangedListener {
+public class GlobalController<T extends Parcelable>
+        implements ViewHolderController<T>, OnItemChangedListener, ListCrud<T> {
     /*Variables de control [EN]  Control variables*/
     public SelectionController<T> selectionController;
     public ArrayList<T> items;
@@ -144,20 +146,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         this(ViewHolderType.SIMPLE.ordinal());
     }
 
-    /**
-     * Número total de registros
-     * <p>
-     * [EN]  Total number of records
-     *
-     * @return [EN]  Total number of records
-     */
-    public int size() {
-        return items != null ? items.size() : 0;
-    }
 
-    public boolean isEmpty() {
-        return items != null && items.isEmpty();
-    }
     //CONTROLLERS MANAGER_______________________________________________________________________
 
     /**
@@ -194,13 +183,17 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
 
     //CRUD_____________________________________________________________________________
 
-    /**
-     * Agrega una lista de elementos
-     * <p>
-     * [EN]  Add a list of items
-     *
-     * @param items lista de elementos [EN]  list of elements
-     */
+    @Override
+    public int size() {
+        return items != null ? items.size() : 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return items != null && items.isEmpty();
+    }
+
+    @Override
     public void addAll(List<T> items) {
         // Log.d(LOG_TAG.TAG, "items nulos " + (items == null));
         if (items != null) {
@@ -215,13 +208,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    /**
-     * Agrega elemento al final de la lista
-     * <p>
-     * [EN]  Add item to end of list
-     *
-     * @param item nuevo objeto genérico [EN]  new generic object
-     */
+    @Override
     public void add(T item) {
         if (item != null) {
         /*Agregar elemento [EN]  Add Item*/
@@ -231,19 +218,12 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             clearExpanded();
 
             if (adapterNotifier != null) {
-                adapterNotifier.notifyItemInserted(size() - 1, size(),viewHolderType);
+                adapterNotifier.notifyItemInserted(size() - 1, size(), viewHolderType);
             }
         }
     }
 
-    /**
-     * Agregar un registro en una posición definida
-     * <p>
-     * [EN]  Add a record in a defined position
-     *
-     * @param position posición para insertar elemento [EN]  position to insert element
-     * @param item     Nuevo elemento a insertar [EN]  New item to insert
-     */
+   @Override
     public void add(int index, T item) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size()) || item != null) {
@@ -259,13 +239,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    /**
-     * Eliminar un elemento por su posición
-     * <p>
-     * [EN]  Delete an item by its position
-     *
-     * @param index posicion del elemento [EN]  position of the element
-     */
+    @Override
     public void remove(int index) {
          /*Si la posición está fuera de rango terminamos el proceso [EN]  If the position is out of range we finish the process*/
         if ((index > -1 && index < size())) {
@@ -299,11 +273,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    /**
-     * Eliminar todos los elementos de la lista
-     * <p>
-     * [EN]  Remove all items from the list
-     */
+    @Override
     public void clear() {
           /*Notificar cambios de selección [EN]  Notify selection changes*/
         clearControllers();
@@ -316,14 +286,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         this.items.clear();
     }
 
-    /**
-     * Actualiza el elemento de la posición indicada
-     * <p>
-     * [EN]  Update item from indicated position
-     *
-     * @param index posición sobre la que se actualiza [EN]  index on which it is updated
-     * @param item  elemento actualizado [EN]  item updated
-     */
+    @Override
     public void set(Integer index, T item) {
 
    /*Validar entrada [EN]  Validate entry*/
@@ -335,13 +298,7 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
         }
     }
 
-    /**
-     * Sustituye todos los registros
-     * <p>
-     * [EN]  Replaces all records
-     *
-     * @param items nueva lista de registros [EN]  new list of records
-     */
+   @Override
     public void replace(List<T> items) {
         clear();
         addAll(items);
@@ -392,6 +349,14 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
     }
 
     @Override
+    public void setSelected(int position, boolean value) {
+        if (selectionController == null || adapterNotifier == null) {
+            return;
+        }
+        selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
+    }
+
+    @Override
     public T getItemAt(int position) {
         if (items == null || adapterNotifier == null) {
             return null;
@@ -403,14 +368,6 @@ public class GlobalController<T extends Parcelable> implements ViewHolderControl
             return this.items.get(index);
         }
         return null;
-    }
-
-    @Override
-    public void setSelected(int position, boolean value) {
-        if (selectionController == null || adapterNotifier == null) {
-            return;
-        }
-        selectionController.setSelected(adapterNotifier.indexPos(position, viewHolderType), value);
     }
 
 

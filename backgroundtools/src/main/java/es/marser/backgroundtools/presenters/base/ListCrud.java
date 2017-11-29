@@ -78,4 +78,15 @@ public interface ListCrud<T extends Parcelable> {
      * @param items nueva lista de registros [EN]  new list of records
      */
     void replace(List<T> items);
+
+    /**
+     * @return Número de elementos de la lista [EN]  Number of items in the list
+     */
+    int size();
+
+    /**
+     *
+     * @return verdadero si la vista está vacía [EN]  true if the view is empty
+     */
+    boolean isEmpty();
 }

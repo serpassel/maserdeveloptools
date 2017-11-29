@@ -15,6 +15,8 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.objectslistables.base.controller.GlobalController;
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
+import es.marser.backgroundtools.presenters.base.ListCrud;
+import es.marser.backgroundtools.presenters.base.ListCrudManager;
 
 /**
  * @author sergio
@@ -22,12 +24,14 @@ import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBindin
  */
 
 @SuppressWarnings("unused")
-public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, ViewHolderBinding<T>> {
+public class SimpleListAdapter<T extends Parcelable>
+        extends BaseListAdapter<T, ViewHolderBinding<T>>
+        implements ListCrudManager<T>{
 
     private int holderLayout;
     private TouchableViewHandler<T> touchableViewHandler;
     /*Variables de control [EN]  Control variables*/
-    public GlobalController<T> globalController;
+    private GlobalController<T> globalController;
 
     //CONSTRUCTORS_______________________________________________________________________________
     public SimpleListAdapter() {
@@ -89,6 +93,14 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
         if(globalController != null){
             globalController.removeViewItemHandler();
         }
+    }
+
+    public GlobalController<T> getGlobalController() {
+        return globalController;
+    }
+
+    public void setGlobalController(GlobalController<T> globalController) {
+        this.globalController = globalController;
     }
 
     //OVERRIDE SUPERCLASS______________________________________________________________________________
@@ -158,4 +170,17 @@ public class SimpleListAdapter<T extends Parcelable> extends BaseListAdapter<T, 
 
         super.onRestoreInstanceState(savedInstanceState);
     }
+
+    /**
+     * @return devuelve el gestor de lectura y escritura asignado al manejador
+     * <p>
+     * [EN]  returns the read and write manager assigned to the handler
+     */
+    @Nullable
+    @Override
+    public ListCrud<T> getListCrud() {
+        return getGlobalController();
+    }
+
+    //CRUD LIST______________________________________________________________________
 }
