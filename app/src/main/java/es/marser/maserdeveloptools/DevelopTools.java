@@ -1,17 +1,15 @@
 package es.marser.maserdeveloptools;
 
-import android.util.Log;
 import android.view.MenuItem;
 
-import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
-import es.marser.backgroundtools.containers.fragments.widget.BinProvinceChooserFragment;
+import es.marser.backgroundtools.containers.fragments.widget.province.BinProvinceChooserFragment;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
-public class DevelopTools extends BaseActivityFragment{
+public class DevelopTools extends BaseActivityFragment {
     private BaseDialog dialog;
 
     @Override
@@ -22,8 +20,8 @@ public class DevelopTools extends BaseActivityFragment{
     @Override
     protected BaseFragment instanceFragment() {
         return BinProvinceChooserFragment.newInstance();
-       //return ProvinceChooserFragment.newInstance();
-       //return CalendarChooserFragment.newInstance();
+        //return ProvinceChooserFragment.newInstance();
+        //return CalendarChooserFragment.newInstance();
     }
 
     @Override
@@ -34,8 +32,11 @@ public class DevelopTools extends BaseActivityFragment{
 
     @Override
     public void onBackPressed() {
-        Log.i(LOG_TAG.TAG, "Back pulsado");
-        dialog.close();
+      //  Log.i(LOG_TAG.TAG, "Back pulsado");
+        if (dialog != null && dialog.isShowing()) {
+            dialog.close();
+        }
+        super.onBackPressed();
     }
 
     @Override

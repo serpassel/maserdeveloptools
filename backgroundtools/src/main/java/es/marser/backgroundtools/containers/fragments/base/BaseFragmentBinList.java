@@ -172,6 +172,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
      *
      * @return Controlador de selección {@link SelectionControllerD} [EN]  Selection controller {@link SelectionControllerD}
      */
+    @SuppressWarnings("SameReturnValue")
     public SelectionControllerD<T> getSelectionController() {
         return null;
     }

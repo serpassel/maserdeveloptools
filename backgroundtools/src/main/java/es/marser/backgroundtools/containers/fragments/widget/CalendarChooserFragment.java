@@ -140,7 +140,6 @@ public class CalendarChooserFragment
     }
 
     //LOAD_________________________________________________________________________
-    @Override
     protected void load(Bundle bundle) {
         loadDayMoth();
     }

@@ -1,7 +1,5 @@
 package es.marser.backgroundtools.objectslistables.base.controller;
 
-import es.marser.backgroundtools.enums.ListExtra;
-
 /**
  * @author sergio
  *         Created by sergio on 22/10/17.

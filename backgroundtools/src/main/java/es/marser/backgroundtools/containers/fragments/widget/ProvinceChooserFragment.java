@@ -61,7 +61,6 @@ public class ProvinceChooserFragment extends BaseFragmentBinList<ProvincieModel>
         }
     }
 
-    @Override
     protected void load(Bundle bundle) {
         if (bundle != null) {
             int index = bundle.getInt(DialogExtras.INDEX_EXTRAS.name());

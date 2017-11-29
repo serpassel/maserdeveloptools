@@ -73,15 +73,6 @@ public abstract class BaseFragment
      */
     protected abstract int getFragmentLayout();
 
-    /**
-     * Método para carga datos en el adapter
-     * <p>
-     * [EN]  Method for loading data into the adapter
-     *
-     * @param bundle argumentos de carga de datos [EN]  data load arguments
-     */
-    protected abstract void load(Bundle bundle);
-
     //EVENTS OF ACTIVITY___________________________________________________________________________________
 
     /**

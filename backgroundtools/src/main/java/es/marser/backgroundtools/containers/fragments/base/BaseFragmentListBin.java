@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,9 @@ import android.view.ViewGroup;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 
 /**
  * @author sergio
@@ -27,10 +28,12 @@ import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 @SuppressWarnings("unused")
 public abstract class BaseFragmentListBin<T extends Parcelable>
         extends BaseFragment
-        implements TouchableViewHandler<T>, ViewItemHandler<T> {
+        implements Selectionable {
 
     protected ViewDataBinding viewDataBinding;
-    protected SimpleListModel<T> listModel;
+
+    //protected SimpleListModel<T> listModel;
+    //protected SimpleListPresenter<T> presenter;
 
     protected Integer lastScroll;
 
@@ -46,15 +49,8 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        init();
+        initPresenterModel();
         return viewDataBinding.getRoot();
-    }
-
-    private void init(){
-        listModel = new SimpleListModel<>(getContext(), getHolderLayout());
-        listModel.setTouchableViewHandler(BaseFragmentListBin.this);
-        listModel.setViewItemHandler(BaseFragmentListBin.this);
-        listModel.setSelectionmode(getInitialSelectionMode());
     }
 
     /**
@@ -76,33 +72,45 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         bindAdapter(savedInstanceState);
     }
 
+    //VIEWS________________________________________________________________
     @Override
     protected int getFragmentLayout() {
         return R.layout.mvp_frag_simple_list;
     }
 
-
-    /*Inicio de métodos [EN]  Start of methods*/
-    /**
-     * Modo de selección inicial de la lista. Por defecto Mode de selección sencilla
-     * <p>
-     * [EN]  Initial selection mode of the list.  Default Simple selection mode.
-     *
-     * @return Modo de selección sencilla {@link ListExtra#SINGLE_SELECTION_MODE}
-     */
-    @SuppressWarnings("SameReturnValue")
-    protected ListExtra getInitialSelectionMode() {
-        return ListExtra.SINGLE_SELECTION_MODE;
-    }
-
-    @SuppressWarnings("EmptyMethod")
-    protected void binObjects(@Nullable Bundle savedInstanceState) {
-    }
-
-    protected abstract int getHolderLayout();
-
-    protected void bindAdapter(@Nullable Bundle savedInstanceState){
-        viewDataBinding.setVariable(BR.listmodel, listModel);
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+        viewDataBinding.setVariable(BR.listmodel, getSimpleListModel());
         viewDataBinding.executePendingBindings();
+
+        viewDataBinding.setVariable(BR.handler, getSimpleListPresenter());
+        viewDataBinding.executePendingBindings();
+    }
+
+    /**
+     * Iniciar variables de Presenter y Model y repercutir en los métodos get
+     * <p>
+     * [EN]  Start Presenter and Model variables and affect the get methods
+     *
+     * {@link #getSimpleListModel}
+     * {@link #getSimpleListPresenter}
+     */
+    protected abstract void initPresenterModel();
+
+    @NonNull
+    protected abstract SimpleListModel<T> getSimpleListModel();
+
+    @NonNull
+    protected abstract SimpleListPresenter<T> getSimpleListPresenter();
+
+    //SELECTIONABLE________________________________________________________
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode() {
+        return getSimpleListModel().getSelectionmode();
+    }
+
+    @Override
+    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+        getSimpleListModel().setSelectionmode(selectionmode);
     }
 }
