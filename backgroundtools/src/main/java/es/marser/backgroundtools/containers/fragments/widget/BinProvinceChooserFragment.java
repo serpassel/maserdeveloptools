@@ -2,11 +2,14 @@ package es.marser.backgroundtools.containers.fragments.widget;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentListBin;
 import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.enums.DialogExtras;
+import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.generic.GenericFactory;
 
@@ -77,18 +80,78 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
                 ProvincieModel item1 = GenericFactory.BuildSingleObject(ProvincieModel.class,
                         getContext().getResources().getString(R.string.all_spain_pro));
 
-                if (listModel.getAdapterItemsController() != null) {
-                    listModel.getAdapterItemsController().add(item1);
-                }
+                    listModel.add(item1);
             }
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
                 //Log.i(LOG_TAG.TAG, "Provincia " + item.toString());
-                if (listModel.getAdapterItemsController() != null) {
-                    listModel.getAdapterItemsController().add(item);
-                }
+                    listModel.add(item);
             }
         }
+    }
+
+    /**
+     * Pulsación corta sobre vista del elemento
+     * <p>
+     * [EN]  Short press on element view
+     *
+     * @param holder   vista reciclable
+     * @param item     Objeto de datos
+     * @param position posición de datos
+     * @param mode     modo de pulsación en el adapter
+     */
+    @Override
+    public void onClickItem(BaseViewHolder<ProvincieModel> holder, ProvincieModel item, int position, ListExtra mode) {
+
+    }
+
+    /**
+     * Pulsación larga sobre vista del elemento
+     * <p>
+     * [EN]  Long press on element view
+     *
+     * @param holder   vista reciclable
+     * @param item     Objeto de datos
+     * @param position posición de datos
+     * @param mode     modo de pulsación en el adapter
+     * @return devolver true si está activado
+     */
+    @Override
+    public boolean onLongClickItem(BaseViewHolder<ProvincieModel> holder, ProvincieModel item, int position, ListExtra mode) {
+        return false;
+    }
+
+    /**
+     * Manejador de eventos de pulsación sencilla en elementos pulsables
+     * <p>
+     * [EN]  Single-pulse event handler for push-button elements
+     * TAG @string/INCLUDE_ITEM_ACTIONS
+     *
+     * @param view
+     * @param position posición en el adpater [EN]  position in the adpater
+     * @param item     objeto de datos [EN]  data object
+     * @param root     Vista grupal [EN]  Group view
+     */
+    @Override
+    public void onClick(View view, int position, ProvincieModel item, View root) {
+
+    }
+
+    /**
+     * Manejador de eventos de pulsación prolongada en elementos pulsables
+     * <p>
+     * [EN]  Long-pulsed event handler on pushbutton elements
+     * <p>
+     * TAG @string/INCLUDE_ITEM_ACTIONS
+     *
+     * @param view
+     * @param position posición en el adpater [EN]  position in the adpater
+     * @param item     objeto de datos [EN]  data object
+     * @param root     Vista grupal [EN]  Group view
+     */
+    @Override
+    public boolean onLongClick(View view, int position, ProvincieModel item, View root) {
+        return false;
     }
 }

@@ -14,7 +14,6 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 
 /**
@@ -55,6 +54,7 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         listModel = new SimpleListModel<>(getContext(), getHolderLayout());
         listModel.setTouchableViewHandler(BaseFragmentListBin.this);
         listModel.setViewItemHandler(BaseFragmentListBin.this);
+        listModel.setSelectionmode(getInitialSelectionMode());
     }
 
     /**
@@ -105,33 +105,4 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
         viewDataBinding.setVariable(BR.listmodel, listModel);
         viewDataBinding.executePendingBindings();
     }
-
-    //VIEW EVENT HANDLERS_____________________________________________________________________________
-
-    /*{@link TouchableViewHandler}*/
-    /*Eventos de pulsación sobre la vista raiz
-    [EN]  Pulsation Events on the Root View*/
-    @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-    }
-
-    @Override
-    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        return true;
-    }
-
-    /*{@link ViewItemHandler}*/
-    /*Eventos de pulsación en las vistas anidadas sobre la vista principal
-    [EN]  Pulsation events in nested views over the main view*/
-    @Override
-    public void onClick(View view, int position, T item, View root) {
-
-    }
-
-    @Override
-    public boolean onLongClick(View view, int position, T item, View root) {
-        return true;
-    }
-
-
 }

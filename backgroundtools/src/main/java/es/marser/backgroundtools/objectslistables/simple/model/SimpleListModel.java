@@ -3,6 +3,7 @@ package es.marser.backgroundtools.objectslistables.simple.model;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
@@ -21,6 +23,7 @@ import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 
 /**
@@ -37,7 +40,7 @@ public class SimpleListModel<T extends Parcelable>
         AdapterItemsController<T>,
         SelectedsModel<T>,
         SelectionItemsManager,
-        ExpandItemsManager {
+        ExpandItemsManager, Selectionable {
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;
@@ -95,7 +98,7 @@ public class SimpleListModel<T extends Parcelable>
         }
     }
 
-  //ADAPTER ITEMS CONTROLLER___________________________________
+    //ADAPTER ITEMS CONTROLLER___________________________________
     @Nullable
     @Override
     public List<T> getItems() {
@@ -110,49 +113,49 @@ public class SimpleListModel<T extends Parcelable>
 
     @Override
     public void addAll(@Nullable List<T> items) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().addAll(items);
         }
     }
 
     @Override
     public void add(@Nullable T item) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().add(item);
         }
     }
 
     @Override
     public void add(int index, @Nullable T item) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
-            adapter.getAdapterItemsController().add(index,item);
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
+            adapter.getAdapterItemsController().add(index, item);
         }
     }
 
     @Override
     public void remove(int index) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().remove(index);
         }
     }
 
     @Override
     public void clear() {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().clear();
         }
     }
 
     @Override
     public void set(@Nullable Integer index, @Nullable T item) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
-            adapter.getAdapterItemsController().set(index,item);
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
+            adapter.getAdapterItemsController().set(index, item);
         }
     }
 
     @Override
     public void replace(@Nullable List<T> items) {
-        if(adapter != null && adapter.getAdapterItemsController() != null){
+        if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().replace(items);
         }
     }
@@ -171,19 +174,19 @@ public class SimpleListModel<T extends Parcelable>
     @Override
     @Nullable
     public List<T> removeSelectedItems() {
-        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().removeSelectedItems(): null;
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().removeSelectedItems() : null;
     }
 
     @Override
     @Nullable
     public List<T> getSelectds() {
-        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getSelectds(): null;
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getSelectds() : null;
     }
 
     @Override
     @Nullable
     public T getItemSelected() {
-        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getItemSelected(): null;
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getItemSelected() : null;
     }
 
     //SELECTION MANAGER_______________________________________________________
@@ -196,10 +199,11 @@ public class SimpleListModel<T extends Parcelable>
     @Nullable
     @Override
     public ExpandItemsController getExpandItemsController() {
-        return adapter !=null ? adapter.getExpandItemsController() : null;
+        return adapter != null ? adapter.getExpandItemsController() : null;
     }
 
     //SAVED AND RESTORE_____________________________________________________________
+
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is
@@ -242,4 +246,20 @@ public class SimpleListModel<T extends Parcelable>
         }
     }
 
+    //SELECTIONABLE_________________________________________________________________
+
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode() {
+        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
+        return selectionable != null ? selectionable.getSelectionmode() : null;
+    }
+
+    @Override
+    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
+        if (selectionable != null) {
+            selectionable.setSelectionmode(selectionmode);
+        }
+    }
 }

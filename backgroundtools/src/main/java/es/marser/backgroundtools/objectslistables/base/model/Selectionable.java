@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.objectslistables.base.model;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.enums.ListExtra;
 
@@ -17,7 +18,7 @@ public interface Selectionable {
     /**
      * @return Modo de selección de la lista [EN]  Selection mode of the list
      */
-    @NonNull
+    @Nullable
     ListExtra getSelectionmode();
 
     /**
