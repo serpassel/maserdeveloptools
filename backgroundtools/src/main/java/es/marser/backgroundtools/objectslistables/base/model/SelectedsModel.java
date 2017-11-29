@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.objectslistables.base.model;
 
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  */
 
 @SuppressWarnings("unused")
-public interface SelectionItemModel<T extends Parcelable> {
+public interface SelectedsModel<T extends Parcelable> {
     /**
      * Elimina los elementos seleccionados
      * <p>
@@ -21,12 +22,14 @@ public interface SelectionItemModel<T extends Parcelable> {
      *
      * @return lista de elementos seleccionados [EN]  list of selected items
      */
+    @Nullable
     List<T> removeSelectedItems();
 
     /**
      *
      * @return devuelve los elementos seleccionados [EN]  returns the selected items
      */
+    @Nullable
     List<T> getSelectds();
     /**
      * Devuelve el último registro pulsado si está seleccionado o el primer registro seleccionado
@@ -35,5 +38,6 @@ public interface SelectionItemModel<T extends Parcelable> {
      *
      * @return Objeto seleccionado [EN]  Selected Object
      */
+    @Nullable
     T getItemSelected();
 }

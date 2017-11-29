@@ -1,18 +1,26 @@
 package es.marser.backgroundtools.objectslistables.simple.model;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+
+import java.util.List;
 
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
-import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
-import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterModel;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapter;
 
 /**
@@ -25,7 +33,11 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
 
 @SuppressWarnings("unused")
 public class SimpleListModel<T extends Parcelable>
-        implements AdapterModel, AdapterItemsManager<T> {
+        implements AdapterModel,
+        AdapterItemsController<T>,
+        SelectedsModel<T>,
+        SelectionItemsManager,
+        ExpandItemsManager {
 
     protected Context context;
     protected SimpleListAdapter<T> adapter;
@@ -43,43 +55,17 @@ public class SimpleListModel<T extends Parcelable>
         adapter = new SimpleListAdapter<>(holderLayout);
     }
 
-    //LIST MODEL_________________________________________________
-
-    /**
-     * @return Adaptador de listas {@link BaseListAdapterDecrep}
-     */
+    //ADAPTER MODEL_________________________________________________
     @Override
     public BaseListAdapter getAdapter() {
         return adapter;
     }
 
-    /**
-     * Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * <p>
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     *
-     * @return Verdadero si la aplicación ha especificado que los cambios
-     * en el contenido del adaptador no pueden cambiar el tamaño de RecyclerView.
-     * [EN] true if the app has specified that changes
-     * in adapter content cannot change the size of the RecyclerView itself.
-     */
     @Override
     public boolean isHasFixedSize() {
         return true;
     }
 
-    /**
-     * Definición del gestor del layout de la lista. Por defecto se utilizará el lineal
-     * <p>
-     * [EN]  Definition of the layout manager of the list.  By default the linear
-     *
-     * @return gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Opcional puede ser {@link GridLayoutManager}
-     * [EN]  gestor del layout {@link LinearLayoutManager#VERTICAL}
-     * Optional can be {@link GridLayoutManager}
-     */
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
@@ -111,15 +97,151 @@ public class SimpleListModel<T extends Parcelable>
         }
     }
 
-    //CRUD_______________________________________________________
-    /**
-     * @return devuelve el gestor de lectura y escritura asignado al manejador
-     * <p>
-     * [EN]  returns the read and write manager assigned to the handler
-     */
+  //ADAPTER ITEMS CONTROLLER___________________________________
     @Nullable
     @Override
-    public AdapterItemsController<T> getAdapterItemsController() {
-        return adapter != null ? adapter.getAdapterItemsController() : null;
+    public List<T> getItems() {
+        return adapter != null && adapter.getAdapterItemsController() != null ? adapter.getAdapterItemsController().getItems() : null;
     }
+
+    @Nullable
+    @Override
+    public T get(int index) {
+        return adapter != null && adapter.getAdapterItemsController() != null ? adapter.getAdapterItemsController().get(index) : null;
+    }
+
+    @Override
+    public void addAll(@Nullable List<T> items) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().addAll(items);
+        }
+    }
+
+    @Override
+    public void add(@Nullable T item) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().add(item);
+        }
+    }
+
+    @Override
+    public void add(int index, @Nullable T item) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().add(index,item);
+        }
+    }
+
+    @Override
+    public void remove(int index) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().remove(index);
+        }
+    }
+
+    @Override
+    public void clear() {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().clear();
+        }
+    }
+
+    @Override
+    public void set(@Nullable Integer index, @Nullable T item) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().set(index,item);
+        }
+    }
+
+    @Override
+    public void replace(@Nullable List<T> items) {
+        if(adapter != null && adapter.getAdapterItemsController() != null){
+            adapter.getAdapterItemsController().replace(items);
+        }
+    }
+
+    @Override
+    public int size() {
+        return adapter != null && adapter.getAdapterItemsController() != null ? adapter.getItemCount() : 0;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return !(adapter != null && adapter.getAdapterItemsController() != null) || adapter.getAdapterItemsController().isEmpty();
+    }
+
+    //SELECTEDS MODEL____________________________________________________________
+    @Override
+    @Nullable
+    public List<T> removeSelectedItems() {
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().removeSelectedItems(): null;
+    }
+
+    @Override
+    @Nullable
+    public List<T> getSelectds() {
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getSelectds(): null;
+    }
+
+    @Override
+    @Nullable
+    public T getItemSelected() {
+        return adapter != null && adapter.getSelectedsModel() != null ? adapter.getSelectedsModel().getItemSelected(): null;
+    }
+
+    //SELECTION MANAGER_______________________________________________________
+    @Nullable
+    @Override
+    public SelectionItemsController getSelectionItemsController() {
+        return adapter != null ? adapter.getSelectionItemsController() : null;
+    }
+
+    @Nullable
+    @Override
+    public ExpandItemsController getExpandItemsController() {
+        return adapter !=null ? adapter.getExpandItemsController() : null;
+    }
+
+    //SAVED AND RESTORE_____________________________________________________________
+    /**
+     * Called to ask the fragment to save its current dynamic state, so it
+     * can later be reconstructed in a new instance of its process is
+     * restarted.  If a new instance of the fragment later needs to be
+     * created, the data you place in the Bundle here will be available
+     * in the Bundle given to {@link #onCreate(Bundle)},
+     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
+     * {@link #onActivityCreated(Bundle)}.
+     * <p>
+     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
+     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
+     * applies here as well.  Note however: <em>this method may be called
+     * at any time before {@link #onDestroy()}</em>.  There are many situations
+     * where a fragment may be mostly torn down (such as when placed on the
+     * back stack with no UI showing), but its state will not be saved until
+     * its owning activity actually needs to save its state.
+     */
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+        if (adapter != null) {
+            adapter.onSaveInstanceState(savedInstanceState);
+        }
+    }
+
+    /**
+     * Called when all saved state has been restored into the view hierarchy
+     * of the fragment.  This can be used to do initialization based on saved
+     * state that you are letting the view hierarchy track itself, such as
+     * whether check box widgets are currently checked.  This is called
+     * after {@link #onActivityCreated(Bundle)} and before
+     * {@link #onStart()}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            if (adapter != null) {
+                adapter.onRestoreInstanceState(savedInstanceState);
+            }
+        }
+    }
+
 }

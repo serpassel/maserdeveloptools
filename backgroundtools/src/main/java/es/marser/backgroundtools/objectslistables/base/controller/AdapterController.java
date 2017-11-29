@@ -21,7 +21,7 @@ import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedLi
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
-import es.marser.backgroundtools.objectslistables.base.model.SelectionItemModel;
+import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
 import es.marser.tools.TextTools;
@@ -39,7 +39,9 @@ public class AdapterController<T extends Parcelable>
         implements ViewHolderController<T>,
         OnItemChangedListener,
         AdapterItemsController<T>,
-        SelectionItemModel<T>, SelectionItemsManager, ExpandItemsManager {
+        SelectedsModel<T>,
+        SelectionItemsManager,
+        ExpandItemsManager {
 
 
     /*Variables de control [EN]  Control variables*/
@@ -352,6 +354,7 @@ public class AdapterController<T extends Parcelable>
 
     //SELECTION ITEM MODEL____________________________________________________________________
     @Override
+    @Nullable
     public List<T> removeSelectedItems() {
         List<T> toRemove = new ArrayList<>();
         List<T> toSave = new ArrayList<>();
@@ -374,6 +377,7 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
+    @Nullable
     public List<T> getSelectds() {
         List<T> selected = new ArrayList<>();
         for (int i = 0; i < size(); i++) {
@@ -385,6 +389,7 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
+    @Nullable
     public T getItemSelected() {
         if (selectionController.get(selectionController.getPosition())) {
             return getItemAt(selectionController.getPosition());

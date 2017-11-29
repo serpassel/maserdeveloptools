@@ -16,8 +16,10 @@ import es.marser.backgroundtools.objectslistables.base.controller.AdapterControl
 import es.marser.backgroundtools.objectslistables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.ExpandItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.SelectedsModel;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsManager;
+import es.marser.backgroundtools.objectslistables.base.model.SelectedsModelManager;
 import es.marser.backgroundtools.objectslistables.simple.holder.ViewHolderBinding;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager;
@@ -30,7 +32,7 @@ import es.marser.backgroundtools.objectslistables.base.model.AdapterItemsManager
 @SuppressWarnings("unused")
 public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
-        implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager {
+        implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager, SelectedsModelManager<T> {
 
     /*Variable vista de los elementos [EN]  Variable view of the elements*/
     private int holderLayout;
@@ -185,21 +187,20 @@ public class SimpleListAdapter<T extends Parcelable>
         return getAdapterController();
     }
 
-    /**
-     * @return Devuelve la controladora de selección [EN]  Returns the selection controller
-     */
     @Nullable
     @Override
     public SelectionItemsController getSelectionItemsController() {
         return adapterController != null ? adapterController.getSelectionItemsController() : null;
     }
 
-    /**
-     * @return Devuelve el objeto de control de expansión de objetos [EN]  Returns the object expansion control object
-     */
     @Nullable
     @Override
     public ExpandItemsController getExpandItemsController() {
         return adapterController != null ? adapterController.getExpandItemsController() : null;
+    }
+    @Override
+    @Nullable
+    public SelectedsModel<T> getSelectedsModel() {
+        return this.adapterController;
     }
 }
