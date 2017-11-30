@@ -21,29 +21,29 @@ import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
  */
 
 @SuppressWarnings("unused")
-public abstract class SimpleListPresenter<T extends Parcelable>
+public abstract class SimpleListPresenter<T extends Parcelable, SLM extends SimpleListModel<T>>
         implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     protected Context context;
-    protected SimpleListModel<T> simpleListModel;
+    protected SLM simpleListModel;
 
     //CONSTRUCTORS_____________________________________________________________
     public SimpleListPresenter(@NonNull Context context) {
         this.context = context;
     }
 
-    public SimpleListPresenter(@NonNull Context context, @NonNull SimpleListModel<T> listModel) {
+    public SimpleListPresenter(@NonNull Context context, @NonNull SLM listModel) {
         this(context);
         setListModel(listModel);
     }
 
     //VARIABLES_______________________________________________________________
 
-    public SimpleListModel<T> getListModel() {
+    public SLM getListModel() {
         return this.simpleListModel;
     }
 
-    public void setListModel(@NonNull SimpleListModel<T> listModel) {
+    public void setListModel(@NonNull SLM listModel) {
         this.simpleListModel = listModel;
         this.simpleListModel.setViewItemHandler(this);
         this.simpleListModel.setTouchableViewHandler(this);

@@ -8,25 +8,27 @@ import android.view.View;
 import java.util.List;
 
 import es.marser.LOG_TAG;
-import es.marser.backgroundtools.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.dialogs.model.CalendarObservable;
-import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
-import es.marser.backgroundtools.widget.files.model.FileModel;
-import es.marser.backgroundtools.dialogs.task.OnDResult;
-import es.marser.backgroundtools.dialogs.task.OnResult;
-import es.marser.backgroundtools.dialogs.widget.auth.DialogCredential;
-import es.marser.backgroundtools.dialogs.widget.auth.DialogLogin;
-import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
-import es.marser.backgroundtools.dialogs.widget.chooser.ChooserDialog;
-import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
-import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
-import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialogD;
-import es.marser.backgroundtools.dialogs.widget.inputbox.DialogInputBox;
-import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
-import es.marser.backgroundtools.dialogs.widget.progress.BinProgressDialog;
-import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.containers.dialogs.model.CalendarObservable;
+import es.marser.backgroundtools.containers.dialogs.model.ExampleModelObject;
+import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
+import es.marser.backgroundtools.containers.dialogs.task.OnResult;
+import es.marser.backgroundtools.containers.dialogs.widget.auth.DialogCredential;
+import es.marser.backgroundtools.containers.dialogs.widget.auth.DialogLogin;
+import es.marser.backgroundtools.containers.dialogs.widget.calendar.CalendarChooser;
+import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.widget.edition.EditDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.widget.inputbox.DialogInputBox;
+import es.marser.backgroundtools.containers.dialogs.widget.progress.BinIndeterminateDialog;
+import es.marser.backgroundtools.containers.dialogs.widget.progress.BinProgressDialog;
+import es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
+import es.marser.backgroundtools.widget.files.dialogs.FileChooserDialog;
+import es.marser.backgroundtools.widget.files.model.FileModel;
+import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
+import es.marser.backgroundtools.widget.files.presenter.SimpleFileListPresenter;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
@@ -345,11 +347,13 @@ public class DialogExample {
     public static BaseDialog fileSelector(final Context context, boolean readeable) {
 
 
-        FileChooserDialogD dialog =
-                FileChooserDialogD.newInstance(
+        FileChooserDialog dialog =
+                FileChooserDialog.newInstance(
                         context,
-                        FileChooserDialogD.createBundle(context),
+                        SimpleFileListPresenter.BundleBuilder.createBundle(context),
                         readeable,
+                        new SimpleFileListPresenter(context),
+                        new SimpleFileListModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
@@ -373,11 +377,13 @@ public class DialogExample {
 
     public static BaseDialog filefilterSelector(final Context context, boolean readeable) {
 
-        FileChooserDialogD dialog =
-                FileChooserDialogD.newInstance(
+        FileChooserDialog dialog =
+                FileChooserDialog.newInstance(
                         context,
-                        FileChooserDialogD.createBundle(context, new String[]{".bc3"}),
+                        SimpleFileListPresenter.BundleBuilder.createBundle(context, new String[]{".bc3"}),
                         readeable,
+                        new SimpleFileListPresenter(context),
+                        new SimpleFileListModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {

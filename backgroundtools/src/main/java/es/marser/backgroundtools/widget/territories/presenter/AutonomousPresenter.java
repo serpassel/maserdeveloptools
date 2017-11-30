@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.widget.chooser.ChooserPresenter;
+import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.enums.DialogExtras;

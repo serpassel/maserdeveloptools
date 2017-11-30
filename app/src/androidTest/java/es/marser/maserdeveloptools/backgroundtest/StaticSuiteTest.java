@@ -6,7 +6,7 @@ import android.support.test.filters.LargeTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
+import es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
 
 /**

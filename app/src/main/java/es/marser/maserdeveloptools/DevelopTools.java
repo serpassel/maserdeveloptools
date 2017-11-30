@@ -6,7 +6,7 @@ import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.containers.fragments.widget.province.BinProvinceChooserFragment;
-import es.marser.backgroundtools.dialogs.bases.BaseDialog;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
 public class DevelopTools extends BaseActivityFragment {
@@ -134,9 +134,9 @@ public class DevelopTools extends BaseActivityFragment {
         //DialogExample.progressIndeterminateBox(this);
         //DialogExample.progressBox(this);
 
-        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
-        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.errorToast(this, "Mensaje de error");
-        //es.marser.backgroundtools.dialogs.widget.toast.Launch_toast.informationToast(this, "Mensaje de información");
+        //es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast.warningToast(this, "Mensaje de advertencia");
+        //es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast.errorToast(this, "Mensaje de error");
+        //es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast.informationToast(this, "Mensaje de información");
 
         //DialogExample.editGeneric(this);
         //SQLExample.createDatabase(this);

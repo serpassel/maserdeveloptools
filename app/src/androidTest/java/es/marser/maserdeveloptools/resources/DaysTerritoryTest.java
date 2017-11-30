@@ -14,7 +14,7 @@ import java.util.GregorianCalendar;
 
 import es.marser.LOG_TAG;
 import es.marser.async.TaskLoadingResult;
-import es.marser.backgroundtools.dialogs.model.HolidayModel;
+import es.marser.backgroundtools.containers.dialogs.model.HolidayModel;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;

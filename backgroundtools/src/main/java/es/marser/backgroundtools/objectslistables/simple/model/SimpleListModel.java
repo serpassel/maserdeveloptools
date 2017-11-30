@@ -42,7 +42,7 @@ public class SimpleListModel<T extends Parcelable>
         SelectionItemsManager,
         ExpandItemsManager, Selectionable {
 
-    protected Context context;
+    private Context context;
     protected SimpleListAdapter<T> adapter;
 
     //CONSTRUCTORS_____________________________________________
@@ -70,6 +70,11 @@ public class SimpleListModel<T extends Parcelable>
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
         return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+    }
+
+    //GETTERS___________________________________________________
+    public Context getContext() {
+        return context;
     }
 
     //SETTERS____________________________________________________
@@ -203,7 +208,6 @@ public class SimpleListModel<T extends Parcelable>
     }
 
     //SAVED AND RESTORE_____________________________________________________________
-
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is
