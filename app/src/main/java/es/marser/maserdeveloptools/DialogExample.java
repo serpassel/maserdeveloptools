@@ -16,8 +16,8 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.containers.dialogs.widget.auth.DialogCredential;
 import es.marser.backgroundtools.containers.dialogs.widget.auth.DialogLogin;
 import es.marser.backgroundtools.containers.dialogs.widget.calendar.CalendarChooser;
-import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBinModel;
-import es.marser.backgroundtools.containers.dialogs.widget.edition.EditDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBin;
+import es.marser.backgroundtools.containers.dialogs.widget.edition.EditDialogBin;
 import es.marser.backgroundtools.containers.dialogs.widget.inputbox.DialogInputBox;
 import es.marser.backgroundtools.containers.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.containers.dialogs.widget.progress.BinProgressDialog;
@@ -107,10 +107,10 @@ public class DialogExample {
     }
 
     public static BaseDialog editGeneric(final Context context) {
-        EditDialogBinModel gene =
-                EditDialogBinModel.newInstance(
+        EditDialogBin gene =
+                EditDialogBin.newInstance(
                         context,
-                        EditDialogBinModel
+                        EditDialogBin
                                 .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
                         new OnResult<ExampleModelObject>() {
                             @Override
@@ -137,10 +137,10 @@ public class DialogExample {
     }
 
     public static BaseDialog editGeneric(Context context, OnResult<ExampleModelObject> result) {
-        EditDialogBinModel gene =
-                EditDialogBinModel.newInstance(
+        EditDialogBin gene =
+                EditDialogBin.newInstance(
                         context,
-                        EditDialogBinModel
+                        EditDialogBin
                                 .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
                         result
                 );
@@ -153,50 +153,50 @@ public class DialogExample {
 
     @SuppressWarnings("UnusedReturnValue")
     public static BaseDialog notificationInformation(Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createInformationBundle(context, body_example)
+                        NotificationDialogBin.createInformationBundle(context, body_example)
                 );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog notificationError(Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createErrorBundle(context, body_example)
+                        NotificationDialogBin.createErrorBundle(context, body_example)
                 );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog notificationWarning(Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createWarningBundle(context, body_example)
+                        NotificationDialogBin.createWarningBundle(context, body_example)
                 );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog notificationHelp(Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createHelpBundle(context, body_example)
+                        NotificationDialogBin.createHelpBundle(context, body_example)
                 );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog notificationConfirmation(final Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createConfirmationBundle(context, body_example), new OnResult<Void>() {
+                        NotificationDialogBin.createConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
                                 switch (result) {
@@ -223,10 +223,10 @@ public class DialogExample {
     }
 
     public static BaseDialog notificationConfirmationKey(final Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createConfirmationBundle(context, body_example), new OnResult<Void>() {
+                        NotificationDialogBin.createConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
                                 switch (result) {
@@ -254,10 +254,10 @@ public class DialogExample {
     }
 
     public static BaseDialog notificationOkCancelError(final Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createOkCancelErrorBundle(context, body_example), new OnResult<Void>() {
+                        NotificationDialogBin.createOkCancelErrorBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
                                 switch (result) {
@@ -284,10 +284,10 @@ public class DialogExample {
     }
 
     public static BaseDialog notificationYesNoCancelConfirmation(final Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createYesNoCancelConfirmationBundle(context, body_example), new OnResult<Void>() {
+                        NotificationDialogBin.createYesNoCancelConfirmationBundle(context, body_example), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
                                 switch (result) {
@@ -314,10 +314,10 @@ public class DialogExample {
     }
 
     public static BaseDialog notificationDeleteRecords(final Context context) {
-        NotificationDialogBinModel dialog =
-                NotificationDialogBinModel.newInstance(
+        NotificationDialogBin dialog =
+                NotificationDialogBin.newInstance(
                         context,
-                        NotificationDialogBinModel.createDeleteRecordsBundle(context), new OnResult<Void>() {
+                        NotificationDialogBin.createDeleteRecordsBundle(context), new OnResult<Void>() {
                             @Override
                             public void onResult(DialogExtras result, Void value) {
                                 switch (result) {
@@ -452,9 +452,9 @@ public class DialogExample {
                     }
                     TextTools.deleteLastBrand(builder, ";\n");
 
-                    NotificationDialogBinModel.newInstance(
+                    NotificationDialogBin.newInstance(
                             context,
-                            NotificationDialogBinModel.createInformationBundle(context, builder.toString()));
+                            NotificationDialogBin.createInformationBundle(context, builder.toString()));
                 }
             }
 
@@ -558,9 +558,9 @@ public class DialogExample {
                     }
                     TextTools.deleteLastBrand(builder, ";\n");
 
-                    NotificationDialogBinModel.newInstance(
+                    NotificationDialogBin.newInstance(
                             context,
-                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            NotificationDialogBin.createInformationBundle(context, builder.toString())
                     ).show();
                 }
             }
@@ -628,9 +628,9 @@ public class DialogExample {
                     }
                     TextTools.deleteLastBrand(builder, ";\n");
 
-                    NotificationDialogBinModel.newInstance(
+                    NotificationDialogBin.newInstance(
                             context,
-                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                            NotificationDialogBin.createInformationBundle(context, builder.toString())
                     ).show();
                 }
             }

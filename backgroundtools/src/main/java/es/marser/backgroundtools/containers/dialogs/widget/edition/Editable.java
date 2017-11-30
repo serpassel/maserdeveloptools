@@ -7,7 +7,7 @@ package es.marser.backgroundtools.containers.dialogs.widget.edition;
  *         <p>
  *         [EN]  Marker of editable objects.  Used to indicate if a record is being edited
  *
- *         @see EditDialogBinModel
+ *         @see EditDialogBin
  */
 
 interface Editable {

@@ -8,7 +8,7 @@ import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.handlers.ViewHandler;
@@ -28,20 +28,20 @@ import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
  */
 
 @SuppressWarnings("unused")
-public class EditDialogBinModel<T extends Parcelable>
-        extends BaseDialogBinModel
+public class EditDialogBin<T extends Parcelable>
+        extends BaseDialogBin
         implements ViewHandler<T> {
 
     protected OnResult<T> result;
     protected T headmodel;
     private int layout;
 
-    public static <T extends Parcelable> EditDialogBinModel newInstance(
+    public static <T extends Parcelable> EditDialogBin newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull OnResult<T> result) {
 
-        EditDialogBinModel<T> instance = new EditDialogBinModel<>();
+        EditDialogBin<T> instance = new EditDialogBin<>();
         instance.setArguments(bundle);
         instance.setContext(context);
         instance.setResult(result);

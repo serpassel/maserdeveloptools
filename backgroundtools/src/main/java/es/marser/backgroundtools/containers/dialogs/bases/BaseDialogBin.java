@@ -41,7 +41,7 @@ import static es.marser.backgroundtools.enums.DialogIcon.ICON_EXTRA;
  */
 
 @SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
-public abstract class BaseDialogBinModel
+public abstract class BaseDialogBin
         extends BaseDialog
         implements WindowAction{
 
@@ -59,7 +59,7 @@ public abstract class BaseDialogBinModel
 
 
 
-    public BaseDialogBinModel() {
+    public BaseDialogBin() {
         this.model = new DialogModel();
         this.buttonsSetModel = new ButtonsSetModel();
         this.statusModel = new StatusModel();
@@ -201,7 +201,7 @@ public abstract class BaseDialogBinModel
      * @param msg por defecto Cargando... [EN]  by default Loading ...
      * @return clase actual [EN]  current class
      */
-    public BaseDialogBinModel setTitle(String msg) {
+    public BaseDialogBin setTitle(String msg) {
         model.title.set(TextTools.nc(msg));
         return this;
     }
@@ -214,7 +214,7 @@ public abstract class BaseDialogBinModel
      * @param msg datos temporales [EN]  temporary data
      * @return clase actual [EN]  current class
      */
-    public BaseDialogBinModel setBody(String msg) {
+    public BaseDialogBin setBody(String msg) {
         model.body.set(TextTools.nc(msg));
         return this;
     }

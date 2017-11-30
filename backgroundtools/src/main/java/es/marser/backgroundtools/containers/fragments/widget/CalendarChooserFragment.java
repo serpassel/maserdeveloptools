@@ -21,7 +21,7 @@ import es.marser.backgroundtools.containers.dialogs.model.DayWeek;
 import es.marser.backgroundtools.containers.dialogs.model.MonthTitle;
 import es.marser.backgroundtools.containers.dialogs.widget.calendar.AsyncMonthDays;
 import es.marser.backgroundtools.containers.dialogs.widget.calendar.DateLoader;
-import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBin;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -250,10 +250,10 @@ public class CalendarChooserFragment
             if (!TextTools.isEmpty(list)) {
                 String title = "Día festivo en, ";
                 list = list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR);
-                NotificationDialogBinModel dialog =
-                        NotificationDialogBinModel.newInstance(
+                NotificationDialogBin dialog =
+                        NotificationDialogBin.newInstance(
                                 getContext(),
-                                NotificationDialogBinModel.createInformationBundle(getContext(),
+                                NotificationDialogBin.createInformationBundle(getContext(),
                                         title,
                                         list.replace(TextTools.POINT_COMMA, TextTools.SALTO_LINEA_CHAR))
                         );

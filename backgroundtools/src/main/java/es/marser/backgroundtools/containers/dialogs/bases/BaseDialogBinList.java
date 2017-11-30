@@ -24,7 +24,7 @@ public abstract class BaseDialogBinList<
         SLM extends SimpleListModel<T>,
         SLP extends SimpleListPresenter<T, SLM>
         >
-        extends BaseDialogBinModel
+        extends BaseDialogBin
         implements Selectionable {
 
     protected SLM simpleListModel;

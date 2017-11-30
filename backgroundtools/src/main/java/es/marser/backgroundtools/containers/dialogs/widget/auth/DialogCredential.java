@@ -7,7 +7,7 @@ import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinModel;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -23,7 +23,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogCredential extends BaseDialogBinModel implements ViewHandler<DialogIcon> {
+public class DialogCredential extends BaseDialogBin implements ViewHandler<DialogIcon> {
 
     protected OnResult<DialogIcon> result;
 
