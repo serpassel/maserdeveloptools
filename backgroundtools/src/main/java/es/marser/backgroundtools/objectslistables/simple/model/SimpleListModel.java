@@ -225,6 +225,7 @@ public class SimpleListModel<T extends Parcelable>
      * back stack with no UI showing), but its state will not be saved until
      * its owning activity actually needs to save its state.
      */
+    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (adapter != null) {
             adapter.onSaveInstanceState(savedInstanceState);
@@ -242,6 +243,7 @@ public class SimpleListModel<T extends Parcelable>
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.
      */
+    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             if (adapter != null) {

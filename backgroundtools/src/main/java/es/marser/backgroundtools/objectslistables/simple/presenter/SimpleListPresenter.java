@@ -1,8 +1,10 @@
 package es.marser.backgroundtools.objectslistables.simple.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import es.marser.backgroundtools.enums.ListExtra;
@@ -119,5 +121,15 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     @Override
     public boolean onLongClick(View view, int position, T item, View root) {
         return false;
+    }
+
+    //SAVED AND RESTORE___________________________________________________
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+
+    }
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+
     }
 }

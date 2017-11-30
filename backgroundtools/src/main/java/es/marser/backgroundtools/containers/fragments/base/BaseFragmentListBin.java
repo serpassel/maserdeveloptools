@@ -31,13 +31,13 @@ public abstract class BaseFragmentListBin<
         SLM extends SimpleListModel<T>,
         SLP extends SimpleListPresenter<T, SLM>
         >
-        extends BaseFragment
+        extends BaseFragmentBin
         implements Selectionable {
 
     protected ViewDataBinding viewDataBinding;
 
-    //protected SimpleListModel<T> listModel;
-    //protected SimpleListPresenter<T> presenter;
+    protected SLM simpleListModel;
+    protected SLP presenter;
 
     protected Integer lastScroll;
 
@@ -45,35 +45,36 @@ public abstract class BaseFragmentListBin<
         super();
     }
 
+    //OVERRRIDE___________________________________________________________________________
+
+
+    //BIN METHODS OF CONFIGURATION________________________________________________________
     /**
-     * @return Return the View for the fragment's UI, or null.
+     * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
+     * Se ejecuta durante al crearse la vista {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     * <p>
+     * [EN]  Link objects in the main view.  Obligatory that the model variable in the view is called model
+     * Runs during view creation {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     *
+     * @param savedInstanceState argumentos de recuperación
      */
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        initPresenterModel();
-        return viewDataBinding.getRoot();
+    protected void binObjects(@Nullable Bundle savedInstanceState) {
+        bindAdapter(savedInstanceState);
     }
 
     /**
-     * Called when the fragment's activity has been created and this
-     * fragment's view hierarchy instantiated.  It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.  It is also useful for fragments that use
-     * {@link #setRetainInstance(boolean)} to retain their instance,
-     * as this callback tells the fragment when it is fully associated with
-     * the new activity instance.  This is called after {@link #onCreateView}
-     * and before {@link #onViewStateRestored(Bundle)}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
+     * Enlace de objetos con la vista de lista
+     * <p>
+     * [EN]  Link objects with list view
      */
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        bindAdapter(savedInstanceState);
+    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+        viewDataBinding.setVariable(BR.listmodel, simpleListModel);
+        viewDataBinding.executePendingBindings();
+
+        if (presenter.getListModel() == null) {
+            presenter.setListModel(simpleListModel);
+        }
     }
 
     //VIEWS________________________________________________________________
@@ -82,36 +83,40 @@ public abstract class BaseFragmentListBin<
         return R.layout.mvp_frag_simple_list;
     }
 
-    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
-        viewDataBinding.setVariable(BR.listmodel, getSimpleListModel());
-        viewDataBinding.executePendingBindings();
-    }
-
-    /**
-     * Iniciar variables de Presenter y Model y repercutir en los métodos get
-     * <p>
-     * [EN]  Start Presenter and Model variables and affect the get methods
-     *
-     * {@link #getSimpleListModel}
-     * {@link #getSimpleListPresenter}
-     */
-    protected abstract void initPresenterModel();
-
-    @NonNull
-    protected abstract SLM getSimpleListModel();
-
-    @NonNull
-    protected abstract SLP getSimpleListPresenter();
-
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
     public ListExtra getSelectionmode() {
-        return getSimpleListModel().getSelectionmode();
+        return simpleListModel.getSelectionmode();
     }
 
     @Override
     public void setSelectionmode(@NonNull ListExtra selectionmode) {
-        getSimpleListModel().setSelectionmode(selectionmode);
+        if (simpleListModel != null) {
+            simpleListModel.setSelectionmode(selectionmode);
+        }
+    }
+
+    //MVP PATTERN
+    @NonNull
+    public SLM getSimpleListModel() {
+        return simpleListModel;
+    }
+
+    public void setSimpleListModel(@NonNull SLM simpleListModel) {
+        this.simpleListModel = simpleListModel;
+
+        if (presenter != null) {
+            presenter.setListModel(simpleListModel);
+        }
+    }
+
+    @NonNull
+    public SLP getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(@NonNull SLP presenter) {
+        this.presenter = presenter;
     }
 }
