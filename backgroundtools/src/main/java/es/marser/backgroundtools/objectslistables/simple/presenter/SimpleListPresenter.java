@@ -3,12 +3,7 @@ package es.marser.backgroundtools.objectslistables.simple.presenter;
 import android.content.Context;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.base.presenter.AdapterPresenter;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 
@@ -22,7 +17,7 @@ import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 
 @SuppressWarnings("unused")
 public abstract class SimpleListPresenter<T extends Parcelable>
-        implements AdapterPresenter, TouchableViewHandler<T>, ViewItemHandler<T> {
+        implements AdapterPresenter {
 
     protected Context context;
     protected SimpleListModel<T> simpleListModel;
@@ -30,8 +25,6 @@ public abstract class SimpleListPresenter<T extends Parcelable>
     public SimpleListPresenter(@NonNull Context context, @NonNull SimpleListModel<T> listModel) {
         this.context = context;
         this.simpleListModel = listModel;
-        this.simpleListModel.setTouchableViewHandler(this);
-        this.simpleListModel.setViewItemHandler(this);
     }
 
     //VARIABLES_______________________________________________________________
@@ -42,8 +35,6 @@ public abstract class SimpleListPresenter<T extends Parcelable>
 
     public void setListModel(@NonNull SimpleListModel<T> listModel) {
         this.simpleListModel = listModel;
-        this.simpleListModel.setTouchableViewHandler(this);
-        this.simpleListModel.setViewItemHandler(this);
     }
 
     public Context getContext() {
@@ -52,27 +43,5 @@ public abstract class SimpleListPresenter<T extends Parcelable>
 
     public void setContext(Context context) {
         this.context = context;
-    }
-
-    //CLICK EVENTS_____________________________________________________________
-
-    @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-
-    }
-
-    @Override
-    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        return false;
-    }
-
-    @Override
-    public void onClick(View view, int position, T item, View root) {
-
-    }
-
-    @Override
-    public boolean onLongClick(View view, int position, T item, View root) {
-        return false;
     }
 }

@@ -81,9 +81,6 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         viewDataBinding.setVariable(BR.listmodel, getSimpleListModel());
         viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.handler, getSimpleListPresenter());
-        viewDataBinding.executePendingBindings();
     }
 
     /**

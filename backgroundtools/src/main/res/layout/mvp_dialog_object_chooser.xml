@@ -15,6 +15,14 @@
             name="handler"
             type="ViewHandler" />
 
+        <import type="es.marser.backgroundtools.objectslistables.base.model.AdapterModel" />
+
+        <variable
+            name="listmodel"
+            type="es.marser.backgroundtools.objectslistables.base.model.AdapterModel" />
+
+
+
         <!--DIALOGS-->
         <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
 
@@ -61,6 +69,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/bt_white"
+            android:adapter="@{listmodel.adapter}"
+            android:layoutManager="@{listmodel.layoutManager}"
+            android:hasFixedSize="@{listmodel.hasFixedSize}"
             android:layout_gravity="center_horizontal"
             android:layout_margin="?attr/box_default_medium_margin"
             android:layout_weight="1"

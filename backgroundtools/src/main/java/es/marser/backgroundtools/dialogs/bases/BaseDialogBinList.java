@@ -1,17 +1,14 @@
 package es.marser.backgroundtools.dialogs.bases;
 
 import android.os.Parcelable;
-import android.view.View;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
-import java.util.ArrayList;
-
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
+import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
+import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 
 /**
  * @author sergio
@@ -22,224 +19,58 @@ import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapt
  */
 
 @SuppressWarnings("unused")
-@Deprecated
 public abstract class BaseDialogBinList<T extends Parcelable>
-        extends BaseDialogList
-        implements
-        TouchableViewHandler<T>,
-        ViewItemHandler<T> {
+        extends BaseDialogBinModel implements Selectionable {
 
-    protected SimpleListAdapterDecrep<T> adapter;
+    /**
+     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
+     * <p>
+     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
+     */
+    @Override
+    protected void preBuild() {
+        super.preBuild();
+        initPresenterModel();
+    }
+
+    /**
+     * Métodos e inicio de variables posteriores a la construcción del dialogo. Opcional
+     * <p>
+     * [EN]  Methods and start of variables after the construction of the dialogue.  Optional
+     */
+    @Override
+    protected void postBuild() {
+        super.postBuild();
+        bindAdapter();
+    }
 
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
-
-    /*Vistas [EN] Views*/
-
-    /**
-     * Definición de la vista de los items de la lista
-     * <p>
-     * [EN]  Defining the view of items in the list
-     *
-     * @return R.layout.XXXX Vista de los items [EN]  View items
-     */
-    protected abstract int getHolderLayout();
-
-    @Override
     protected void bindAdapter() {
-        adapter = new SimpleListAdapterDecrep<T>() {
-
-            @Override
-            public TouchableViewHandler<T> getTouchableViewHandler() {
-                return BaseDialogBinList.this;
-            }
-
-            @Override
-            public ViewItemHandler<T> getItemHandler() {
-                return BaseDialogBinList.this;
-            }
-
-            @Override
-            protected int getHolderLayout() {
-                return BaseDialogBinList.this.getHolderLayout();
-            }
-        };
-
-        recyclerView.setAdapter(adapter);
-        adapter.adapterController.setSelectionmode(getInitialSelectionMode());
+        viewDataBinding.setVariable(BR.listmodel, getSimpleListModel());
+        viewDataBinding.executePendingBindings();
     }
 
+    /**
+     * Iniciar variables de Presenter y Model y repercutir en los métodos get
+     * <p>
+     * [EN]  Start Presenter and Model variables and affect the get methods
+     *
+     * {@link #getSimpleListModel}
+     * {@link #getSimpleListPresenter}
+     */
+    protected abstract void initPresenterModel();
+
+    @NonNull
+    protected abstract SimpleListModel<T> getSimpleListModel();
+
+    @NonNull
+    protected abstract SimpleListPresenter<T> getSimpleListPresenter();
+
+    //SELECTIONABLE________________________________________________________
+    @Nullable
     @Override
-    public boolean isEmpty() {
-        return getController().isEmpty();
-    }
-
-    //VIEW EVENT HANDLERS_____________________________________________________________________________
-
-    /*{@link TouchableViewHandler}*/
-    /*Eventos de pulsación sobre la vista raiz
-    [EN]  Pulsation Events on the Root View*/
-    @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-    }
-
-    @Override
-    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        return true;
-    }
-
-    /*{@link ViewItemHandler}*/
-    /*Eventos de pulsación en las vistas anidadas sobre la vista principal
-    [EN]  Pulsation events in nested views over the main view*/
-    @Override
-    public void onClick(View view, int position, T item, View root) {
-
-    }
-
-    @Override
-    public boolean onLongClick(View view, int position, T item, View root) {
-        return true;
-    }
-
-
-    //CONTROL OF ITEMS____________________________________________________________________________
-
-    /**
-     * Acceso al controlador de selección del adaptador de elementos
-     * <p>
-     * [EN]  Access to the items Adapter Selection Controller
-     *
-     * @return Controlador de selección {@link SelectionControllerD} [EN]  Selection controller {@link SelectionControllerD}
-     */
-    public AdapterController<T> getController() {
-        return adapter.adapterController;
-    }
-
-    /**
-     * Reemplaza todos los elementos del adaptador
-     * <p>
-     * [EN]  Replaces all adapter elements
-     *
-     * @param items Lista de elementos de tipo genérico [EN]  List of elements of generic type
-     */
-    public void setItems(ArrayList<T> items) {
-        if (items != null) {
-            adapter.adapterController.replace(items);
-        }
-    }
-
-    /**
-     * Eliminar la lista de elementos
-     * <p>
-     * [EN]  Delete item list
-     */
-    public void clear() {
-        getController().clear();
-    }
-
-    /**
-     * Número de elementos en la lista
-     * <p>
-     * [EN]  Number of items in the list
-     *
-     * @return número de elementos de la lista [EN]  number of items in the list
-     */
-    public int getItemCount() {
-        return adapter.getItemCount();
-    }
-
-    /**
-     * Agregar un elemento no nulo al final de la lista
-     * <p>
-     * [EN]  Add a non-null element to the end of the list
-     *
-     * @param item Objeto genérico nuevo [EN]  New Generic Object
-     */
-    public void addItem(T item) {
-        if (item != null) {
-            adapter.adapterController.add(item);
-        }
-    }
-
-    /**
-     * Agrega un elemento nuevo en la posición señalada
-     * <p>
-     * [EN]  Add a new item in the highlighted position
-     *
-     * @param id   posición donde inserta el nuevo elemento [EN]  position where you insert the new item
-     * @param item Objeto genérico nuevo [EN]  New Generic Object
-     */
-    public void insertItem(int id, T item) {
-        if (item != null && id > -1 && id < getItemCount()) {
-            adapter.adapterController.add(id, item);
-            scrollToId(id);
-            savedScroll();
-        }
-    }
-
-    /**
-     * Actualizar un registro existente
-     * <p>
-     * [EN]  Update an existing record
-     *
-     * @param id   posición del elemento en el adapter [EN]  position of the element in the adapter
-     * @param item elemento actualizado [EN]  item updated
-     */
-    public void updateItem(int id, T item) {
-        if (item != null && id > -1 && id < getItemCount()) {
-            adapter.adapterController.set(id, item);
-            scrollToId(id);
-            savedScroll();
-        }
-    }
-
-    /**
-     * Eliminar un registro en la posición indicada
-     * <p>
-     * [EN]  Delete a record in the indicated position
-     *
-     * @param id posición del elemento a eliminar
-     *           [EN]  position of the item to be deleted
-     */
-    public void deleteItem(int id) {
-        if (id > -1 && id < getItemCount()) {
-            adapter.adapterController.remove(id);
-            adapter.adapterController.getSelectionItemsController().clear();
-            scrollToId(id);
-            savedScroll();
-        }
-    }
-
-    /**
-     * Marcar como seleccionado
-     * <p>
-     * [EN]  Mark as selected
-     *
-     * @param id posición en el selecionador [EN]  position in the selector
-     * @param value valor de selección [EN]  selection value
-     */
-    public void setSelected(int id, boolean value) {
-        adapter.adapterController.getSelectionItemsController().setSelected(id, value);
-    }
-
-    /**
-     * Marcar como seleccionado
-     * <p>
-     * [EN]  Mark as selected
-     *
-     * @param id posición en el selecionador [EN]  position in the selector
-     * @param value valor de selección [EN]  selection value
-     */
-    public void inputSelected(int id, boolean value){
-        adapter.adapterController.getSelectionItemsController().inputSelected(id, value);
-    }
-
-    /**
-     * Notificar cambios en el adapter
-     * <p>
-     * [EN]  Notify changes to the adapter
-     */
-    public void notifyChangedData() {
-        adapter.notifyDataSetChanged();
+    public ListExtra getSelectionmode() {
+        return getSimpleListModel().getSelectionmode();
     }
 }

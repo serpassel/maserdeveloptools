@@ -1,10 +1,9 @@
 package es.marser.backgroundtools.dialogs.widget.chooser;
 
 import android.content.Context;
-import android.databinding.ObservableBoolean;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -13,14 +12,13 @@ import java.util.List;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Selectable;
-import es.marser.backgroundtools.dialogs.bases.BaseDialogBinListD;
+import es.marser.backgroundtools.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewHandler;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.decorator.DividerDecoration;
+import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 import es.marser.tools.TextTools;
 
 
@@ -34,12 +32,13 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinListD<T> implements ViewHandler<Boolean> {
+        extends BaseDialogBinList<T> {
 
     protected OnResult<List<T>> result;
 
-    public static ObservableBoolean multiselect;
-    protected boolean multiselect_flag;
+    private ChooserPresenter<T> presenter;
+    private SimpleListModel<T> simpleListModel;
+
 
     /**
      * Creador de argumentos del cuadro de dialogo
@@ -126,9 +125,7 @@ public class ChooserDialog<T extends Selectable>
 
     @Override
     protected void preBuild() {
-
-        multiselect_flag = true;
-        multiselect = new ObservableBoolean();
+        super.preBuild();
 
         model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
         statusModel.blockAction.set(getArguments().getInt(DialogExtras.STATE_EXTRA.name(), 0) == 1);
@@ -144,31 +141,50 @@ public class ChooserDialog<T extends Selectable>
     @Override
     protected void postBuild() {
         super.postBuild();
-        load();
+        presenter.load(getArguments());
     }
 
+    /**
+     * Iniciar variables de Presenter y Model y repercutir en los métodos get
+     * <p>
+     * [EN]  Start Presenter and Model variables and affect the get methods
+     * <p>
+     * {@link #getSimpleListModel}
+     * {@link #getSimpleListPresenter}
+     */
     @Override
-    protected void bindAdapter() {
-        super.bindAdapter();
-        recyclerView.addItemDecoration(new DividerDecoration(getContext()));
+    protected void initPresenterModel() {
+        simpleListModel = new SimpleListModel<>(getContext(), R.layout.mvp_item_object_chooser);
+        ListExtra out = (ListExtra) getArguments().getSerializable(ListExtra.LIST_EXTRA.name());
+         out = out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
+         setSelectionmode(out);
+
+        presenter = new ChooserPresenter<>(getContext(),simpleListModel);
+        presenter.setWindowAction(this);
+    }
+
+    @NonNull
+    @Override
+    protected SimpleListModel<T> getSimpleListModel() {
+        return simpleListModel;
+    }
+
+    @NonNull
+    @Override
+    protected SimpleListPresenter<T> getSimpleListPresenter() {
+        return presenter;
     }
 
     @Override
     protected void bindObject() {
         super.bindObject();
         /*Presentador [EN]  Presenter*/
-        viewDataBinding.setVariable(BR.handler, this);
+        viewDataBinding.setVariable(BR.handler, presenter);
         viewDataBinding.executePendingBindings();
 
         /*Multiselección [EN]  Multiselection*/
-        viewDataBinding.setVariable(BR.multiselect, multiselect);
+        viewDataBinding.setVariable(BR.multiselect, ChooserPresenter.multiselect);
         viewDataBinding.executePendingBindings();
-    }
-
-    /*{@link BaseDialogBinListD}*/
-    @Override
-    protected int getHolderLayout() {
-        return R.layout.mvp_item_object_chooser;
     }
 
     @Override
@@ -176,58 +192,11 @@ public class ChooserDialog<T extends Selectable>
         return R.layout.mvp_dialog_object_chooser;
     }
 
-    @Override
-    protected ListExtra getInitialSelectionMode() {
-        ListExtra out = (ListExtra) getArguments().getSerializable(ListExtra.LIST_EXTRA.name());
-        return out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    protected void load() {
-        final List<T> values = getArguments().getParcelableArrayList(ListExtra.VALUES_EXTRA.name());
-        final String preselect = getArguments().getString(DialogExtras.FILTER_EXTRAS.name(), null);
-        if (values != null) {
-            if (preselect == null) {
-                adapter.adapterController.addAll(values);
-                return;
-            }
-
-            AsyncTask.execute(new Runnable() {
-                @Override
-                public void run() {
-                    for (T t : values) {
-                        addItem(t);
-                        inputSelected(getItemCount()-1, preselect.contains(t.preSelectValue()));
-                    }
-                    adjustMultiSelection();
-                }
-            });
-        }
-    }
-
-
-    /**
-     * Método para ajustar el estado del boón de multiselección
-     * Anula los eventos de cambio de estado durante su ajuste
-     * <p>
-     * [EN]  Method to adjust the state of the multi-selection button
-     * Cancels state change events during adjustment
-     */
-    protected void adjustMultiSelection() {
-      //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
-        multiselect_flag = false;
-        boolean old = multiselect.get();
-        multiselect.set(getItemCount() == adapter.adapterController.getSelectionItemsController().getIdSelecteds().size());
-
-        multiselect_flag = (old == multiselect.get());
-    }
-
     /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
     @Override
     public void onOk(View view) {
         if (result != null) {
-            result.onResult(DialogExtras.OK_EXTRA, adapter.adapterController.getSelectds());
+            result.onResult(DialogExtras.OK_EXTRA, simpleListModel.getSelectds());
         }
        close();
     }
@@ -240,18 +209,6 @@ public class ChooserDialog<T extends Selectable>
         close();
     }
 
-    /* {@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
-    @Override
-    public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        super.onClickItem(holder, item, position, mode);
-
-        if (getInitialSelectionMode() == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
-            onOk(holder.getItemView());
-        } else {
-            adjustMultiSelection();
-        }
-    }
-
     /*{@link OnResult}*/
     public OnResult<List<T>> getResult() {
         return result;
@@ -261,21 +218,18 @@ public class ChooserDialog<T extends Selectable>
         this.result = result;
     }
 
+
+    /**
+     * Filjar el modo de selección de la lista
+     * <p>
+     * [EN]  Filtering the mode selection mode of the list
+     *
+     * @param selectionmode Modo de slección de la lista
+     */
     @Override
-    public void onClick(View view, Boolean isChecked) {
-        if (multiselect_flag) {
-            if (isChecked) {
-                adapter.adapterController.getSelectionItemsController().selectedAll(adapter.getItemCount());
-            } else {
-                adapter.adapterController.getSelectionItemsController().deselectedAll();
-            }
+    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+        if(simpleListModel != null){
+            simpleListModel.setSelectionmode(selectionmode);
         }
-        multiselect_flag = true;
     }
-
-    @Override
-    public boolean onLongClick(View view, Boolean item) {
-        return false;
-    }
-
 }
