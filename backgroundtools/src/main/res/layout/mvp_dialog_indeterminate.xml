@@ -8,7 +8,7 @@
             alias="tt"
             type="es.marser.tools.TextTools" />
 
-        <import type="es.marser.backgroundtools.dialogs.model.DialogProgressModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel" />
 
         <variable
             name="model"

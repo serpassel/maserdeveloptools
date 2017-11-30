@@ -4,7 +4,7 @@
     <data>
 
         <!--DATA MODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.DayWeek" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.DayWeek" />
 
         <variable
             name="item"

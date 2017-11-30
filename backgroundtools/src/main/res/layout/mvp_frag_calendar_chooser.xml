@@ -6,7 +6,7 @@
     <data>
 
         <!--HEADMODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.CalendarObservable" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.CalendarObservable" />
 
         <variable
             name="model"

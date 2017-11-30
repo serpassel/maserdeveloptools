@@ -6,7 +6,7 @@
     <data>
 
         <!--HEADMODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.CalendarObservable" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.CalendarObservable" />
 
         <variable
             name="headmodel"
@@ -20,7 +20,7 @@
             type="ViewHandler" />
 
         <!--DIALOGS-->
-        <import type="es.marser.backgroundtools.dialogs.model.DialogModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogModel" />
 
         <variable
             name="model"
@@ -33,7 +33,7 @@
             name="winaction"
             type="WindowAction" />
 
-        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel" />
 
         <variable
             name="buttonsetmodel"

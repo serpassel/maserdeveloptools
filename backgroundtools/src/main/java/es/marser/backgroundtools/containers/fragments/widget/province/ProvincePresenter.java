@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
@@ -20,7 +21,7 @@ import es.marser.generic.GenericFactory;
  *         Presentador de provincias
  */
 
-public class ProvincePresenter extends SimpleListPresenter<ProvincieModel> {
+public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
 
 
     public ProvincePresenter(@NonNull Context context, @NonNull SimpleListModel<ProvincieModel> listModel) {

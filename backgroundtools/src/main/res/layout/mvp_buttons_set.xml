@@ -9,7 +9,7 @@
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
-        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel" />
 
         <variable
             name="winaction"

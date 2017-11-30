@@ -6,7 +6,7 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.dialogs.model.ExampleModelObject" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.ExampleModelObject" />
 
         <variable
             name="headmodel"
@@ -18,7 +18,7 @@
             name="winaction"
             type="WindowAction" />
 
-        <import type="es.marser.backgroundtools.dialogs.model.ButtonsSetModel"/>
+        <import type="es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel"/>
 
         <variable
             name="buttonsetmodel"

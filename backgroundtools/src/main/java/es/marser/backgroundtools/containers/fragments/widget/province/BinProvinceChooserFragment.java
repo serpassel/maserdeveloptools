@@ -20,7 +20,11 @@ import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPre
  */
 
 @SuppressWarnings("unused")
-public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieModel> {
+public class BinProvinceChooserFragment extends BaseFragmentListBin<
+        ProvincieModel,
+        SimpleListModel<ProvincieModel>,
+        SimpleListPresenter<ProvincieModel, SimpleListModel<ProvincieModel>>
+        > {
 
     private ProvincePresenter presenter;
     private SimpleListModel<ProvincieModel> simpleListModel;
@@ -59,7 +63,6 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
         }
     }
 
-
     @Override
     protected void initPresenterModel() {
         simpleListModel = new SimpleListModel<>(getContext(), R.layout.mvp_item_object_chooser);
@@ -74,7 +77,8 @@ public class BinProvinceChooserFragment extends BaseFragmentListBin<ProvincieMod
 
     @NonNull
     @Override
-    protected SimpleListPresenter<ProvincieModel> getSimpleListPresenter() {
+    protected SimpleListPresenter<ProvincieModel, SimpleListModel<ProvincieModel>> getSimpleListPresenter() {
         return presenter;
     }
+
 }

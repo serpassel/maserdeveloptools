@@ -26,7 +26,11 @@ import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPre
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragmentListBin<T extends Parcelable>
+public abstract class BaseFragmentListBin<
+        T extends Parcelable,
+        SLM extends SimpleListModel<T>,
+        SLP extends SimpleListPresenter<T, SLM>
+        >
         extends BaseFragment
         implements Selectionable {
 
@@ -94,10 +98,10 @@ public abstract class BaseFragmentListBin<T extends Parcelable>
     protected abstract void initPresenterModel();
 
     @NonNull
-    protected abstract SimpleListModel<T> getSimpleListModel();
+    protected abstract SLM getSimpleListModel();
 
     @NonNull
-    protected abstract SimpleListPresenter<T> getSimpleListPresenter();
+    protected abstract SLP getSimpleListPresenter();
 
     //SELECTIONABLE________________________________________________________
     @Nullable

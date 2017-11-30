@@ -15,7 +15,6 @@ import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 import es.marser.backgroundtools.widget.files.OnPathChangedListener;
 import es.marser.backgroundtools.widget.files.model.FileModel;
 import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
