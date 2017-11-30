@@ -111,7 +111,7 @@ public class FileChooserDialog
         viewDataBinding.setVariable(BR.headmodel, headmodel);
         viewDataBinding.executePendingBindings();
 
-        viewDataBinding.setVariable(BR.handler, this);
+        viewDataBinding.setVariable(BR.handler, presenter);
         viewDataBinding.executePendingBindings();
     }
 

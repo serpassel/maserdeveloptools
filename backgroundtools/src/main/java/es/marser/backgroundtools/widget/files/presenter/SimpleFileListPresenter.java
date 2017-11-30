@@ -46,7 +46,6 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
     protected String[] filter;
 
 
-
     public SimpleFileListPresenter(@NonNull Context context) {
         super(context);
     }
@@ -114,7 +113,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
     @Override
     public void onClick(View view, FileModel item) {
         if (view.getId() == R.id.path_up) {
-            upPath(item);
+            upPath();
         }
     }
 
@@ -134,12 +133,12 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
      * <p>
      * [EN]  Upload a directory level
      */
-    private void upPath(FileModel item) {
-        if (path != null && !path.equals(FilePathUtil.getRootPath())) {
-
-            if(listener != null){
+    private void upPath() {
+        if (!path.equals(FilePathUtil.getRootPath())) {
+            if (listener != null) {
                 listener.onPathChanged(path, new File(path.getParent()));
             }
+            path = new File(path.getParent());
             load(null);
         }
     }
@@ -154,10 +153,15 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
     private void downPath(FileModel item) {
         if (item != null && item.getFile() != null) {
             File path = item.getFile();
+
             if (listener != null) {
-                listener.onPathChanged(path, item.getFile());
+                listener.onPathChanged(this.path, path);
             }
-            load(null);
+
+            if (path.isDirectory()) {
+                this.path = path;
+                load(null);
+            }
         }
     }
 
@@ -170,7 +174,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         this.listener = null;
     }
 
-    public static class BundleBuilder{
+    public static class BundleBuilder {
         /**
          * Creador de argumentos del cuadro de dialogo
          * <p>

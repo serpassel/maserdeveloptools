@@ -1,13 +1,14 @@
 package es.marser.backgroundtools.containers.fragments.base;
 
-import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
@@ -32,16 +33,16 @@ public abstract class BaseFragmentListBin<
         extends BaseFragmentBin
         implements Selectionable {
 
-    protected ViewDataBinding viewDataBinding;
-
     protected SLM simpleListModel;
     protected SLP presenter;
+
 
     public BaseFragmentListBin() {
         super();
     }
 
     //SAVED AND RESTORE____________________________________________________________________
+
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is
@@ -64,11 +65,21 @@ public abstract class BaseFragmentListBin<
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        simpleListModel.onSaveInstanceState(outState);
-        presenter.onSaveInstanceState(outState);
+
+        if(getArguments() != null && outState != null){
+            outState.putAll(getArguments());
+        }
+
+        if (simpleListModel != null) {
+            simpleListModel.onSaveInstanceState(outState);
+        }
+        if (presenter != null) {
+            presenter.onSaveInstanceState(outState);
+        }
     }
 
     //BIN METHODS OF CONFIGURATION________________________________________________________
+
     /**
      * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
      * Se ejecuta durante al crearse la vista {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
@@ -92,12 +103,13 @@ public abstract class BaseFragmentListBin<
         viewDataBinding.setVariable(BR.listmodel, simpleListModel);
         viewDataBinding.executePendingBindings();
 
-        if (presenter.getListModel() == null) {
+        if (presenter != null && presenter.getListModel() == null) {
             presenter.setListModel(simpleListModel);
         }
     }
 
     //LOAD DATA___________________________________________________________
+
     /**
      * Métodos de inicio de variables posteriores a la construcción del dialogo y a la vinculación de datos {@link #bindObject()}. Opcional
      * Se ejecuta en {@link #onActivityCreated(Bundle)}
@@ -109,12 +121,15 @@ public abstract class BaseFragmentListBin<
     @Override
     protected void postBuild(@Nullable Bundle savedInstanceState) {
         super.postBuild(savedInstanceState);
-        if(savedInstanceState !=null){
-            simpleListModel.onSaveInstanceState(savedInstanceState);
-            presenter.onSaveInstanceState(savedInstanceState);
-        }else{
-            presenter.load(getArguments());
-        }
+        Log.w(LOG_TAG.TAG, "Model nulo " + (simpleListModel == null));
+        Log.w(LOG_TAG.TAG, "Presenter nulo " + (presenter == null));
+
+        if (savedInstanceState != null) {
+                simpleListModel.onSaveInstanceState(savedInstanceState);
+                presenter.onSaveInstanceState(savedInstanceState);
+           } else {
+                presenter.load(getArguments());
+          }
     }
 
     //VIEWS________________________________________________________________

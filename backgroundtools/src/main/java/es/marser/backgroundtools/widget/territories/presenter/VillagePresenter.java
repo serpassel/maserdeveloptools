@@ -39,8 +39,6 @@ public class VillagePresenter extends ChooserPresenter<VillageModel> {
     }
 
     //LOAD______________________________________________________________________________
-
-
     /**
      * Método para la carga de datos
      * <p>
