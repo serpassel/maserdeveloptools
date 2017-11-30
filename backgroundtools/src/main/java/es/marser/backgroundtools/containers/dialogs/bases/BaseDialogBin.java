@@ -57,8 +57,6 @@ public abstract class BaseDialogBin
     /*Variable modelo de estado de vistas [EN]  View State Model Variable*/
     protected StatusModel statusModel;
 
-
-
     public BaseDialogBin() {
         this.model = new DialogModel();
         this.buttonsSetModel = new ButtonsSetModel();
@@ -67,7 +65,6 @@ public abstract class BaseDialogBin
 
     @Override
     protected void createDialog() {
-
         if (getArguments() != null) {
             DialogIcon dialog_icon = (DialogIcon) getArguments().getSerializable(ICON_EXTRA.name());
             model.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
