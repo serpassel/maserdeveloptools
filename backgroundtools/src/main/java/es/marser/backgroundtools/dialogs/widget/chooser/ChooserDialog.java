@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.View;
 
 import java.util.ArrayList;
@@ -18,7 +19,6 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
-import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 import es.marser.tools.TextTools;
 
 
@@ -32,13 +32,38 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T> {
+        extends BaseDialogBinList<T, ChooserPresenter<T>, SimpleListModel<T>> {
 
     protected OnResult<List<T>> result;
 
-    private ChooserPresenter<T> presenter;
-    private SimpleListModel<T> simpleListModel;
+    public static <T extends Selectable> ChooserDialog<T> newInstance(
+            @NonNull Context context,
+            @NonNull Bundle bundle,
+            @NonNull ChooserPresenter<T> presenter,
+            @Nullable OnResult<List<T>> result
+    ) {
 
+        ChooserDialog<T> instace = new ChooserDialog<>();
+        instace.setContext(context);
+        instace.setArguments(bundle);
+        instace.setResult(result);
+        instace.setPresenter(presenter);
+        instace.setSimpleListModel(new SimpleListModel<T>(context, R.layout.mvp_item_object_chooser));
+        return instace;
+    }
+
+    public static <T extends Selectable> ChooserDialog<T> newInstance(
+            @NonNull Context context,
+            @NonNull Bundle bundle,
+            @NonNull ChooserPresenter<T> presenter,
+            @NonNull SimpleListModel<T> simpleListModel,
+            @Nullable OnResult<List<T>> result
+    ) {
+
+        ChooserDialog<T> instace = ChooserDialog.newInstance(context, bundle, presenter, result);
+        instace.setSimpleListModel(simpleListModel);
+        return instace;
+    }
 
     /**
      * Creador de argumentos del cuadro de dialogo
@@ -141,38 +166,10 @@ public class ChooserDialog<T extends Selectable>
     @Override
     protected void postBuild() {
         super.postBuild();
-        presenter.load(getArguments());
-    }
-
-    /**
-     * Iniciar variables de Presenter y Model y repercutir en los métodos get
-     * <p>
-     * [EN]  Start Presenter and Model variables and affect the get methods
-     * <p>
-     * {@link #getSimpleListModel}
-     * {@link #getSimpleListPresenter}
-     */
-    @Override
-    protected void initPresenterModel() {
-        simpleListModel = new SimpleListModel<>(getContext(), R.layout.mvp_item_object_chooser);
         ListExtra out = (ListExtra) getArguments().getSerializable(ListExtra.LIST_EXTRA.name());
-         out = out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
-         setSelectionmode(out);
-
-        presenter = new ChooserPresenter<>(getContext(),simpleListModel);
-        presenter.setWindowAction(this);
-    }
-
-    @NonNull
-    @Override
-    protected SimpleListModel<T> getSimpleListModel() {
-        return simpleListModel;
-    }
-
-    @NonNull
-    @Override
-    protected SimpleListPresenter<T> getSimpleListPresenter() {
-        return presenter;
+        out = out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
+        setSelectionmode(out);
+        presenter.load(getArguments());
     }
 
     @Override
@@ -198,7 +195,7 @@ public class ChooserDialog<T extends Selectable>
         if (result != null) {
             result.onResult(DialogExtras.OK_EXTRA, simpleListModel.getSelectds());
         }
-       close();
+        close();
     }
 
     @Override
@@ -228,8 +225,14 @@ public class ChooserDialog<T extends Selectable>
      */
     @Override
     public void setSelectionmode(@NonNull ListExtra selectionmode) {
-        if(simpleListModel != null){
+        if (simpleListModel != null) {
             simpleListModel.setSelectionmode(selectionmode);
         }
+    }
+
+    @Override
+    public void setPresenter(@NonNull ChooserPresenter<T> presenter) {
+        super.setPresenter(presenter);
+        this.presenter.setWindowAction(this);
     }
 }

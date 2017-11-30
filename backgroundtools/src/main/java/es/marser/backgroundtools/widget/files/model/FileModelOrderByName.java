@@ -1,9 +1,7 @@
-package es.marser.backgroundtools.dialogs.widget.file;
+package es.marser.backgroundtools.widget.files.model;
 
 import java.util.Comparator;
 import java.util.List;
-
-import es.marser.backgroundtools.dialogs.model.FileModel;
 
 /**
  * @author sergio

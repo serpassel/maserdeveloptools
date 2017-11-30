@@ -1,6 +1,7 @@
 package es.marser.maserdeveloptools;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
@@ -9,28 +10,29 @@ import java.util.List;
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.dialogs.model.CalendarObservable;
-import es.marser.backgroundtools.dialogs.model.FileModel;
+import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
+import es.marser.backgroundtools.widget.files.model.FileModel;
 import es.marser.backgroundtools.dialogs.task.OnDResult;
+import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.auth.DialogCredential;
 import es.marser.backgroundtools.dialogs.widget.auth.DialogLogin;
 import es.marser.backgroundtools.dialogs.widget.calendar.CalendarChooser;
+import es.marser.backgroundtools.dialogs.widget.chooser.ChooserDialog;
 import es.marser.backgroundtools.dialogs.widget.confirmation.NotificationDialogBinModel;
 import es.marser.backgroundtools.dialogs.widget.edition.EditDialogBinModel;
-import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialog;
-import es.marser.backgroundtools.dialogs.model.ExampleModelObject;
+import es.marser.backgroundtools.dialogs.widget.file.FileChooserDialogD;
 import es.marser.backgroundtools.dialogs.widget.inputbox.DialogInputBox;
 import es.marser.backgroundtools.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.dialogs.widget.progress.BinProgressDialog;
-import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.dialogs.widget.territories.choosers.AutonomousChooser;
-import es.marser.backgroundtools.dialogs.widget.territories.choosers.ProvinceChooser;
-import es.marser.backgroundtools.dialogs.widget.territories.choosers.VillageChooser;
-import es.marser.backgroundtools.dialogs.widget.territories.model.AutonomousModel;
-import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
-import es.marser.backgroundtools.dialogs.widget.territories.model.VillageModel;
+import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
+import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
+import es.marser.backgroundtools.widget.territories.model.VillageModel;
+import es.marser.backgroundtools.widget.territories.presenter.AutonomousPresenter;
+import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.VillagePresenter;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
@@ -111,12 +113,12 @@ public class DialogExample {
                         new OnResult<ExampleModelObject>() {
                             @Override
                             public void onResult(DialogExtras result, ExampleModelObject value) {
-                               // Log.w(LOG_TAG.TAG, "Resultado");
+                                // Log.w(LOG_TAG.TAG, "Resultado");
                                 if (result == DialogExtras.OK_EXTRA) {
                                     Launch_toast.informationToast(context, value.toString());
-                                 //   Log.i(LOG_TAG.TAG, "Aceptar");
+                                    //   Log.i(LOG_TAG.TAG, "Aceptar");
                                 } else {
-                                   // Log.i(LOG_TAG.TAG, "Cancelar");
+                                    // Log.i(LOG_TAG.TAG, "Cancelar");
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
@@ -144,7 +146,6 @@ public class DialogExample {
         gene.show();
         return gene;
     }
-
 
     private static String body_example = "En un lugar de la Mancha, de cuyo nombre no quiero acordarme, no ha mucho tiempo que vivía un hidalgo de los de lanza en astillero, adarga antigua, rocín flaco y galgo corredor. Una olla de algo más vaca que carnero, salpicón las más noches, duelos y quebrantos los sábados, lentejas los viernes, algún palomino de añadidura los domingos, consumían las tres partes de su hacienda. El resto della concluían sayo de velarte, calzas de velludo para las fiestas con sus pantuflos de lo mismo, los días de entre semana se honraba con su vellori de lo más fino.";
 
@@ -344,10 +345,10 @@ public class DialogExample {
     public static BaseDialog fileSelector(final Context context, boolean readeable) {
 
 
-        FileChooserDialog dialog =
-                FileChooserDialog.newInstance(
+        FileChooserDialogD dialog =
+                FileChooserDialogD.newInstance(
                         context,
-                        FileChooserDialog.createBundle(context),
+                        FileChooserDialogD.createBundle(context),
                         readeable,
                         new OnResult<FileModel>() {
                             @Override
@@ -372,10 +373,10 @@ public class DialogExample {
 
     public static BaseDialog filefilterSelector(final Context context, boolean readeable) {
 
-        FileChooserDialog dialog =
-                FileChooserDialog.newInstance(
+        FileChooserDialogD dialog =
+                FileChooserDialogD.newInstance(
                         context,
-                        FileChooserDialog.createBundle(context, new String[]{".bc3"}),
+                        FileChooserDialogD.createBundle(context, new String[]{".bc3"}),
                         readeable,
                         new OnResult<FileModel>() {
                             @Override
@@ -425,198 +426,219 @@ public class DialogExample {
 
 
     //TERRITORY_________________________________________________________________________________________
+
+    public static BaseDialog autonomousChooser(final Context context) {
+
+        final AutonomousModel autonomousModel = GenericFactory
+                .BuildSingleObject(AutonomousModel.class,
+                        context.getResources().getString(R.string.all_spain_ccaa)
+                );
+
+        OnResult<List<AutonomousModel>> result = new OnResult<List<AutonomousModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<AutonomousModel> value) {
+                if (result == DialogExtras.OK_EXTRA) {
+
+                    StringBuilder builder = new StringBuilder();
+
+                    for (AutonomousModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
+                    }
+                    TextTools.deleteLastBrand(builder, ";\n");
+
+                    NotificationDialogBinModel.newInstance(
+                            context,
+                            NotificationDialogBinModel.createInformationBundle(context, builder.toString()));
+                }
+            }
+
+            @Override
+            public void onClick(View view, List<AutonomousModel> value) {
+
+            }
+        };
+
+        Bundle bundle = AutonomousPresenter.createBundle(
+                context,
+                false,
+                autonomousModel.preSelectValue(),
+                true);
+
+        AutonomousPresenter presenter = new AutonomousPresenter(context, false);
+
+        ChooserDialog<AutonomousModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
+
+        dialog.show();
+        return dialog;
+    }
+
     public static BaseDialog provincieChooser(final Context context) {
-        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, -1, false, null),
-                new OnResult<List<ProvincieModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                        if (result == DialogExtras.OK_EXTRA) {
-                            StringBuilder builder = new StringBuilder();
-                            for (ProvincieModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
-                            Launch_toast.informationToast(context, builder.toString());
-                        }
+        OnResult<List<ProvincieModel>> result = new OnResult<List<ProvincieModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<ProvincieModel> value) {
+
+                if (result == DialogExtras.OK_EXTRA) {
+                    StringBuilder builder = new StringBuilder();
+                    for (ProvincieModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
                     }
+                    TextTools.deleteLastBrand(builder, ";\n");
+                    Launch_toast.informationToast(context, builder.toString());
+                }
+            }
 
-                    @Override
-                    public void onClick(View view, List<ProvincieModel> value) {
+            @Override
+            public void onClick(View view, List<ProvincieModel> value) {
 
-                    }
-                });
+            }
+        };
+
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, false, null);
+
+        ProvincePresenter presenter = new ProvincePresenter(context, false);
+
+        ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog provincieMultiChooser(final Context context) {
-        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, -1, true, null),
-                new OnResult<List<ProvincieModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+        OnResult<List<ProvincieModel>> result = new OnResult<List<ProvincieModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                        if (result == DialogExtras.OK_EXTRA) {
-
-                            StringBuilder builder = new StringBuilder();
-
-                            for (ProvincieModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
-
-                            NotificationDialogBinModel.newInstance(
-                                    context,
-                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                            ).show();
-                        }
+                if (result == DialogExtras.OK_EXTRA) {
+                    StringBuilder builder = new StringBuilder();
+                    for (ProvincieModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
                     }
+                    TextTools.deleteLastBrand(builder, ";\n");
+                    Launch_toast.informationToast(context, builder.toString());
+                }
+            }
 
-                    @Override
-                    public void onClick(View view, List<ProvincieModel> value) {
+            @Override
+            public void onClick(View view, List<ProvincieModel> value) {
 
-                    }
-                });
+            }
+        };
+
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, null);
+
+        ProvincePresenter presenter = new ProvincePresenter(context, true);
+
+        ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context,
+                bundle,
+                presenter,
+                result
+        );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog preselectChooser(final Context context) {
-        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, -1, true, "Almería, Burgos,"),
-                new OnResult<List<ProvincieModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                        if (result == DialogExtras.OK_EXTRA) {
+        OnResult<List<ProvincieModel>> result = new OnResult<List<ProvincieModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                            StringBuilder builder = new StringBuilder();
+                if (result == DialogExtras.OK_EXTRA) {
 
-                            for (ProvincieModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
+                    StringBuilder builder = new StringBuilder();
 
-                            NotificationDialogBinModel.newInstance(
-                                    context,
-                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                            ).show();
-                        }
+                    for (ProvincieModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
                     }
+                    TextTools.deleteLastBrand(builder, ";\n");
 
-                    @Override
-                    public void onClick(View view, List<ProvincieModel> value) {
+                    NotificationDialogBinModel.newInstance(
+                            context,
+                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                    ).show();
+                }
+            }
 
-                    }
-                });
+            @Override
+            public void onClick(View view, List<ProvincieModel> value) {
+
+            }
+        };
+
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, "Almería, Burgos,");
+
+        ProvincePresenter presenter = new ProvincePresenter(context, true);
+
+        ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context,
+                bundle,
+                presenter,
+                result
+        );
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog andaluciaChooser(final Context context) {
-        ProvinceChooser dialog = ProvinceChooser.newInstance(context,
-                ProvinceChooser.createBundle(context, 1, true, null),
-                new OnResult<List<ProvincieModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<ProvincieModel> value) {
+        OnResult<List<ProvincieModel>> result = new OnResult<List<ProvincieModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<ProvincieModel> value) {
 
-                        if (result == DialogExtras.OK_EXTRA) {
-
-                            StringBuilder builder = new StringBuilder();
-
-                            for (ProvincieModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
-
-                            NotificationDialogBinModel.newInstance(
-                                    context,
-                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                            ).show();
-                        }
+                if (result == DialogExtras.OK_EXTRA) {
+                    StringBuilder builder = new StringBuilder();
+                    for (ProvincieModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
                     }
+                    TextTools.deleteLastBrand(builder, ";\n");
+                    Launch_toast.informationToast(context, builder.toString());
+                }
+            }
 
-                    @Override
-                    public void onClick(View view, List<ProvincieModel> value) {
+            @Override
+            public void onClick(View view, List<ProvincieModel> value) {
 
-                    }
-                });
+            }
+        };
+
+        Bundle bundle = ProvincePresenter.createBundle(context, 1, true, null);
+
+        ProvincePresenter presenter = new ProvincePresenter(context, false);
+
+        ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
+
         dialog.show();
         return dialog;
     }
 
     public static BaseDialog arabaVillagesChooser(final Context context) {
-        VillageChooser dialog = VillageChooser.newInstance(
-                context,
-                VillageChooser.createBundle(context, 1, false, null),
-                new OnResult<List<VillageModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<VillageModel> value) {
-                        if (result == DialogExtras.OK_EXTRA) {
+        OnResult<List<VillageModel>> result = new OnResult<List<VillageModel>>() {
+            @Override
+            public void onResult(DialogExtras result, List<VillageModel> value) {
+                if (result == DialogExtras.OK_EXTRA) {
 
-                            StringBuilder builder = new StringBuilder();
+                    StringBuilder builder = new StringBuilder();
 
-                            for (VillageModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
-
-                            NotificationDialogBinModel.newInstance(
-                                    context,
-                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                            ).show();
-                        }
+                    for (VillageModel pm : value) {
+                        builder.append(pm.getName()).append(",\n");
                     }
+                    TextTools.deleteLastBrand(builder, ";\n");
 
-                    @Override
-                    public void onClick(View view, List<VillageModel> value) {
+                    NotificationDialogBinModel.newInstance(
+                            context,
+                            NotificationDialogBinModel.createInformationBundle(context, builder.toString())
+                    ).show();
+                }
+            }
 
-                    }
-                });
-        dialog.show();
-        return dialog;
-    }
+            @Override
+            public void onClick(View view, List<VillageModel> value) {
 
-    public static BaseDialog autonomousChooser(final Context context) {
+            }
+        };
+        Bundle bundle = VillagePresenter.createBundle(context, 1, false, null);
 
-        AutonomousModel autonomousModel = GenericFactory
-                .BuildSingleObject(AutonomousModel.class,
-                        context.getResources().getString(R.string.all_spain_ccaa)
-                );
+        VillagePresenter presenter = new VillagePresenter(context, false);
 
-        AutonomousChooser dialog = AutonomousChooser.newInstance(context,
-                AutonomousChooser.createBundle(
-                        context,
-                        false,
-                        autonomousModel.preSelectValue(),
-                        true),
-
-                new OnResult<List<AutonomousModel>>() {
-                    @Override
-                    public void onResult(DialogExtras result, List<AutonomousModel> value) {
-                        if (result == DialogExtras.OK_EXTRA) {
-
-                            StringBuilder builder = new StringBuilder();
-
-                            for (AutonomousModel pm : value) {
-                                builder.append(pm.getName()).append(",\n");
-                            }
-                            TextTools.deleteLastBrand(builder, ";\n");
-
-                            NotificationDialogBinModel.newInstance(
-                                    context,
-                                    NotificationDialogBinModel.createInformationBundle(context, builder.toString())
-                            ).show();
-                        }
-                    }
-
-                    @Override
-                    public void onClick(View view, List<AutonomousModel> value) {
-
-                    }
-                });
+        ChooserDialog<VillageModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
 
         dialog.show();
         return dialog;
@@ -647,7 +669,7 @@ public class DialogExample {
 
     public static BaseDialog numberBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createNumberBundle(null,"Introducir texto"),
+                DialogInputBox.createNumberBundle(null, "Introducir texto"),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -757,7 +779,7 @@ public class DialogExample {
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {
-                        if(result == DialogExtras.OK_EXTRA){
+                        if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value.name());
                         }
                     }
@@ -779,7 +801,7 @@ public class DialogExample {
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {
-                        if(result == DialogExtras.OK_EXTRA){
+                        if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value.name());
                         }
                     }

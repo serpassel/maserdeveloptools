@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs.model;
+package es.marser.backgroundtools.widget.files.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

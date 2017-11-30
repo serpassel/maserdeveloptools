@@ -6,7 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
+import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;

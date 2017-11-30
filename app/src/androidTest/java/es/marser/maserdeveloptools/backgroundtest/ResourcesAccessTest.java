@@ -15,9 +15,9 @@ import java.util.GregorianCalendar;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
-import es.marser.backgroundtools.dialogs.widget.territories.model.AutonomousModel;
-import es.marser.backgroundtools.dialogs.widget.territories.model.ProvincieModel;
-import es.marser.backgroundtools.dialogs.widget.territories.model.VillageModel;
+import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
+import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
+import es.marser.backgroundtools.widget.territories.model.VillageModel;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.SystemColor;
 

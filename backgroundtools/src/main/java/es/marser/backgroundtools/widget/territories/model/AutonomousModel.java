@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.dialogs.widget.territories.model;
+package es.marser.backgroundtools.widget.territories.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
@@ -18,50 +18,46 @@ import es.marser.tools.TextTools;
 /**
  * @author sergio
  *         Created by sergio on 4/11/17.
- *         Modelo de datos de provincia
+ *         Modelo de datos de definición de objeto de comunidad autónoma
  *         <p>
- *         [EN]  Provincial data model
- *
- *           // 'PRO' | CODAUTO | CPRO | NOMBRE| MUN_COUNT |
+ *         [EN]  Autonomous community object definition data model
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-@DbTable(name = "PRO")
-public class ProvincieModel extends BaseObservable implements Selectable {
+@DbTable(name = "CCAA")
+public class AutonomousModel extends BaseObservable implements Selectable {
 
     @DbPrimaryKey
     private String key;
 
     @DbColumn(col_name = "codauto", indexorder = 1)
     private int codauto;
-    @DbColumn(col_name = "cpro", indexorder = 2)
-    private int cpro;
-    @DbColumn(col_name = "name", indexorder = 3)
+    @DbColumn(col_name = "name", indexorder = 2)
     private String name;
-    @DbColumn(col_name = "villagesCount", indexorder = 4)
-    private int villagesCount;
+    @DbColumn(col_name = "provincesCount", indexorder = 3)
+    private int provincesCount;
 
-    public ProvincieModel() {
+    public AutonomousModel() {
         this.codauto = 0;
-        this.cpro = 0;
         this.name = "";
-        this.villagesCount = 0;
+        this.provincesCount = 0;
     }
 
-    public ProvincieModel setKey(String key) {
+    @Bindable
+    public String getKey() {
+        return key;
+    }
+
+    public AutonomousModel setKey(String key) {
         this.key = key;
         notifyPropertyChanged(BR.key);
         return this;
     }
 
-    @Bindable
-    public String getKey() {
-        return this.key;
-    }
-
-    public ProvincieModel setCodauto(int codauto) {
+    public AutonomousModel setCodauto(int codauto) {
         this.codauto = codauto;
         notifyPropertyChanged(BR.codauto);
+        setKey(MathTools.formatCifra(codauto, 2));
         return this;
     }
 
@@ -70,19 +66,7 @@ public class ProvincieModel extends BaseObservable implements Selectable {
         return this.codauto;
     }
 
-    public ProvincieModel setCpro(int cpro) {
-        this.cpro = cpro;
-        notifyPropertyChanged(BR.cpro);
-        setKey(MathTools.formatCifra(cpro,2));
-        return this;
-    }
-
-    @Bindable
-    public int getCpro() {
-        return this.cpro;
-    }
-
-    public ProvincieModel setName(String name) {
+    public AutonomousModel setName(String name) {
         this.name = name;
         notifyPropertyChanged(BR.name);
         return this;
@@ -93,29 +77,27 @@ public class ProvincieModel extends BaseObservable implements Selectable {
         return this.name;
     }
 
-    public ProvincieModel setVillagesCount(int villagesCount) {
-        this.villagesCount = villagesCount;
-        notifyPropertyChanged(BR.villagesCount);
+    public AutonomousModel setProvincesCount(int provincesCount) {
+        this.provincesCount = provincesCount;
+        notifyPropertyChanged(BR.provincesCount);
         return this;
     }
 
     @Bindable
-    public int getVillagesCount() {
-        return this.villagesCount;
+    public int getProvincesCount() {
+        return this.provincesCount;
     }
 
     @Override
     public String toString() {
         String builder = TextTools.REG_SEPARATOR +
-                "PRO" +
+                "CCAA" +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.nc(codauto) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
-                TextTools.nc(cpro) +
-                TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.nc(name) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
-                TextTools.nc(villagesCount) +
+                TextTools.nc(provincesCount) +
                 TextTools.OBJECT_SEPARATOR_CHAR +
                 TextTools.RETORNO_CARRO_SALTO_LINEA;
         return builder.replace("null", "");
@@ -130,28 +112,27 @@ public class ProvincieModel extends BaseObservable implements Selectable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(MathTools.notNaN(codauto));
-        dest.writeInt(MathTools.notNaN(cpro));
         dest.writeString(TextTools.nc(name));
-        dest.writeInt(MathTools.notNaN(villagesCount));
+        dest.writeInt(MathTools.notNaN(provincesCount));
 
     }
 
-    protected ProvincieModel(Parcel in) {
+    protected AutonomousModel(Parcel in) {
         codauto = in.readInt();
-        cpro = in.readInt();
         name = in.readString();
-        villagesCount = in.readInt();
+        provincesCount = in.readInt();
 
     }
 
-    public static final Parcelable.Creator<ProvincieModel> CREATOR = new Parcelable.Creator<ProvincieModel>() {
+    public static final Parcelable.Creator<AutonomousModel> CREATOR = new Parcelable.Creator<AutonomousModel>() {
         @Override
-        public ProvincieModel createFromParcel(Parcel in) {
-            return new ProvincieModel(in);
+        public AutonomousModel createFromParcel(Parcel in) {
+            return new AutonomousModel(in);
         }
+
         @Override
-        public ProvincieModel[] newArray ( int size){
-            return new ProvincieModel[size];
+        public AutonomousModel[] newArray(int size) {
+            return new AutonomousModel[size];
         }
     };
 
@@ -162,6 +143,6 @@ public class ProvincieModel extends BaseObservable implements Selectable {
 
     @Override
     public String preSelectValue() {
-        return MathTools.formatCifra(cpro, 2);
+        return MathTools.formatCifra(codauto, 2);
     }
 }

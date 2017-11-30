@@ -20,7 +20,7 @@ import es.marser.async.Result;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.dialogs.bases.BaseDialogBinListD;
-import es.marser.backgroundtools.dialogs.model.FileModel;
+import es.marser.backgroundtools.widget.files.model.FileModel;
 import es.marser.backgroundtools.dialogs.task.OnResult;
 import es.marser.backgroundtools.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -29,6 +29,7 @@ import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
+import es.marser.backgroundtools.widget.files.model.FileModelOrderByName;
 import es.marser.tools.TextTools;
 
 
@@ -41,7 +42,8 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class FileChooserDialog
+@Deprecated
+public class FileChooserDialogD
         extends BaseDialogBinListD<FileModel>
         implements ViewHandler<Void> {
 
@@ -52,7 +54,7 @@ public class FileChooserDialog
     protected String[] filter;
 
     /**
-     * Nueva instancia {@link FileChooserDialog}
+     * Nueva instancia {@link FileChooserDialogD}
      *
      * @param context            contexto de la aplicación [EN]  application context
      * @param bundle             Argumentos de inicio [EN]  Start arguments
@@ -61,14 +63,14 @@ public class FileChooserDialog
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
-    public static FileChooserDialog newInstance(
+    public static FileChooserDialogD newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull boolean readablepermission,
             @Nullable OnResult<FileModel> result
     ) {
 
-        FileChooserDialog instace = new FileChooserDialog();
+        FileChooserDialogD instace = new FileChooserDialogD();
         instace.setContext(context);
         instace.setArguments(bundle);
         instace.setResult(result);

@@ -5,11 +5,11 @@
     <data>
 
         <!--DATA MODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.FileModel" />
+        <import type="es.marser.backgroundtools.widget.files.model.FileModel" />
 
         <variable
             name="item"
-            type="FileModel" />
+            type="es.marser.backgroundtools.widget.files.model.FileModel" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat

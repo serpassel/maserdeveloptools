@@ -14,11 +14,11 @@
             type="es.marser.backgroundtools.systemtools.FilePathUtil" />
 
         <!--HEADMODEL-->
-        <import type="es.marser.backgroundtools.dialogs.model.FileModel" />
+        <import type="es.marser.backgroundtools.widget.files.model.FileModel" />
 
         <variable
             name="headmodel"
-            type="FileModel" />
+            type="es.marser.backgroundtools.widget.files.model.FileModel" />
 
         <!--HANDLERS-->
         <import type="es.marser.backgroundtools.handlers.ViewHandler" />

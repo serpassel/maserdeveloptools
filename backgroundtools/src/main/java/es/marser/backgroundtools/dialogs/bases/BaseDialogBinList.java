@@ -19,19 +19,16 @@ import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPre
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseDialogBinList<T extends Parcelable>
-        extends BaseDialogBinModel implements Selectionable {
+public abstract class BaseDialogBinList<T extends Parcelable,
+        SLP extends SimpleListPresenter<T>,
+        SLM extends SimpleListModel<T>
+        >
+        extends BaseDialogBinModel
+        implements Selectionable {
 
-    /**
-     * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
-     * <p>
-     * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
-     */
-    @Override
-    protected void preBuild() {
-        super.preBuild();
-        initPresenterModel();
-    }
+    protected SLM simpleListModel;
+    protected SLP presenter;
+
 
     /**
      * Métodos e inicio de variables posteriores a la construcción del dialogo. Opcional
@@ -47,30 +44,48 @@ public abstract class BaseDialogBinList<T extends Parcelable>
 
     //ABSTRACT METHODS OF CONFIGURATION_______________________________________________________________
     protected void bindAdapter() {
-        viewDataBinding.setVariable(BR.listmodel, getSimpleListModel());
+        viewDataBinding.setVariable(BR.listmodel, simpleListModel);
         viewDataBinding.executePendingBindings();
+
+        if (presenter.getListModel() == null) {
+            presenter.setListModel(simpleListModel);
+        }
     }
-
-    /**
-     * Iniciar variables de Presenter y Model y repercutir en los métodos get
-     * <p>
-     * [EN]  Start Presenter and Model variables and affect the get methods
-     *
-     * {@link #getSimpleListModel}
-     * {@link #getSimpleListPresenter}
-     */
-    protected abstract void initPresenterModel();
-
-    @NonNull
-    protected abstract SimpleListModel<T> getSimpleListModel();
-
-    @NonNull
-    protected abstract SimpleListPresenter<T> getSimpleListPresenter();
 
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
     public ListExtra getSelectionmode() {
-        return getSimpleListModel().getSelectionmode();
+        return simpleListModel.getSelectionmode();
+    }
+
+    @Override
+    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+        if (simpleListModel != null) {
+            simpleListModel.setSelectionmode(selectionmode);
+        }
+    }
+
+    //MVP PATTERN
+    @NonNull
+    public SLM getSimpleListModel() {
+        return simpleListModel;
+    }
+
+    public void setSimpleListModel(@NonNull SLM simpleListModel) {
+        this.simpleListModel = simpleListModel;
+
+        if (presenter != null) {
+            presenter.setListModel(simpleListModel);
+        }
+    }
+
+    @NonNull
+    public SLP getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(@NonNull SLP presenter) {
+        this.presenter = presenter;
     }
 }
