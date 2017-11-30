@@ -2,7 +2,6 @@ package es.marser.backgroundtools.widget.chooser.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -12,15 +11,13 @@ import java.util.List;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
+import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
-import es.marser.tools.TextTools;
 
 
 /**
@@ -64,89 +61,6 @@ public class ChooserDialog<T extends Selectable>
         ChooserDialog<T> instace = ChooserDialog.newInstance(context, bundle, presenter, result);
         instace.setSimpleListModel(simpleListModel);
         return instace;
-    }
-
-    /**
-     * Creador de argumentos del cuadro de dialogo
-     * <p>
-     * [EN]  Dialog Box Argument Creator
-     *
-     * @param icon   Icono para la barra de título [EN]  Icon for the title bar
-     * @param title  Título de la barra [EN]  Title of the bar
-     * @param path   Directorio de búsqueda [EN]  Search directory
-     * @param ok     Texto de botón aceptar [EN]  Accept button text
-     * @param cancel Texto de botón cancelar [EN]  Cancel button text
-     * @param filter Listado de extensiones válidas [EN]  List of valid extensions
-     * @return Bundle argumentado [EN]  Bundle argued
-     */
-    @SuppressWarnings("All")
-    public static <T extends Selectable> Bundle createBundle(DialogIcon icon,
-                                                             String title,
-                                                             String ok,
-                                                             String cancel,
-                                                             String preselect,
-                                                             ListExtra listExtra,
-                                                             List<T> values
-    ) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-        bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-        bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), (ArrayList<? extends Parcelable>) values);
-        bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
-
-        switch (listExtra) {
-
-            case MULTIPLE_SELECTION_MODE:
-            case ONLY_MULTIPLE_SELECTION_MODE:
-                bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
-                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 1);
-                break;
-            default:
-                bundle.putInt(DialogExtras.STATE_EXTRA.name(), 0);
-                break;
-        }
-
-        bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
-        return bundle;
-    }
-
-    /**
-     * @param context contexto de la aplicación [EN]  context of the application
-     * @param path    Directorio de búsqueda [EN]  Search directory
-     * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
-     * @return Bundle argumentado [EN]  Bundle argued
-     */
-    public static <T extends Selectable> Bundle createBundle(
-            Context context,
-            ListExtra listExtra,
-            String premarc,
-            List<T> values
-    ) {
-        return createBundle(
-                DialogIcon.SEARCH_ICON,
-                context.getResources().getString(R.string.bt_dialog_select_title),
-                context.getResources().getString(R.string.bt_ACTION_OK),
-                context.getResources().getString(R.string.bt_ACTION_CANCEL),
-                premarc,
-                listExtra,
-                values
-        );
-    }
-
-    /**
-     * Valores de prueba por defecto
-     * <p>
-     * [EN]  Default test values
-     *
-     * @param context contexto de la aplicación [EN]  context of the application
-     * @return Bundle argumentado [EN]  Bundle argued
-     */
-    public static <T extends Selectable> Bundle createBundle(
-            Context context,
-            List<T> values
-    ) {
-        return createBundle(context, ListExtra.ONLY_SINGLE_SELECTION_MODE, null, values);
     }
 
     @Override

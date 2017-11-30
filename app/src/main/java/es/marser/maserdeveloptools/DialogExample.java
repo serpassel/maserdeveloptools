@@ -464,7 +464,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = AutonomousPresenter.createBundle(
+        Bundle bundle = AutonomousPresenter.BundleBuilder.createBundle(
                 context,
                 false,
                 autonomousModel.preSelectValue(),
@@ -500,7 +500,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, false, null);
+        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, false, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, false);
 
@@ -530,7 +530,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, null);
+        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, true, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, true);
 
@@ -571,7 +571,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, "Almería, Burgos,");
+        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, true, "Almería, Burgos,");
 
         ProvincePresenter presenter = new ProvincePresenter(context, true);
 
@@ -605,7 +605,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, 1, true, null);
+        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, 1, true, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, false);
 
@@ -640,7 +640,7 @@ public class DialogExample {
 
             }
         };
-        Bundle bundle = VillagePresenter.createBundle(context, 1, false, null);
+        Bundle bundle = VillagePresenter.BundleBuilder.createBundle(context, 1, false, null);
 
         VillagePresenter presenter = new VillagePresenter(context, false);
 

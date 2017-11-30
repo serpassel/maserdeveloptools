@@ -75,6 +75,7 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
     }
 
     //BUNDLES
+ public static class BundleBuilder{
     private static Bundle createBundle(String title,
                                        String ok,
                                        String cancel,
@@ -144,5 +145,5 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
                 multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
                 placeholder);
     }
-
+}
 }
