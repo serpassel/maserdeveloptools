@@ -4,8 +4,10 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseIntArray;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -130,20 +132,21 @@ public class SimpleListAdapter<T extends Parcelable>
     //SAVED AND RESTORE____________________________________________________________
    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        if (adapterController != null) {
+    //   Log.i(LOG_TAG.TAG, "GUARDANDO  ADAPTADOR");
+       if (adapterController != null) {
             adapterController.onSaveInstanceState(savedInstanceState);
         }
+       super.onSaveInstanceState(savedInstanceState);
     }
 
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+      //  Log.w(LOG_TAG.TAG, "RESTAURANDO  ADAPTADOR");
         if (savedInstanceState != null) {
             if (adapterController != null) {
                 adapterController.onRestoreInstanceState(savedInstanceState);
             }
         }
-
         super.onRestoreInstanceState(savedInstanceState);
     }
 

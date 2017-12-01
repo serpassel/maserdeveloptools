@@ -41,7 +41,7 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
     @Override
     public void load(@Nullable Bundle bundle) {
         if (bundle != null) {
-            Log.w(LOG_TAG.TAG, "Entrada con argumentos ");
+            //Log.w(LOG_TAG.TAG, "Entrada con argumentos ");
             int index = bundle.getInt(DialogExtras.INDEX_EXTRAS.name());
 
             String[] values = index < 1 || index > 19

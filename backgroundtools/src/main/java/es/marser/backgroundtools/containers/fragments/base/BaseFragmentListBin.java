@@ -4,11 +4,9 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
@@ -59,15 +57,14 @@ public abstract class BaseFragmentListBin<
      */
     @Override
     public void onSaveInstanceState(@Nullable Bundle outState) {
-        super.onSaveInstanceState(outState);
-        Log.w(LOG_TAG.TAG, "ESTADO GUARDADO");
-
+       // Log.w(LOG_TAG.TAG, "ESTADO GUARDADO");
         if (simpleListModel != null) {
             simpleListModel.onSaveInstanceState(outState);
         }
         if (presenter != null) {
             presenter.onSaveInstanceState(outState);
         }
+        super.onSaveInstanceState(outState);
     }
 
     /**
@@ -85,16 +82,14 @@ public abstract class BaseFragmentListBin<
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-
-            if(simpleListModel != null){
-                simpleListModel.onRestoreInstanceState(savedInstanceState);
-            }
-            if(presenter != null){
-                presenter.onRestoreInstanceState(savedInstanceState);
-            }
+        if(simpleListModel != null){
+            simpleListModel.onRestoreInstanceState(savedInstanceState);
+        }
+        if(presenter != null){
+            presenter.onRestoreInstanceState(savedInstanceState);
+        }
         super.onActivityCreated(savedInstanceState);
     }
-
     //BIN METHODS OF CONFIGURATION________________________________________________________
 
     /**
@@ -128,10 +123,8 @@ public abstract class BaseFragmentListBin<
     @Override
     protected void postBuild(@Nullable Bundle args) {
         if(simpleListModel.isEmpty()){
-            Log.w(LOG_TAG.TAG, "DATOS NUEVOS");
+            //Log.w(LOG_TAG.TAG, "DATOS NUEVOS");
             presenter.load(args);
-        }else{
-            Log.w(LOG_TAG.TAG, "DATOS RECARGADOS");
         }
     }
 

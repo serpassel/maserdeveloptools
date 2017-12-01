@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -101,9 +99,9 @@ public class ExpandController implements ExpandItemsController, RestorableInstan
     public void collapseAll() {
 
         for (int i = 0; i < expandItems.size(); ++i) {
-            if (get(i)) {
+            if (expandItems.valueAt(i)) {
                 /*settear falso si la posición está expandida [EN]  settear false if position is expanded*/
-                setExpand(i, false);
+                setExpand(expandItems.keyAt(i), false);
 
                  /*Notificar cambios de selección [EN]  Notify selection changes*/
                 if (onSelectionChanged != null) {
@@ -159,8 +157,8 @@ public class ExpandController implements ExpandItemsController, RestorableInstan
     public ArrayList<Integer> getIdExpaned() {
         ArrayList<Integer> selected = new ArrayList<>();
         for (int i = 0; i < expandItems.size(); i++) {
-            if (expandItems.get(i)) {
-                selected.add(i);
+            if (expandItems.valueAt(i)) {
+                selected.add(expandItems.keyAt(i));
             }
         }
         return selected;

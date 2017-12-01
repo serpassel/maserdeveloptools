@@ -229,8 +229,9 @@ public class SimpleListModel<T extends Parcelable>
      */
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+    //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
         if (adapter != null) {
-            Log.d(LOG_TAG.TAG, "Guardando adaptador");
+      //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
             adapter.onSaveInstanceState(savedInstanceState);
         }
     }

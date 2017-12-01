@@ -66,7 +66,9 @@ public class SelectionController implements SelectionItemsController, Restorable
 
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState, String id) {
+        //Log.i(LOG_TAG.TAG, "GUARDADO  CONTROLADOR DE SELECCION " + TextTools.nc(id) + extras[0]);
         if (savedInstanceState != null) {
+        //    Log.i(LOG_TAG.TAG, "SELECCIONES " + getIdSelecteds().size());
             savedInstanceState.putIntegerArrayList(TextTools.nc(id) + extras[0], getIdSelecteds());
             savedInstanceState.putInt(extras[1], lastposition);
             savedInstanceState.putInt(extras[2], position);
@@ -75,18 +77,22 @@ public class SelectionController implements SelectionItemsController, Restorable
 
    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id) {
-
+      // Log.w(LOG_TAG.TAG, "RESTAURANDO  CONTROLADOR DE SELECCION " + TextTools.nc(id) + extras[0]);
         if (savedInstanceState != null) {
             ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList(TextTools.nc(id) + extras[0]);
             if (selectedItems == null) {
                 this.selectedItems = new SparseBooleanArray();
             }
+
             if (ids != null) {
                 for (Integer i : ids) {
-                    selectedItems.put(i, true);
+                    this.selectedItems.put(i, true);
+               //     Log.v(LOG_TAG.TAG, "VALOR DE SELECCION " + i + "/"+selectedItems.get(i));
                 }
-            }
 
+             //   Log.v(LOG_TAG.TAG, "SELECCIONES RESTAURADAS " + getIdSelecteds().size() + "/" + this.selectedItems.size());
+
+            }
             lastposition = savedInstanceState.getInt(extras[1], -1);
             position = savedInstanceState.getInt(extras[2], -1);
         }
@@ -121,7 +127,7 @@ public class SelectionController implements SelectionItemsController, Restorable
     @Override
     public boolean isEmptySelected() {
         for (int i = 0; i <= selectedItems.size(); i++) {
-            if (selectedItems.get(i))
+            if (selectedItems.valueAt(i))
                 return false;
         }
         return true;
@@ -131,8 +137,8 @@ public class SelectionController implements SelectionItemsController, Restorable
     public ArrayList<Integer> getIdSelecteds() {
         ArrayList<Integer> selected = new ArrayList<>();
         for (int i = 0; i < selectedItems.size(); i++) {
-            if (selectedItems.get(i)) {
-                selected.add(i);
+            if (selectedItems.valueAt(i)) {
+                selected.add(selectedItems.keyAt(i));
             }
         }
         return selected;
@@ -163,8 +169,8 @@ public class SelectionController implements SelectionItemsController, Restorable
             return position;
         }
         for (int i = 0; i <= selectedItems.size(); i++) {
-            if (selectedItems.get(i))
-                return (i);
+            if (selectedItems.valueAt(i))
+                return (selectedItems.keyAt(i));
         }
         return -1;
     }
