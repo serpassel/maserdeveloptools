@@ -5,14 +5,10 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;

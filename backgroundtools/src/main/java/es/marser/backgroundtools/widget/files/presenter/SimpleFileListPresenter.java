@@ -14,13 +14,11 @@ import java.util.List;
 
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.model.DialogModel;
 import es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
-import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
@@ -38,6 +36,7 @@ import es.marser.tools.TextTools;
  *         [EN]  Presenter for file and folder actions on simple list
  */
 
+@SuppressWarnings("unused")
 public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, SimpleFileListModel>
         implements ViewHandler<FileModel> {
 

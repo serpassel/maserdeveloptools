@@ -16,6 +16,7 @@ import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPre
  *         [EN]  Base for simple list fragment construction
  */
 
+@SuppressWarnings("unused")
 public class SimpleListFragment<T extends Parcelable>
         extends BaseFragmentListBin<
         T, SimpleListModel<T>,

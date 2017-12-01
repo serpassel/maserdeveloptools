@@ -13,6 +13,7 @@ import android.view.ViewGroup;
  *         [EN]  Definition for objects that can save and restore their status.  With identifier for different instances of the same class, the same file saved.
  */
 
+@SuppressWarnings("unused")
 public interface RestorableInstanciable {
 
     /**

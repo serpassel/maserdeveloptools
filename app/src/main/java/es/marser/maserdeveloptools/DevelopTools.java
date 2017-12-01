@@ -1,6 +1,5 @@
 package es.marser.maserdeveloptools;
 
-import android.content.Context;
 import android.view.MenuItem;
 
 import es.marser.async.Result;

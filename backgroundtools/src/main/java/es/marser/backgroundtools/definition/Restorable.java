@@ -13,6 +13,7 @@ import android.view.ViewGroup;
  *         [EN]  Definition for objects that can save and restore their status
  */
 
+@SuppressWarnings("unused")
 public interface Restorable {
     /**
      * Called to ask the fragment to save its current dynamic state, so it

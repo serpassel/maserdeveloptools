@@ -13,6 +13,7 @@ import java.io.File;
  *         [EN]  Defining listener change in file selectors
  */
 
+@SuppressWarnings("unused")
 public interface OnPathChangedListener {
 
     /**

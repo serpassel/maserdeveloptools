@@ -8,6 +8,7 @@ package es.marser.backgroundtools.objectslistables.base.model;
  *         [EN]  Exchanger between flat position and index
  */
 
+@SuppressWarnings("unused")
 public interface TogglePositionIndex {
 
     /**

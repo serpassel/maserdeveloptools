@@ -15,6 +15,7 @@ import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
  *         [EN]  Model control of file and folder lists
  */
 
+@SuppressWarnings("unused")
 public class SimpleFileListModel extends SimpleListModel<FileModel> {
     //CONTRUCTORS______________________________________________________________
     public SimpleFileListModel(Context context) {

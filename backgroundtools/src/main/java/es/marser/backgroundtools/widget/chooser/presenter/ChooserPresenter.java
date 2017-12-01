@@ -181,6 +181,7 @@ public class ChooserPresenter<T extends Selectable>
         return false;
     }
 
+    @SuppressWarnings("unused")
     public static class BundleBuilder{
         /**
          * Creador de argumentos del cuadro de dialogo

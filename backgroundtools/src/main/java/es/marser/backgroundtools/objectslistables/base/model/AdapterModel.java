@@ -18,6 +18,7 @@ import es.marser.backgroundtools.objectslistables.base.adapter.BaseListAdapter;
  *         [EN]  Model for lists
  */
 
+@SuppressWarnings("unused")
 public interface AdapterModel {
 
     /**
