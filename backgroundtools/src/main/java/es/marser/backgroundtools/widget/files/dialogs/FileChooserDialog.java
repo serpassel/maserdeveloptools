@@ -13,6 +13,7 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
+import es.marser.backgroundtools.definition.PermissionChecker;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.widget.files.OnPathChangedListener;
@@ -185,7 +186,7 @@ public class FileChooserDialog
      *
      * @param readablepermission indicar si se dispone del permiso de lectura
      *                           [EN]  indicate if reading permission is available
-     *                           {@link es.marser.backgroundtools.containers.PermissionChecker#checkReadExternalStorage(Result)}
+     *                           {@link PermissionChecker#checkReadExternalStorage(Result)}
      */
     public void setReadablepermission(boolean readablepermission) {
         this.readablepermission = readablepermission;

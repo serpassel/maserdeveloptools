@@ -93,23 +93,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
     //SAVED AND RESTORE_____________________________________________________________
 
-    /**
-     * Called to ask the fragment to save its current dynamic state, so it
-     * can later be reconstructed in a new instance of its process is
-     * restarted.  If a new instance of the fragment later needs to be
-     * created, the data you place in the Bundle here will be available
-     * in the Bundle given to {@link #onCreate(Bundle)},
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
-     * {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
-     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
-     * applies here as well.  Note however: <em>this method may be called
-     * at any time before {@link #onDestroy()}</em>.  There are many situations
-     * where a fragment may be mostly torn down (such as when placed on the
-     * back stack with no UI showing), but its state will not be saved until
-     * its owning activity actually needs to save its state.
-     */
+    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
 
         if(tAdapterController != null){
@@ -129,17 +113,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         }
     }
 
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
+    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (tAdapterController != null) {
             if (savedInstanceState != null) {

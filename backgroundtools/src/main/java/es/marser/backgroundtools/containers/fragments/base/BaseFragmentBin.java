@@ -1,5 +1,6 @@
 package es.marser.backgroundtools.containers.fragments.base;
 
+import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
@@ -31,8 +32,8 @@ public abstract class BaseFragmentBin extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
-        preBuild(savedInstanceState);
-        binObjects(savedInstanceState);
+        preBuild(getContext(), getArguments());
+        binObjects(getArguments());
         return viewDataBinding.getRoot();
     }
 
@@ -52,7 +53,7 @@ public abstract class BaseFragmentBin extends BaseFragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        postBuild(savedInstanceState);
+        postBuild(getArguments());
     }
 
     /**
@@ -61,16 +62,20 @@ public abstract class BaseFragmentBin extends BaseFragment {
      * <p>
      * [EN]  Link objects in the main view.  Obligatory that the model variable in the view is called model
      * Runs during view creation {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
+     *
+     * @param args argumentos guardados [EN]  saved arguments
      */
-    protected abstract void binObjects(@Nullable Bundle savedInstanceState);
+    protected abstract void binObjects(@Nullable Bundle args);
 
     /**
      * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
      * <p>
      * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
-     * @param savedInstanceState argumentos guardados [EN]  saved arguments
+     *
+     * @param args    argumentos guardados [EN]  saved arguments
+     * @param context contexto al que se agjuta el fragment
      */
-    protected void preBuild(@Nullable Bundle savedInstanceState) {
+    protected void preBuild(Context context, @Nullable Bundle args) {
     }
 
     /**
@@ -79,8 +84,8 @@ public abstract class BaseFragmentBin extends BaseFragment {
      * <p>
      * Methods and start of variables after the construction of the dialogue and the data link {@link #bindObject()}
      *
-     * @param savedInstanceState argumentos guardados [EN]  saved arguments
+     * @param args argumentos guardados [EN]  saved arguments
      */
-    protected void postBuild(@Nullable Bundle savedInstanceState) {
+    protected void postBuild(@Nullable Bundle args) {
     }
 }

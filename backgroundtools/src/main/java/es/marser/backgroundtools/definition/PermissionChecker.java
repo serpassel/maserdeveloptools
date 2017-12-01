@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers;
+package es.marser.backgroundtools.definition;
 
 import android.os.Build;
 import android.support.annotation.NonNull;

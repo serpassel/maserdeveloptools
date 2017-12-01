@@ -13,6 +13,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.controller.ExpandController;
 import es.marser.backgroundtools.objectslistables.base.controller.AdapterController;
@@ -57,7 +58,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
         extends
         RecyclerView.Adapter<VH>
         implements
-        AdapterNotifier {
+        AdapterNotifier, Restorable {
 
     /*Variables de control [EN]  Control variables*/
     public AdapterController<T> adapterController;
@@ -86,6 +87,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
      * back stack with no UI showing), but its state will not be saved until
      * its owning activity actually needs to save its state.
      */
+    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         if (adapterController != null) {
             adapterController.onSaveInstanceState(savedInstanceState);
@@ -107,6 +109,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.
      */
+    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             if (adapterController != null) {

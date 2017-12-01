@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
@@ -42,7 +43,8 @@ public class AdapterController<T extends Parcelable>
         SelectedsModel<T>,
         SelectionItemsManager,
         ExpandItemsManager,
-        Selectionable {
+        Selectionable,
+        Restorable {
 
 
     /*Variables de control [EN]  Control variables*/
@@ -93,23 +95,7 @@ public class AdapterController<T extends Parcelable>
 
     //SAVED AND RESTORE_____________________________________________________________
 
-    /**
-     * Called to ask the fragment to save its current dynamic state, so it
-     * can later be reconstructed in a new instance of its process is
-     * restarted.  If a new instance of the fragment later needs to be
-     * created, the data you place in the Bundle here will be available
-     * in the Bundle given to {@link #onCreate(Bundle)},
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
-     * {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
-     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
-     * applies here as well.  Note however: <em>this method may be called
-     * at any time before {@link #onDestroy()}</em>.  There are many situations
-     * where a fragment may be mostly torn down (such as when placed on the
-     * back stack with no UI showing), but its state will not be saved until
-     * its owning activity actually needs to save its state.
-     */
+    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         //Selection
         if (selectionController != null) {
@@ -130,17 +116,7 @@ public class AdapterController<T extends Parcelable>
         }
     }
 
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
+   @Override
     @SuppressWarnings("unchecked")
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         //Selection

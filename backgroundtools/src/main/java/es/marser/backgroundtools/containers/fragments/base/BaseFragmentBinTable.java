@@ -58,7 +58,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@Nullable Bundle outState) {
         if (adapter != null) {
             adapter.onSaveInstanceState(outState);
         }

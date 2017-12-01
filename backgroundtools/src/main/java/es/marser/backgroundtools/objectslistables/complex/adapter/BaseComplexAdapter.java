@@ -2,12 +2,14 @@ package es.marser.backgroundtools.objectslistables.complex.adapter;
 
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.handlers.ViewComplexHandler;
@@ -53,7 +55,7 @@ public abstract class BaseComplexAdapter<
         X extends ExpandableGroup<T>,
         T extends Parcelable>
         extends RecyclerView.Adapter<BaseViewHolder>
-        implements ExpandCollapseListener, ComplexViewHolderController<X, T> {
+        implements ExpandCollapseListener, ComplexViewHolderController<X, T>, Restorable {
 
     private static final String EXPAND_STATE_MAP = "expandable_recyclerview_adapter_expand_state_map";
 
@@ -79,35 +81,13 @@ public abstract class BaseComplexAdapter<
     }
 
     //SAVED AND RESTORE_____________________________________________________________
-    /**
-     * Stores the expanded state map across state loss.
-     * <p>
-     * Should be called from whatever {@link Activity} that hosts the RecyclerView that {@link
-     * ExpandableRecyclerViewAdapter} is attached to.
-     * <p>
-     * This will make sure to add the expanded state map as an extra to the
-     * instance state bundle to be used in {@link #onRestoreInstanceState(Bundle)}.
-     *
-     * @param savedInstanceState The {@code Bundle} into which to store the
-     * expanded state map
-     */
-    public void onSaveInstanceState(Bundle savedInstanceState) {
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         //savedInstanceState.putBooleanArray(EXPAND_STATE_MAP, expandableList.expandedGroupIndexes);
     }
 
-    /**
-     * Fetches the expandable state map from the saved instance state {@link Bundle}
-     * and restores the expanded states of all of the list items.
-     * <p>
-     * Should be called from {@link Activity#onRestoreInstanceState(Bundle)}  in
-     * the {@link Activity} that hosts the RecyclerView that this
-     * {@link ExpandableRecyclerViewAdapter} is attached to.
-     * <p>
-     *
-     * @param savedInstanceState The {@code Bundle} from which the expanded
-     * state map is loaded
-     */
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState == null || !savedInstanceState.containsKey(EXPAND_STATE_MAP)) {
             return;
         }

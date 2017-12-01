@@ -1,31 +1,19 @@
-package es.marser.backgroundtools.objectslistables.base.presenter;
+package es.marser.backgroundtools.definition;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import es.marser.backgroundtools.definition.Restorable;
-
 /**
  * @author sergio
- *         Created by sergio on 29/11/17.
- *         Definción del presentador de listas
+ *         Created by sergio on 1/12/17.
+ *         Definición para objetos que pueden guardar y restituir su estado
  *         <p>
- *         [EN]  List presenter definition
+ *         [EN]  Definition for objects that can save and restore their status
  */
 
-public interface AdapterPresenter extends Restorable{
-
-    /**
-     * Método para la carga de datos
-     * <p>
-     * [EN]  Method for data loading
-     *
-     * @param bundle Argumentos de carga de datos [EN]  Arguments of data loading
-     */
-    void load(@Nullable Bundle bundle);
-
+public interface Restorable {
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is

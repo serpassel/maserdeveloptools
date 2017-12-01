@@ -18,15 +18,13 @@ import es.marser.backgroundtools.enums.ListExtra;
  */
 
 @SuppressWarnings("unused")
+@Deprecated
 public abstract class BaseFragmentList extends BaseFragment {
 
     protected RecyclerView recyclerView;
 
     protected Integer lastScroll;
 
-    public BaseFragmentList() {
-        super();
-    }
 
     /*Arranque [EN]  start*/
     /**

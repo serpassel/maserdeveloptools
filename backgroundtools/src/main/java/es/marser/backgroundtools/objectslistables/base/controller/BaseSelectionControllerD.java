@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import es.marser.LOG_TAG;
+import es.marser.backgroundtools.definition.RestorableInstanciable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.objectslistables.base.listeners.OnItemChangedListener;
@@ -45,7 +46,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 @Deprecated
-public class BaseSelectionControllerD<T> implements SelectionItemsController {
+public class BaseSelectionControllerD<T> implements SelectionItemsController, RestorableInstanciable {
 
     /*Variables de marcado [EN]  Marking Variables*/
     protected SparseBooleanArray selectedItems;
@@ -55,7 +56,7 @@ public class BaseSelectionControllerD<T> implements SelectionItemsController {
     protected int lastposition, position;
 
     /*Variable oyente de modificaciones de slección*/
-  protected OnItemChangedListener onSelectionChanged;
+    protected OnItemChangedListener onSelectionChanged;
 
     public static String selectedIdkey = "selected_ids";
     public static String lastpositionkey = "last_position";
@@ -70,26 +71,10 @@ public class BaseSelectionControllerD<T> implements SelectionItemsController {
         this.lastposition = -1;
 
         this.onSelectionChanged = null;
-    //    this.itemHandler = null;
+        //    this.itemHandler = null;
     }
 
-    /**
-     * Called to ask the fragment to save its current dynamic state, so it
-     * can later be reconstructed in a new instance of its process is
-     * restarted.  If a new instance of the fragment later needs to be
-     * created, the data you place in the Bundle here will be available
-     * in the Bundle given to {@link #onCreate(Bundle)},
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
-     * {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
-     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
-     * applies here as well.  Note however: <em>this method may be called
-     * at any time before {@link #onDestroy()}</em>.  There are many situations
-     * where a fragment may be mostly torn down (such as when placed on the
-     * back stack with no UI showing), but its state will not be saved until
-     * its owning activity actually needs to save its state.
-     */
+    @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState, String id) {
         if (savedInstanceState != null) {
             savedInstanceState.putIntegerArrayList(TextTools.nc(id) + selectedIdkey, getIdSelecteds());
@@ -98,17 +83,7 @@ public class BaseSelectionControllerD<T> implements SelectionItemsController {
         }
     }
 
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
+    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id) {
 
         if (savedInstanceState != null) {

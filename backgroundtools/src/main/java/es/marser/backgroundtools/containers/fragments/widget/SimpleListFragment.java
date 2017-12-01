@@ -32,8 +32,4 @@ public class SimpleListFragment<T extends Parcelable>
         instance.setSimpleListModel(model);
         return instance;
     }
-
-    public SimpleListFragment() {
-        super();
-    }
 }

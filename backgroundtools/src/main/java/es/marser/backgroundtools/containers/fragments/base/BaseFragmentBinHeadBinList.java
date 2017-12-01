@@ -57,7 +57,7 @@ public abstract class BaseFragmentBinHeadBinList<T extends Parcelable, X extends
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@Nullable Bundle outState) {
         outState.putParcelable(bundle_model_list_key, model);
         super.onSaveInstanceState(outState);
     }

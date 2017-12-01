@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.containers.fragments.listeners.FragmentActionListener;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.handlers.ViewComplexHandler;
@@ -63,7 +63,7 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@Nullable Bundle outState) {
         adapter.onSaveInstanceState(outState);
         super.onSaveInstanceState(outState);
     }
@@ -199,7 +199,7 @@ public abstract class BaseFragmentBinComplexList<G extends ExpandableGroup<C>, C
      * <p>
      * [EN]  Data Upload Method
      */
-    public abstract void load(FragmentAction fragmentAction);
+    public abstract void load(FragmentActionListener fragmentActionListener);
 
     /**
      * Acceso al controlador de selección del adaptador de elementos

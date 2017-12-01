@@ -1,30 +1,19 @@
-package es.marser.backgroundtools.objectslistables.base.presenter;
+package es.marser.backgroundtools.definition;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import es.marser.backgroundtools.definition.Restorable;
-
 /**
  * @author sergio
- *         Created by sergio on 29/11/17.
- *         Definción del presentador de listas
+ *         Created by sergio on 1/12/17.
+ *         Definición para objetos que pueden guardar y restituir su estado. Con identificador para distitntas instancias de la misma clase, el mismo archivo de guardado.
  *         <p>
- *         [EN]  List presenter definition
+ *         [EN]  Definition for objects that can save and restore their status.  With identifier for different instances of the same class, the same file saved.
  */
 
-public interface AdapterPresenter extends Restorable{
-
-    /**
-     * Método para la carga de datos
-     * <p>
-     * [EN]  Method for data loading
-     *
-     * @param bundle Argumentos de carga de datos [EN]  Arguments of data loading
-     */
-    void load(@Nullable Bundle bundle);
+public interface RestorableInstanciable {
 
     /**
      * Called to ask the fragment to save its current dynamic state, so it
@@ -42,8 +31,10 @@ public interface AdapterPresenter extends Restorable{
      * where a fragment may be mostly torn down (such as when placed on the
      * back stack with no UI showing), but its state will not be saved until
      * its owning activity actually needs to save its state.
+     * @param savedInstanceState Objeto de guardado de datos [EN]  Data saving object
+     * @param id identificador de la instancia [EN]  instance identifier
      */
-    void onSaveInstanceState(@Nullable Bundle savedInstanceState);
+    void onSaveInstanceState(@Nullable Bundle savedInstanceState, String id);
 
     /**
      * Called when all saved state has been restored into the view hierarchy
@@ -55,6 +46,7 @@ public interface AdapterPresenter extends Restorable{
      *
      * @param savedInstanceState If the fragment is being re-created from
      *                           a previous saved state, this is the state.
+     * @param id identificador de la instancia [EN]  instance identifier
      */
-    void onRestoreInstanceState(@Nullable Bundle savedInstanceState);
+    void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id);
 }

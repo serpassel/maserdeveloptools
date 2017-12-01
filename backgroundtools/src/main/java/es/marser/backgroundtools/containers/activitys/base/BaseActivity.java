@@ -31,7 +31,7 @@ import android.view.inputmethod.InputMethodManager;
 import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.PermissionChecker;
+import es.marser.backgroundtools.definition.PermissionChecker;
 import es.marser.backgroundtools.containers.dialogs.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
 
@@ -321,13 +321,27 @@ public abstract class BaseActivity
      * [EN]  Insert a fragment it
      *
      * @param fragment {@link android.support.v4.app.Fragment}
+     * @param tag      etiqueta para identificar el fragement
      */
     protected void insertFragment(Fragment fragment, String tag) {
+        insertFragment(fragment, tag, R.id.pager);
+    }
+
+    /**
+     * Inserta un fragment
+     * <p>
+     * [EN]  Insert a fragment it
+     *
+     * @param fragment {@link android.support.v4.app.Fragment}
+     * @param tag      etiqueta para identificar el fragment
+     * @param id       identificación del contenedor donde insertar. por defecto R.id.pager
+     */
+    protected void insertFragment(Fragment fragment, String tag, int id) {
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (fragment != null && fragmentManager != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.pager, fragment, tag);
+            fragmentTransaction.add(id, fragment, tag);
             fragmentTransaction.commit();
         }
     }
@@ -338,12 +352,31 @@ public abstract class BaseActivity
      * [EN]  Replaces a fragment
      *
      * @param fragment {@link android.support.v4.app.Fragment}
+     * @param tag      etiqueta para identificar el fragment
      */
     protected void replaceFragment(Fragment fragment, String tag) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragment != null && fragmentManager != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.pager, fragment, tag);
+            fragmentTransaction.commit();
+        }
+    }
+
+    /**
+     ** Reemplaza un fragment
+     * <p>
+     * [EN]  Replaces a fragment
+
+     * @param fragment {@link android.support.v4.app.Fragment}
+     * @param tag      etiqueta para identificar el fragment
+     * @param id       identificación del contenedor donde insertar. por defecto R.id.pager
+     */
+    protected void replaceFragment(Fragment fragment, String tag, int id){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (fragment != null && fragmentManager != null) {
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(id, fragment, tag);
             fragmentTransaction.commit();
         }
     }

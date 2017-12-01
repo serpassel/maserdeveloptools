@@ -19,10 +19,10 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.PermissionChecker;
+import es.marser.backgroundtools.definition.PermissionChecker;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
 import es.marser.backgroundtools.enums.EventsExtras;
-import es.marser.backgroundtools.containers.fragments.listeners.FragmentAction;
+import es.marser.backgroundtools.containers.fragments.listeners.FragmentActionListener;
 import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 
 /**
@@ -49,10 +49,24 @@ public abstract class BaseFragment
         implements PermissionChecker,
         SimpleGestureFilter.SimpleGestureListener {
 
-    protected FragmentAction fragmentAction;
-
-    public BaseFragment() {
-        //setRetainInstance(true);
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context al que se adjunta el fragmento
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof FragmentActionListener) {
+            try {
+                setFragmentActionListener((FragmentActionListener) context);
+            } catch (ClassCastException e) {
+                this.fragmentActionListener = null;
+            }
+        }else{
+            this.fragmentActionListener = null;
+        }
     }
 
     @Nullable
@@ -378,25 +392,25 @@ public abstract class BaseFragment
 
     //CHANGE LISTENERS IN FRAGMENTS_____________________________________________________________________
 
+    protected FragmentActionListener fragmentActionListener;
+
     /**
-     * Establecer el oyente de tipo {@link FragmentAction}
+     * Establecer el oyente de tipo {@link FragmentActionListener}
      * <p>
-     * [EN]  Set type listener {@link FragmentAction}
+     * [EN]  Set type listener {@link FragmentActionListener}
      *
-     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
+     * @param fragmentActionListener Oyente de acciones de fragments [EN]  Fragments actions listener
      */
-    public void setFragmentAction(FragmentAction fragmentAction) {
-        this.fragmentAction = fragmentAction;
+    public void setFragmentActionListener(FragmentActionListener fragmentActionListener) {
+        this.fragmentActionListener = fragmentActionListener;
     }
 
     /**
      * Elimina el oyente de acciones de fragment
      * <p>
      * [EN]  Delete the listener of fragment actions
-     *
-     * @param fragmentAction Oyente de acciones de fragments [EN]  Fragments actions listener
      */
-    public void removeFragmentAction(FragmentAction fragmentAction) {
-        this.fragmentAction = fragmentAction;
+    public void removeFragmentAction() {
+        this.fragmentActionListener = null;
     }
 }

@@ -36,11 +36,6 @@ public abstract class BaseFragmentListBin<
     protected SLM simpleListModel;
     protected SLP presenter;
 
-
-    public BaseFragmentListBin() {
-        super();
-    }
-
     //SAVED AND RESTORE____________________________________________________________________
 
     /**
@@ -63,12 +58,9 @@ public abstract class BaseFragmentListBin<
      * @param outState Bundle in which to place your saved state.
      */
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@Nullable Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        if(getArguments() != null && outState != null){
-            outState.putAll(getArguments());
-        }
+        Log.w(LOG_TAG.TAG, "ESTADO GUARDADO");
 
         if (simpleListModel != null) {
             simpleListModel.onSaveInstanceState(outState);
@@ -76,6 +68,31 @@ public abstract class BaseFragmentListBin<
         if (presenter != null) {
             presenter.onSaveInstanceState(outState);
         }
+    }
+
+    /**
+     * Called when the fragment's activity has been created and this
+     * fragment's view hierarchy instantiated.  It can be used to do final
+     * initialization once these pieces are in place, such as retrieving
+     * views or restoring state.  It is also useful for fragments that use
+     * {@link #setRetainInstance(boolean)} to retain their instance,
+     * as this callback tells the fragment when it is fully associated with
+     * the new activity instance.  This is called after {@link #onCreateView}
+     * and before {@link #onViewStateRestored(Bundle)}.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     *                           a previous saved state, this is the state.
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+
+            if(simpleListModel != null){
+                simpleListModel.onRestoreInstanceState(savedInstanceState);
+            }
+            if(presenter != null){
+                presenter.onRestoreInstanceState(savedInstanceState);
+            }
+        super.onActivityCreated(savedInstanceState);
     }
 
     //BIN METHODS OF CONFIGURATION________________________________________________________
@@ -90,8 +107,8 @@ public abstract class BaseFragmentListBin<
      * @param savedInstanceState argumentos de recuperación
      */
     @Override
-    protected void binObjects(@Nullable Bundle savedInstanceState) {
-        bindAdapter(savedInstanceState);
+    protected void binObjects(@Nullable Bundle args) {
+        bindAdapter(args);
     }
 
     /**
@@ -99,37 +116,23 @@ public abstract class BaseFragmentListBin<
      * <p>
      * [EN]  Link objects with list view
      */
-    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
+    protected void bindAdapter(@Nullable Bundle args) {
         viewDataBinding.setVariable(BR.listmodel, simpleListModel);
         viewDataBinding.executePendingBindings();
 
-        if (presenter != null && presenter.getListModel() == null) {
+        if (presenter.getListModel() == null) {
             presenter.setListModel(simpleListModel);
         }
     }
 
-    //LOAD DATA___________________________________________________________
-
-    /**
-     * Métodos de inicio de variables posteriores a la construcción del dialogo y a la vinculación de datos {@link #bindObject()}. Opcional
-     * Se ejecuta en {@link #onActivityCreated(Bundle)}
-     * <p>
-     * Methods and start of variables after the construction of the dialogue and the data link {@link #bindObject()}
-     *
-     * @param savedInstanceState argumentos guardados [EN]  saved arguments
-     */
     @Override
-    protected void postBuild(@Nullable Bundle savedInstanceState) {
-        super.postBuild(savedInstanceState);
-        Log.w(LOG_TAG.TAG, "Model nulo " + (simpleListModel == null));
-        Log.w(LOG_TAG.TAG, "Presenter nulo " + (presenter == null));
-
-        if (savedInstanceState != null) {
-                simpleListModel.onSaveInstanceState(savedInstanceState);
-                presenter.onSaveInstanceState(savedInstanceState);
-           } else {
-                presenter.load(getArguments());
-          }
+    protected void postBuild(@Nullable Bundle args) {
+        if(simpleListModel.isEmpty()){
+            Log.w(LOG_TAG.TAG, "DATOS NUEVOS");
+            presenter.load(args);
+        }else{
+            Log.w(LOG_TAG.TAG, "DATOS RECARGADOS");
+        }
     }
 
     //VIEWS________________________________________________________________

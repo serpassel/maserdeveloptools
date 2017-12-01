@@ -1,6 +1,8 @@
 package es.marser.backgroundtools.widget.territories.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.containers.fragments.widget.SimpleListFragment;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -19,16 +21,17 @@ import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
 @SuppressWarnings("unused")
 public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> {
 
-    public static ProvinceChooserFragment newInstance(Bundle bundle) {
+    public static ProvinceChooserFragment newInstance(@Nullable Bundle bundle) {
         ProvinceChooserFragment instance = new ProvinceChooserFragment();
         instance.setArguments(bundle);
-        return new ProvinceChooserFragment();
+        return instance;
     }
 
-    public ProvinceChooserFragment() {
-        super();
-        presenter = new ProvincePresenter(getContext(), false);
-        simpleListModel = new SimpleListModel<>(getContext());
+    @Override
+    protected void preBuild(Context context, @Nullable Bundle args) {
+        super.preBuild(context, args);
+        setPresenter(new ProvincePresenter(context, false));
+        setSimpleListModel(new SimpleListModel<ProvincieModel>(context));
     }
 
     /**
@@ -48,4 +51,5 @@ public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> 
         bundle.putBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), placeholder);
         return bundle;
     }
+
 }
