@@ -2,10 +2,12 @@ package es.marser.backgroundtools.listables.base.controller;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 
 import java.util.ArrayList;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.definition.RestorableInstanciable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -68,16 +70,16 @@ public class SelectionController implements SelectionItemsController, Restorable
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState, String id) {
         //Log.i(LOG_TAG.TAG, "GUARDADO  CONTROLADOR DE SELECCION " + TextTools.nc(id) + extras[0]);
         if (savedInstanceState != null) {
-        //    Log.i(LOG_TAG.TAG, "SELECCIONES " + getIdSelecteds().size());
+            //    Log.i(LOG_TAG.TAG, "SELECCIONES " + getIdSelecteds().size());
             savedInstanceState.putIntegerArrayList(TextTools.nc(id) + extras[0], getIdSelecteds());
             savedInstanceState.putInt(extras[1], lastposition);
             savedInstanceState.putInt(extras[2], position);
         }
     }
 
-   @Override
+    @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, String id) {
-      // Log.w(LOG_TAG.TAG, "RESTAURANDO  CONTROLADOR DE SELECCION " + TextTools.nc(id) + extras[0]);
+        // Log.w(LOG_TAG.TAG, "RESTAURANDO  CONTROLADOR DE SELECCION " + TextTools.nc(id) + extras[0]);
         if (savedInstanceState != null) {
             ArrayList<Integer> ids = savedInstanceState.getIntegerArrayList(TextTools.nc(id) + extras[0]);
             if (selectedItems == null) {
@@ -87,10 +89,10 @@ public class SelectionController implements SelectionItemsController, Restorable
             if (ids != null) {
                 for (Integer i : ids) {
                     this.selectedItems.put(i, true);
-               //     Log.v(LOG_TAG.TAG, "VALOR DE SELECCION " + i + "/"+selectedItems.get(i));
+                    //     Log.v(LOG_TAG.TAG, "VALOR DE SELECCION " + i + "/"+selectedItems.get(i));
                 }
 
-             //   Log.v(LOG_TAG.TAG, "SELECCIONES RESTAURADAS " + getIdSelecteds().size() + "/" + this.selectedItems.size());
+                //   Log.v(LOG_TAG.TAG, "SELECCIONES RESTAURADAS " + getIdSelecteds().size() + "/" + this.selectedItems.size());
 
             }
             lastposition = savedInstanceState.getInt(extras[1], -1);
@@ -126,9 +128,11 @@ public class SelectionController implements SelectionItemsController, Restorable
 
     @Override
     public boolean isEmptySelected() {
-        for (int i = 0; i <= selectedItems.size(); i++) {
-            if (selectedItems.valueAt(i))
-                return false;
+        for (int i = 0; i < selectedItems.size(); ++i) {
+            if (selectedItems.valueAt(i)) {
+                Log.w(LOG_TAG.TAG, "Comprobación " + i + " " + selectedItems.valueAt(i) + "/" + selectedItems.keyAt(i));
+               return false;
+            }
         }
         return true;
     }
@@ -136,7 +140,7 @@ public class SelectionController implements SelectionItemsController, Restorable
     @Override
     public ArrayList<Integer> getIdSelecteds() {
         ArrayList<Integer> selected = new ArrayList<>();
-        for (int i = 0; i < selectedItems.size(); i++) {
+        for (int i = 0; i < selectedItems.size(); ++i) {
             if (selectedItems.valueAt(i)) {
                 selected.add(selectedItems.keyAt(i));
             }
@@ -168,7 +172,7 @@ public class SelectionController implements SelectionItemsController, Restorable
         if (selectedItems.get(position)) {
             return position;
         }
-        for (int i = 0; i <= selectedItems.size(); i++) {
+        for (int i = 0; i < selectedItems.size(); ++i) {
             if (selectedItems.valueAt(i))
                 return (selectedItems.keyAt(i));
         }

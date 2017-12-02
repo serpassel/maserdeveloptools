@@ -10,6 +10,7 @@ import es.marser.maserdeveloptools.backgroundtest.DialogTest;
 import es.marser.maserdeveloptools.backgroundtest.LaunchToastTest;
 import es.marser.maserdeveloptools.backgroundtest.NotificationTest;
 import es.marser.maserdeveloptools.backgroundtest.NotificationTest2;
+import es.marser.maserdeveloptools.listables.SelectionControllerTest;
 import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest;
 import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest2;
 
@@ -25,7 +26,8 @@ import es.marser.maserdeveloptools.sqltools.CRUDHandlerTest2;
         CRUDHandlerTest.class,
         CRUDHandlerTest2.class,
         NotificationTest.class,
-        NotificationTest2.class
+        NotificationTest2.class,
+        SelectionControllerTest.class
 })
 public class AndroidSuiteTest {
 

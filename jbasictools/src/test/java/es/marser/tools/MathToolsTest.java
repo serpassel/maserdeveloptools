@@ -5,8 +5,6 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import es.marser.tools.MathTools;
-
 
 /**
  * @author sergio
@@ -42,6 +40,9 @@ public class MathToolsTest {
         Assert.assertEquals("1200.13", MathTools.unFormatNumber("1.200,13"));
         Assert.assertEquals("1400.13", MathTools.unFormatNumber("1,400.13"));
         Assert.assertEquals("2111400.13", MathTools.unFormatNumber("2.111.400,13"));
+        Assert.assertTrue(MathTools.isEven(0));
+        Assert.assertTrue(MathTools.isEven(44));
+        Assert.assertFalse(MathTools.isEven(3));
     }
 
     @Test

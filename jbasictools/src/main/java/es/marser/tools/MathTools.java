@@ -502,6 +502,18 @@ public abstract class MathTools {
         return areEquals(round(new BigDecimal(num1), round), round(new BigDecimal(num2), round));
     }
 
+    /**
+     * Comprueba si un número es par
+     * <p>
+     * [EN]  Check if a number is even
+     *
+     * @param in Número de entrada
+     * @return Verdadero si es par falso si es impar [EN]  True if it is a false even if it is odd
+     */
+    public static boolean isEven(int in) {
+        return isMultiple(in, 2);
+    }
+
 // 5.- FORMATEO DE NUMEROS_________________________________________________________
 // 5.- FORMAT OF NUMBERS____________________________________________________________
 
