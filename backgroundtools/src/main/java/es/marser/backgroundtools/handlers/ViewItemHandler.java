@@ -1,7 +1,7 @@
 package es.marser.backgroundtools.handlers;
 
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 
 /**
  * @author sergio

@@ -3,7 +3,7 @@ package es.marser.backgroundtools.handlers;
 import android.os.Parcelable;
 
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
+import es.marser.backgroundtools.listables.complex.models.ExpandableGroup;
 
 /**
  * @author sergio
@@ -22,10 +22,10 @@ public interface ViewComplexHandler<X extends ExpandableGroup<T>, T extends Parc
      * <p>
      * Called when a group is expanded
      *
-     * @param positionStart la posición plana del primer anidado en el {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     * the flat position of the first child in the {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     * @param itemCount     el número total de anidados en el {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     *                      the total number of children in the {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
+     * @param positionStart la posición plana del primer anidado en el {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     * the flat position of the first child in the {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     * @param itemCount     el número total de anidados en el {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     *                      the total number of children in the {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
      */
     void onGroupExpanded(X group);
 
@@ -35,10 +35,10 @@ public interface ViewComplexHandler<X extends ExpandableGroup<T>, T extends Parc
      * <p>
      * Called when a group is collapsed
      *
-     * @param positionStart la posición plana del primer anidado en el {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     *                      the flat position of the first child in the {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     * @param itemCount     el número total de anidados en el {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
-     *                      the total number of children in the {@link es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup}
+     * @param positionStart la posición plana del primer anidado en el {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     *                      the flat position of the first child in the {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     * @param itemCount     el número total de anidados en el {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
+     *                      the total number of children in the {@link es.marser.backgroundtools.listables.complex.models.ExpandableGroup}
      */
     void onGroupCollapsed(X group);
 

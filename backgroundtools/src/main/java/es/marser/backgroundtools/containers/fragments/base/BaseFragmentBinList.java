@@ -13,9 +13,9 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.objectslistables.base.controller.SelectionControllerD;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.simple.adapter.SimpleListAdapterDecrep;
+import es.marser.backgroundtools.listables.base.controller.SelectionControllerD;
+import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapterDecrep;
 
 /**
  * @author sergio

@@ -3,7 +3,7 @@ package es.marser.backgroundtools.handlers;
 import android.os.Parcelable;
 import android.view.View;
 
-import es.marser.backgroundtools.objectslistables.complex.models.ExpandableGroup;
+import es.marser.backgroundtools.listables.complex.models.ExpandableGroup;
 
 /**
  * @author sergio

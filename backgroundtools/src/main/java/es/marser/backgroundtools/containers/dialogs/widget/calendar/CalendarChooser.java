@@ -26,7 +26,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;

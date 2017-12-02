@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.base.model.Selectionable;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
-import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
+import es.marser.backgroundtools.listables.base.model.Selectionable;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 
 /**
  * @author sergio

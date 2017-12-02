@@ -16,7 +16,7 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
 

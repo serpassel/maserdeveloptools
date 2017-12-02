@@ -5,7 +5,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
 
 /**
  * @author sergio

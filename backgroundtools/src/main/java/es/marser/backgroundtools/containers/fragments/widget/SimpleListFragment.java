@@ -5,8 +5,8 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentListBin;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
-import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 
 /**
  * @author sergio

@@ -19,10 +19,10 @@ import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.handlers.WindowAction;
-import es.marser.backgroundtools.objectslistables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
-import es.marser.backgroundtools.objectslistables.simple.presenter.SimpleListPresenter;
+import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 import es.marser.tools.TextTools;
 
 /**

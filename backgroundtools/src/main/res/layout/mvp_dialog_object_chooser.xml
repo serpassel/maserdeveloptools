@@ -15,11 +15,11 @@
             name="handler"
             type="ViewHandler" />
 
-        <import type="es.marser.backgroundtools.objectslistables.base.model.AdapterModel" />
+        <import type="es.marser.backgroundtools.listables.base.model.AdapterModel" />
 
         <variable
             name="listmodel"
-            type="es.marser.backgroundtools.objectslistables.base.model.AdapterModel" />
+            type="es.marser.backgroundtools.listables.base.model.AdapterModel" />
 
 
 

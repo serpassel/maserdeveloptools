@@ -12,7 +12,7 @@ import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.generic.GenericFactory;

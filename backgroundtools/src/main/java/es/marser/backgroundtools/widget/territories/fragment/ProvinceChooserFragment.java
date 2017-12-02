@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.containers.fragments.widget.SimpleListFragment;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
 

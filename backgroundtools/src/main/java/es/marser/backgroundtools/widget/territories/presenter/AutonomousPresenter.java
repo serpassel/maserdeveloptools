@@ -7,12 +7,12 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
-import es.marser.backgroundtools.objectslistables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.objectslistables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.TextTools;
