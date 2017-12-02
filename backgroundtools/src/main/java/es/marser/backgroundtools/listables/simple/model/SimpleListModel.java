@@ -25,7 +25,6 @@ import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
 import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
-import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
 
 /**
  * @author sergio
@@ -78,7 +77,6 @@ public class SimpleListModel<T extends Parcelable>
         adapter = new SimpleListAdapter<>(holderLayout);
         this.layoutManager = layoutManager;
     }
-
 
     //ADAPTER MODEL_________________________________________________
     @Override
