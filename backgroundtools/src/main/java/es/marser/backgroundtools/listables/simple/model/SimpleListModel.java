@@ -5,13 +5,13 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
 
 import java.util.List;
 
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -25,6 +25,7 @@ import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
 import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
+import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
 
 /**
  * @author sergio
@@ -44,17 +45,40 @@ public class SimpleListModel<T extends Parcelable>
 
     private Context context;
     protected SimpleListAdapter<T> adapter;
+    protected RecyclerView.LayoutManager layoutManager;
+
+    private static int defaultHolderLayout = R.layout.mvp_item_object_chooser;
 
     //CONSTRUCTORS_____________________________________________
-    public SimpleListModel(Context context) {
-        this.context = context;
-        adapter = new SimpleListAdapter<>();
+    public SimpleListModel(@NonNull Context context) {
+        this(context, defaultHolderLayout);
     }
 
-    public SimpleListModel(Context context, int holderLayout) {
-        this.context = context;
-        adapter = new SimpleListAdapter<>(holderLayout);
+    public SimpleListModel(@NonNull Context context, int holderLayout) {
+        this(context, new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false), holderLayout);
     }
+
+    public SimpleListModel(@NonNull Context context, int rows, int holderLayout) {
+        this(context,
+                rows < 2
+                        ? new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        : new GridLayoutManager(context, rows),
+                holderLayout);
+    }
+
+    public SimpleListModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
+        this(context, layoutManager, defaultHolderLayout);
+    }
+
+    public SimpleListModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
+        this.context = context;
+        if (holderLayout < -1) {
+            holderLayout = defaultHolderLayout;
+        }
+        adapter = new SimpleListAdapter<>(holderLayout);
+        this.layoutManager = layoutManager;
+    }
+
 
     //ADAPTER MODEL_________________________________________________
     @Override
@@ -69,7 +93,7 @@ public class SimpleListModel<T extends Parcelable>
 
     @Override
     public RecyclerView.LayoutManager getLayoutManager() {
-        return new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+        return layoutManager;
     }
 
     //GETTERS___________________________________________________
@@ -101,6 +125,10 @@ public class SimpleListModel<T extends Parcelable>
         if (adapter != null) {
             adapter.removeTouchableViewHandler();
         }
+    }
+
+    public void setLayoutManager(@NonNull RecyclerView.LayoutManager layoutManager) {
+        this.layoutManager = layoutManager;
     }
 
     //ADAPTER ITEMS CONTROLLER___________________________________
@@ -208,43 +236,15 @@ public class SimpleListModel<T extends Parcelable>
     }
 
     //SAVED AND RESTORE_____________________________________________________________
-    /**
-     * Called to ask the fragment to save its current dynamic state, so it
-     * can later be reconstructed in a new instance of its process is
-     * restarted.  If a new instance of the fragment later needs to be
-     * created, the data you place in the Bundle here will be available
-     * in the Bundle given to {@link #onCreate(Bundle)},
-     * {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}, and
-     * {@link #onActivityCreated(Bundle)}.
-     * <p>
-     * <p>This corresponds to {@link Activity#onSaveInstanceState(Bundle)
-     * Activity.onSaveInstanceState(Bundle)} and most of the discussion there
-     * applies here as well.  Note however: <em>this method may be called
-     * at any time before {@link #onDestroy()}</em>.  There are many situations
-     * where a fragment may be mostly torn down (such as when placed on the
-     * back stack with no UI showing), but its state will not be saved until
-     * its owning activity actually needs to save its state.
-     */
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-    //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
+        //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
         if (adapter != null) {
-      //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
+            //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
             adapter.onSaveInstanceState(savedInstanceState);
         }
     }
 
-    /**
-     * Called when all saved state has been restored into the view hierarchy
-     * of the fragment.  This can be used to do initialization based on saved
-     * state that you are letting the view hierarchy track itself, such as
-     * whether check box widgets are currently checked.  This is called
-     * after {@link #onActivityCreated(Bundle)} and before
-     * {@link #onStart()}.
-     *
-     * @param savedInstanceState If the fragment is being re-created from
-     *                           a previous saved state, this is the state.
-     */
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {

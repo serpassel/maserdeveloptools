@@ -19,15 +19,11 @@ import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
 public class SimpleFileListModel extends SimpleListModel<FileModel> {
     //CONTRUCTORS______________________________________________________________
     public SimpleFileListModel(Context context) {
-        super(context, R.layout.mvp_item_file_model);
+        this(context, R.layout.mvp_item_file_model);
     }
 
     public SimpleFileListModel(Context context, int holderLayout) {
-        super(context, holderLayout);
+        super(context, 3, holderLayout);
     }
 
-    @Override
-    public RecyclerView.LayoutManager getLayoutManager() {
-            return new GridLayoutManager(getContext(), 3);
-    }
 }
