@@ -16,8 +16,7 @@ import java.util.ArrayList;
 public interface ExpandItemsController {
 
     /**
-     *
-     * @param id índice del objeto [EN]  object index
+     * @param id    índice del objeto [EN]  object index
      * @param value valor de estado para expansión [EN]  state value for expansion
      */
     void setExpand(int id, boolean value);
@@ -40,6 +39,13 @@ public interface ExpandItemsController {
     void collapseAll();
 
     /**
+     * Expande todas las vistas
+     * <p>
+     * [EN]  Expand all views
+     */
+    void expandAll(int count);
+
+    /**
      * Eliminar la varible de expansión de una posición
      * <p>
      * [EN]  Remove the expansion variable from a position
@@ -57,13 +63,6 @@ public interface ExpandItemsController {
      * @return valor del nuevo estado de la posición [EN]  value of the new status of the position
      */
     boolean toggleExpand(int id);
-
-    /**
-     * Limpiar selección. Notificada
-     * <p>
-     * [EN]  Clear selection.  Notified
-     */
-    void deselectedAll();
 
     /**
      * Estado de expansión de una posición

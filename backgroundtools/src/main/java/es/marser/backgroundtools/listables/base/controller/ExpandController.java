@@ -112,6 +112,17 @@ public class ExpandController implements ExpandItemsController, RestorableInstan
     }
 
     @Override
+    public void expandAll(int count) {
+        for (int i = 0; i < count; ++i) {
+            expandItems.put(i, true);
+              /*Notificar cambios de selección [EN]  Notify selection changes*/
+            if (onSelectionChanged != null) {
+                onSelectionChanged.onItemChaged(i);
+            }
+        }
+    }
+
+    @Override
     public void delete(int position) {
         try {
             expandItems.delete(position);
@@ -132,17 +143,6 @@ public class ExpandController implements ExpandItemsController, RestorableInstan
     }
 
     @Override
-    public void deselectedAll() {
-        /*Limpiar [EN]  Clean*/
-        expandItems.clear();
-
-        /*Notificar cambios de selección [EN]  Notify selection changes*/
-        if (onSelectionChanged != null) {
-            onSelectionChanged.onSelectionChanged();
-        }
-    }
-
-    @Override
     public boolean get(int position) {
         return expandItems.get(position);
     }
@@ -150,13 +150,17 @@ public class ExpandController implements ExpandItemsController, RestorableInstan
     @Override
     public void clear() {
         expandItems.clear();
+           /*Notificar cambios de selección [EN]  Notify selection changes*/
+        if (onSelectionChanged != null) {
+            onSelectionChanged.onSelectionChanged();
+        }
     }
 
     @Override
     @NonNull
     public ArrayList<Integer> getIdExpaned() {
         ArrayList<Integer> selected = new ArrayList<>();
-        for (int i = 0; i < expandItems.size(); i++) {
+        for (int i = 0; i < expandItems.size(); ++i) {
             if (expandItems.valueAt(i)) {
                 selected.add(expandItems.keyAt(i));
             }
