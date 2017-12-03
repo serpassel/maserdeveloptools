@@ -49,11 +49,11 @@ public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
                 holderLayout);
     }
 
-    public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
+    public BaseAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
         this(context, layoutManager, defaultHolderLayout);
     }
 
-    public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
+    public BaseAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
         this.context = context;
         this.layoutManager = layoutManager;
         if (holderLayout < 0) {

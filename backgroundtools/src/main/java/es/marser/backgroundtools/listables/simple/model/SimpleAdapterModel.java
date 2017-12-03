@@ -5,6 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.List;
@@ -51,11 +52,11 @@ public class SimpleAdapterModel<T extends Parcelable> extends BaseAdapterModel<T
         super(context, rows, holderLayout);
     }
 
-    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
+    public SimpleAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
         super(context, layoutManager);
     }
 
-    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
+    public SimpleAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
         super(context, layoutManager, holderLayout);
         this.adapter = new SimpleListAdapter<>(this.holderLayout);
     }
