@@ -16,7 +16,7 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
 
@@ -30,7 +30,7 @@ import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T,SimpleListModel<T>,  ChooserPresenter<T>> {
+        extends BaseDialogBinList<T,SimpleAdapterModel<T>,  ChooserPresenter<T>> {
 
     protected OnResult<List<T>> result;
 
@@ -46,7 +46,7 @@ public class ChooserDialog<T extends Selectable>
         instace.setArguments(bundle);
         instace.setResult(result);
         instace.setPresenter(presenter);
-        instace.setSimpleListModel(new SimpleListModel<T>(context, R.layout.mvp_item_object_chooser));
+        instace.setSimpleListModel(new SimpleAdapterModel<T>(context, R.layout.mvp_item_object_chooser));
         return instace;
     }
 
@@ -54,12 +54,12 @@ public class ChooserDialog<T extends Selectable>
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull ChooserPresenter<T> presenter,
-            @NonNull SimpleListModel<T> simpleListModel,
+            @NonNull SimpleAdapterModel<T> simpleAdapterModel,
             @Nullable OnResult<List<T>> result
     ) {
 
         ChooserDialog<T> instace = ChooserDialog.newInstance(context, bundle, presenter, result);
-        instace.setSimpleListModel(simpleListModel);
+        instace.setSimpleListModel(simpleAdapterModel);
         return instace;
     }
 

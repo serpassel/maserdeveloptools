@@ -27,7 +27,7 @@ import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
 import es.marser.backgroundtools.widget.files.dialogs.FileChooserDialog;
 import es.marser.backgroundtools.widget.files.model.FileModel;
-import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
+import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
 import es.marser.backgroundtools.widget.files.presenter.SimpleFileListPresenter;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
@@ -353,7 +353,7 @@ public class DialogExample {
                         SimpleFileListPresenter.BundleBuilder.createBundle(context),
                         readeable,
                         new SimpleFileListPresenter(context),
-                        new SimpleFileListModel(context),
+                        new SimpleFileAdapterModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
@@ -383,7 +383,7 @@ public class DialogExample {
                         SimpleFileListPresenter.BundleBuilder.createBundle(context, new String[]{".bc3"}),
                         readeable,
                         new SimpleFileListPresenter(context),
-                        new SimpleFileListModel(context),
+                        new SimpleFileAdapterModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {

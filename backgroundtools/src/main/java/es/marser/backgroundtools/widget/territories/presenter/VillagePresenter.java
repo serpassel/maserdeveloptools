@@ -11,7 +11,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
 import es.marser.generic.GenericFactory;
@@ -34,7 +34,7 @@ public class VillagePresenter extends ChooserPresenter<VillageModel> {
         super(context, multiselect_flag);
     }
 
-    public VillagePresenter(@NonNull Context context, @NonNull SimpleListModel<VillageModel> listModel) {
+    public VillagePresenter(@NonNull Context context, @NonNull SimpleAdapterModel<VillageModel> listModel) {
         super(context, listModel);
     }
 

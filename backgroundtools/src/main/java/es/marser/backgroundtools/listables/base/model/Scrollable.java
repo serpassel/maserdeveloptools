@@ -30,6 +30,7 @@ public interface Scrollable {
      * Guarda la posición del pimer elemento visible
      * <p>
      * [EN]  Save the position of the visible element pimer
+     * @return Posición de la primera vista visible
      */
     int getCurrentScrollPosition();
 

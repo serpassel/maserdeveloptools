@@ -18,7 +18,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.widget.files.OnPathChangedListener;
 import es.marser.backgroundtools.widget.files.model.FileModel;
-import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
+import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
 import es.marser.backgroundtools.widget.files.presenter.SimpleFileListPresenter;
 import es.marser.tools.TextTools;
 
@@ -33,7 +33,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class FileChooserDialog
-        extends BaseDialogBinList<FileModel, SimpleFileListModel, SimpleFileListPresenter> implements OnPathChangedListener {
+        extends BaseDialogBinList<FileModel, SimpleFileAdapterModel, SimpleFileListPresenter> implements OnPathChangedListener {
 
     protected OnResult<FileModel> result;
     protected boolean readablepermission;
@@ -54,7 +54,7 @@ public class FileChooserDialog
             @NonNull Bundle bundle,
             @NonNull boolean readablepermission,
             @NonNull SimpleFileListPresenter presenter,
-            @NonNull SimpleFileListModel model,
+            @NonNull SimpleFileAdapterModel model,
             @Nullable OnResult<FileModel> result
     ) {
 

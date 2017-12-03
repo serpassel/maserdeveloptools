@@ -21,7 +21,7 @@ import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 import es.marser.tools.TextTools;
 
@@ -34,7 +34,7 @@ import es.marser.tools.TextTools;
  */
 
 public class ChooserPresenter<T extends Selectable>
-        extends SimpleListPresenter<T, SimpleListModel<T>>
+        extends SimpleListPresenter<T, SimpleAdapterModel<T>>
         implements ViewHandler<Boolean> {
 
     public static ObservableBoolean multiselect;
@@ -53,7 +53,7 @@ public class ChooserPresenter<T extends Selectable>
         windowAction = null;
     }
 
-    public ChooserPresenter(@NonNull Context context, @NonNull SimpleListModel<T> listModel) {
+    public ChooserPresenter(@NonNull Context context, @NonNull SimpleAdapterModel<T> listModel) {
         super(context, listModel);
         multiselect_flag = true;
         multiselect = new ObservableBoolean();

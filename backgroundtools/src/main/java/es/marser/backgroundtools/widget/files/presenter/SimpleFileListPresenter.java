@@ -25,7 +25,7 @@ import es.marser.backgroundtools.systemtools.FilePathUtil;
 import es.marser.backgroundtools.widget.files.OnPathChangedListener;
 import es.marser.backgroundtools.widget.files.model.FileModel;
 import es.marser.backgroundtools.widget.files.model.FileModelOrderByName;
-import es.marser.backgroundtools.widget.files.model.SimpleFileListModel;
+import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
 import es.marser.tools.TextTools;
 
 /**
@@ -37,7 +37,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, SimpleFileListModel>
+public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, SimpleFileAdapterModel>
         implements ViewHandler<FileModel> {
 
     private OnPathChangedListener listener;
@@ -49,7 +49,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         super(context);
     }
 
-    public SimpleFileListPresenter(@NonNull Context context, @NonNull SimpleFileListModel listModel) {
+    public SimpleFileListPresenter(@NonNull Context context, @NonNull SimpleFileAdapterModel listModel) {
         super(context, listModel);
     }
 

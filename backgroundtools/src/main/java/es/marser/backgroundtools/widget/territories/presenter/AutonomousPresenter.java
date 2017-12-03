@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -33,7 +33,7 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
         super(context);
     }
 
-    public AutonomousPresenter(@NonNull Context context, @NonNull SimpleListModel<AutonomousModel> listModel) {
+    public AutonomousPresenter(@NonNull Context context, @NonNull SimpleAdapterModel<AutonomousModel> listModel) {
         super(context, listModel);
     }
 

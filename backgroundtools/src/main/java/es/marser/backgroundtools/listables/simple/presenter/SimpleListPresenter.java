@@ -12,7 +12,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.presenter.AdapterPresenter;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 /**
  * @author sergio
@@ -23,7 +23,7 @@ import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
  */
 
 @SuppressWarnings("unused")
-public abstract class SimpleListPresenter<T extends Parcelable, SLM extends SimpleListModel<T>>
+public abstract class SimpleListPresenter<T extends Parcelable, SLM extends SimpleAdapterModel<T>>
         implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     protected Context context;

@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 
 /**
@@ -21,7 +21,7 @@ import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 @SuppressWarnings("unused")
 public abstract class BaseDialogBinList<
         T extends Parcelable,
-        SLM extends SimpleListModel<T>,
+        SLM extends SimpleAdapterModel<T>,
         SLP extends SimpleListPresenter<T, SLM>
         >
         extends BaseDialogBin

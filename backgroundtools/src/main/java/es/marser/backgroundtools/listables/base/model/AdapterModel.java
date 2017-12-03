@@ -1,6 +1,7 @@
 package es.marser.backgroundtools.listables.base.model;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,13 +20,21 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
  */
 
 @SuppressWarnings("unused")
-public interface AdapterModel {
+public interface AdapterModel<ADP extends BaseListAdapter> extends Scrollable {
 
     /**
-     *
      * @return Adaptador de listas {@link BaseListAdapter}
      */
-    BaseListAdapter getAdapter();
+    ADP getAdapter();
+
+    /**
+     * Establecer adaptador
+     * <p>
+     * [EN]  Set adapter
+     *
+     * @param adapter Adaptador de listas [EN]  List adapter
+     */
+    void setAdapter(ADP adapter);
 
     /**
      * Verdadero si la aplicación ha especificado que los cambios
@@ -52,7 +61,16 @@ public interface AdapterModel {
      * [EN]  gestor del layout {@link LinearLayoutManager#VERTICAL}
      * Optional can be {@link GridLayoutManager}
      */
-    RecyclerView.LayoutManager getLayoutManager();
+   RecyclerView.LayoutManager getLayoutManager();
+
+    /**
+     * Establece el gestor del diseño de la lista
+     * <p>
+     * [EN]  Sets the layout manager of the list
+     *
+     * @param layoutManager gestor del diseño de la lista [EN]  design manager of the list
+     */
+    void setLayoutManager(@NonNull RecyclerView.LayoutManager layoutManager);
 
     /**
      * Called to ask the fragment to save its current dynamic state, so it

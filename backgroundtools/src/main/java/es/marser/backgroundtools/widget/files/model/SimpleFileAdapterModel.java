@@ -1,11 +1,9 @@
 package es.marser.backgroundtools.widget.files.model;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 /**
  * @author sergio
@@ -16,13 +14,13 @@ import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
  */
 
 @SuppressWarnings("unused")
-public class SimpleFileListModel extends SimpleListModel<FileModel> {
+public class SimpleFileAdapterModel extends SimpleAdapterModel<FileModel> {
     //CONTRUCTORS______________________________________________________________
-    public SimpleFileListModel(Context context) {
+    public SimpleFileAdapterModel(Context context) {
         this(context, R.layout.mvp_item_file_model);
     }
 
-    public SimpleFileListModel(Context context, int holderLayout) {
+    public SimpleFileAdapterModel(Context context, int holderLayout) {
         super(context, 3, holderLayout);
     }
 

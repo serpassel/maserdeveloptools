@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.containers.fragments.widget.SimpleListFragment;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.listables.simple.model.SimpleListModel;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
 
@@ -31,7 +31,7 @@ public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> 
     protected void preBuild(Context context, @Nullable Bundle args) {
         super.preBuild(context, args);
         setPresenter(new ProvincePresenter(context, false));
-        setSimpleListModel(new SimpleListModel<ProvincieModel>(context));
+        setSimpleListModel(new SimpleAdapterModel<ProvincieModel>(context));
     }
 
     /**

@@ -1,23 +1,19 @@
 package es.marser.backgroundtools.listables.simple.model;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.List;
 
-import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.model.AdapterItemsController;
-import es.marser.backgroundtools.listables.base.model.AdapterModel;
+import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.listables.base.model.SelectedsModel;
@@ -35,68 +31,33 @@ import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
  */
 
 @SuppressWarnings("unused")
-public class SimpleListModel<T extends Parcelable>
-        implements AdapterModel,
+public class SimpleAdapterModel<T extends Parcelable> extends BaseAdapterModel<T, SimpleListAdapter<T>>
+        implements
         AdapterItemsController<T>,
         SelectedsModel<T>,
         SelectionItemsManager,
         ExpandItemsManager, Selectionable {
 
-    private Context context;
-    protected SimpleListAdapter<T> adapter;
-    protected RecyclerView.LayoutManager layoutManager;
-
-    private static int defaultHolderLayout = R.layout.mvp_item_object_chooser;
-
     //CONSTRUCTORS_____________________________________________
-    public SimpleListModel(@NonNull Context context) {
-        this(context, defaultHolderLayout);
+    public SimpleAdapterModel(@NonNull Context context) {
+        super(context);
     }
 
-    public SimpleListModel(@NonNull Context context, int holderLayout) {
-        this(context, new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false), holderLayout);
+    public SimpleAdapterModel(@NonNull Context context, int holderLayout) {
+        super(context, holderLayout);
     }
 
-    public SimpleListModel(@NonNull Context context, int rows, int holderLayout) {
-        this(context,
-                rows < 2
-                        ? new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        : new GridLayoutManager(context, rows),
-                holderLayout);
+    public SimpleAdapterModel(@NonNull Context context, int rows, int holderLayout) {
+        super(context, rows, holderLayout);
     }
 
-    public SimpleListModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
-        this(context, layoutManager, defaultHolderLayout);
+    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
+        super(context, layoutManager);
     }
 
-    public SimpleListModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
-        this.context = context;
-        if (holderLayout < -1) {
-            holderLayout = defaultHolderLayout;
-        }
-        adapter = new SimpleListAdapter<>(holderLayout);
-        this.layoutManager = layoutManager;
-    }
-
-    //ADAPTER MODEL_________________________________________________
-    @Override
-    public BaseListAdapter getAdapter() {
-        return adapter;
-    }
-
-    @Override
-    public boolean isHasFixedSize() {
-        return true;
-    }
-
-    @Override
-    public RecyclerView.LayoutManager getLayoutManager() {
-        return layoutManager;
-    }
-
-    //GETTERS___________________________________________________
-    public Context getContext() {
-        return context;
+    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
+        super(context, layoutManager, holderLayout);
+        this.adapter = new SimpleListAdapter<>(this.holderLayout);
     }
 
     //SETTERS____________________________________________________
@@ -125,10 +86,6 @@ public class SimpleListModel<T extends Parcelable>
         }
     }
 
-    public void setLayoutManager(@NonNull RecyclerView.LayoutManager layoutManager) {
-        this.layoutManager = layoutManager;
-    }
-
     //ADAPTER ITEMS CONTROLLER___________________________________
     @Nullable
     @Override
@@ -151,6 +108,10 @@ public class SimpleListModel<T extends Parcelable>
 
     @Override
     public void add(@Nullable T item) {
+        if (item != null) {
+            Log.w(LOG_TAG.TAG, "Insertado " + item.toString());
+        }
+
         if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().add(item);
         }
@@ -233,39 +194,4 @@ public class SimpleListModel<T extends Parcelable>
         return adapter != null ? adapter.getExpandItemsController() : null;
     }
 
-    //SAVED AND RESTORE_____________________________________________________________
-    @Override
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-        //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
-        if (adapter != null) {
-            //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
-            adapter.onSaveInstanceState(savedInstanceState);
-        }
-    }
-
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            if (adapter != null) {
-                adapter.onRestoreInstanceState(savedInstanceState);
-            }
-        }
-    }
-
-    //SELECTIONABLE_________________________________________________________________
-
-    @Nullable
-    @Override
-    public ListExtra getSelectionmode() {
-        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
-        return selectionable != null ? selectionable.getSelectionmode() : null;
-    }
-
-    @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
-        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
-        if (selectionable != null) {
-            selectionable.setSelectionmode(selectionmode);
-        }
-    }
 }
