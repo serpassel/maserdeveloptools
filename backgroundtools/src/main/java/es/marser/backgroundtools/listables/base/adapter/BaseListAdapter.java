@@ -61,6 +61,8 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     private int attachedAnim;
     private int detachedAnim;
 
+    protected  SparseIntArray sparseHolderLayout;
+
 
     private static String[] baselistadapterKey = {
             "enabledAttachedAnimHolders_key",
@@ -102,6 +104,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         enabledDetachedAnimHolders = false;
         attachedAnim = R.anim.slide_left_end;
         detachedAnim = R.anim.slide_right_end;
+        sparseHolderLayout = new SparseIntArray();
     }
 
     //ANIMATIONS_____________________________________________________________________
@@ -145,18 +148,9 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
 
 
     //ACTION EVENTS_______________________________________________________________________________________________
-    /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
-
-    /**
-     * Selector de vista.
-     * La clave conicidente con el el viewType y el valor la vista la layout del ViewHolder
-     * <p>
-     * [EN]  View selector
-     * The key conicidente with the the viewType and the value the view the layout of the ViewHolder
-     *
-     * @return key, R.layout.XXXXX
-     */
-    protected abstract SparseIntArray sparseHolderLayout();
+    public void setHolderLayout(ViewHolderType type, int holderLayout){
+        sparseHolderLayout.put(type.ordinal(), holderLayout);
+    }
 
     //OVERRIDE SUPERCLASS__________________________________________________________________________
 
@@ -165,7 +159,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     /*Recuperar inflador de vistas [EN]  Recover view inflator*/
         LayoutInflater layoutInflater = LayoutInflater.from((parent.getContext()));
     /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
-        ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, sparseHolderLayout().get(viewType), parent, false);
+        ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, sparseHolderLayout.get(viewType), parent, false);
         /*Nueva instancia de la vista [EN]  New view instance*/
         return onCreateViewHolder(dataBinding, viewType);
     }

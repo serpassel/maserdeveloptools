@@ -16,7 +16,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.table.adapter.TableListAdapter;
+import es.marser.backgroundtools.listables.table.adapter.TableListAdapterDECREP;
 
 /**
  * @author sergio
@@ -30,7 +30,7 @@ import es.marser.backgroundtools.listables.table.adapter.TableListAdapter;
 public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parcelable>
         extends BaseFragmentList {
 
-    protected TableListAdapter<H, B> adapter;
+    protected TableListAdapterDECREP<H, B> adapter;
 
     public BaseFragmentBinTable() {
         super();
@@ -142,7 +142,7 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
        // Log.i(LOG_TAG.TAG, "Adaptador nulo: " + (adapter == null));
 
         if (adapter == null) {
-            adapter = new TableListAdapter<H, B>() {
+            adapter = new TableListAdapterDECREP<H, B>() {
                 @Override
                 public int getHeadHolderLayout() {
                     return BaseFragmentBinTable.this.getHeadHolderLayout();

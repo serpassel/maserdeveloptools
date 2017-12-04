@@ -4,7 +4,6 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.SparseIntArray;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
@@ -33,9 +32,6 @@ public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
         implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager, SelectedsModelManager<T> {
 
-    /*Variable vista de los elementos [EN]  Variable view of the elements*/
-    private int holderLayout;
-
     /*Variables de Eventos de pulsación en vistas menores [EN]  Pulse events variables in child views*/
     private TouchableViewHandler<T> touchableViewHandler;
     /*Variables de control [EN]  Control variables*/
@@ -47,25 +43,14 @@ public class SimpleListAdapter<T extends Parcelable>
     }
 
     public SimpleListAdapter(int holderLayout) {
-        this.holderLayout = holderLayout;
+        setHolderLayout(ViewHolderType.SIMPLE, holderLayout);
         this.touchableViewHandler = null;
 
         adapterController = new AdapterController<>();
         adapterController.setChangedListener(this);
     }
 
-    //OVERRIDE SUPERCLASS_____________________________________________________________________________
-        /*Sobreescritura de  RecyclerView.Adapter [EN]  RecyclerView.Adapter Overwrite*/
-    @Override
-    public int getItemCount() {
-        return adapterController.size();
-    }
-
-    //VARIABLE ACCESS___________________________________________________________________________________
-
-    public void setHolderLayout(int holderLayout) {
-        this.holderLayout = holderLayout;
-    }
+    //VARIABLE ACCESS______________________________________________________________________________
 
     public void setTouchableViewHandler(TouchableViewHandler<T> touchableViewHandler) {
         this.touchableViewHandler = touchableViewHandler;
@@ -106,12 +91,10 @@ public class SimpleListAdapter<T extends Parcelable>
         this.adapterController = adapterController;
     }
 
-    //OVERRIDE SUPERCLASS______________________________________________________________________________
+    //OVERRIDE SUPERCLASS_________________________________________________________________________
     @Override
-    protected SparseIntArray sparseHolderLayout() {
-        SparseIntArray intArray = new SparseIntArray();
-        intArray.put(ViewHolderType.SIMPLE.ordinal(), holderLayout);
-        return intArray;
+    public int getItemCount() {
+        return adapterController.size();
     }
 
     @Override

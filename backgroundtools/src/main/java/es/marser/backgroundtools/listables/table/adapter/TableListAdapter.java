@@ -4,14 +4,14 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.util.SparseIntArray;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.listables.base.adapter.BaseListAdapterDecrep;
+import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
@@ -30,134 +30,153 @@ import es.marser.backgroundtools.listables.table.holder.TitleViewHolderBinding;
 
 @SuppressWarnings({"SameReturnValue", "unused"})
 public abstract class TableListAdapter<H extends Parcelable, B extends Parcelable>
-        extends BaseListAdapterDecrep {
+        extends BaseListAdapter {
 
-    /*Controlador de cabecera [EN]  Header controller*/
-    public AdapterController<Selectable> tAdapterController;
-    /*Controlador de cabecera [EN]  Header controller*/
-    public AdapterController<H> hAdapterController;
-    /*Controlador de cuerpo [EN]  Body controller*/
-    public AdapterController<B> bAdapterController;
+    /*Eventos sobre vistas menores [EN]  Events on minor views*/
+    private TouchableViewHandler<Selectable> titleTouchableViewHandler;
+    private TouchableViewHandler<H> headTouchableViewHandler;
+    private TouchableViewHandler<B> bodyTouchableViewHandler;
+
+    /*Controladores de selección y expansión [EN]  Selection and expansion controllers*/
+    public AdapterController<Selectable> titleAdapterController;
+    public AdapterController<H> headAdapterController;
+    public AdapterController<B> bodyAdapterController;
+
+    public LinkedList<AdapterController> adapterControllers;
 
     /*Controlador de tipos de vista [EN]  View type controller*/
     protected ArrayList<Integer> types;
 
-    private static String[] extras = new String[]{"types_extras"};
-
-    /*Controlador de pulsaciones*/
-    public ViewItemHandler<H> getHeadItemHandler() {
-        return null;
-    }
-
-    public ViewItemHandler<B> getBodyItemHandler() {
-        return null;
-    }
-
-    public ViewItemHandler<Selectable> getTitleItemHandler() {
-        return null;
-    }
-
-    /*Control de pulsaciones en las vistas inferiores [EN]  Pulse control in the bottom views*/
-    public TouchableViewHandler<H> getHeadTouchableViewHandler() {
-        return null;
-    }
-
-    public TouchableViewHandler<B> getBodyTouchableViewHandler() {
-        return null;
-    }
-
-    public TouchableViewHandler<Selectable> getTitleTouchableViewHandler() {
-        return null;
-    }
+    private static String[] extras = new String[]{"types_extras", "tholderlayout_key", "hholderlayout_key", "bholderlayout_key"};
 
     public TableListAdapter() {
+        adapterControllers = new LinkedList<>();
 
+        adapterControllers.add(new AdapterController<Selectable>(ViewHolderType.TITLE.ordinal()));
+        adapterControllers.add(new AdapterController<H>(ViewHolderType.HEAD.ordinal()));
+        adapterControllers.add(new AdapterController<B>(ViewHolderType.BODY.ordinal()));
 
-        tAdapterController = new AdapterController<>(ViewHolderType.TITLE.ordinal());
-        tAdapterController.setChangedListener(this);
-        tAdapterController.setViewItemHandler(getTitleItemHandler());
+        titleAdapterController = new AdapterController<>(ViewHolderType.TITLE.ordinal());
+        titleAdapterController.setChangedListener(this);
 
-        hAdapterController = new AdapterController<>(ViewHolderType.HEAD.ordinal());
-        hAdapterController.setChangedListener(this);
-        hAdapterController.setViewItemHandler(getHeadItemHandler());
+        headAdapterController = new AdapterController<>(ViewHolderType.HEAD.ordinal());
+        headAdapterController.setChangedListener(this);
 
-        bAdapterController = new AdapterController<>(ViewHolderType.BODY.ordinal());
-        bAdapterController.setChangedListener(this);
-        bAdapterController.setViewItemHandler(getBodyItemHandler());
+        bodyAdapterController = new AdapterController<>(ViewHolderType.BODY.ordinal());
+        bodyAdapterController.setChangedListener(this);
 
         types = new ArrayList<>();
-
     }
 
-    //SAVED AND RESTORE_____________________________________________________________
-
-    @Override
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-
-        if(tAdapterController != null){
-            tAdapterController.onSaveInstanceState(savedInstanceState);
-        }
-
-        if (hAdapterController != null) {
-            hAdapterController.onSaveInstanceState(savedInstanceState);
-        }
-
-        if (bAdapterController != null) {
-            bAdapterController.onSaveInstanceState(savedInstanceState);
-        }
-
-        if (savedInstanceState != null) {
-            savedInstanceState.putIntegerArrayList(extras[0], types);
-        }
+    public TableListAdapter(int headHolderLayout, int bodyHolderLayout) {
+        this(-1, headHolderLayout, bodyHolderLayout);
     }
 
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (tAdapterController != null) {
-            if (savedInstanceState != null) {
-                tAdapterController.onRestoreInstanceState(savedInstanceState);
-            }
-        }
-        if (hAdapterController != null) {
-            if (savedInstanceState != null) {
-                hAdapterController.onRestoreInstanceState(savedInstanceState);
-            }
-        }
-
-        if (bAdapterController != null) {
-            if (savedInstanceState != null) {
-                bAdapterController.onRestoreInstanceState(savedInstanceState);
-            }
-        }
-
-        if (savedInstanceState != null) {
-            types = savedInstanceState.getIntegerArrayList(extras[0]) != null
-                    ? savedInstanceState.getIntegerArrayList(extras[0])
-                    : new ArrayList<Integer>();
-        }
-
-        notifyDataSetChanged();
+    public TableListAdapter(int titleHolderLayout, int headHolderLayout, int bodyHolderLayout) {
+        this();
+        setHolderLayout(ViewHolderType.TITLE, titleHolderLayout);
+        setHolderLayout(ViewHolderType.HEAD, headHolderLayout);
+        setHolderLayout(ViewHolderType.BODY, bodyHolderLayout);
     }
 
     //METHODS FOR OVERWRITING__________________________________________________________________________
-    public abstract int getHeadHolderLayout();
+    public TouchableViewHandler<Selectable> getTitleTouchableViewHandler() {
+        return titleTouchableViewHandler;
+    }
 
-    public abstract int getBodyHolderLayout();
+    public void setTitleTouchableViewHandler(TouchableViewHandler<Selectable> tTouchableViewHandler) {
+        this.titleTouchableViewHandler = tTouchableViewHandler;
+    }
 
-    public int getTitleHolderLayout(){
-        return -1;
+    public void removedTitleTouchableViewHandler() {
+        setTitleTouchableViewHandler(null);
+    }
+
+    public TouchableViewHandler<H> getHeadTouchableViewHandler() {
+        return headTouchableViewHandler;
+    }
+
+    public void setHeadTouchableViewHandler(TouchableViewHandler<H> hTouchableViewHandler) {
+        this.headTouchableViewHandler = hTouchableViewHandler;
+    }
+
+    public void removedHeadTouchableViewHandler() {
+        setHeadTouchableViewHandler(null);
+    }
+
+    public TouchableViewHandler<B> getBodyTouchableViewHandler() {
+        return bodyTouchableViewHandler;
+    }
+
+    public void setBodyTouchableViewHandler(TouchableViewHandler<B> bTouchableViewHandler) {
+        this.bodyTouchableViewHandler = bTouchableViewHandler;
+    }
+
+    public void removedBodyTouchableViewHandler() {
+        setBodyTouchableViewHandler(null);
+    }
+
+    public AdapterController<Selectable> getTitleAdapterController() {
+        return titleAdapterController;
+    }
+
+    public void setTitleAdapterController(AdapterController<Selectable> titleAdapterController) {
+        this.titleAdapterController = titleAdapterController;
+    }
+
+    public AdapterController<H> getHeadAdapterController() {
+        return headAdapterController;
+    }
+
+    public void setHeadAdapterController(AdapterController<H> headAdapterController) {
+        this.headAdapterController = headAdapterController;
+    }
+
+    public AdapterController<B> getBodyAdapterController() {
+        return bodyAdapterController;
+    }
+
+    public void setBodyAdapterController(AdapterController<B> bodyAdapterController) {
+        this.bodyAdapterController = bodyAdapterController;
+    }
+
+    public void setTitleViewItemHandler(ViewItemHandler<Selectable> viewItemHandler) {
+        if (titleAdapterController != null) {
+            titleAdapterController.setViewItemHandler(viewItemHandler);
+        }
+    }
+
+    public void removeTitleViewItemHandler() {
+        if (titleAdapterController != null) {
+            titleAdapterController.removeViewItemHandler();
+        }
+    }
+
+    public void setHeadViewItemHandler(ViewItemHandler<H> viewItemHandler) {
+        if (headAdapterController != null) {
+            headAdapterController.setViewItemHandler(viewItemHandler);
+        }
+    }
+
+    public void removeHeadViewItemHandler() {
+        if (headAdapterController != null) {
+            headAdapterController.removeViewItemHandler();
+        }
+    }
+
+    public void setBodyViewItemHandler(ViewItemHandler<B> viewItemHandler) {
+        if (bodyAdapterController != null) {
+            bodyAdapterController.setViewItemHandler(viewItemHandler);
+        }
+    }
+
+    public void removeBodyViewItemHandler() {
+        if (bodyAdapterController != null) {
+            bodyAdapterController.removeViewItemHandler();
+        }
     }
 
     //OVERRRIDE ADAPTER_________________________________________________________________________________
-    @Override
-    protected SparseIntArray sparseHolderLayout() {
-        SparseIntArray intArray = new SparseIntArray();
-        intArray.put(ViewHolderType.TITLE.ordinal(), getTitleHolderLayout());
-        intArray.put(ViewHolderType.HEAD.ordinal(), getHeadHolderLayout());
-        intArray.put(ViewHolderType.BODY.ordinal(), getBodyHolderLayout());
-        return intArray;
-    }
-
     @SuppressWarnings("unchecked")
     @Override
     public void onBindVH(BaseViewHolder holder, int position) {
@@ -165,15 +184,15 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
 
         switch (type) {
             case TITLE:
-                holder.bind(tAdapterController.getItemAt(position));
+                holder.bind(titleAdapterController.getItemAt(position));
                 ((ViewHolderBinding<Selectable>) holder).attachTouchableViewHandler(getTitleTouchableViewHandler());
                 break;
             case HEAD:
-                holder.bind(hAdapterController.getItemAt(position));
+                holder.bind(headAdapterController.getItemAt(position));
                 ((ViewHolderBinding<H>) holder).attachTouchableViewHandler(getHeadTouchableViewHandler());
                 break;
             case BODY:
-                holder.bind(bAdapterController.getItemAt(position));
+                holder.bind(bodyAdapterController.getItemAt(position));
                 ((ViewHolderBinding<B>) holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
                 break;
         }
@@ -184,11 +203,11 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         ViewHolderType type = ViewHolderType.values()[viewType];
         switch (type) {
             case TITLE:
-                return new TitleViewHolderBinding(dataBinding, tAdapterController);
+                return new TitleViewHolderBinding(dataBinding, titleAdapterController);
             case HEAD:
-                return new HeaderViewHolderBinding<>(dataBinding, hAdapterController);
+                return new HeaderViewHolderBinding<>(dataBinding, headAdapterController);
             case BODY:
-                return new BodyViewHolderBinding<>(dataBinding, bAdapterController);
+                return new BodyViewHolderBinding<>(dataBinding, bodyAdapterController);
             default:
                 throw new ClassCastException("Undefined view es");
         }
@@ -225,13 +244,13 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     public int indexPos(int flaPos, int viewType) {
 
         int count = -1;
-        for(int i = 0; i<= flaPos;++i){
-            if(types.get(i) == viewType){
+        for (int i = 0; i <= flaPos; ++i) {
+            if (types.get(i) == viewType) {
                 ++count;
             }
         }
 
-        if(count > -1){
+        if (count > -1) {
             return count;
         }
           /*Lanzar un error si no se localiza una vista para la posición*/
@@ -239,7 +258,6 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     }
 
     //NOTIFICATION_________________________________________________________________________
-
     @Override
     public void notifyItemRemoved(int index, int viewType) {
         super.notifyItemRemoved(index, viewType);
@@ -277,5 +295,61 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
                 types.remove(i);
             }
         }
+    }
+
+    //SAVED AND RESTORE_____________________________________________________________
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+
+        if (titleAdapterController != null) {
+            titleAdapterController.onSaveInstanceState(savedInstanceState);
+        }
+
+        if (headAdapterController != null) {
+            headAdapterController.onSaveInstanceState(savedInstanceState);
+        }
+
+        if (bodyAdapterController != null) {
+            bodyAdapterController.onSaveInstanceState(savedInstanceState);
+        }
+
+        if (savedInstanceState != null) {
+            savedInstanceState.putIntegerArrayList(extras[0], types);
+            savedInstanceState.putInt(extras[1], sparseHolderLayout.get(ViewHolderType.TITLE.ordinal()));
+            savedInstanceState.putInt(extras[2], sparseHolderLayout.get(ViewHolderType.HEAD.ordinal()));
+            savedInstanceState.putInt(extras[3], sparseHolderLayout.get(ViewHolderType.BODY.ordinal()));
+        }
+    }
+
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (titleAdapterController != null) {
+            if (savedInstanceState != null) {
+                titleAdapterController.onRestoreInstanceState(savedInstanceState);
+            }
+        }
+        if (headAdapterController != null) {
+            if (savedInstanceState != null) {
+                headAdapterController.onRestoreInstanceState(savedInstanceState);
+            }
+        }
+
+        if (bodyAdapterController != null) {
+            if (savedInstanceState != null) {
+                bodyAdapterController.onRestoreInstanceState(savedInstanceState);
+            }
+        }
+
+        if (savedInstanceState != null) {
+            types = savedInstanceState.getIntegerArrayList(extras[0]) != null
+                    ? savedInstanceState.getIntegerArrayList(extras[0])
+                    : new ArrayList<Integer>();
+
+            setHolderLayout(ViewHolderType.TITLE, savedInstanceState.getInt(extras[1], -1));
+            setHolderLayout(ViewHolderType.HEAD, savedInstanceState.getInt(extras[2], -1));
+            setHolderLayout(ViewHolderType.BODY, savedInstanceState.getInt(extras[3], -1));
+        }
+
+        notifyDataSetChanged();
     }
 }

@@ -10,7 +10,7 @@ import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.table.adapter.TableListAdapter;
+import es.marser.backgroundtools.listables.table.adapter.TableListAdapterDECREP;
 
 /**
  * @author sergio
@@ -23,7 +23,7 @@ import es.marser.backgroundtools.listables.table.adapter.TableListAdapter;
 @SuppressWarnings({"SameReturnValue", "unused"})
 public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelable> extends BaseDialogList {
 
-    protected TableListAdapter<H,B> adapter;
+    protected TableListAdapterDECREP<H,B> adapter;
 
     //OBLIGATORY OVERWRITING___________________________________________________________________________
     public abstract  int getHeadHolderLayout();
@@ -93,7 +93,7 @@ public abstract class BaseDialogBinTable<H extends Parcelable,B extends Parcelab
 
     @Override
     protected void bindAdapter() {
-        adapter = new TableListAdapter<H, B>() {
+        adapter = new TableListAdapterDECREP<H, B>() {
             @Override
             public int getHeadHolderLayout() {
                 return BaseDialogBinTable.this.getHeadHolderLayout();
