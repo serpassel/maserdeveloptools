@@ -57,7 +57,7 @@ public abstract class BaseFragmentListBin<
      */
     @Override
     public void onSaveInstanceState(@Nullable Bundle outState) {
-       // Log.w(LOG_TAG.TAG, "ESTADO GUARDADO");
+        // Log.w(LOG_TAG.TAG, "ESTADO GUARDADO");
         if (simpleListModel != null) {
             simpleListModel.onSaveInstanceState(outState);
         }
@@ -82,10 +82,10 @@ public abstract class BaseFragmentListBin<
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if(simpleListModel != null){
+        if (simpleListModel != null) {
             simpleListModel.onRestoreInstanceState(savedInstanceState);
         }
-        if(presenter != null){
+        if (presenter != null) {
             presenter.onRestoreInstanceState(savedInstanceState);
         }
         super.onActivityCreated(savedInstanceState);
@@ -112,8 +112,9 @@ public abstract class BaseFragmentListBin<
      * [EN]  Link objects with list view
      */
     protected void bindAdapter(@Nullable Bundle args) {
-        viewDataBinding.setVariable(BR.listmodel, simpleListModel);
-        viewDataBinding.executePendingBindings();
+        bindObject(BR.listmodel, simpleListModel);
+
+        presenter.onBindObjects(this);
 
         if (presenter.getListModel() == null) {
             presenter.setListModel(simpleListModel);
@@ -122,7 +123,7 @@ public abstract class BaseFragmentListBin<
 
     @Override
     protected void postBuild(@Nullable Bundle args) {
-        if(simpleListModel.isEmpty()){
+        if (simpleListModel.isEmpty()) {
             //Log.w(LOG_TAG.TAG, "DATOS NUEVOS");
             presenter.load(args);
         }

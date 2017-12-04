@@ -1,10 +1,12 @@
 package es.marser.backgroundtools.listables.base.presenter;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.definition.Restorable;
 
 /**
@@ -16,7 +18,7 @@ import es.marser.backgroundtools.definition.Restorable;
  */
 
 @SuppressWarnings("EmptyMethod")
-public interface AdapterPresenter extends Restorable{
+public interface AdapterPresenter extends Restorable {
 
     /**
      * Método para la carga de datos
@@ -58,4 +60,13 @@ public interface AdapterPresenter extends Restorable{
      *                           a previous saved state, this is the state.
      */
     void onRestoreInstanceState(@Nullable Bundle savedInstanceState);
+
+    /**
+     * Indicador del conmienzo de la vinculación de vistas {@link android.databinding.ViewDataBinding}
+     * <p>
+     *[EN]  Join linking view indicator
+     *
+     * @param binderContainer Objeto de enlace de vistas [EN]  View link object
+     */
+    void onBindObjects(@NonNull BinderContainer binderContainer);
 }
