@@ -32,7 +32,8 @@ import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
  */
 
 @SuppressWarnings("unused")
-public class SimpleAdapterModel<T extends Parcelable> extends BaseAdapterModel<T, SimpleListAdapter<T>>
+public class SimpleAdapterModel<T extends Parcelable>
+        extends BaseAdapterModel<T, SimpleListAdapter<T>>
         implements
         AdapterItemsController<T>,
         SelectedsModel<T>,
