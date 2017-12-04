@@ -31,7 +31,7 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     protected Context context;
     protected SLM simpleListModel;
 
-    //CONSTRUCTORS_____________________________________________________________
+    //CONSTRUCTORS__________________________________________________________
     public SimpleListPresenter(@NonNull Context context) {
         this.context = context;
     }
@@ -42,7 +42,6 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     }
 
     //VARIABLES_______________________________________________________________
-
     public SLM getListModel() {
         return this.simpleListModel;
     }
@@ -74,8 +73,7 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
 
     }
 
-    //VIEWITEMHANDLER______________________________________________________
-
+    //VIEWITEMHANDLER_______________________________________________________
     /**
      * Pulsación corta sobre vista del elemento
      * <p>
@@ -107,7 +105,7 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
         return false;
     }
 
-    //TOUCHABLEVIEWHANDLER_______________________________________________________________
+    //TOUCHABLEVIEWHANDLER_________________________________________________
     /**
      * Manejador de eventos de pulsación sencilla en elementos pulsables
      * <p>
@@ -141,11 +139,12 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
         return false;
     }
 
-    //SAVED AND RESTORE___________________________________________________
+    //SAVED AND RESTORE______________________________________________________
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
 
     }
+
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
 
