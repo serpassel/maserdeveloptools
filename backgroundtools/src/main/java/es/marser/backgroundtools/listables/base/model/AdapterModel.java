@@ -20,7 +20,8 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
  */
 
 @SuppressWarnings("unused")
-public interface AdapterModel<ADP extends BaseListAdapter> extends Scrollable {
+public interface AdapterModel<ADP extends RecyclerView.Adapter, RLM extends RecyclerView.LayoutManager>
+        extends Scrollable {
 
     /**
      * @return Adaptador de listas {@link BaseListAdapter}
@@ -61,7 +62,7 @@ public interface AdapterModel<ADP extends BaseListAdapter> extends Scrollable {
      * [EN]  gestor del layout {@link LinearLayoutManager#VERTICAL}
      * Optional can be {@link GridLayoutManager}
      */
-   RecyclerView.LayoutManager getLayoutManager();
+  RLM getLayoutManager();
 
     /**
      * Establece el gestor del diseño de la lista
@@ -70,7 +71,7 @@ public interface AdapterModel<ADP extends BaseListAdapter> extends Scrollable {
      *
      * @param layoutManager gestor del diseño de la lista [EN]  design manager of the list
      */
-    void setLayoutManager(@NonNull RecyclerView.LayoutManager layoutManager);
+    void setLayoutManager(@NonNull RLM layoutManager);
 
     /**
      * Called to ask the fragment to save its current dynamic state, so it

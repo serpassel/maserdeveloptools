@@ -5,9 +5,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
@@ -23,37 +21,18 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 
 @SuppressWarnings("unused")
 public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
-        implements AdapterModel<ADP>, Selectionable {
+        implements AdapterModel<ADP, LinearLayoutManager>, Selectionable {
 
     private Context context;
     protected ADP adapter;
-    protected RecyclerView.LayoutManager layoutManager;
+    protected LinearLayoutManager layoutManager;
     protected int holderLayout;
 
+    private static String[] extras = new String[]{"hoderLayout_key"};
     protected static int defaultHolderLayout = R.layout.mvp_item_object_chooser;
 
     //CONSTRUCTORS_____________________________________________
-    public BaseAdapterModel(@NonNull Context context) {
-        this(context, defaultHolderLayout);
-    }
-
-    public BaseAdapterModel(@NonNull Context context, int holderLayout) {
-        this(context, new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false), holderLayout);
-    }
-
-    public BaseAdapterModel(@NonNull Context context, int rows, int holderLayout) {
-        this(context,
-                rows < 2
-                        ? new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                        : new GridLayoutManager(context, rows),
-                holderLayout);
-    }
-
-    public BaseAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
-        this(context, layoutManager, defaultHolderLayout);
-    }
-
-    public BaseAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
+    public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
         this.context = context;
         this.layoutManager = layoutManager;
         if (holderLayout < 0) {
@@ -79,15 +58,14 @@ public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
     }
 
     @Override
-    public RecyclerView.LayoutManager getLayoutManager() {
+    public LinearLayoutManager getLayoutManager() {
         return layoutManager;
     }
 
     @Override
-    public void setLayoutManager(@NonNull RecyclerView.LayoutManager layoutManager) {
+    public void setLayoutManager(@NonNull LinearLayoutManager layoutManager) {
         this.layoutManager = layoutManager;
     }
-
 
     //GETTERS___________________________________________________
     public Context getContext() {
@@ -98,6 +76,9 @@ public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
+        if(savedInstanceState != null){
+            savedInstanceState.putInt(extras[0], holderLayout);
+        }
         if (adapter != null) {
             //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
             adapter.onSaveInstanceState(savedInstanceState);
@@ -107,6 +88,7 @@ public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
+            this.holderLayout = savedInstanceState.getInt(extras[0], defaultHolderLayout);
             if (adapter != null) {
                 adapter.onRestoreInstanceState(savedInstanceState);
             }
@@ -163,10 +145,7 @@ public class BaseAdapterModel<T extends Parcelable, ADP extends BaseListAdapter>
      */
     @Override
     public int getCurrentScrollPosition() {
-        if (layoutManager instanceof LinearLayoutManager) {
-            return ((LinearLayoutManager) layoutManager).findFirstVisibleItemPosition();
-        }
-        return 0;
+        return layoutManager != null ? layoutManager.findFirstVisibleItemPosition() : 0;
     }
 
     /**

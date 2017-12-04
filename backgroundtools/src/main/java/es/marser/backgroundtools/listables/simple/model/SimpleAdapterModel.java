@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import java.util.List;
@@ -41,22 +41,26 @@ public class SimpleAdapterModel<T extends Parcelable> extends BaseAdapterModel<T
 
     //CONSTRUCTORS_____________________________________________
     public SimpleAdapterModel(@NonNull Context context) {
-        super(context);
+        this(context, defaultHolderLayout);
     }
 
     public SimpleAdapterModel(@NonNull Context context, int holderLayout) {
-        super(context, holderLayout);
+        this(context, new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false), holderLayout);
     }
 
     public SimpleAdapterModel(@NonNull Context context, int rows, int holderLayout) {
-        super(context, rows, holderLayout);
+        this(context,
+                rows < 2
+                        ? new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                        : new GridLayoutManager(context, rows),
+                holderLayout);
     }
 
-    public SimpleAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager) {
-        super(context, layoutManager);
+    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
+        this(context, layoutManager, defaultHolderLayout);
     }
 
-    public SimpleAdapterModel(@NonNull Context context, @NonNull RecyclerView.LayoutManager layoutManager, int holderLayout) {
+    public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
         super(context, layoutManager, holderLayout);
         this.adapter = new SimpleListAdapter<>(this.holderLayout);
     }

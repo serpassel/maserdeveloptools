@@ -3,10 +3,7 @@ package es.marser.backgroundtools.bindingadapters;
 import android.databinding.BindingAdapter;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import es.marser.backgroundtools.listables.base.adapter.BaseListAdapterDecrep;
 
 /**
  * @author sergio
@@ -25,12 +22,12 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapterDecrep;
 public class RecyclerViewBA {
 
     @BindingAdapter("android:adapter")
-    public static void setAdapter(RecyclerView view, BaseListAdapterDecrep adapter) {
+    public static void setAdapter(RecyclerView view, RecyclerView.Adapter adapter) {
         view.setAdapter(adapter);
     }
 
     @BindingAdapter("android:layoutManager")
-    public static void setLayoutManager(RecyclerView view, LinearLayoutManager manager) {
+    public static void setLayoutManager(RecyclerView view, RecyclerView.LayoutManager manager) {
         view.setLayoutManager(manager);
     }
 
