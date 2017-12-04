@@ -12,6 +12,7 @@ import java.util.Collection;
  *         [EN]  Class definition that links variables to view, in {@link android.databinding.ViewDataBinding}
  */
 
+@SuppressWarnings("unused")
 public interface Binder {
 
     void addBindableCollection(@Nullable Collection<Bindable> list);
