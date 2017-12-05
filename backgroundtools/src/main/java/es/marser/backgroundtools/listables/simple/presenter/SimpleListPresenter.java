@@ -13,7 +13,7 @@ import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.base.presenter.AdapterPresenter;
+import es.marser.backgroundtools.listables.base.presenter.BasePresenter;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 /**
@@ -26,41 +26,28 @@ import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 @SuppressWarnings("unused")
 public abstract class SimpleListPresenter<T extends Parcelable, SLM extends SimpleAdapterModel<T>>
-        implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
-
-    protected Context context;
-    protected SLM simpleListModel;
+        extends BasePresenter<SLM>
+        implements ViewItemHandler<T>, TouchableViewHandler<T> {
 
     //CONSTRUCTORS__________________________________________________________
     public SimpleListPresenter(@NonNull Context context) {
-        this.context = context;
+        super(context);
     }
 
     public SimpleListPresenter(@NonNull Context context, @NonNull SLM listModel) {
-        this(context);
-        setListModel(listModel);
+        super(context, listModel);
     }
 
-    //VARIABLES_______________________________________________________________
-    public SLM getListModel() {
-        return this.simpleListModel;
-    }
-
+    //OVERRIDE BASE__________________________________________________________
+    @Override
     public void setListModel(@NonNull SLM listModel) {
-        this.simpleListModel = listModel;
-        this.simpleListModel.setViewItemHandler(this);
-        this.simpleListModel.setTouchableViewHandler(this);
+        listModel.setTouchableViewHandler(this);
+        listModel.setViewItemHandler(this);
+        super.setListModel(listModel);
+
     }
 
-    @NonNull
-    public Context getContext() {
-        return context;
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
-    }
-
+    //ADAPTER PRESENTER_____________________________________________________
     /**
      * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
      * <p>
@@ -74,6 +61,7 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     }
 
     //VIEWITEMHANDLER_______________________________________________________
+
     /**
      * Pulsación corta sobre vista del elemento
      * <p>
@@ -106,6 +94,7 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     }
 
     //TOUCHABLEVIEWHANDLER_________________________________________________
+
     /**
      * Manejador de eventos de pulsación sencilla en elementos pulsables
      * <p>

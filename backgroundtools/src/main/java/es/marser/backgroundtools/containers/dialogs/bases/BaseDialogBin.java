@@ -5,10 +5,12 @@ import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.ColorDrawable;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 
 import es.marser.backgroundtools.BR;
+import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel;
 import es.marser.backgroundtools.containers.dialogs.model.DialogModel;
 import es.marser.backgroundtools.containers.dialogs.model.StatusModel;
@@ -43,7 +45,7 @@ import static es.marser.backgroundtools.enums.DialogIcon.ICON_EXTRA;
 @SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
 public abstract class BaseDialogBin
         extends BaseDialog
-        implements WindowAction{
+        implements WindowAction, BinderContainer {
 
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
@@ -117,24 +119,17 @@ public abstract class BaseDialogBin
 
     /**
      * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
-     *
+     * <p>
      * Se ejecuta antes de {@link #postBuild()} y despueś de {@link #preBuild()} y de la creación del diálogo
      * <p>
      * [EN]  Link objects in the main view.  Obligatory that the model variable in the view is called model
      * It runs before {@link #postBuild()} and after {@link #preBuild()} and the creation of dialogue
      */
     protected void bindObject() {
-        viewDataBinding.setVariable(BR.model, model);
-        viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.winaction, this);
-        viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.buttonsetmodel, buttonsSetModel);
-        viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.statusmodel, statusModel);
-        viewDataBinding.executePendingBindings();
+        bindObject(BR.model, model);
+        bindObject(BR.winaction, this);
+        bindObject(BR.buttonsetmodel, buttonsSetModel);
+        bindObject(BR.statusmodel, statusModel);
     }
 
     /**
@@ -231,5 +226,12 @@ public abstract class BaseDialogBin
     @Override
     public void onOption(View v) {
 
+    }
+
+    //BINDER CONTAINER_____________________________________________________
+    @Override
+    public void bindObject(int var, @NonNull Object obj) {
+        viewDataBinding.setVariable(var, obj);
+        viewDataBinding.executePendingBindings();
     }
 }
