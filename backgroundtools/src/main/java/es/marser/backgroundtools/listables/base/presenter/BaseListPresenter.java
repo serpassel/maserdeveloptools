@@ -61,11 +61,15 @@ public abstract class BaseListPresenter<LM extends BaseAdapterModel>
     //SAVED AND RESTORE____________________________________________________
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-
+        if(listmodel != null){
+            listmodel.onSaveInstanceState(savedInstanceState);
+        }
     }
 
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-
+        if(listmodel != null){
+            listmodel.onRestoreInstanceState(savedInstanceState);
+        }
     }
 }

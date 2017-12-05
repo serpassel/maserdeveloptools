@@ -123,7 +123,7 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
     @Override
     public void onSaveInstanceState(Bundle outState) {
         if (presenter != null) {
-            presenter.onRestoreInstanceState(outState);
+            presenter.onSaveInstanceState(outState);
         }
         super.onSaveInstanceState(outState);
     }
