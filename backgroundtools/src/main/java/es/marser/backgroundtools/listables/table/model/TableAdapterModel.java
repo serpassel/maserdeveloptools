@@ -6,17 +6,15 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 
 import java.util.List;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
-import es.marser.backgroundtools.listables.simple.model.AdapterItems;
+import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
@@ -167,37 +165,132 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
                 : null;
     }
 
+    @Nullable
+    @Override
+    public Selectable getTitle(int index) {
+        return getAdapter() != null && getAdapter().getTitleAdapterController() != null
+                ? getAdapter().getTitleAdapterController().get(index)
+                : null;
+    }
 
     @Nullable
     @Override
-    public B get(int index) {
+    public H getHead(int index) {
+        return getAdapter() != null && getAdapter().getHeadAdapterController() != null
+                ? getAdapter().getHeadAdapterController().get(index)
+                : null;
+    }
+
+    @Nullable
+    @Override
+    public B getBody(int index) {
         return getAdapter() != null && getAdapter().getBodyAdapterController() != null
                 ? getAdapter().getBodyAdapterController().get(index)
                 : null;
     }
 
     @Override
-    public void addAll(@Nullable List<H> items) {
+    public void addAllTitle(@Nullable List<Selectable> items) {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().addAll(items);
+        }
+    }
+
+    @Override
+    public void addAllHead(@Nullable List<H> items) {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getHeadAdapterController().addAll(items);
+        }
+    }
+
+    @Override
+    public void addAllBody(@Nullable List<B> items) {
         if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
             getAdapter().getBodyAdapterController().addAll(items);
         }
     }
 
     @Override
-    public void add(@Nullable B item) {
-        if (item != null) {
-            Log.w(LOG_TAG.TAG, "Insertado " + item.toString());
+    public void addTitle(@Nullable Selectable item) {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().add(item);
         }
+    }
 
+    @Override
+    public void addHead(@Nullable H item) {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getHeadAdapterController().add(item);
+        }
+    }
+
+    @Override
+    public void addBody(@Nullable B item) {
         if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
             getAdapter().getBodyAdapterController().add(item);
         }
     }
 
     @Override
-    public void add(int index, @Nullable B item) {
+    public void addTitle(int index, @Nullable Selectable item) {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().add(index, item);
+        }
+    }
+
+    @Override
+    public void addHead(int index, @Nullable H item) {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getHeadAdapterController().add(index, item);
+        }
+    }
+
+    @Override
+    public void addBody(int index, @Nullable B item) {
         if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
             getAdapter().getBodyAdapterController().add(index, item);
+        }
+    }
+
+    @Override
+    public void setTitle(@Nullable Integer index, @Nullable Selectable item) {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().set(index, item);
+        }
+    }
+
+    @Override
+    public void setHead(@Nullable Integer index, @Nullable H item) {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getHeadAdapterController().set(index, item);
+        }
+    }
+
+    @Override
+    public void setBody(@Nullable Integer index, @Nullable B item) {
+        if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
+            getAdapter().getBodyAdapterController().set(index, item);
+        }
+    }
+
+    @Override
+    public void replaceTitle(@Nullable List<Selectable> items) {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().replace(items);
+        }
+    }
+
+    @Override
+    public void replaceHead(@Nullable List<H> items) {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getHeadAdapterController().replace(items);
+        }
+    }
+
+    @Override
+    public void replaceBody(@Nullable List<B> items) {
+        if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
+            getAdapter().getBodyAdapterController().replace(items);
         }
     }
 
@@ -207,18 +300,68 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
             int viewtype = getAdapter().getItemViewType(flatpos);
             int index = getAdapter().indexPos(flatpos, viewtype);
 
-            if()
-            if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
-                getAdapter().getBodyAdapterController().remove(index);
+            ViewHolderType type = ViewHolderType.values()[index];
+            switch (type) {
+                case TITLE:
+                    if (getAdapter().getTitleAdapterController() != null) {
+                        getAdapter().getTitleAdapterController().remove(index);
+                    }
+                    break;
+                case HEAD:
+                    if (getAdapter().getHeadAdapterController() != null) {
+                        getAdapter().getHeadAdapterController().remove(index);
+                    }
+                    break;
+                case BODY:
+                    if (getAdapter().getBodyAdapterController() != null) {
+                        getAdapter().getBodyAdapterController().remove(index);
+                    }
+                    break;
             }
+        }
+    }
+
+    /**
+     * Eliminar todos los elementos de la lista
+     * <p>
+     * [EN]  Remove all items from the list
+     */
+    @Override
+    public void clearTitle() {
+        if (getAdapter() != null && getAdapter().getTitleAdapterController() != null) {
+            getAdapter().getTitleAdapterController().clear();
+        }
+    }
+
+    /**
+     * Eliminar todos los elementos de la lista
+     * <p>
+     * [EN]  Remove all items from the list
+     */
+    @Override
+    public void clearHead() {
+        if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
+            getAdapter().getBodyAdapterController().clear();
+        }
+    }
+
+    /**
+     * Eliminar todos los elementos de la lista
+     * <p>
+     * [EN]  Remove all items from the list
+     */
+    @Override
+    public void clearBody() {
+        if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
+            getAdapter().getBodyAdapterController().clear();
         }
     }
 
     @Override
     public void clear() {
-        if (getAdapter() != null && getAdapter().getBodyAdapterController() != null) {
-            getAdapter().getBodyAdapterController().clear();
-        }
+       clearTitle();
+       clearHead();
+       clearBody();
     }
 
     @Override
