@@ -1,19 +1,16 @@
 package es.marser.backgroundtools.listables.simple.presenter;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
-import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.base.presenter.BasePresenter;
+import es.marser.backgroundtools.listables.base.presenter.AdapterPresenter;
+import es.marser.backgroundtools.listables.base.presenter.BaseListPresenter;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 /**
@@ -26,42 +23,27 @@ import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 @SuppressWarnings("unused")
 public abstract class SimpleListPresenter<T extends Parcelable, SLM extends SimpleAdapterModel<T>>
-        extends BasePresenter<SLM>
-        implements ViewItemHandler<T>, TouchableViewHandler<T> {
+        extends BaseListPresenter<SLM>
+        implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     //CONSTRUCTORS__________________________________________________________
     public SimpleListPresenter(@NonNull Context context) {
         super(context);
     }
 
-    public SimpleListPresenter(@NonNull Context context, @NonNull SLM listModel) {
-        super(context, listModel);
+    public SimpleListPresenter(@NonNull Context context, @NonNull SLM listmodel) {
+        super(context, listmodel);
     }
 
     //OVERRIDE BASE__________________________________________________________
-    @Override
-    public void setListModel(@NonNull SLM listModel) {
-        listModel.setTouchableViewHandler(this);
-        listModel.setViewItemHandler(this);
-        super.setListModel(listModel);
-
-    }
-
-    //ADAPTER PRESENTER_____________________________________________________
-    /**
-     * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
-     * <p>
-     * [EN]  Join linking view indicator
-     *
-     * @param binderContainer Objeto de enlace de vistas [EN]  View link object
-     */
-    @Override
-    public void onBindObjects(@NonNull BinderContainer binderContainer) {
-
+   @Override
+    public void setListmodel(@NonNull SLM listmodel) {
+        listmodel.setTouchableViewHandler(this);
+        listmodel.setViewItemHandler(this);
+        super.setListmodel(listmodel);
     }
 
     //VIEWITEMHANDLER_______________________________________________________
-
     /**
      * Pulsación corta sobre vista del elemento
      * <p>
@@ -94,7 +76,6 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
     }
 
     //TOUCHABLEVIEWHANDLER_________________________________________________
-
     /**
      * Manejador de eventos de pulsación sencilla en elementos pulsables
      * <p>
@@ -128,14 +109,4 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
         return false;
     }
 
-    //SAVED AND RESTORE______________________________________________________
-    @Override
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-
-    }
 }

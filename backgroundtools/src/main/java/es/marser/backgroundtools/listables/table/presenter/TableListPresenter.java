@@ -1,20 +1,16 @@
 package es.marser.backgroundtools.listables.table.presenter;
 
 import android.content.Context;
-import android.databinding.ViewDataBinding;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
-import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.base.presenter.BasePresenter;
+import es.marser.backgroundtools.listables.base.presenter.BaseListPresenter;
 import es.marser.backgroundtools.listables.table.model.TableAdapterModel;
 
 /**
@@ -29,7 +25,7 @@ import es.marser.backgroundtools.listables.table.model.TableAdapterModel;
 public abstract class TableListPresenter<H extends Parcelable,
         B extends Parcelable,
         TAM extends TableAdapterModel<H, B>>
-        extends BasePresenter<TAM> {
+        extends BaseListPresenter<TAM> {
 
     //CONSTRUCTORS__________________________________________________________
     public TableListPresenter(@NonNull Context context) {
@@ -41,29 +37,14 @@ public abstract class TableListPresenter<H extends Parcelable,
     }
 
     //OVERRIDE BASE__________________________________________________________
-    @Override
-    public void setListModel(@NonNull TAM listModel) {
-        listModel.setTitleTouchableViewHandler(getTitleTouchableViewHandler());
-        listModel.setHeadTouchableViewHandler(getHeadTouchableViewHandler());
-        listModel.setBodyTouchableViewHandler(getBodyTouchableViewHandler());
-
-        listModel.setTitleViewItemHandler(getTitleItemHandler());
-        listModel.setHeadViewItemHandler(getHeadItemHandler());
-        listModel.setBodyViewItemHandler(getBodyItemHandler());
-        super.setListModel(listModel);
-
-    }
-
-    /**
-     * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
-     * <p>
-     * [EN]  Join linking view indicator
-     *
-     * @param binderContainer Objeto de enlace de vistas [EN]  View link object
-     */
-    @Override
-    public void onBindObjects(@NonNull BinderContainer binderContainer) {
-
+    public void setListModel(@NonNull TAM listmodel) {
+        listmodel.setTitleTouchableViewHandler(getTitleTouchableViewHandler());
+        listmodel.setHeadTouchableViewHandler(getHeadTouchableViewHandler());
+        listmodel.setBodyTouchableViewHandler(getBodyTouchableViewHandler());
+        listmodel.setTitleViewItemHandler(getTitleItemHandler());
+        listmodel.setHeadViewItemHandler(getHeadItemHandler());
+        listmodel.setBodyViewItemHandler(getBodyItemHandler());
+        super.setListmodel(listmodel);
     }
 
     //PULSERS______________________________________________________
@@ -138,10 +119,8 @@ public abstract class TableListPresenter<H extends Parcelable,
         return true;
     }
 
-    /*@{link TouchableViewHandler}*/
-
-        /*Control de pulsaciones en las vistas inferiores [EN]  Pulse control in the bottom views*/
-
+/*@{link TouchableViewHandler}*/
+ /*Control de pulsaciones en las vistas inferiores [EN]  Pulse control in the bottom views*/
     //TITLE
     private TouchableViewHandler<Selectable> getTitleTouchableViewHandler() {
         return new TouchableViewHandler<Selectable>() {
@@ -214,14 +193,4 @@ public abstract class TableListPresenter<H extends Parcelable,
         return true;
     }
 
-    //SAVED AND RESTORE____________________________________________________
-    @Override
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-
-    }
-
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-
-    }
 }

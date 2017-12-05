@@ -2,11 +2,11 @@ package es.marser.backgroundtools.listables.base.presenter;
 
 import android.content.Context;
 import android.databinding.ViewDataBinding;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
-import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
-import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
 
 /**
  * @author sergio
@@ -17,29 +17,14 @@ import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
  */
 
 @SuppressWarnings("unused")
-public abstract class BasePresenter<LM extends BaseAdapterModel<? extends BaseListAdapter>>
-        implements AdapterPresenter {
+public abstract class BasePresenter
+        implements LinkedPresenter {
 
     protected Context context;
-    protected LM listModel;
 
     //CONSTRUCTORS__________________________________________________________
     public BasePresenter(@NonNull Context context) {
         this.context = context;
-    }
-
-    public BasePresenter(@NonNull Context context, @NonNull LM listModel) {
-        this(context);
-        setListModel(listModel);
-    }
-
-    //VARIABLES_______________________________________________________________
-    public LM getListModel() {
-        return this.listModel;
-    }
-
-    public void setListModel(@NonNull LM listModel) {
-        this.listModel = listModel;
     }
 
     @NonNull
@@ -60,6 +45,17 @@ public abstract class BasePresenter<LM extends BaseAdapterModel<? extends BaseLi
      */
     @Override
     public void onBindObjects(@NonNull BinderContainer binderContainer) {
+
+    }
+
+    //SAVED AND RESTORED_____________________________________________________
+
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+
+    }
+ @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
 
     }
 }

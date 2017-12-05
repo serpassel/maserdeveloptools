@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.listables.base.presenter.LinkedPresenter;
 
 /**
  * @author sergio
@@ -23,9 +24,11 @@ import es.marser.backgroundtools.bindingadapters.BinderContainer;
  *         </ul>
  */
 @SuppressWarnings("unused")
-public abstract class BaseFragmentBin extends BaseFragment implements BinderContainer {
+public abstract class BaseFragmentBin<LP extends LinkedPresenter>
+        extends BaseFragment implements BinderContainer {
 
     protected ViewDataBinding viewDataBinding;
+    protected LP presenter;
 
     /**
      * @return Return the View for the fragment's UI, or null.
@@ -55,6 +58,9 @@ public abstract class BaseFragmentBin extends BaseFragment implements BinderCont
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        if (presenter != null) {
+            presenter.onRestoreInstanceState(savedInstanceState);
+        }
         super.onActivityCreated(savedInstanceState);
         postBuild(getArguments());
     }
@@ -68,7 +74,11 @@ public abstract class BaseFragmentBin extends BaseFragment implements BinderCont
      *
      * @param args argumentos guardados [EN]  saved arguments
      */
-    protected abstract void binObjects(@Nullable Bundle args);
+    protected void binObjects(@Nullable Bundle args) {
+        if (presenter != null) {
+            presenter.onBindObjects(this);
+        }
+    }
 
     /**
      * Métodos e inicio de variables previas a la construcción del dialogo. Opcional
@@ -92,10 +102,29 @@ public abstract class BaseFragmentBin extends BaseFragment implements BinderCont
     protected void postBuild(@Nullable Bundle args) {
     }
 
+    //VARIABLES_____________________________________________________________________
+    @Nullable
+    public LP getPresenter() {
+        return presenter;
+    }
+
+    public void setPresenter(@NonNull LP presenter) {
+        this.presenter = presenter;
+    }
+
     //BINDERCONTAINER______________________________________________________________
     @Override
     public void bindObject(int var, @NonNull Object obj) {
-        viewDataBinding.setVariable(var,obj);
+        viewDataBinding.setVariable(var, obj);
         viewDataBinding.executePendingBindings();
+    }
+
+    //SAVED AND RESTORE____________________________________________________________
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        if (presenter != null) {
+            presenter.onRestoreInstanceState(outState);
+        }
+        super.onSaveInstanceState(outState);
     }
 }
