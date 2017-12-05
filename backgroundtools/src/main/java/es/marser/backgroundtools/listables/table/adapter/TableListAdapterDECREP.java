@@ -29,6 +29,7 @@ import es.marser.backgroundtools.listables.table.holder.TitleViewHolderBinding;
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
+@Deprecated
 public abstract class TableListAdapterDECREP<H extends Parcelable, B extends Parcelable>
         extends BaseListAdapterDecrep {
 

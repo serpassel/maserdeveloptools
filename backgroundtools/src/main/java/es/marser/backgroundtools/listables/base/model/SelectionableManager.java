@@ -15,10 +15,10 @@ public interface SelectionableManager {
 
     /**
      *
-     * @param cls clase del objeto seleccionable [EN]  class of the selectable object
+     * @param view Tipo de objeto seleccionable [EN]  Selectable object type
      * @return Objeto Seleccionable [EN]  Selectable object
      */
     @Nullable
-    Selectionable getSelectionable(@Nullable Class cls);
+    Selectionable getSelectionable(@Nullable Integer viewType);
 
 }

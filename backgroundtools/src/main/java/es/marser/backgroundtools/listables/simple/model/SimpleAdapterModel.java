@@ -11,16 +11,16 @@ import android.util.Log;
 import java.util.List;
 
 import es.marser.LOG_TAG;
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
-import es.marser.backgroundtools.listables.base.model.AdapterItemsController;
 import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
-import es.marser.backgroundtools.listables.base.model.SelectedsModel;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
+import es.marser.backgroundtools.listables.base.model.SelectedsModel;
 import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
 
 /**
@@ -35,7 +35,7 @@ import es.marser.backgroundtools.listables.simple.adapter.SimpleListAdapter;
 public class SimpleAdapterModel<T extends Parcelable>
         extends BaseAdapterModel<SimpleListAdapter<T>>
         implements
-        AdapterItemsController<T>,
+        AdapterItems<T>,
         SelectedsModel<T>,
         SelectionItemsManager,
         ExpandItemsManager, Selectionable {
@@ -62,8 +62,11 @@ public class SimpleAdapterModel<T extends Parcelable>
     }
 
     public SimpleAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
-        super(context, layoutManager, holderLayout);
-        this.adapter = new SimpleListAdapter<>(this.holderLayout);
+        super(context, layoutManager);
+        if (holderLayout < 0) {
+            holderLayout = defaultHolderLayout;
+        }
+        this.adapter = new SimpleListAdapter<>(holderLayout);
     }
 
     //SETTERS____________________________________________________
@@ -200,4 +203,20 @@ public class SimpleAdapterModel<T extends Parcelable>
         return adapter != null ? adapter.getExpandItemsController() : null;
     }
 
+    //SELECTIONABLE_________________________________________________________________
+
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewType) {
+        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
+        return selectionable != null ? selectionable.getSelectionmode(viewType) : null;
+    }
+
+    @Override
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
+        if (selectionable != null) {
+            selectionable.setSelectionmode(viewType, selectionmode);
+        }
+    }
 }

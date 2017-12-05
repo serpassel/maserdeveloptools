@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.listables.base.model;
+package es.marser.backgroundtools.listables.table.adapter;
 
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
@@ -14,28 +14,28 @@ import java.util.List;
  */
 
 @SuppressWarnings("unused")
-public interface AdapterItemsController<T extends Parcelable> {
+public interface TableAdapterItems<H extends Parcelable, B extends Parcelable> {
     //CRUD_____________________________________________________________________________
 
     /**
-     * Devuelve la lista de elementos
+     * Devuelve la lista de elementos de cabecera
      * <p>
-     * [EN]  Returns the list of elements
+     * [EN]  Returns the list of header elements
      *
      * @return Lista de elementos [EN]  List of items
      */
     @Nullable
-    List<T> getItems();
+    List<H> getHeadItems();
 
     /**
-     * Devuelve el resgitro para la posición indicada
+     * Devuelve el registro para la posición indicada
      * <p>
-     * [EN]  Returns the resgitro for the indicated position
+     * [EN]  Returns the record for the indicated position
      *
-     * @param index posición del elemento
+     * @param flatpos posición plana del elemento
      */
     @Nullable
-    T get(int index);
+    H getHead(int flatpos);
 
     /**
      * Agrega una lista de elementos
@@ -70,9 +70,9 @@ public interface AdapterItemsController<T extends Parcelable> {
      * <p>
      * [EN]  Delete an item by its position
      *
-     * @param index posicion del elemento [EN]  position of the element
+     * @param flatpos posicion del elemento [EN]  position of the element
      */
-    void remove(int index);
+    void remove(int flatpos);
 
     /**
      * Eliminar todos los elementos de la lista

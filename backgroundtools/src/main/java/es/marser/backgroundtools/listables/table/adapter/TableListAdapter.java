@@ -3,18 +3,25 @@ package es.marser.backgroundtools.listables.table.adapter;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import es.marser.backgroundtools.definition.Selectable;
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
+import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
+import es.marser.backgroundtools.listables.base.model.SelectedsModel;
+import es.marser.backgroundtools.listables.base.model.SelectedsModelManager;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;
 import es.marser.backgroundtools.listables.table.holder.BodyViewHolderBinding;
 import es.marser.backgroundtools.listables.table.holder.HeaderViewHolderBinding;
@@ -29,8 +36,11 @@ import es.marser.backgroundtools.listables.table.holder.TitleViewHolderBinding;
  */
 
 @SuppressWarnings({"SameReturnValue", "unused"})
-public abstract class TableListAdapter<H extends Parcelable, B extends Parcelable>
-        extends BaseListAdapter {
+public class TableListAdapter<H extends Parcelable, B extends Parcelable>
+        extends BaseListAdapter implements
+        SelectionItemsManager,
+        ExpandItemsManager,
+        SelectedsModelManager<B> {
 
     /*Eventos sobre vistas menores [EN]  Events on minor views*/
     private TouchableViewHandler<Selectable> titleTouchableViewHandler;
@@ -38,11 +48,9 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     private TouchableViewHandler<B> bodyTouchableViewHandler;
 
     /*Controladores de selección y expansión [EN]  Selection and expansion controllers*/
-    public AdapterController<Selectable> titleAdapterController;
-    public AdapterController<H> headAdapterController;
-    public AdapterController<B> bodyAdapterController;
-
-    public LinkedList<AdapterController> adapterControllers;
+    protected AdapterController<Selectable> titleAdapterController;
+    protected AdapterController<H> headAdapterController;
+    protected AdapterController<B> bodyAdapterController;
 
     /*Controlador de tipos de vista [EN]  View type controller*/
     protected ArrayList<Integer> types;
@@ -50,12 +58,6 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
     private static String[] extras = new String[]{"types_extras", "tholderlayout_key", "hholderlayout_key", "bholderlayout_key"};
 
     public TableListAdapter() {
-        adapterControllers = new LinkedList<>();
-
-        adapterControllers.add(new AdapterController<Selectable>(ViewHolderType.TITLE.ordinal()));
-        adapterControllers.add(new AdapterController<H>(ViewHolderType.HEAD.ordinal()));
-        adapterControllers.add(new AdapterController<B>(ViewHolderType.BODY.ordinal()));
-
         titleAdapterController = new AdapterController<>(ViewHolderType.TITLE.ordinal());
         titleAdapterController.setChangedListener(this);
 
@@ -79,7 +81,7 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         setHolderLayout(ViewHolderType.BODY, bodyHolderLayout);
     }
 
-    //METHODS FOR OVERWRITING__________________________________________________________________________
+    //PRESENTERS_________________________________________________________________________
     public TouchableViewHandler<Selectable> getTitleTouchableViewHandler() {
         return titleTouchableViewHandler;
     }
@@ -351,5 +353,88 @@ public abstract class TableListAdapter<H extends Parcelable, B extends Parcelabl
         }
 
         notifyDataSetChanged();
+    }
+
+    //SELECTIONABLE_____________________________________________________________
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
+        if (viewtype == null) {
+            return bodyAdapterController != null ? bodyAdapterController.getSelectionmode(null) : null;
+        }
+
+        ViewHolderType type = ViewHolderType.values()[viewtype];
+        switch (type) {
+            case TITLE:
+                return titleAdapterController != null ? titleAdapterController.getSelectionmode(viewtype) : null;
+            case HEAD:
+                return headAdapterController != null ? headAdapterController.getSelectionmode(viewtype) : null;
+            case BODY:
+            default:
+                return bodyAdapterController != null ? bodyAdapterController.getSelectionmode(viewtype) : null;
+
+        }
+    }
+
+    @Override
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+
+        if (viewType == null) {
+            bodyAdapterController.setSelectionmode(null, selectionmode);
+        } else {
+
+            ViewHolderType type = ViewHolderType.values()[viewType];
+            switch (type) {
+                case TITLE:
+                    if (titleAdapterController != null) {
+                        titleAdapterController.setSelectionmode(viewType, selectionmode);
+                    }
+                    break;
+                case HEAD:
+                    if (headAdapterController != null) {
+                        headAdapterController.setSelectionmode(viewType, selectionmode);
+                    }
+                    break;
+                case BODY:
+                default:
+                    if (bodyAdapterController != null) {
+                        bodyAdapterController.setSelectionmode(viewType, selectionmode);
+                    }
+                    break;
+            }
+        }
+    }
+
+    //MANAGERS___________________________________________________________________
+    /**
+     * @return Devuelve el objeto de control de expansión de objetos [EN]  Returns the object expansion control object
+     */
+    @Nullable
+    @Override
+    public ExpandItemsController getExpandItemsController() {
+        return bodyAdapterController != null ? bodyAdapterController.getExpandItemsController() : null;
+    }
+
+    /**
+     * @return Devuelve la controladora de selección [EN]  Returns the selection controller
+     */
+    @Nullable
+    @Override
+    public SelectionItemsController getSelectionItemsController() {
+        return bodyAdapterController != null ? bodyAdapterController.getSelectionItemsController() : null;
+    }
+
+    //SELECTION BODY MODEL________________________________________________________
+    /**
+     * Devuelve el contralodor de elementos seleccionados
+     * <p>
+     * [EN]  Returns the selected elements controller
+     *
+     * @return Devuelve el contralodor de elementos seleccionados [EN]  Returns the selected elements controller
+     */
+    @Nullable
+    @Override
+    public SelectedsModel<B> getSelectedsModel() {
+        return bodyAdapterController;
     }
 }

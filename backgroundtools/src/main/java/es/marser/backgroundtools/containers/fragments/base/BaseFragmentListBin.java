@@ -34,7 +34,8 @@ public abstract class BaseFragmentListBin<
     protected SLM simpleListModel;
     protected SLP presenter;
 
-    //SAVED AND RESTORE___________________________________________________
+    //SAVED AND RESTORE____________________________________________________________________
+
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is
@@ -89,8 +90,8 @@ public abstract class BaseFragmentListBin<
         }
         super.onActivityCreated(savedInstanceState);
     }
+    //BIN METHODS OF CONFIGURATION________________________________________________________
 
-    //BIN METHODS OF CONFIGURATION_______________________________________
     /**
      * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
      * Se ejecuta durante al crearse la vista {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}
@@ -137,18 +138,18 @@ public abstract class BaseFragmentListBin<
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
-    public ListExtra getSelectionmode() {
-        return simpleListModel.getSelectionmode();
+    public ListExtra getSelectionmode(int viewType) {
+        return simpleListModel.getSelectionmode(viewType);
     }
 
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+    public void setSelectionmode(int viewType, @NonNull ListExtra selectionmode) {
         if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(selectionmode);
+            simpleListModel.setSelectionmode(viewType, selectionmode);
         }
     }
 
-    //MVP PATTERN__________________________________________________________
+    //MVP PATTERN
     @NonNull
     public SLM getSimpleListModel() {
         return simpleListModel;

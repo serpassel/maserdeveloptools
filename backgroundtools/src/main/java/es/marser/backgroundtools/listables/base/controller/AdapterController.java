@@ -16,7 +16,7 @@ import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.listables.base.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.listables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.listables.simple.model.AdapterItems;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.listables.base.model.SelectedsModel;
@@ -37,7 +37,7 @@ import es.marser.tools.TextTools;
 public class AdapterController<T extends Parcelable>
         implements ViewHolderController<T>,
         OnItemChangedListener,
-        AdapterItemsController<T>,
+        AdapterItems<T>,
         SelectedsModel<T>,
         SelectionItemsManager,
         ExpandItemsManager,
@@ -566,12 +566,12 @@ public class AdapterController<T extends Parcelable>
     //SETTER AND GETTER___________________________________________________________________________
     @Override
     @NonNull
-    public ListExtra getSelectionmode() {
+    public ListExtra getSelectionmode(@Nullable Integer viewType) {
         return selectionmode;
     }
 
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
         this.selectionmode = selectionmode;
     }
 

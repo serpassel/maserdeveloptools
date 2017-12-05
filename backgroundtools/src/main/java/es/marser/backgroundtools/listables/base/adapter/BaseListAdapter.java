@@ -20,7 +20,7 @@ import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.listables.base.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.listables.base.model.SelectionableManager;
+import es.marser.backgroundtools.listables.base.model.Selectionable;
 
 
 /**
@@ -54,7 +54,7 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
         extends
         RecyclerView.Adapter<VH>
         implements
-        AdapterNotifier, SelectionableManager, Restorable {
+        AdapterNotifier, Restorable, Selectionable {
 
     public boolean enabledAttachedAnimHolders;
     public boolean enabledDetachedAnimHolders;

@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 
 /**
@@ -19,25 +18,20 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
  */
 
 @SuppressWarnings("unused")
-public class BaseAdapterModel<ADP extends BaseListAdapter>
+public abstract class BaseAdapterModel<ADP extends BaseListAdapter>
         implements AdapterModel<ADP, LinearLayoutManager>, Selectionable {
 
     private Context context;
     protected ADP adapter;
     protected LinearLayoutManager layoutManager;
-    protected int holderLayout;
 
     private static String[] extras = new String[]{"hoderLayout_key"};
     protected static int defaultHolderLayout = R.layout.mvp_item_object_chooser;
 
     //CONSTRUCTORS_____________________________________________
-    public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager, int holderLayout) {
+    public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
         this.context = context;
         this.layoutManager = layoutManager;
-        if (holderLayout < 0) {
-            holderLayout = defaultHolderLayout;
-        }
-        this.holderLayout = holderLayout;
     }
 
     //ADAPTER MODEL_________________________________________________
@@ -75,9 +69,6 @@ public class BaseAdapterModel<ADP extends BaseListAdapter>
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
         //    Log.d(LOG_TAG.TAG, "RESTAURANDO  MODELO");
-        if(savedInstanceState != null){
-            savedInstanceState.putInt(extras[0], holderLayout);
-        }
         if (adapter != null) {
             //      Log.d(LOG_TAG.TAG, "Guardando adaptador");
             adapter.onSaveInstanceState(savedInstanceState);
@@ -87,27 +78,9 @@ public class BaseAdapterModel<ADP extends BaseListAdapter>
     @Override
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            this.holderLayout = savedInstanceState.getInt(extras[0], defaultHolderLayout);
-            if (adapter != null) {
+          if (adapter != null) {
                 adapter.onRestoreInstanceState(savedInstanceState);
             }
-        }
-    }
-
-    //SELECTIONABLE_________________________________________________________________
-
-    @Nullable
-    @Override
-    public ListExtra getSelectionmode() {
-        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
-        return selectionable != null ? selectionable.getSelectionmode() : null;
-    }
-
-    @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
-        Selectionable selectionable = adapter != null ? adapter.getSelectionable(null) : null;
-        if (selectionable != null) {
-            selectionable.setSelectionmode(selectionmode);
         }
     }
 

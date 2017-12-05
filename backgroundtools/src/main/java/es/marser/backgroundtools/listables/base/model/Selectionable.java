@@ -19,7 +19,7 @@ public interface Selectionable {
      * @return Modo de selección de la lista [EN]  Selection mode of the list
      */
     @Nullable
-    ListExtra getSelectionmode();
+    ListExtra getSelectionmode(@Nullable Integer viewtype);
 
     /**
      * Filjar el modo de selección de la lista
@@ -28,5 +28,5 @@ public interface Selectionable {
      *
      * @param selectionmode Modo de slección de la lista
      */
-    void setSelectionmode(@NonNull ListExtra selectionmode);
+    void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode);
 }

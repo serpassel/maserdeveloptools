@@ -37,7 +37,7 @@ public abstract class BaseFragmentListBinD<
 
     protected ViewDataBinding viewDataBinding;
 
-    //protected SimpleAdapterModel<T> listModel;
+    //protected TableAdapterModel<T> listModel;
     //protected SimpleListPresenter<T> presenter;
 
     protected Integer lastScroll;

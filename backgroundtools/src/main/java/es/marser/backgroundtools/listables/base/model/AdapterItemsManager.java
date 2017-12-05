@@ -3,6 +3,8 @@ package es.marser.backgroundtools.listables.base.model;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
+import es.marser.backgroundtools.listables.simple.model.AdapterItems;
+
 /**
  * @author sergio
  *         Created by sergio on 29/11/17.
@@ -19,5 +21,5 @@ public interface AdapterItemsManager<T extends Parcelable> {
      * [EN]  returns the read and write manager assigned to the handler
      */
     @Nullable
-    AdapterItemsController<T> getAdapterItemsController();
+    AdapterItems<T> getAdapterItemsController();
 }

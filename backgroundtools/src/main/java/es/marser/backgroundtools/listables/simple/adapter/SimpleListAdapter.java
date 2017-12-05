@@ -3,15 +3,17 @@ package es.marser.backgroundtools.listables.simple.adapter;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
-import es.marser.backgroundtools.listables.base.model.AdapterItemsController;
+import es.marser.backgroundtools.listables.simple.model.AdapterItems;
 import es.marser.backgroundtools.listables.base.model.AdapterItemsManager;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
@@ -20,6 +22,7 @@ import es.marser.backgroundtools.listables.base.model.SelectedsModelManager;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
+import es.marser.backgroundtools.listables.base.model.SelectionableManager;
 import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;
 
 /**
@@ -30,7 +33,11 @@ import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;
 @SuppressWarnings("unused")
 public class SimpleListAdapter<T extends Parcelable>
         extends BaseListAdapter<T, ViewHolderBinding<T>>
-        implements AdapterItemsManager<T>, SelectionItemsManager, ExpandItemsManager, SelectedsModelManager<T> {
+        implements AdapterItemsManager<T>,
+        SelectionItemsManager,
+        ExpandItemsManager,
+        SelectedsModelManager<T>,
+        SelectionableManager {
 
     /*Variables de Eventos de pulsación en vistas menores [EN]  Pulse events variables in child views*/
     private TouchableViewHandler<T> touchableViewHandler;
@@ -139,7 +146,7 @@ public class SimpleListAdapter<T extends Parcelable>
      */
     @Nullable
     @Override
-    public AdapterItemsController<T> getAdapterItemsController() {
+    public AdapterItems<T> getAdapterItemsController() {
         return getAdapterController();
     }
 
@@ -162,7 +169,32 @@ public class SimpleListAdapter<T extends Parcelable>
 
     @Override
     @Nullable
-    public Selectionable getSelectionable(@Nullable Class cls) {
+    public Selectionable getSelectionable(@Nullable Integer viewType) {
         return this.adapterController;
+    }
+
+    /**
+     * @param viewtype tipo de vista en el holder, sólo para listas multiples [EN]  type of view in the holder, only for multiple lists
+     * @return Modo de selección de la lista [EN]  Selection mode of the list
+     */
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
+        return adapterController != null ? adapterController.getSelectionmode(null) : null;
+    }
+
+    /**
+     * Filjar el modo de selección de la lista
+     * <p>
+     * [EN]  Filtering the mode selection mode of the list
+     *
+     * @param viewtype tipo de vista en el holder, sólo para listas multiples [EN]  type of view in the holder, only for multiple lists
+     * @param selectionmode Modo de slección de la lista
+     */
+    @Override
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+        if(adapterController != null){
+            adapterController.setSelectionmode(null, selectionmode);
+        }
     }
 }

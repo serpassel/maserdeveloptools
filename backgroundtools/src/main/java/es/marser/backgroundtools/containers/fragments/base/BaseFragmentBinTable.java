@@ -178,8 +178,8 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
                     return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
                 }
             };
-            adapter.hAdapterController.setSelectionmode(getInitialSelectionMode());
-            adapter.bAdapterController.setSelectionmode(getInitialSelectionMode());
+           // adapter.hAdapterController.setSelectionmode(getInitialSelectionMode());
+           // adapter.bAdapterController.setSelectionmode(getInitialSelectionMode());
         }
 
        // Log.i(LOG_TAG.TAG, "RecyclerView no tiene adaptador pre-set: " + (recyclerView.getAdapter() == null));
