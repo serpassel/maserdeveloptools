@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
-import es.marser.backgroundtools.containers.fragments.widget.SimpleListFragment;
+import es.marser.backgroundtools.containers.fragments.simple.SimpleListFragment;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;

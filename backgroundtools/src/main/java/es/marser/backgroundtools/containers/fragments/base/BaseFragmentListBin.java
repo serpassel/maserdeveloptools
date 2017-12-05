@@ -1,12 +1,9 @@
 package es.marser.backgroundtools.containers.fragments.base;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
-import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
-import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
+import es.marser.backgroundtools.listables.base.presenter.BaseListPresenter;
 
 /**
  * @author sergio
@@ -17,11 +14,7 @@ import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseFragmentListBin<
-        T extends Parcelable,
-        SLM extends SimpleAdapterModel<T>,
-        SLP extends SimpleListPresenter<T, SLM>
-        >
+public abstract class BaseFragmentListBin<SLP extends BaseListPresenter>
         extends BaseFragmentBin<SLP> {
 
     //BIN METHODS OF CONFIGURATION________________________________________________________
@@ -32,11 +25,4 @@ public abstract class BaseFragmentListBin<
             presenter.load(args);
         }
     }
-
-    //VIEWS________________________________________________________________
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.mvp_frag_simple_list;
-    }
-
 }
