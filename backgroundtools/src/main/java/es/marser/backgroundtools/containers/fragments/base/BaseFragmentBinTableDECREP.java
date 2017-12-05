@@ -27,12 +27,13 @@ import es.marser.backgroundtools.listables.table.adapter.TableListAdapterDECREP;
  */
 
 @SuppressWarnings({"unused", "SameReturnValue"})
-public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parcelable>
+@Deprecated
+public abstract class BaseFragmentBinTableDECREP<H extends Parcelable, B extends Parcelable>
         extends BaseFragmentList {
 
     protected TableListAdapterDECREP<H, B> adapter;
 
-    public BaseFragmentBinTable() {
+    public BaseFragmentBinTableDECREP() {
         super();
     }
 
@@ -80,12 +81,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
         return new ViewItemHandler<H>() {
             @Override
             public void onClickItem(BaseViewHolder<H> holder, H item, int position, ListExtra mode) {
-                BaseFragmentBinTable.this.onClickHeadItem(holder, item, position, mode);
+                BaseFragmentBinTableDECREP.this.onClickHeadItem(holder, item, position, mode);
             }
 
             @Override
             public boolean onLongClickItem(BaseViewHolder<H> holder, H item, int position, ListExtra mode) {
-                return BaseFragmentBinTable.this.onLongClickHeadItem(holder, item, position, mode);
+                return BaseFragmentBinTableDECREP.this.onLongClickHeadItem(holder, item, position, mode);
             }
         };
     }
@@ -94,12 +95,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
         return new ViewItemHandler<B>() {
             @Override
             public void onClickItem(BaseViewHolder<B> holder, B item, int position, ListExtra mode) {
-                BaseFragmentBinTable.this.onClickBodyItem(holder, item, position, mode);
+                BaseFragmentBinTableDECREP.this.onClickBodyItem(holder, item, position, mode);
             }
 
             @Override
             public boolean onLongClickItem(BaseViewHolder<B> holder, B item, int position, ListExtra mode) {
-                return BaseFragmentBinTable.this.onLongClickBodyItem(holder, item, position, mode);
+                return BaseFragmentBinTableDECREP.this.onLongClickBodyItem(holder, item, position, mode);
             }
         };
     }
@@ -109,12 +110,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
         return new TouchableViewHandler<H>() {
             @Override
             public void onClick(View view, int position, H item, View root) {
-                BaseFragmentBinTable.this.onClickHead(view, position, item, root);
+                BaseFragmentBinTableDECREP.this.onClickHead(view, position, item, root);
             }
 
             @Override
             public boolean onLongClick(View view, int position, H item, View root) {
-                return BaseFragmentBinTable.this.onLongClickHead(view, position, item, root);
+                return BaseFragmentBinTableDECREP.this.onLongClickHead(view, position, item, root);
             }
         };
     }
@@ -123,12 +124,12 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
         return new TouchableViewHandler<B>() {
             @Override
             public void onClick(View view, int position, B item, View root) {
-                BaseFragmentBinTable.this.onClickBody(view, position, item, root);
+                BaseFragmentBinTableDECREP.this.onClickBody(view, position, item, root);
             }
 
             @Override
             public boolean onLongClick(View view, int position, B item, View root) {
-                return BaseFragmentBinTable.this.onLongClickBody(view, position, item, root);
+                return BaseFragmentBinTableDECREP.this.onLongClickBody(view, position, item, root);
             }
         };
     }
@@ -145,37 +146,37 @@ public abstract class BaseFragmentBinTable<H extends Parcelable, B extends Parce
             adapter = new TableListAdapterDECREP<H, B>() {
                 @Override
                 public int getHeadHolderLayout() {
-                    return BaseFragmentBinTable.this.getHeadHolderLayout();
+                    return BaseFragmentBinTableDECREP.this.getHeadHolderLayout();
                 }
 
                 @Override
                 public int getBodyHolderLayout() {
-                    return BaseFragmentBinTable.this.getBodyHolderLayout();
+                    return BaseFragmentBinTableDECREP.this.getBodyHolderLayout();
                 }
 
                 @Override
                 public int getTitleHolderLayout() {
-                    return BaseFragmentBinTable.this.getTitleHolderLayout();
+                    return BaseFragmentBinTableDECREP.this.getTitleHolderLayout();
                 }
 
                 @Override
                 public ViewItemHandler<H> getHeadItemHandler() {
-                    return BaseFragmentBinTable.this.getHeadItemHandler();
+                    return BaseFragmentBinTableDECREP.this.getHeadItemHandler();
                 }
 
                 @Override
                 public ViewItemHandler<B> getBodyItemHandler() {
-                    return BaseFragmentBinTable.this.getBodyItemHandler();
+                    return BaseFragmentBinTableDECREP.this.getBodyItemHandler();
                 }
 
                 @Override
                 public TouchableViewHandler<H> getHeadTouchableViewHandler() {
-                    return BaseFragmentBinTable.this.getHeadTouchableViewHandler();
+                    return BaseFragmentBinTableDECREP.this.getHeadTouchableViewHandler();
                 }
 
                 @Override
                 public TouchableViewHandler<B> getBodyTouchableViewHandler() {
-                    return BaseFragmentBinTable.this.getBodyTouchableViewHandler();
+                    return BaseFragmentBinTableDECREP.this.getBodyTouchableViewHandler();
                 }
             };
            // adapter.hAdapterController.setSelectionmode(getInitialSelectionMode());

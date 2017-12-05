@@ -52,7 +52,7 @@ public abstract class BaseDialogBinTable<
         viewDataBinding.setVariable(BR.listmodel, tableListModel);
         viewDataBinding.executePendingBindings();
 
-        if (presenter.getListModel() == null) {
+        if (presenter.getListmodel() == null) {
             presenter.setListModel(tableListModel);
         }
     }

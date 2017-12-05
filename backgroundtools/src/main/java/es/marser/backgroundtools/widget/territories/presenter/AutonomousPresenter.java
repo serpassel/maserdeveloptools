@@ -56,26 +56,26 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
 
             String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
-            SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
+            SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
 
             if (bundle.getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
 
                 AutonomousModel item1 = GenericFactory.BuildSingleObject(AutonomousModel.class,
                         getContext().getResources().getString(R.string.all_spain_ccaa));
 
-                simpleListModel.add(item1);
+                getListmodel().add(item1);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item1.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item1.preSelectValue()));
                 }
             }
 
             for (String reg : values) {
                 AutonomousModel item = GenericFactory.BuildSingleObject(AutonomousModel.class, reg);
-                simpleListModel.add(item);
+                getListmodel().add(item);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item.preSelectValue()));
                 }
             }
         }

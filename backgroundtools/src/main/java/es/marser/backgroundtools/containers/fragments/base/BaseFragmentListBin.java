@@ -2,7 +2,6 @@ package es.marser.backgroundtools.containers.fragments.base;
 
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
@@ -25,8 +24,6 @@ public abstract class BaseFragmentListBin<
         >
         extends BaseFragmentBin<SLP> {
 
-    protected SLP presenter;
-
     //BIN METHODS OF CONFIGURATION________________________________________________________
     @Override
     protected void postBuild(@Nullable Bundle args) {
@@ -42,12 +39,4 @@ public abstract class BaseFragmentListBin<
         return R.layout.mvp_frag_simple_list;
     }
 
-    @NonNull
-    public SLP getPresenter() {
-        return presenter;
-    }
-
-    public void setPresenter(@NonNull SLP presenter) {
-        this.presenter = presenter;
-    }
 }

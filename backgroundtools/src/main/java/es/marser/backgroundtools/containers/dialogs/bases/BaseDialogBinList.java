@@ -52,8 +52,8 @@ public abstract class BaseDialogBinList<
         viewDataBinding.setVariable(BR.listmodel, simpleListModel);
         viewDataBinding.executePendingBindings();
 
-        if (presenter.getListModel() == null) {
-            presenter.setListModel(simpleListModel);
+        if (presenter.getListmodel() == null) {
+            presenter.setListmodel(simpleListModel);
         }
     }
 
@@ -81,7 +81,7 @@ public abstract class BaseDialogBinList<
         this.simpleListModel = simpleListModel;
 
         if (presenter != null) {
-            presenter.setListModel(simpleListModel);
+            presenter.setListmodel(simpleListModel);
         }
     }
 

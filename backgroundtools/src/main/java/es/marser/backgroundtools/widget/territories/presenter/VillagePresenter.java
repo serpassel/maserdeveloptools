@@ -55,26 +55,26 @@ public class VillagePresenter extends ChooserPresenter<VillageModel> {
 
             String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
-            SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
+            SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
 
             if (bundle.getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
 
                 VillageModel item1 = GenericFactory.BuildSingleObject(VillageModel.class,
                         getContext().getResources().getString(R.string.all_spain_mun));
-                simpleListModel.add(item1);
+                getListmodel().add(item1);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item1.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item1.preSelectValue()));
                 }
             }
 
 
             for (String reg : values) {
                 VillageModel item = GenericFactory.BuildSingleObject(VillageModel.class, reg);
-                simpleListModel.add(item);
+                getListmodel().add(item);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item.preSelectValue()));
                 }
             }
         }

@@ -84,7 +84,7 @@ public class ChooserPresenter<T extends Selectable>
         final String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), null);
         if (values != null) {
             if (preselect == null) {
-                simpleListModel.addAll(values);
+                getListmodel().addAll(values);
                 return;
             }
 
@@ -92,11 +92,11 @@ public class ChooserPresenter<T extends Selectable>
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
-                    SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
+                    SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
                     for (T t : values) {
-                        simpleListModel.add(t);
+                        getListmodel().add(t);
                         if (selectionItemsController != null) {
-                            selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(t.preSelectValue()));
+                            selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(t.preSelectValue()));
                         }
                     }
                     adjustMultiSelection();
@@ -116,8 +116,8 @@ public class ChooserPresenter<T extends Selectable>
         //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
         multiselect_flag = false;
         boolean old = multiselect.get();
-        SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
-        multiselect.set(selectionItemsController != null && simpleListModel.size() == selectionItemsController.getIdSelecteds().size());
+        SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
+        multiselect.set(selectionItemsController != null && getListmodel().size() == selectionItemsController.getIdSelecteds().size());
         multiselect_flag = (old == multiselect.get());
     }
 
@@ -125,10 +125,10 @@ public class ChooserPresenter<T extends Selectable>
     @Override
     public void onClick(View view, Boolean isChecked) {
         if (multiselect_flag) {
-            SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
+            SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
             if (isChecked) {
                 if (selectionItemsController != null) {
-                    selectionItemsController.selectedAll(simpleListModel.size());
+                    selectionItemsController.selectedAll(getListmodel().size());
                 }
             } else {
                 if (selectionItemsController != null) {

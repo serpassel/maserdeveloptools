@@ -30,8 +30,9 @@ public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> 
     @Override
     protected void preBuild(Context context, @Nullable Bundle args) {
         super.preBuild(context, args);
-        setPresenter(new ProvincePresenter(context, false));
-        setSimpleListModel(new SimpleAdapterModel<ProvincieModel>(context));
+        ProvincePresenter presenter = new ProvincePresenter(context, false);
+        presenter.setListmodel(new SimpleAdapterModel<ProvincieModel>(context));
+        setPresenter(presenter);
     }
 
     /**

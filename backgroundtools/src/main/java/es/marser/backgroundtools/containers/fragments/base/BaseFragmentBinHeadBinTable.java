@@ -21,7 +21,7 @@ import es.marser.backgroundtools.BR;
 
 @SuppressWarnings("unused")
 public abstract class BaseFragmentBinHeadBinTable<T extends Parcelable, H extends Parcelable, B extends Parcelable>
-        extends BaseFragmentBinTable<H, B> implements BinHeadFragment<T> {
+        extends BaseFragmentBinTableDECREP<H, B> implements BinHeadFragment<T> {
 
     protected ViewDataBinding viewDataBinding;
     protected T model;

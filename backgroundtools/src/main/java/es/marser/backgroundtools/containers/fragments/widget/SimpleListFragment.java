@@ -29,8 +29,8 @@ public class SimpleListFragment<T extends Parcelable>
             SimpleListPresenter<T, SimpleAdapterModel<T>> presenter) {
         SimpleListFragment<T> instance = new SimpleListFragment<>();
         instance.setArguments(bundle);
+        presenter.setListmodel(model);
         instance.setPresenter(presenter);
-        instance.setSimpleListModel(model);
         return instance;
     }
 }

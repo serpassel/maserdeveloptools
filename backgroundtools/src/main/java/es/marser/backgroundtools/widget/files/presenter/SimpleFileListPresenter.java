@@ -64,7 +64,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         FilePathUtil.getAsyncFiles(path, filter != null ? filter : new String[]{}, new DataUploaderTask<Void, File, Void>() {
             @Override
             public void onStart(Void start) {
-                simpleListModel.clear();
+                getListmodel().clear();
             }
 
             @Override
@@ -83,8 +83,8 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
             public void onFinish(Void finish) {
                 Collections.sort(directory, comparator);
                 Collections.sort(file, comparator);
-                simpleListModel.addAll(directory);
-                simpleListModel.addAll(file);
+                getListmodel().addAll(directory);
+                getListmodel().addAll(file);
             }
 
             @Override
@@ -127,6 +127,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         downPath(item);
     }
 
+    //ACTIONS_____________________________________________________________________________
     /**
      * Subir un nivel de directorio
      * <p>

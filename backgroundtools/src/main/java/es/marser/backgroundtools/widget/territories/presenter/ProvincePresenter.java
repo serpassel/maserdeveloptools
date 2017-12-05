@@ -50,7 +50,7 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
 
             String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
-            SelectionItemsController selectionItemsController = simpleListModel.getSelectionItemsController();
+            SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
 
 
             if (bundle.getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
@@ -58,20 +58,20 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
                 ProvincieModel item1 = GenericFactory.BuildSingleObject(ProvincieModel.class,
                         getContext().getResources().getString(R.string.all_spain_pro));
 
-                simpleListModel.add(item1);
+                getListmodel().add(item1);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item1.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item1.preSelectValue()));
                 }
             }
 
 
             for (String reg : values) {
                 ProvincieModel item = GenericFactory.BuildSingleObject(ProvincieModel.class, reg);
-                simpleListModel.add(item);
+                getListmodel().add(item);
 
                 if (selectionItemsController != null) {
-                    selectionItemsController.inputSelected(simpleListModel.size() - 1, preselect.contains(item.preSelectValue()));
+                    selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item.preSelectValue()));
                 }
             }
         } else {
