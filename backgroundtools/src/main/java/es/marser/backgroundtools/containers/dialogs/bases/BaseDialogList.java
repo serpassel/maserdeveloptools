@@ -19,6 +19,7 @@ import es.marser.backgroundtools.enums.ListExtra;
  */
 
 @SuppressWarnings("unused")
+@Deprecated
 public abstract  class BaseDialogList extends BaseDialogBinDecrep {
 
     protected RecyclerView recyclerView;

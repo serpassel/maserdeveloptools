@@ -42,6 +42,7 @@ public abstract class DialogListPresenter<LM extends BaseAdapterModel>
      */
     @Override
     public void onBindObjects(@NonNull BinderContainer binderContainer) {
+        super.onBindObjects(binderContainer);
         binderContainer.bindObject(BR.listmodel, listmodel);
     }
 
