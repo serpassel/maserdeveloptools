@@ -33,7 +33,8 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class FileChooserDialog
-        extends BaseDialogBinList<FileModel, SimpleFileAdapterModel, SimpleFileListPresenter> implements OnPathChangedListener {
+        extends BaseDialogBinList<FileModel, SimpleFileAdapterModel, SimpleFileListPresenter>
+        implements OnPathChangedListener {
 
     protected OnResult<FileModel> result;
     protected boolean readablepermission;
@@ -121,6 +122,13 @@ public class FileChooserDialog
         return R.layout.mvp_dialog_file_chooser;
     }
 
+   //SELECTIONABLE____________________________________________________________________
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
+        return simpleListModel != null ? simpleListModel.getSelectionmode(viewtype): null;
+    }
+
     /**
      * Filjar el modo de selección de la lista
      * <p>
@@ -129,9 +137,9 @@ public class FileChooserDialog
      * @param selectionmode Modo de slección de la lista
      */
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+    public void setSelectionmode(@Nullable Integer viewtype, @NonNull ListExtra selectionmode) {
         if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(selectionmode);
+            simpleListModel.setSelectionmode(null,selectionmode);
         }
     }
 

@@ -15,13 +15,13 @@ import java.util.List;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBinTable;
 import es.marser.backgroundtools.containers.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.containers.dialogs.model.DayWeek;
 import es.marser.backgroundtools.containers.dialogs.model.MonthTitle;
 import es.marser.backgroundtools.containers.dialogs.widget.calendar.AsyncMonthDays;
 import es.marser.backgroundtools.containers.dialogs.widget.calendar.DateLoader;
 import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBin;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBinTable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
@@ -125,7 +125,7 @@ public class CalendarChooserFragment
     protected void bindAdapter(@Nullable Bundle savedInstanceState) {
         super.bindAdapter(savedInstanceState);
         if (savedInstanceState == null) {
-            getHeadGlobalController().setSelectionmode(ListExtra.NOT_SELECTION_MODE);
+            getHeadGlobalController().setSelectionmode(null, ListExtra.NOT_SELECTION_MODE);
 
             //getHeadGlobalController().clear();
             // loadDayWeek();
@@ -266,7 +266,6 @@ public class CalendarChooserFragment
 
 
     //CALCS_____________________________________________________________________________
-
     /**
      * Fijar festivos en la fecha de cabecera
      * <p>

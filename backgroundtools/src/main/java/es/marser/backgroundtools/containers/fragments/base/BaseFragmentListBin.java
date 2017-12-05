@@ -138,12 +138,12 @@ public abstract class BaseFragmentListBin<
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
-    public ListExtra getSelectionmode(int viewType) {
-        return simpleListModel.getSelectionmode(viewType);
+    public ListExtra getSelectionmode(@Nullable Integer viewType) {
+        return simpleListModel != null ? simpleListModel.getSelectionmode(viewType): null;
     }
 
     @Override
-    public void setSelectionmode(int viewType, @NonNull ListExtra selectionmode) {
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
         if (simpleListModel != null) {
             simpleListModel.setSelectionmode(viewType, selectionmode);
         }

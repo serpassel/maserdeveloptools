@@ -30,7 +30,7 @@ import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T,SimpleAdapterModel<T>,  ChooserPresenter<T>> {
+        extends BaseDialogBinList<T, SimpleAdapterModel<T>, ChooserPresenter<T>> {
 
     protected OnResult<List<T>> result;
 
@@ -83,7 +83,7 @@ public class ChooserDialog<T extends Selectable>
         super.postBuild();
         ListExtra out = (ListExtra) getArguments().getSerializable(ListExtra.LIST_EXTRA.name());
         out = out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
-        setSelectionmode(out);
+        setSelectionmode(null, out);
         presenter.load(getArguments());
     }
 
@@ -139,9 +139,9 @@ public class ChooserDialog<T extends Selectable>
      * @param selectionmode Modo de slección de la lista
      */
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
         if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(selectionmode);
+            simpleListModel.setSelectionmode(viewType, selectionmode);
         }
     }
 

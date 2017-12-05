@@ -31,6 +31,7 @@ public abstract class BaseDialogBinList<
     protected SLP presenter;
 
     //BIN METHODS OF CONFIGURATION________________________________________________________
+
     /**
      * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
      * <p>
@@ -59,14 +60,14 @@ public abstract class BaseDialogBinList<
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
-    public ListExtra getSelectionmode() {
-        return simpleListModel.getSelectionmode();
+    public ListExtra getSelectionmode(@Nullable Integer viewType) {
+        return simpleListModel != null ? simpleListModel.getSelectionmode(viewType) : null;
     }
 
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
         if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(selectionmode);
+            simpleListModel.setSelectionmode(viewType, selectionmode);
         }
     }
 

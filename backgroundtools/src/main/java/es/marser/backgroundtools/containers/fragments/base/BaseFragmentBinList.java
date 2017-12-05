@@ -121,7 +121,7 @@ public abstract class BaseFragmentBinList<T extends Parcelable>
         };
 
         recyclerView.setAdapter(adapter);
-        adapter.adapterController.setSelectionmode(getInitialSelectionMode());
+        adapter.adapterController.setSelectionmode(null, getInitialSelectionMode());
     }
 
     @Override

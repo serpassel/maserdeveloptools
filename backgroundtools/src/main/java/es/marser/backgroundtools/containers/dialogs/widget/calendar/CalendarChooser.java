@@ -16,7 +16,7 @@ import java.util.List;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinTable;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinTableDECREP;
 import es.marser.backgroundtools.containers.dialogs.model.CalendarObservable;
 import es.marser.backgroundtools.containers.dialogs.model.DayWeek;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
@@ -41,7 +41,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("ALL")
 public class CalendarChooser
-        extends BaseDialogBinTable<DayWeek, CalendarObservable>
+        extends BaseDialogBinTableDECREP<DayWeek, CalendarObservable>
         implements ViewHandler<Void> {
 
     protected OnResult<CalendarObservable> result;
@@ -132,7 +132,7 @@ public class CalendarChooser
     @Override
     protected void postBuild() {
         super.postBuild();
-        getHeadGlobalController().setSelectionmode(ListExtra.NOT_SELECTION_MODE);
+        getHeadGlobalController().setSelectionmode(null,ListExtra.NOT_SELECTION_MODE);
         loadDayWeek();
         load();
     }

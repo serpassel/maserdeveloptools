@@ -107,12 +107,12 @@ public abstract class BaseFragmentListBinD<
     //SELECTIONABLE________________________________________________________
     @Nullable
     @Override
-    public ListExtra getSelectionmode() {
-        return getSimpleListModel().getSelectionmode();
+    public ListExtra getSelectionmode(@Nullable Integer viewType) {
+        return getSimpleListModel().getSelectionmode(viewType);
     }
 
     @Override
-    public void setSelectionmode(@NonNull ListExtra selectionmode) {
-        getSimpleListModel().setSelectionmode(selectionmode);
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+        getSimpleListModel().setSelectionmode(viewType, selectionmode);
     }
 }

@@ -17,7 +17,7 @@ import es.marser.backgroundtools.definition.Restorable;
  *         [EN]  List presenter definition
  */
 
-@SuppressWarnings("EmptyMethod")
+@SuppressWarnings({"EmptyMethod", "unused"})
 public interface AdapterPresenter extends Restorable {
 
     /**
