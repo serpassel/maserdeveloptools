@@ -24,14 +24,13 @@ public abstract class BaseDialogBinList<
         SLM extends SimpleAdapterModel<T>,
         SLP extends SimpleListPresenter<T, SLM>
         >
-        extends BaseDialogBin
+        extends BaseDialogBinDecrep
         implements Selectionable {
 
     protected SLM simpleListModel;
     protected SLP presenter;
 
     //BIN METHODS OF CONFIGURATION________________________________________________________
-
     /**
      * Enlace de objetos en la vista principal. Obligatorio que la variable de modelo en la vista se denomine model
      * <p>

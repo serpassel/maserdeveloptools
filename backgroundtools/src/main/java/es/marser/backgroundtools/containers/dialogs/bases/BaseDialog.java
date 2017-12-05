@@ -7,6 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 
@@ -23,7 +24,7 @@ import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class BaseDialog
         extends DialogFragment
-        implements View.OnTouchListener, SimpleGestureFilter.SimpleGestureListener{
+        implements View.OnTouchListener, SimpleGestureFilter.SimpleGestureListener, ClosableView {
 
     protected Context context;
     protected Dialog dialog;
@@ -91,6 +92,7 @@ public abstract class BaseDialog
      * <p>
      * [EN]  Method of closing the dialog
      */
+    @Override
     public void close() {
         if (dialog != null && isShowing()) {
             dialog.dismiss();

@@ -8,7 +8,7 @@ import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.handlers.ViewHandler;
@@ -29,7 +29,7 @@ import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
 
 @SuppressWarnings("unused")
 public class EditDialogBin<T extends Parcelable>
-        extends BaseDialogBin
+        extends BaseDialogBinDecrep
         implements ViewHandler<T> {
 
     protected OnResult<T> result;

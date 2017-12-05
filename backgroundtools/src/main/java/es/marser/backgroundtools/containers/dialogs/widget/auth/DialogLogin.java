@@ -7,7 +7,7 @@ import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
 import es.marser.backgroundtools.containers.dialogs.widget.inputbox.BoxSettings;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -23,7 +23,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogLogin extends BaseDialogBin {
+public class DialogLogin extends BaseDialogBinDecrep {
 
     protected OnDResult<String, String> result;
 

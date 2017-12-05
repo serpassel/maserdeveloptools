@@ -8,7 +8,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.MathTools;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 
 /**
  * @author sergio
@@ -16,11 +16,11 @@ import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
  *         Cuadro de progreso personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Progress Box
- * @see BaseDialogBin
+ * @see BaseDialogBinDecrep
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class BinProgressDialog extends BaseDialogBin {
+public class BinProgressDialog extends BaseDialogBinDecrep {
 
     private DialogProgressModel source;
 

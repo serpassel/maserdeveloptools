@@ -7,7 +7,7 @@ import android.view.View;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.DialogExtras;
@@ -25,7 +25,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings({"unused", "SameParameterValue"})
-public class NotificationDialogBin extends BaseDialogBin implements WindowAction {
+public class NotificationDialogBin extends BaseDialogBinDecrep implements WindowAction {
 
     /**
      * Nombre del buzón de preferencias para llaves de acceso a variables de preferencias de dialogos

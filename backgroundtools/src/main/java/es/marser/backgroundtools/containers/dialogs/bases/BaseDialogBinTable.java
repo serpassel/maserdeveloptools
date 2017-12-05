@@ -24,7 +24,7 @@ public abstract class BaseDialogBinTable<
         TAM extends TableAdapterModel<H, B>,
         TLP extends TableListPresenter<H, B, TAM>
         >
-        extends BaseDialogBin
+        extends BaseDialogBinDecrep
         implements Selectionable {
 
     protected TAM tableListModel;

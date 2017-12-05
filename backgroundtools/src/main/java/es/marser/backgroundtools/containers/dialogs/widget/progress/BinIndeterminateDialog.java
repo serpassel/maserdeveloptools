@@ -5,7 +5,7 @@ import android.os.Bundle;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -16,11 +16,11 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         Cuadro de progreso indeterminado personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Indeterminate Progress Chart
- * @see BaseDialogBin
+ * @see BaseDialogBinDecrep
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class BinIndeterminateDialog extends BaseDialogBin {
+public class BinIndeterminateDialog extends BaseDialogBinDecrep {
     private DialogProgressModel source;
 
     /**

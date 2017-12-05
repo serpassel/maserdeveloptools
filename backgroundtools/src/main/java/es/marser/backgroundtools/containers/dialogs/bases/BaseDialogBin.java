@@ -7,19 +7,12 @@ import android.databinding.ViewDataBinding;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
-import android.view.View;
+import android.view.Window;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
-import es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel;
-import es.marser.backgroundtools.containers.dialogs.model.DialogModel;
-import es.marser.backgroundtools.containers.dialogs.model.StatusModel;
-import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
 import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.tools.TextTools;
-
-import static es.marser.backgroundtools.enums.DialogIcon.DEFAULT_ICON;
-import static es.marser.backgroundtools.enums.DialogIcon.ICON_EXTRA;
 
 /**
  * @author sergio
@@ -43,35 +36,37 @@ import static es.marser.backgroundtools.enums.DialogIcon.ICON_EXTRA;
  */
 
 @SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
-public abstract class BaseDialogBin
+public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         extends BaseDialog
         implements WindowAction, BinderContainer {
 
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
 
-    /*Variable modelo [EN]  Model variable*/
-    protected DialogModel model;
-
-    /*Variable modelo de configurador de botonera [EN]  Variable button configurator model*/
-    protected ButtonsSetModel buttonsSetModel;
-
-    /*Variable modelo de estado de vistas [EN]  View State Model Variable*/
-    protected StatusModel statusModel;
-
-    public BaseDialogBin() {
-        this.model = new DialogModel();
-        this.buttonsSetModel = new ButtonsSetModel();
-        this.statusModel = new StatusModel();
-    }
+    protected DBP presenter;
 
     @Override
     protected void createDialog() {
-        if (getArguments() != null) {
-            DialogIcon dialog_icon = (DialogIcon) getArguments().getSerializable(ICON_EXTRA.name());
-            model.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
+        preBuild();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (inflater != null && presenter != null) {
+            viewDataBinding = DataBindingUtil.inflate(inflater, presenter.getDialogLayout(), null, false);
         }
-        buildDialog();
+        view = viewDataBinding.getRoot();
+
+        builder.setView(view);
+        dialog = builder.create();
+
+        Window w = dialog.getWindow();
+
+        if (w != null) {
+            w.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        }
+        bindObject();
+        postBuild();
     }
 
     /**
@@ -80,33 +75,6 @@ public abstract class BaseDialogBin
      * [EN]  Methods and start of variables prior to the construction of the dialogue.  Optional
      */
     protected void preBuild() {
-    }
-
-    /**
-     * Construcción del cuadro de dialogo
-     * <ul>
-     * <il>Pre-creación [EN]  Pre-creation</il>
-     * <il>Crear Dialogo [EN]  Create Dialogo</il>
-     * <il>Enlazar modelo a la vista [EN]  Link model to view</il>
-     * <il>Post-creación [EN]  Post-creation</il>
-     * </ul>
-     * [EN]  Construction of the dialog box
-     */
-    @SuppressWarnings("ConstantConditions")
-    private void buildDialog() {
-        preBuild();
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
-        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewDataBinding = DataBindingUtil.inflate(inflater, getDialogLayout(), null, false);
-        view = viewDataBinding.getRoot();
-
-        builder.setView(view);
-        dialog = builder.create();
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        bindObject();
-        postBuild();
     }
 
     /**
@@ -126,63 +94,9 @@ public abstract class BaseDialogBin
      * It runs before {@link #postBuild()} and after {@link #preBuild()} and the creation of dialogue
      */
     protected void bindObject() {
-        bindObject(BR.model, model);
-        bindObject(BR.winaction, this);
-        bindObject(BR.buttonsetmodel, buttonsSetModel);
-        bindObject(BR.statusmodel, statusModel);
-    }
-
-    /**
-     * Recuperación de la vista. Obligatorio
-     * [EN]  Recovery of sight.  required
-     *
-     * @return R.layout.view
-     */
-    protected abstract int getDialogLayout();
-
-
-    /**
-     * Optiene la variable del modelo de la vista
-     * <p>
-     * [EN]  Opt the view model variable
-     *
-     * @return Modelo de la vista [EN]  View model
-     */
-    public DialogModel getDialogModel() {
-        return model;
-    }
-
-    /**
-     * Recupera la variable del modelo
-     * <p>
-     * [EN]  Retrieve the model variable
-     *
-     * @param dialogProgressModel variable de modelo [EN]  model variable
-     */
-    public void setDialogModel(DialogModel model) {
-        this.model = model;
-    }
-
-    /**
-     * Recuperar la variable de configuración de la botonera
-     * <p>
-     * [EN]  Retrieve the button configuration variable
-     *
-     * @return Modelo de la botonera [EN]  Model of the keypad
-     */
-    public ButtonsSetModel getButtonsSetModel() {
-        return buttonsSetModel;
-    }
-
-    /**
-     * Introducir la variable de modelo de botonera
-     * <p>
-     * [EN]  Enter the button model variable
-     *
-     * @param buttonsSetModel Variable de modelo de botonera [EN]  Keyboard model variable
-     */
-    public void setButtonsSetModel(ButtonsSetModel buttonsSetModel) {
-        this.buttonsSetModel = buttonsSetModel;
+        if (presenter != null) {
+            presenter.onBindObjects(this);
+        }
     }
 
     /**
@@ -194,7 +108,9 @@ public abstract class BaseDialogBin
      * @return clase actual [EN]  current class
      */
     public BaseDialogBin setTitle(String msg) {
-        model.title.set(TextTools.nc(msg));
+        if (presenter != null && presenter.getModel() != null) {
+            presenter.getModel().title.set(TextTools.nc(msg));
+        }
         return this;
     }
 
@@ -207,25 +123,20 @@ public abstract class BaseDialogBin
      * @return clase actual [EN]  current class
      */
     public BaseDialogBin setBody(String msg) {
-        model.body.set(TextTools.nc(msg));
+        if (presenter != null && presenter.getModel() != null) {
+            presenter.getModel().body.set(TextTools.nc(msg));
+        }
         return this;
     }
 
-    //IMPLEMENTACIÓN DE WINACTION
-    /* {@link WindowAction}*/
-    @Override
-    public void onOk(View v) {
-
+    //VARIABLES___________________________________________________________
+    public DBP getPresenter() {
+        return presenter;
     }
 
-    @Override
-    public void onCancel(View v) {
-
-    }
-
-    @Override
-    public void onOption(View v) {
-
+    public void setPresenter(DBP presenter) {
+        this.presenter = presenter;
+        this.presenter.setClosableView(this);
     }
 
     //BINDER CONTAINER_____________________________________________________
