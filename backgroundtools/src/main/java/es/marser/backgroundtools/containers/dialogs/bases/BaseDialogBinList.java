@@ -19,4 +19,12 @@ public abstract class BaseDialogBinList<
         DLP extends DialogListPresenter<SimpleAdapterModel<T>>
         >
         extends BaseDialogBin<DLP> {
+
+    @Override
+    protected void postBuild() {
+        super.postBuild();
+        if (presenter.isEmpty()) {
+            presenter.load(getArguments());
+        }
+    }
 }

@@ -29,16 +29,16 @@ import es.marser.tools.TextTools;
 public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
 
     //CONTRUCTORS______________________________________________________________________________
-    public AutonomousPresenter(@NonNull Context context) {
-        super(context);
+    public AutonomousPresenter(@NonNull Context context, int viewlayout) {
+        super(context, viewlayout);
     }
 
-    public AutonomousPresenter(@NonNull Context context, @NonNull SimpleAdapterModel<AutonomousModel> listModel) {
-        super(context, listModel);
+    public AutonomousPresenter(@NonNull Context context, int viewlayout, @NonNull SimpleAdapterModel<AutonomousModel> listModel) {
+        super(context, viewlayout, listModel);
     }
 
-    public AutonomousPresenter(@NonNull Context context, boolean multiselect_flag) {
-        super(context, multiselect_flag);
+    public AutonomousPresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
+        super(context, viewlayout, multiselect_flag);
     }
 
     /**

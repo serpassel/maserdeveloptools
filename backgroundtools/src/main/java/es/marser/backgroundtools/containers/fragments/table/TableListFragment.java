@@ -19,23 +19,23 @@ import es.marser.backgroundtools.listables.table.presenter.TableListPresenter;
 
 @SuppressWarnings("unused")
 public class TableListFragment<H extends Parcelable, B extends Parcelable>
-        extends BaseFragmentListBin<TableListPresenter<H, B, TableAdapterModel<H,B>>> {
+        extends BaseFragmentListBin<TableListPresenter<H, B, TableAdapterModel<H, B>>> {
 
-    public static <H extends Parcelable, B extends Parcelable> TableListFragment<H,B> newInstance(
+    public static <H extends Parcelable, B extends Parcelable> TableListFragment<H, B> newInstance(
             @Nullable Bundle bundle,
-            TableAdapterModel<H,B> model,
-            TableListPresenter<H,B, TableAdapterModel<H,B>> presenter) {
+            TableAdapterModel<H, B> model,
+            TableListPresenter<H, B, TableAdapterModel<H, B>> presenter) {
 
-        TableListFragment<H,B> instance = new TableListFragment<>();
+        TableListFragment<H, B> instance = new TableListFragment<>();
         instance.setArguments(bundle);
         presenter.setListmodel(model);
+
+        if (presenter.getViewLayout() < 0) {
+            presenter.setViewLayout(R.layout.mvp_frag_simple_list);
+        }
+
         instance.setPresenter(presenter);
 
         return instance;
-    }
-
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.mvp_frag_simple_list;
     }
 }

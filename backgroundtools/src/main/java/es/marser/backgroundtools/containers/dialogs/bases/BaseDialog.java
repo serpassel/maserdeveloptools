@@ -35,6 +35,7 @@ public abstract class BaseDialog
         gestureFilter = new SimpleGestureFilter(getActivity(), this);
     }
 //EVENTs____________________________________________________________
+
     /**
      * Called when a touch event is dispatched to a view. This allows listeners to
      * get a chance to respond before the target view.
@@ -64,6 +65,15 @@ public abstract class BaseDialog
      * [EN]  Procedure to create the dialog.  method to overwrite
      */
     protected abstract void createDialog();
+
+    /**
+     * Vista principal del dialogo
+     * <p>
+     * [EN]  Main view of the dialogue
+     *
+     * @return R.layout.XXXXXX
+     */
+    protected abstract int getDialogLayout();
 
     /**
      * Procedimiento para mostrar el dialogo. Oculta el teclado por defecto

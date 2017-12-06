@@ -15,8 +15,6 @@ import es.marser.backgroundtools.enums.DialogExtras;
 @SuppressWarnings({"EmptyMethod", "unused"})
 public interface OnDResult<T, X> {
     void onResult(DialogExtras result, T value1, X value2);
-
-    void onClick(View view, T value, X value2);
 }
 
 

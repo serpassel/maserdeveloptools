@@ -40,14 +40,15 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
         if (presenter != null) {
             presenter.onRestoreInstanceState(savedInstanceState);
         }
-        if (presenter != null) {
-            viewDataBinding = DataBindingUtil.inflate(inflater, presenter.getViewLayout(), container, false);
-        } else {
-            throw new NullPointerException("Presenter null");
-        }
+        viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
         preBuild(getContext(), getArguments());
         binObjects(getArguments());
         return viewDataBinding.getRoot();
+    }
+
+    @Override
+    protected int getFragmentLayout() {
+        return presenter != null ? presenter.getViewLayout() : -1;
     }
 
     /**

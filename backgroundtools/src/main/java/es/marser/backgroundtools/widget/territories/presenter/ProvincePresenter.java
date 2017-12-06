@@ -27,8 +27,8 @@ import es.marser.tools.TextTools;
 @SuppressWarnings("unused")
 public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
 
-    public ProvincePresenter(@NonNull Context context, boolean multiselect_flag) {
-        super(context, multiselect_flag);
+    public ProvincePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
+        super(context,viewlayout, multiselect_flag);
     }
 
     /**

@@ -28,12 +28,10 @@ public class SimpleListFragment<T extends Parcelable>
         SimpleListFragment<T> instance = new SimpleListFragment<>();
         instance.setArguments(bundle);
         presenter.setListmodel(model);
+        if (presenter.getViewLayout() < 0) {
+            presenter.setViewLayout(R.layout.mvp_frag_simple_list);
+        }
         instance.setPresenter(presenter);
         return instance;
-    }
-
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.mvp_frag_simple_list;
     }
 }

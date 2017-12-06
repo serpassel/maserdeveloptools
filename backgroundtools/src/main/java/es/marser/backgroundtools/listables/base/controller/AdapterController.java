@@ -62,7 +62,7 @@ public class AdapterController<T extends Parcelable>
     protected ViewItemHandler<T> viewItemHandler;
 
     /*EXTRAS*/
-    public static String[] extras = new String[]{"items_key", "items_count_key"};
+    public static String[] extras = new String[]{"items_key", "items_count_key", "selection_mode_key"};
 
     public int viewHolderType;
 
@@ -112,6 +112,7 @@ public class AdapterController<T extends Parcelable>
             if (items != null && size() > 0) {
                 savedInstanceState.putParcelableArrayList(TextTools.nc(viewHolderType) + extras[0], items);
             }
+            savedInstanceState.putSerializable(extras[2], selectionmode);
         }
     }
 
@@ -140,6 +141,8 @@ public class AdapterController<T extends Parcelable>
                 );
             } catch (ClassCastException ignored) {
             }
+            ListExtra listExtra = (ListExtra) savedInstanceState.getSerializable(extras[2]);
+            setSelectionmode(viewHolderType, listExtra != null ? listExtra : ListExtra.SINGLE_SELECTION_MODE);
         }
     }
 

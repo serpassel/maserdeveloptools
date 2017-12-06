@@ -26,19 +26,20 @@ import es.marser.tools.TextTools;
 public class VillagePresenter extends ChooserPresenter<VillageModel> {
 
     //CONTRUCTORS_____________________________________________________________________
-    public VillagePresenter(@NonNull Context context) {
-        super(context);
+    public VillagePresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, false);
     }
 
-    public VillagePresenter(@NonNull Context context, boolean multiselect_flag) {
-        super(context, multiselect_flag);
+    public VillagePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
+        super(context, viewlayout, multiselect_flag);
     }
 
-    public VillagePresenter(@NonNull Context context, @NonNull SimpleAdapterModel<VillageModel> listModel) {
-        super(context, listModel);
+    public VillagePresenter(@NonNull Context context, int viewlayout, @NonNull SimpleAdapterModel<VillageModel> listModel) {
+        super(context, viewlayout, listModel);
     }
 
     //LOAD______________________________________________________________________________
+
     /**
      * Método para la carga de datos
      * <p>

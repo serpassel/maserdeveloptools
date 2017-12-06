@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
+import es.marser.backgroundtools.listables.base.model.Selectionable;
 import es.marser.backgroundtools.listables.base.presenter.AdapterPresenter;
 
 /**
@@ -18,18 +20,14 @@ import es.marser.backgroundtools.listables.base.presenter.AdapterPresenter;
 
 public abstract class DialogListPresenter<LM extends BaseAdapterModel>
         extends DialogBasePresenter
-        implements AdapterPresenter {
+        implements AdapterPresenter, Selectionable {
 
     private LM listmodel;
 
     //CONSTRUCTORS____________________________________________________
-    public DialogListPresenter(@NonNull Context context) {
-        super(context);
-    }
-
-    public DialogListPresenter(@NonNull Context context, @NonNull LM listModel) {
-        super(context);
-        setListmodel(listModel);
+    public DialogListPresenter(@NonNull Context context, int viewLayout, LM listmodel) {
+        super(context, viewLayout);
+       setListmodel(listmodel);
     }
 
     //ADAPTER PRESENTER_____________________________________________________
@@ -46,6 +44,19 @@ public abstract class DialogListPresenter<LM extends BaseAdapterModel>
         binderContainer.bindObject(BR.listmodel, listmodel);
     }
 
+    //SELECTIONABLE______________________________________________________________
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
+        return listmodel != null ? listmodel.getSelectionmode(viewtype) : null;
+    }
+
+    @Override
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+        if(listmodel != null){
+            listmodel.setSelectionmode(viewType, selectionmode);
+        }
+    }
 
     //VARIABLES__________________________________________________________
     public LM getListmodel() {
@@ -74,4 +85,5 @@ public abstract class DialogListPresenter<LM extends BaseAdapterModel>
             listmodel.onRestoreInstanceState(savedInstanceState);
         }
     }
+
 }

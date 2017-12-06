@@ -11,7 +11,6 @@ import android.view.Window;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
-import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.tools.TextTools;
 
 /**
@@ -38,7 +37,7 @@ import es.marser.tools.TextTools;
 @SuppressWarnings({"unused", "EmptyMethod", "UnusedReturnValue"})
 public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         extends BaseDialog
-        implements WindowAction, BinderContainer {
+        implements BinderContainer {
 
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
@@ -52,8 +51,8 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (inflater != null && presenter != null) {
-            viewDataBinding = DataBindingUtil.inflate(inflater, presenter.getDialogLayout(), null, false);
+        if (inflater != null) {
+            viewDataBinding = DataBindingUtil.inflate(inflater, getDialogLayout(), null, false);
         }
         view = viewDataBinding.getRoot();
 
@@ -129,6 +128,7 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         return this;
     }
 
+
     //VARIABLES___________________________________________________________
     public DBP getPresenter() {
         return presenter;
@@ -144,5 +144,10 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
     public void bindObject(int var, @NonNull Object obj) {
         viewDataBinding.setVariable(var, obj);
         viewDataBinding.executePendingBindings();
+    }
+
+    @Override
+    protected int getDialogLayout() {
+        return presenter != null ? presenter.getViewLayout() : -1;
     }
 }

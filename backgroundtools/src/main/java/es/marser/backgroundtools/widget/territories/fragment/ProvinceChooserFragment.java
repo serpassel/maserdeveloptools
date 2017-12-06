@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.simple.SimpleListFragment;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
@@ -30,7 +31,7 @@ public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> 
     @Override
     protected void preBuild(Context context, @Nullable Bundle args) {
         super.preBuild(context, args);
-        ProvincePresenter presenter = new ProvincePresenter(context, false);
+        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvc_frag_simple_list, false);
         presenter.setListmodel(new SimpleAdapterModel<ProvincieModel>(context));
         setPresenter(presenter);
     }

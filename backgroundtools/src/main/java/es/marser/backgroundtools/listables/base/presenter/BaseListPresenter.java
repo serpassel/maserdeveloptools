@@ -8,7 +8,9 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
+import es.marser.backgroundtools.listables.base.model.Selectionable;
 
 /**
  * @author sergio
@@ -17,17 +19,17 @@ import es.marser.backgroundtools.listables.base.model.BaseAdapterModel;
 
 public abstract class BaseListPresenter<LM extends BaseAdapterModel>
         extends BasePresenter
-        implements AdapterPresenter {
+        implements AdapterPresenter, Selectionable {
 
     private LM listmodel;
 
     //CONSTRUCTORS____________________________________________________
-    public BaseListPresenter(@NonNull Context context) {
-        super(context);
+    public BaseListPresenter(@NonNull Context context, int viewlayout) {
+        super(context, viewlayout);
     }
 
-    public BaseListPresenter(@NonNull Context context, @NonNull LM listModel) {
-        super(context);
+    public BaseListPresenter(@NonNull Context context, int viewlayout, @NonNull LM listModel) {
+        super(context, viewlayout);
         setListmodel(listModel);
     }
 
@@ -70,6 +72,20 @@ public abstract class BaseListPresenter<LM extends BaseAdapterModel>
     public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
         if(listmodel != null){
             listmodel.onRestoreInstanceState(savedInstanceState);
+        }
+    }
+
+    //SELECTIONABLE______________________________________________________________
+    @Nullable
+    @Override
+    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
+        return listmodel != null ? listmodel.getSelectionmode(viewtype) : null;
+    }
+
+    @Override
+    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
+        if(listmodel != null){
+            listmodel.setSelectionmode(viewType, selectionmode);
         }
     }
 }

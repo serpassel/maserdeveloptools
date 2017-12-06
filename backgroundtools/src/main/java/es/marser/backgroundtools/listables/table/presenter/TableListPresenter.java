@@ -28,12 +28,12 @@ public abstract class TableListPresenter<H extends Parcelable,
         extends BaseListPresenter<TAM> {
 
     //CONSTRUCTORS__________________________________________________________
-    public TableListPresenter(@NonNull Context context) {
-        super(context);
+    public TableListPresenter(@NonNull Context context, int viewlayout) {
+        super(context, viewlayout);
     }
 
-    public TableListPresenter(@NonNull Context context, @NonNull TAM listModel) {
-        super(context, listModel);
+    public TableListPresenter(@NonNull Context context, int viewlayout, @NonNull TAM listModel) {
+        super(context, viewlayout, listModel);
     }
 
     //OVERRIDE BASE__________________________________________________________

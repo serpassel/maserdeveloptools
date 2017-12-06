@@ -4,18 +4,10 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
-import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
-import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
@@ -30,124 +22,28 @@ import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 
 @SuppressWarnings("unused")
 public class ChooserDialog<T extends Selectable>
-        extends BaseDialogBinList<T, SimpleAdapterModel<T>, ChooserPresenter<T>> {
-
-    protected OnResult<List<T>> result;
+        extends BaseDialogBinList<T, ChooserPresenter<T>> {
 
     public static <T extends Selectable> ChooserDialog<T> newInstance(
             @NonNull Context context,
-            @NonNull Bundle bundle,
-            @NonNull ChooserPresenter<T> presenter,
-            @Nullable OnResult<List<T>> result
+            @Nullable Bundle bundle,
+            @NonNull ChooserPresenter<T> presenter
     ) {
 
-        ChooserDialog<T> instace = new ChooserDialog<>();
-        instace.setContext(context);
-        instace.setArguments(bundle);
-        instace.setResult(result);
-        instace.setPresenter(presenter);
-        instace.setSimpleListModel(new SimpleAdapterModel<T>(context, R.layout.mvp_item_object_chooser));
-        return instace;
-    }
-
-    public static <T extends Selectable> ChooserDialog<T> newInstance(
-            @NonNull Context context,
-            @NonNull Bundle bundle,
-            @NonNull ChooserPresenter<T> presenter,
-            @NonNull SimpleAdapterModel<T> simpleAdapterModel,
-            @Nullable OnResult<List<T>> result
-    ) {
-
-        ChooserDialog<T> instace = ChooserDialog.newInstance(context, bundle, presenter, result);
-        instace.setSimpleListModel(simpleAdapterModel);
-        return instace;
-    }
-
-    @Override
-    protected void preBuild() {
-        super.preBuild();
-
-        model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
-        statusModel.blockAction.set(getArguments().getInt(DialogExtras.STATE_EXTRA.name(), 0) == 1);
-
-        String ok_name = getArguments().getString(DialogExtras.OK_EXTRA.name());
-
-        if (ok_name != null) {
-            buttonsSetModel.ok_name.set(ok_name);
+        ChooserDialog<T> instance = new ChooserDialog<>();
+        
+        instance.setContext(context);
+        instance.setArguments(bundle);
+       
+        if (presenter.getListmodel() == null) {
+            presenter.setListmodel(new SimpleAdapterModel<T>(context, R.layout.mvp_item_object_chooser));
         }
-        buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
-    }
-
-    @Override
-    protected void postBuild() {
-        super.postBuild();
-        ListExtra out = (ListExtra) getArguments().getSerializable(ListExtra.LIST_EXTRA.name());
-        out = out != null ? out : ListExtra.ONLY_SINGLE_SELECTION_MODE;
-        setSelectionmode(null, out);
-        presenter.load(getArguments());
-    }
-
-    @Override
-    protected void bindObject() {
-        super.bindObject();
-        /*Presentador [EN]  Presenter*/
-        viewDataBinding.setVariable(BR.handler, presenter);
-        viewDataBinding.executePendingBindings();
-
-        /*Multiselección [EN]  Multiselection*/
-        viewDataBinding.setVariable(BR.multiselect, ChooserPresenter.multiselect);
-        viewDataBinding.executePendingBindings();
-    }
-
-    @Override
-    protected int getDialogLayout() {
-        return R.layout.mvp_dialog_object_chooser;
-    }
-
-    /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
-    @Override
-    public void onOk(View view) {
-        if (result != null) {
-            result.onResult(DialogExtras.OK_EXTRA, simpleListModel.getSelectds());
+        
+        if(presenter.getViewLayout() <0){
+            presenter.setViewLayout(R.layout.mvp_dialog_object_chooser);
         }
-        close();
-    }
-
-    @Override
-    public void onCancel(View view) {
-        if (result != null) {
-            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<T>());
-        }
-        close();
-    }
-
-    /*{@link OnResult}*/
-    public OnResult<List<T>> getResult() {
-        return result;
-    }
-
-    public void setResult(OnResult<List<T>> result) {
-        this.result = result;
-    }
-
-
-    /**
-     * Filjar el modo de selección de la lista
-     * <p>
-     * [EN]  Filtering the mode selection mode of the list
-     *
-     * @param selectionmode Modo de slección de la lista
-     */
-    @Override
-    public void setSelectionmode(@Nullable Integer viewType, @NonNull ListExtra selectionmode) {
-        if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(viewType, selectionmode);
-        }
-    }
-
-    @Override
-    public void setPresenter(@NonNull ChooserPresenter<T> presenter) {
-        super.setPresenter(presenter);
-        this.presenter.setWindowAction(this);
+       
+        instance.setPresenter(presenter);
+        return instance;
     }
 }

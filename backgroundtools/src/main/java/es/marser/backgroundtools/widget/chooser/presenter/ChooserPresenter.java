@@ -12,7 +12,11 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.containers.dialogs.presenter.SimpleDialogListPresenter;
+import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -33,40 +37,40 @@ import es.marser.tools.TextTools;
  *         [EN]  Presenter for Object selectors
  */
 
+@SuppressWarnings("unused")
 public class ChooserPresenter<T extends Selectable>
-        extends SimpleListPresenter<T, SimpleAdapterModel<T>>
+        extends SimpleDialogListPresenter<T, SimpleAdapterModel<T>>
         implements ViewHandler<Boolean> {
 
-    public static ObservableBoolean multiselect;
+    public static ObservableBoolean multiselect = new ObservableBoolean();
     protected boolean multiselect_flag;
 
-    private WindowAction  windowAction;
+    protected OnResult<List<T>> result;
 
-    public ChooserPresenter(@NonNull Context context) {
-        this(context, true);
+    //CONTRUCTORS______________________________________________________________________
+    public ChooserPresenter(@NonNull Context context, int viewlayout, @Nullable OnResult<List<T>> result) {
+        this(context,
+                viewlayout,
+                new SimpleAdapterModel<T>(context, R.layout.mvp_item_object_chooser),
+                true,
+                result);
     }
 
-    public ChooserPresenter(@NonNull Context context, boolean multiselect_flag) {
-        super(context);
+    public ChooserPresenter(@NonNull Context context,
+                            int viewlayout,
+                            @NonNull SimpleAdapterModel<T> listModel,
+                            boolean multiselect_flag,
+                            @Nullable OnResult<List<T>> result) {
+        super(context, viewlayout < -1 ? viewlayout : R.layout.mvp_dialog_object_chooser, listModel);
+        this.result = result;
         this.multiselect_flag = multiselect_flag;
-        multiselect = new ObservableBoolean();
-        windowAction = null;
     }
 
-    public ChooserPresenter(@NonNull Context context, @NonNull SimpleAdapterModel<T> listModel) {
-        super(context, listModel);
-        multiselect_flag = true;
-        multiselect = new ObservableBoolean();
-        windowAction = null;
-    }
-
-
-
-    public void setWindowAction(WindowAction windowAction) {
-        this.windowAction = windowAction;
-    }
-
+    //OVERRIDE_____________________________________________________________________
     /**
+     * if (presenter.getViewLayout() < 0) {
+     * presenter.setViewLayout(R.layout.mvp_frag_simple_list);
+     * }
      * Método para la carga de datos
      * <p>
      * [EN]  Method for data loading
@@ -106,6 +110,23 @@ public class ChooserPresenter<T extends Selectable>
     }
 
     /**
+     * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
+     * <p>
+     * [EN]  Join linking view indicator
+     *
+     * @param binderContainer Objeto de enlace de vistas [EN]  View link object
+     */
+    @Override
+    public void onBindObjects(@NonNull BinderContainer binderContainer) {
+        super.onBindObjects(binderContainer);
+         /*Presentador [EN]  Presenter*/
+        binderContainer.bindObject(BR.handler, this);
+        /*Multiselección [EN]  Multiselection*/
+        binderContainer.bindObject(BR.multiselect, multiselect);
+    }
+
+    //OWN METHODS________________________________________________________________
+    /**
      * Método para ajustar el estado del boón de multiselección
      * Anula los eventos de cambio de estado durante su ajuste
      * <p>
@@ -122,6 +143,7 @@ public class ChooserPresenter<T extends Selectable>
     }
 
 
+    //EVENTS_________________________________________________________________________
     @Override
     public void onClick(View view, Boolean isChecked) {
         if (multiselect_flag) {
@@ -157,32 +179,47 @@ public class ChooserPresenter<T extends Selectable>
     @Override
     public void onClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
         if (mode == ListExtra.ONLY_SINGLE_SELECTION_MODE) {
-            if (windowAction != null) {
-                windowAction.onOk(holder.getItemView());
-            }
+            onOk(holder.getItemView());
         } else {
             adjustMultiSelection();
         }
     }
 
-    /**
-     * Pulsación larga sobre vista del elemento
-     * <p>
-     * [EN]  Long press on element view
-     *
-     * @param holder   vista reciclable
-     * @param item     Objeto de datos
-     * @param position posición de datos
-     * @param mode     modo de pulsación en el adapter
-     * @return devolver true si está activado
-     */
+    //WINACTION____________________________________________________________________
+    /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
     @Override
-    public boolean onLongClickItem(BaseViewHolder<T> holder, T item, int position, ListExtra mode) {
-        return false;
+    public void onOk(View view) {
+        if (result != null) {
+            result.onResult(DialogExtras.OK_EXTRA, getListmodel().getSelectds());
+        }
+        if (closableView != null) {
+            closableView.close();
+        }
     }
 
+    @Override
+    public void onCancel(View view) {
+        if (result != null) {
+            result.onResult(DialogExtras.CANCEL_EXTRA, new ArrayList<T>());
+        }
+        if (closableView != null) {
+            closableView.close();
+        }
+    }
+
+    //PROPIERTIES___________________________________________________________________
+    /*{@link OnResult}*/
+    public OnResult<List<T>> getResult() {
+        return result;
+    }
+
+    public void setResult(OnResult<List<T>> result) {
+        this.result = result;
+    }
+
+    //BUNDLE BUILDER________________________________________________________________
     @SuppressWarnings("unused")
-    public static class BundleBuilder{
+    public static class BundleBuilder {
         /**
          * Creador de argumentos del cuadro de dialogo
          * <p>

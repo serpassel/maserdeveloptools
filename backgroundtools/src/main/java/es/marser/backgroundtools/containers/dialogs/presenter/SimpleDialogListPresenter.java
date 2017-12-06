@@ -5,7 +5,6 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.view.View;
 
-import es.marser.backgroundtools.containers.dialogs.presenter.DialogListPresenter;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.TouchableViewHandler;
 import es.marser.backgroundtools.handlers.ViewItemHandler;
@@ -27,12 +26,9 @@ public abstract class SimpleDialogListPresenter<T extends Parcelable, SLM extend
         implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     //CONSTRUCTORS__________________________________________________________
-    public SimpleDialogListPresenter(@NonNull Context context) {
-        super(context);
-    }
 
-    public SimpleDialogListPresenter(@NonNull Context context, @NonNull SLM listmodel) {
-        super(context, listmodel);
+    public SimpleDialogListPresenter(@NonNull Context context, int viewLayout, SLM listmodel) {
+        super(context, viewLayout, listmodel);
     }
 
     //OVERRIDE BASE__________________________________________________________
