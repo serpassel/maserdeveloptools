@@ -18,7 +18,7 @@ import es.marser.backgroundtools.widget.auth.DialogLogin;
 import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.backgroundtools.widget.edition.EditDialog;
-import es.marser.backgroundtools.widget.inputbox.dialog.DialogInputBox;
+import es.marser.backgroundtools.widget.inputbox.dialog.InputDialog;
 import es.marser.backgroundtools.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.widget.progress.BinProgressDialog;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
@@ -583,8 +583,8 @@ public class DialogExample {
     //INPUT_______________________________________________________________________________________________
 
     public static BaseDialog longInputBox(final Context context) {
-        DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createBundle(context,"Introducir texto", 6, "Texto Largo", 400),
+        InputDialog dialog = InputDialog.newInstance(context,
+                InputDialog.createBundle(context,"Introducir texto", 6, "Texto Largo", 400),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -599,8 +599,8 @@ public class DialogExample {
     }
 
     public static BaseDialog numberBox(final Context context) {
-        DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createNumberBundle(context, null, "Introducir texto"),
+        InputDialog dialog = InputDialog.newInstance(context,
+                InputDialog.createNumberBundle(context, null, "Introducir texto"),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -615,8 +615,8 @@ public class DialogExample {
     }
 
     public static BaseDialog passwordBox(final Context context) {
-        DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createPasswordBundle(context,null, 6),
+        InputDialog dialog = InputDialog.newInstance(context,
+                InputDialog.createPasswordBundle(context,null, 6),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {

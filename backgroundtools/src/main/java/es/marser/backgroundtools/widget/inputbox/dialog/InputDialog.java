@@ -3,18 +3,15 @@ package es.marser.backgroundtools.widget.inputbox.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
-import es.marser.backgroundtools.widget.inputbox.presenter.InputBoxPresenter;
+import es.marser.backgroundtools.widget.inputbox.presenter.InputPresenter;
 import es.marser.tools.TextTools;
 
 /**
@@ -26,27 +23,28 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogInputBox extends BaseDialogBin<InputBoxPresenter> {
+public class InputDialog extends BaseDialogBin<InputPresenter> {
 
     //INSTANCE____________________________________________________________________
-    public static DialogInputBox newInstance(
+    public static InputDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull OnResult<String> result) {
 
         /*PRESENTER*/
-        InputBoxPresenter presenter = new InputBoxPresenter(context);
+        InputPresenter presenter = new InputPresenter(context);
         presenter.setResult(result);
         presenter.setArguments(bundle);
         
         /*DIALOG*/
-        DialogInputBox instance = new DialogInputBox();
+        InputDialog instance = new InputDialog();
         instance.setContext(context);
         instance.setPresenter(presenter);
         return instance;
     }
 
-    //BUNDLE_____________________________________________________________________
+
+    //BUNDLES BUILDER_______________________________________________________________
     public static Bundle createBundle(@NonNull Context context, String hint) {
         return createBundle(context, null, hint);
     }

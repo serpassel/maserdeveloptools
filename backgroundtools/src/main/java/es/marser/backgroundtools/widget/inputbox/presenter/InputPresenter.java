@@ -22,18 +22,18 @@ import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
  *         [EN]  Presenter for securities entries
  */
 
-public class InputBoxPresenter extends DialogBasePresenter {
+public class InputPresenter extends DialogBasePresenter {
     /*Variable de resultado [EN]  Result variable*/
     protected OnResult<String> result;
     /*Variable de configuración [EN]  Configuration variable*/
     protected BoxSettings boxSettings;
 
     //CONSTRUCTORS_________________________________________
-    public InputBoxPresenter(@NonNull Context context, int viewLayout) {
+    public InputPresenter(@NonNull Context context, int viewLayout) {
         super(context, viewLayout);
     }
 
-    public InputBoxPresenter(@NonNull Context context) {
+    public InputPresenter(@NonNull Context context) {
         this(context, R.layout.mvp_dialog_inputbox);
     }
 
