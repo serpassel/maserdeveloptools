@@ -1,5 +1,7 @@
 package es.marser.backgroundtools.widget.edition;
 
+import es.marser.backgroundtools.widget.edition.dialog.EditDialog;
+
 /**
  * @author sergio
  *         Created by Sergio on 17/05/2017.

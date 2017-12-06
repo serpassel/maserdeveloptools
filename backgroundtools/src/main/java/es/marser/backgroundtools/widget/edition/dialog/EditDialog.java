@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.widget.edition;
+package es.marser.backgroundtools.widget.edition.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
 import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
+import es.marser.backgroundtools.widget.edition.EditPresenter;
 
 import static es.marser.backgroundtools.enums.DialogExtras.ITEM_EXTRA;
 

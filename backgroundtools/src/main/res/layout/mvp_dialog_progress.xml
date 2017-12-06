@@ -8,11 +8,17 @@
             alias="tt"
             type="es.marser.tools.TextTools" />
 
-        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogModel"/>
 
         <variable
             name="model"
-            type="DialogProgressModel" />
+            type="DialogModel"/>
+
+        <import type="es.marser.backgroundtools.widget.progress.model.ProgressModel" />
+
+        <variable
+            name="progressmodel"
+            type="es.marser.backgroundtools.widget.progress.model.ProgressModel" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -67,9 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="?attr/dialogs_default_margin"
-                android:indeterminate="@{model.indeterminate}"
-                android:max="@{model.max}"
-                android:progress="@{model.progress}" />
+                android:indeterminate="@{progressmodel.indeterminate}"
+                android:max="@{progressmodel.max}"
+                android:progress="@{progressmodel.progress}" />
 
             <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/bc3_progress"
@@ -77,7 +83,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="?attr/dialogs_default_margin"
                 android:gravity="end"
-                android:text="@{model.progresstext}"
+                android:text="@{progressmodel.progresstext}"
                 style="@style/bt_body_label"
                 android:typeface="monospace" />
         </android.support.v7.widget.LinearLayoutCompat>
@@ -93,7 +99,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:lines="6"
-                android:text="@{model.error}" />
+                android:text="@{progressmodel.error}" />
         </android.support.v4.widget.NestedScrollView>
 
     </android.support.v7.widget.LinearLayoutCompat>

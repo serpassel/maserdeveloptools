@@ -8,11 +8,17 @@
             alias="tt"
             type="es.marser.tools.TextTools" />
 
-        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel" />
+        <import type="es.marser.backgroundtools.containers.dialogs.model.DialogModel"/>
 
         <variable
             name="model"
-            type="DialogProgressModel" />
+            type="DialogModel"/>
+
+        <import type="es.marser.backgroundtools.widget.progress.model.ProgressModel" />
+
+        <variable
+            name="progressmodel"
+            type="es.marser.backgroundtools.widget.progress.model.ProgressModel" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat
@@ -59,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_margin="?attr/dialogs_default_margin"
-                android:indeterminate="@{model.indeterminate}"
+                android:indeterminate="@{progressmodel.indeterminate}"
                 android:indeterminateDrawable="?attr/dialogs_spinner" />
 
             <android.support.v7.widget.AppCompatTextView

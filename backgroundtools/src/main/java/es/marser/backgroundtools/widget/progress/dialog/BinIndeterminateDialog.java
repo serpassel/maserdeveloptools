@@ -1,12 +1,13 @@
-package es.marser.backgroundtools.widget.progress;
+package es.marser.backgroundtools.widget.progress.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
-import es.marser.backgroundtools.containers.dialogs.model.DialogProgressModel;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.widget.progress.presenter.ProgressPresenter;
+import es.marser.backgroundtools.widget.progress.model.ProgressModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 
@@ -16,12 +17,12 @@ import es.marser.backgroundtools.enums.DialogIcon;
  *         Cuadro de progreso indeterminado personalizado MVP
  *         <p>
  *         [EN]  MVP Custom Indeterminate Progress Chart
- * @see BaseDialogBinDecrep
+ * @see BaseDialogBin
  */
 
 @SuppressWarnings({"WeakerAccess", "unused"})
-public class BinIndeterminateDialog extends BaseDialogBinDecrep {
-    private DialogProgressModel source;
+public class BinIndeterminateDialog extends BaseDialogBin<ProgressPresenter> {
+    private ProgressModel source;
 
     /**
      * Crear una nueva instancia del Dialogo
@@ -39,7 +40,7 @@ public class BinIndeterminateDialog extends BaseDialogBinDecrep {
         if (bundle == null) {
             bundle = createBundle(DialogIcon.DEFAULT_ICON);
         }
-        instance.setSource(new DialogProgressModel());
+        instance.setSource(new ProgressModel());
         instance.setTitle(context.getResources().getString(R.string.bt_loading));
         instance.setArguments(bundle);
         return instance;
@@ -104,7 +105,7 @@ public class BinIndeterminateDialog extends BaseDialogBinDecrep {
      *
      * @return modelo de datos
      */
-    public DialogProgressModel getSource() {
+    public ProgressModel getSource() {
         return source;
     }
 
@@ -115,7 +116,7 @@ public class BinIndeterminateDialog extends BaseDialogBinDecrep {
      *
      * @param source modelo de datos
      */
-    public void setSource(DialogProgressModel source) {
+    public void setSource(ProgressModel source) {
         super.setDialogModel(source);
         this.source = source;
     }

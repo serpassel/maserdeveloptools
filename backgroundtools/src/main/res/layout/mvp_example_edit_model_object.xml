@@ -6,11 +6,11 @@
 
     <data>
 
-        <import type="es.marser.backgroundtools.containers.dialogs.model.ExampleModelObject" />
+        <import type="es.marser.backgroundtools.widget.edition.model.ExampleModelObject" />
 
         <variable
             name="headmodel"
-            type="ExampleModelObject" />
+            type="es.marser.backgroundtools.widget.edition.model.ExampleModelObject" />
 
         <import type="es.marser.backgroundtools.handlers.WindowAction" />
 
