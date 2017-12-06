@@ -4,21 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.handlers.ViewHandler;
 
 import static es.marser.backgroundtools.enums.DialogExtras.ITEM_EXTRA;
-import static es.marser.backgroundtools.enums.DialogExtras.LAYOUT_EXTRA;
-import static es.marser.backgroundtools.enums.DialogExtras.NULL_ACTION;
-import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
 
 
 /**
@@ -30,10 +22,10 @@ import static es.marser.backgroundtools.enums.DialogExtras.STATE_EXTRA;
  */
 
 @SuppressWarnings("unused")
-public class EditDialogBin<T extends Parcelable>
+public class EditDialog<T extends Parcelable>
         extends BaseDialogBin<EditPresenter<T>> {
 
-    public static <T extends Parcelable> EditDialogBin newInstance(
+    public static <T extends Parcelable> EditDialog newInstance(
             @NonNull Context context,
             int layout,
             @NonNull T item,
@@ -43,7 +35,7 @@ public class EditDialogBin<T extends Parcelable>
         presenter.setResult(result);
         presenter.setArguments(createBundle(context, item));
 
-        EditDialogBin<T> instance = new EditDialogBin<>();
+        EditDialog<T> instance = new EditDialog<>();
         instance.setContext(context);
         instance.setPresenter(presenter);
         return instance;

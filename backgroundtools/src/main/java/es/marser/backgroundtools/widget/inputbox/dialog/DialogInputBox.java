@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.widget.inputbox;
+package es.marser.backgroundtools.widget.inputbox.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,10 +7,14 @@ import android.view.View;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
+import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.presenter.InputBoxPresenter;
 import es.marser.tools.TextTools;
 
 /**
@@ -22,11 +26,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogInputBox extends BaseDialogBinDecrep {
-
-    protected OnResult<String> result;
-
-    protected BoxSettings boxSettings;
+public class DialogInputBox extends BaseDialogBin<InputBoxPresenter> {
 
     //INSTANCE____________________________________________________________________
     public static DialogInputBox newInstance(
@@ -34,16 +34,21 @@ public class DialogInputBox extends BaseDialogBinDecrep {
             @NonNull Bundle bundle,
             @NonNull OnResult<String> result) {
 
+        /*PRESENTER*/
+        InputBoxPresenter presenter = new InputBoxPresenter(context);
+        presenter.setResult(result);
+        presenter.setArguments(bundle);
+        
+        /*DIALOG*/
         DialogInputBox instance = new DialogInputBox();
-        instance.setArguments(bundle);
         instance.setContext(context);
-        instance.setResult(result);
+        instance.setPresenter(presenter);
         return instance;
     }
 
     //BUNDLE_____________________________________________________________________
-    public static Bundle createBundle(String hint) {
-        return createBundle(null, hint);
+    public static Bundle createBundle(@NonNull Context context, String hint) {
+        return createBundle(context, null, hint);
     }
 
     /**
@@ -56,28 +61,37 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param boxSettings Configuración de la caja de texto [EN]  Text box settings
      * @return Argumentos de configuración [EN]  Configuration arguments
      */
-    public static Bundle createBundle(
-            @NonNull DialogIcon icon,
-            String title,
-            @NonNull BoxSettings boxSettings) {
+    public static Bundle createBundle(@NonNull Context context,
+                                      @NonNull DialogIcon icon,
+                                      String title,
+                                      @NonNull BoxSettings boxSettings) {
         Bundle bundle = new Bundle();
-        /*Fixed*/
-        bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-
-        /*Variables*/
-        bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-
-        /*settings*/
+       
+        /*DIALOG MODEL*/
+        bundle.putAll(BundleBuilder.createDialogModelBundle(icon, title, null, null));
+        
+        /*BUTTON SET MODEL*/
+        bundle.putAll(BundleBuilder.createButtonSetModelBundle(
+                context.getResources().getString(R.string.bt_ACTION_OK),
+                context.getResources().getString(R.string.bt_ACTION_CANCEL),
+                null));
+        
+        /*BOX SETTINGS*/
         bundle.putParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name(), boxSettings);
 
         return bundle;
     }
 
-    public static Bundle createPasswordBundle(String title, int passlength) {
+    public static Bundle createPasswordBundle(@NonNull Context context, String title, int passlength) {
        /*settings*/
         BoxSettings boxSettings = new BoxSettings(passlength);
         boxSettings.setHint("Contraseña");
-        return createBundle(DialogIcon.PASSWORD_ICON, TextTools.nc(title, "Introducir contraseña"), boxSettings);
+        return createBundle(
+                context,
+                DialogIcon.PASSWORD_ICON,
+                TextTools.nc(title, "Introducir contraseña"),
+                boxSettings
+        );
     }
 
     /**
@@ -91,13 +105,13 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param counter Máximo de caracteres admitdos [EN]  Maximum allowed characters
      * @return Argumentos [EN]  Arguments
      */
-    public static Bundle createBundle(String title, int lines, String hint, int counter) {
+    public static Bundle createBundle(@NonNull Context context, String title, int lines, String hint, int counter) {
         BoxSettings boxSettings = new BoxSettings(lines, hint);
         boxSettings.setCounterCount(counter);
         if (lines > 1) {
-            return createBundle(DialogIcon.MULTILINE_ICON, TextTools.nc(title, "entrada"), boxSettings);
+            return createBundle(context, DialogIcon.MULTILINE_ICON, TextTools.nc(title, "entrada"), boxSettings);
         }
-        return createBundle(DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
     }
 
     /**
@@ -109,8 +123,8 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param hint  Texto del cuadro de texto [EN]  Text box text
      * @return Argumentos [EN]  Arguments
      */
-    public static Bundle createBundle(String title, String hint) {
-        return createBundle(title, 1, hint, 0);
+    public static Bundle createBundle(@NonNull Context context, String title, String hint) {
+        return createBundle(context, title, 1, hint, 0);
     }
 
     /**
@@ -122,11 +136,11 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param hint  Texto del cuadro de texto [EN]  Text box text
      * @return Argumentos [EN]  Arguments
      */
-    public static Bundle createMailBundle(String title, String hint) {
+    public static Bundle createMailBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
         BoxSettings boxSettings = new BoxSettings(hint);
         boxSettings.setInputType(BoxSettings.textEmailAddress);
-        return createBundle(DialogIcon.MAIL_ICON, TextTools.nc(title, "Introducir correo electrónico"), boxSettings);
+        return createBundle(context, DialogIcon.MAIL_ICON, TextTools.nc(title, "Introducir correo electrónico"), boxSettings);
     }
 
     /**
@@ -138,11 +152,11 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param hint  Texto del cuadro de texto [EN]  Text box text
      * @return Argumentos [EN]  Arguments
      */
-    public static Bundle createNumberBundle(String title, String hint) {
+    public static Bundle createNumberBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
         BoxSettings boxSettings = new BoxSettings(hint);
         boxSettings.setInputType(BoxSettings.number);
-        return createBundle(DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
     }
 
     /**
@@ -154,75 +168,10 @@ public class DialogInputBox extends BaseDialogBinDecrep {
      * @param hint  Texto del cuadro de texto [EN]  Text box text
      * @return Argumentos [EN]  Arguments
      */
-    public static Bundle createNumberDecimalBundle(String title, String hint) {
+    public static Bundle createNumberDecimalBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
         BoxSettings boxSettings = new BoxSettings(hint);
         boxSettings.setInputType(BoxSettings.numberDecimal);
-        return createBundle(DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
-    }
-
-
-    //CREACIÓN____________________________________________________________________
-    @Override
-    protected int getDialogLayout() {
-        return R.layout.mvp_dialog_inputbox;
-    }
-
-    @Override
-    protected void preBuild() {
-        if (getArguments() != null) {
-            model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(),
-                    getContext().getResources().getString(R.string.bt_dialog_input_box_title)));
-            boxSettings = getArguments().getParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name());
-        }
-
-        if (boxSettings == null) {
-            boxSettings = new BoxSettings();
-        }
-
-        //Configurar botones [EN]  Configure buttons
-        buttonsSetModel.ok_name.set(context.getResources().getString(R.string.bt_ACTION_OK));
-        buttonsSetModel.cancel_name.set(context.getResources().getString(R.string.bt_ACTION_CANCEL));
-    }
-
-    //BINDING______________________________________________________________________
-    @Override
-    protected void bindObject() {
-        super.bindObject();
-        viewDataBinding.setVariable(BR.settings, boxSettings);
-        viewDataBinding.executePendingBindings();
-    }
-
-    //PRESENTERS________________________________________________________________
-    @Override
-    public void onOk(View v) {
-
-        if (boxSettings.validate()) {
-            result.onResult(DialogExtras.OK_EXTRA, boxSettings.getBody());
-            close();
-        }
-    }
-
-    @Override
-    public void onCancel(View v) {
-        result.onResult(DialogExtras.CANCEL_EXTRA, boxSettings.getBody());
-        close();
-    }
-
-    //PROPERTIES_________________________________________________________________
-    public OnResult<String> getResult() {
-        return result;
-    }
-
-    public void setResult(OnResult<String> result) {
-        this.result = result;
-    }
-
-    public BoxSettings getBoxSettings() {
-        return boxSettings;
-    }
-
-    public void setBoxSettings(BoxSettings boxSettings) {
-        this.boxSettings = boxSettings;
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
     }
 }

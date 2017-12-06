@@ -9,7 +9,7 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
-import es.marser.backgroundtools.widget.inputbox.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.TextTools;

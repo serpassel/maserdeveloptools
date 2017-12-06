@@ -17,8 +17,8 @@ import es.marser.backgroundtools.widget.auth.DialogCredential;
 import es.marser.backgroundtools.widget.auth.DialogLogin;
 import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
-import es.marser.backgroundtools.widget.edition.EditDialogBin;
-import es.marser.backgroundtools.widget.inputbox.DialogInputBox;
+import es.marser.backgroundtools.widget.edition.EditDialog;
+import es.marser.backgroundtools.widget.inputbox.dialog.DialogInputBox;
 import es.marser.backgroundtools.widget.progress.BinIndeterminateDialog;
 import es.marser.backgroundtools.widget.progress.BinProgressDialog;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
@@ -107,8 +107,8 @@ public class DialogExample {
     }
 
     public static BaseDialog editGeneric(final Context context) {
-        EditDialogBin gene =
-                EditDialogBin.newInstance(
+        EditDialog gene =
+                EditDialog.newInstance(
                         context,
                         R.layout.mvp_example_edit_model_object,
                         new ExampleModelObject(),
@@ -132,8 +132,8 @@ public class DialogExample {
     }
 
     public static BaseDialog editGeneric(Context context, OnResult<ExampleModelObject> result) {
-        EditDialogBin gene =
-                EditDialogBin.newInstance(
+        EditDialog gene =
+                EditDialog.newInstance(
                         context,
                         R.layout.mvp_example_edit_model_object,
                         new ExampleModelObject(),
@@ -584,7 +584,7 @@ public class DialogExample {
 
     public static BaseDialog longInputBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createBundle("Introducir texto", 6, "Texto Largo", 400),
+                DialogInputBox.createBundle(context,"Introducir texto", 6, "Texto Largo", 400),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -600,7 +600,7 @@ public class DialogExample {
 
     public static BaseDialog numberBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createNumberBundle(null, "Introducir texto"),
+                DialogInputBox.createNumberBundle(context, null, "Introducir texto"),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -616,7 +616,7 @@ public class DialogExample {
 
     public static BaseDialog passwordBox(final Context context) {
         DialogInputBox dialog = DialogInputBox.newInstance(context,
-                DialogInputBox.createPasswordBundle(null, 6),
+                DialogInputBox.createPasswordBundle(context,null, 6),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {

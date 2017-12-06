@@ -7,15 +7,15 @@
     <data>
 
         <!--STATUS-->
-        <import type="es.marser.backgroundtools.widget.inputbox.BoxSettings" />
+        <import type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
 
         <variable
             name="user"
-            type="es.marser.backgroundtools.widget.inputbox.BoxSettings" />
+            type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
 
         <variable
             name="password"
-            type="es.marser.backgroundtools.widget.inputbox.BoxSettings" />
+            type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
 
         <!--DATA-->
         <import type="es.marser.backgroundtools.containers.dialogs.model.DialogModel" />
