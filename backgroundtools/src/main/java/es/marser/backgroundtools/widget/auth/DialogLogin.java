@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.auth;
+package es.marser.backgroundtools.widget.auth;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +9,7 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
-import es.marser.backgroundtools.containers.dialogs.widget.inputbox.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.BoxSettings;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.TextTools;

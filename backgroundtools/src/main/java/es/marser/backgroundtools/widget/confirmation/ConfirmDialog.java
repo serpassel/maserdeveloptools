@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.confirmation;
+package es.marser.backgroundtools.widget.confirmation;
 
 import android.app.DialogFragment;
 

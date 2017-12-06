@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.inputbox;
+package es.marser.backgroundtools.widget.inputbox;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.model;
+package es.marser.backgroundtools.widget.calendar.model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;

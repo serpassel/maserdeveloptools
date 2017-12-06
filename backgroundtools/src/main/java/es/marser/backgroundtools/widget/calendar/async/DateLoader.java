@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.calendar;
+package es.marser.backgroundtools.widget.calendar.async;
 
 import java.util.GregorianCalendar;
 

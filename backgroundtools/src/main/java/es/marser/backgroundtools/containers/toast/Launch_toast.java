@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.toast;
+package es.marser.backgroundtools.containers.toast;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;

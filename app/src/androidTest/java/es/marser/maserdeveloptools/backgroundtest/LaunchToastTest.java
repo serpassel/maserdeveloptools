@@ -8,7 +8,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast;
+import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.maserdeveloptools.DevelopTools;
 
 /**

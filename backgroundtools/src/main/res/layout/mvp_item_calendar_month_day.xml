@@ -4,11 +4,11 @@
 
     <data>
         <!--DATA MODEL-->
-        <import type="es.marser.backgroundtools.containers.dialogs.model.CalendarObservable" />
+        <import type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
 
         <variable
             name="item"
-            type="CalendarObservable" />
+            type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat

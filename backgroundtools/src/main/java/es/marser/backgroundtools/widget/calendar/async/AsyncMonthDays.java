@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.calendar;
+package es.marser.backgroundtools.widget.calendar.async;
 
 import android.os.AsyncTask;
 
@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 import es.marser.async.DataUploaderTask;
-import es.marser.backgroundtools.containers.dialogs.model.CalendarObservable;
+import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 

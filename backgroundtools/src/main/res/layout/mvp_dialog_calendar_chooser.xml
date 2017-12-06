@@ -6,11 +6,11 @@
     <data>
 
         <!--HEADMODEL-->
-        <import type="es.marser.backgroundtools.containers.dialogs.model.CalendarObservable" />
+        <import type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
 
         <variable
             name="headmodel"
-            type="CalendarObservable" />
+            type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
 
         <!--HANDLERS-->
         <import type="es.marser.backgroundtools.handlers.ViewHandler" />

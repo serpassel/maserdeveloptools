@@ -10,7 +10,7 @@ import java.util.List;
 
 import es.marser.async.TaskLoadingResult;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.model.HolidayModel;
+import es.marser.backgroundtools.widget.calendar.model.HolidayModel;
 import es.marser.backgroundtools.enums.Resources;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.DateTools;

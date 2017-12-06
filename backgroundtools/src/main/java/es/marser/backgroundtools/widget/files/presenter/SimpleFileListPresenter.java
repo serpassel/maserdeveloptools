@@ -14,7 +14,7 @@ import java.util.List;
 
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.widget.toast.Launch_toast;
+import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;

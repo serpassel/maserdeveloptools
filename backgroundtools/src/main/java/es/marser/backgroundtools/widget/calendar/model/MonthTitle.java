@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.model;
+package es.marser.backgroundtools.widget.calendar.model;
 
 import es.marser.backgroundtools.BR;
 

@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.edition;
+package es.marser.backgroundtools.widget.edition;
 
 /**
  * @author sergio

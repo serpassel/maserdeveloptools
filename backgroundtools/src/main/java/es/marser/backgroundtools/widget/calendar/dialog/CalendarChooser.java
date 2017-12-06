@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.containers.dialogs.widget.calendar;
+package es.marser.backgroundtools.widget.calendar.dialog;
 
 import android.content.Context;
 import android.os.Build;
@@ -17,10 +17,11 @@ import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinTableDECREP;
-import es.marser.backgroundtools.containers.dialogs.model.CalendarObservable;
-import es.marser.backgroundtools.containers.dialogs.model.DayWeek;
+import es.marser.backgroundtools.widget.calendar.async.DateLoader;
+import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
+import es.marser.backgroundtools.widget.calendar.model.DayWeek;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.containers.dialogs.widget.confirmation.NotificationDialogBin;
+import es.marser.backgroundtools.widget.confirmation.NotificationDialogBin;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.EventsExtras;
@@ -28,6 +29,7 @@ import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.widget.calendar.async.AsyncMonthDays;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 
