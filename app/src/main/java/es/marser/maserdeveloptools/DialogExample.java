@@ -13,8 +13,8 @@ import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.backgroundtools.containers.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.widget.auth.DialogCredential;
-import es.marser.backgroundtools.widget.auth.DialogLogin;
+import es.marser.backgroundtools.widget.auth.dialog.DialogCredential;
+import es.marser.backgroundtools.widget.auth.dialog.DialogLogin;
 import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.backgroundtools.widget.edition.EditDialog;
@@ -633,7 +633,7 @@ public class DialogExample {
     //AUTH______________________________________________________________________________________________
     public static BaseDialog loginMailBox(final Context context) {
         DialogLogin dialog = DialogLogin.newInstance(context,
-                DialogLogin.createMailPasswordBundle(null, 6),
+                DialogLogin.createMailPasswordBundle(context,null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {
@@ -649,7 +649,7 @@ public class DialogExample {
 
     public static BaseDialog loginUserBox(final Context context) {
         DialogLogin dialog = DialogLogin.newInstance(context,
-                DialogLogin.createUserPasswordBundle(null, 6),
+                DialogLogin.createUserPasswordBundle(context,null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {
@@ -665,7 +665,7 @@ public class DialogExample {
 
     public static BaseDialog passwordModificationBox(final Context context) {
         DialogLogin dialog = DialogLogin.newInstance(context,
-                DialogLogin.createModificationPasswordBundle(null, 6),
+                DialogLogin.createModificationPasswordBundle(context,null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {

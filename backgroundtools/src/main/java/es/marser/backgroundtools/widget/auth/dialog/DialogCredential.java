@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.widget.auth;
+package es.marser.backgroundtools.widget.auth.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
