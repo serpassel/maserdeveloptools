@@ -3,15 +3,13 @@ package es.marser.backgroundtools.widget.auth.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
+import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.widget.auth.presenter.CredentialPresenter;
 import es.marser.tools.TextTools;
 
 /**
@@ -23,9 +21,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogCredential extends BaseDialogBinDecrep implements ViewHandler<DialogIcon> {
-
-    protected OnResult<DialogIcon> result;
+public class DialogCredential extends BaseDialogBin<CredentialPresenter> {
 
     //INSTANCE____________________________________________________________________
     public static DialogCredential newInstance(
@@ -33,10 +29,16 @@ public class DialogCredential extends BaseDialogBinDecrep implements ViewHandler
             @NonNull Bundle bundle,
             @NonNull OnResult<DialogIcon> result) {
 
+        /*PRESENTER*/
+        CredentialPresenter presenter = new CredentialPresenter(context);
+        presenter.setResult(result);
+        presenter.setArguments(bundle);
+
+        /*DIALOG*/
         DialogCredential instance = new DialogCredential();
         instance.setContext(context);
-        instance.setArguments(bundle);
-        instance.setResult(result);
+        instance.setPresenter(presenter);
+
         return instance;
     }
 
@@ -47,24 +49,25 @@ public class DialogCredential extends BaseDialogBinDecrep implements ViewHandler
      *
      * @param icon        Icono de cabecera [EN]  Header icon
      * @param title       Título de cabecera [EN]  Header title
-     * @param boxSettings Configuración de la caja de texto [EN]  Text box settings
      * @return Argumentos de configuración [EN]  Configuration arguments
      */
     public static Bundle createBundle(
             @NonNull DialogIcon icon,
-            String title, String cancel) {
+            String title,
+            String cancel) {
         Bundle bundle = new Bundle();
-        /*Fixed*/
-        bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-        /*Variables*/
-        bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
+        /*DIALOG*/
+        bundle.putAll(BundleBuilder.createDialogModelBundle(icon, TextTools.nc(title), null, null));
 
-        bundle.putString(DialogExtras.CANCEL_EXTRA.name(), cancel);
-
+        /*BUTTON SET MODEL*/
+        bundle.putAll(BundleBuilder.createButtonSetModelBundle(
+                null,
+                TextTools.nc(cancel),
+                null));
         return bundle;
     }
 
-    public static Bundle createBundle() {
+    public static Bundle createCredentialLoginBundle() {
         return createBundle(DialogIcon.LOGIN_ICON, "Iniciar sesión con","");
     }
 
@@ -76,62 +79,7 @@ public class DialogCredential extends BaseDialogBinDecrep implements ViewHandler
      * @param context Contexto de la aplicación [EN]  Context of the application
      * @return Argumentos predefinidos [EN]  Predefined arguments
      */
-    public static Bundle createBundle(Context context) {
+    public static Bundle createCredentialReAuthBundle(Context context) {
         return createBundle(DialogIcon.LOGIN_ICON, "Reautentificación", context.getResources().getString(R.string.bt_ACTION_CANCEL));
-    }
-
-    //CREACIÓN____________________________________________________________________
-    @Override
-    protected int getDialogLayout() {
-        return R.layout.mvp_dialog_credential;
-    }
-
-    @Override
-    protected void preBuild() {
-        if (getArguments() != null) {
-            model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(),
-                    getContext().getResources().getString(R.string.bt_dialog_login_box_title)));
-            buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
-        }
-    }
-
-    @Override
-    protected void bindObject() {
-        super.bindObject();
-        viewDataBinding.setVariable(BR.handler, this);
-        viewDataBinding.executePendingBindings();
-    }
-
-    //PRESENTERS________________________________________________________________
-    @Override
-    public void onClick(View view, DialogIcon item) {
-        if (result != null) {
-            result.onResult(DialogExtras.OK_EXTRA, item);
-            close();
-        }
-    }
-
-    @Override
-    public boolean onLongClick(View view, DialogIcon item) {
-        return false;
-    }
-
-
-    @Override
-    public void onCancel(View v) {
-        if (result != null) {
-            result.onResult(DialogExtras.CANCEL_EXTRA, DialogIcon.DEFAULT_ICON);
-            close();
-        }
-
-    }
-
-    //PROPERTIES_________________________________________________________________
-    public OnResult<DialogIcon> getResult() {
-        return result;
-    }
-
-    public void setResult(OnResult<DialogIcon> result) {
-        this.result = result;
     }
 }

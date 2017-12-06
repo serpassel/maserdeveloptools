@@ -680,7 +680,7 @@ public class DialogExample {
 
     public static BaseDialog credentialLogin(final Context context) {
         DialogCredential dialog = DialogCredential.newInstance(context,
-                DialogCredential.createBundle(),
+                DialogCredential.createCredentialLoginBundle(),
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {
@@ -697,7 +697,7 @@ public class DialogExample {
 
     public static BaseDialog credentialReauth(final Context context) {
         DialogCredential dialog = DialogCredential.newInstance(context,
-                DialogCredential.createBundle(context),
+                DialogCredential.createCredentialReAuthBundle(context),
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {
