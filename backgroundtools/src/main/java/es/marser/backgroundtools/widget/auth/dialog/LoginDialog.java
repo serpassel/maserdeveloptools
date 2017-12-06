@@ -3,12 +3,9 @@ package es.marser.backgroundtools.widget.auth.dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.view.View;
 
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBin;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
 import es.marser.backgroundtools.widget.auth.presenter.LoginPresenter;
@@ -26,9 +23,9 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogLogin extends BaseDialogBin<LoginPresenter> {
+public class LoginDialog extends BaseDialogBin<LoginPresenter> {
     //INSTANCE____________________________________________________________________
-    public static DialogLogin newInstance(
+    public static LoginDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull OnDResult<String, String> result) {
@@ -39,7 +36,7 @@ public class DialogLogin extends BaseDialogBin<LoginPresenter> {
         presenter.setArguments(bundle);
 
         /*DIALOG*/
-        DialogLogin instance = new DialogLogin();
+        LoginDialog instance = new LoginDialog();
         instance.setContext(context);
         instance.setPresenter(presenter);
         return instance;
