@@ -315,4 +315,17 @@ public class NotificationDialog extends BaseDialogBin<NotificationPresenter> {
 
         return out;
     }
+
+    /**
+     * Clave de grabación en sharedPreference
+     * <p>
+     * [EN]  Recording key in sharedPreference
+     *
+     * @param keyName nombre de la clave [EN]  name of the key
+     */
+    public void setKeyName(String keyName) {
+        if (getPresenter() != null && getPresenter().getModel() != null) {
+            getPresenter().getModel().keyname.set("Test_key");
+        }
+    }
 }

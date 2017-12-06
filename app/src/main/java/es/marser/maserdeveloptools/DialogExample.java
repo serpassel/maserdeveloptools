@@ -124,11 +124,6 @@ public class DialogExample {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, ExampleModelObject value) {
-
-                            }
                         }
                 );
 
@@ -211,11 +206,6 @@ public class DialogExample {
                                         break;
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, Void value) {
-
-                            }
                         }
                 );
         dialog.show();
@@ -240,11 +230,6 @@ public class DialogExample {
                                         Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
-                            }
-
-                            @Override
-                            public void onClick(View view, Void value) {
-
                             }
                         }
                 );
@@ -272,11 +257,6 @@ public class DialogExample {
                                         break;
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, Void value) {
-
-                            }
                         }
                 );
         dialog.show();
@@ -302,11 +282,6 @@ public class DialogExample {
                                         break;
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, Void value) {
-
-                            }
                         }
                 );
         dialog.show();
@@ -331,11 +306,6 @@ public class DialogExample {
                                         Launch_toast.warningToast(context, result.name());
                                         break;
                                 }
-                            }
-
-                            @Override
-                            public void onClick(View view, Void value) {
-
                             }
                         }
                 );
@@ -364,11 +334,6 @@ public class DialogExample {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, FileModel value) {
-
-                            }
                         }
                 );
         dialog.show();
@@ -393,11 +358,6 @@ public class DialogExample {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
                             }
-
-                            @Override
-                            public void onClick(View view, FileModel value) {
-
-                            }
                         }
                 );
         dialog.show();
@@ -418,11 +378,6 @@ public class DialogExample {
                                 } else {
                                     Launch_toast.errorToast(context, "Operación cancelada");
                                 }
-                            }
-
-                            @Override
-                            public void onClick(View view, CalendarObservable value) {
-
                             }
                         }
                 );
@@ -457,11 +412,6 @@ public class DialogExample {
                             NotificationDialog.createInformationBundle(context, builder.toString()));
                 }
             }
-
-            @Override
-            public void onClick(View view, List<AutonomousModel> value) {
-
-            }
         };
 
         Bundle bundle = AutonomousPresenter.BundleBuilder.createBundle(
@@ -492,11 +442,6 @@ public class DialogExample {
                     TextTools.deleteLastBrand(builder, ";\n");
                     Launch_toast.informationToast(context, builder.toString());
                 }
-            }
-
-            @Override
-            public void onClick(View view, List<ProvincieModel> value) {
-
             }
         };
 
@@ -564,11 +509,6 @@ public class DialogExample {
                     ).show();
                 }
             }
-
-            @Override
-            public void onClick(View view, List<ProvincieModel> value) {
-
-            }
         };
 
         Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, true, "Almería, Burgos,");
@@ -597,11 +537,6 @@ public class DialogExample {
                     TextTools.deleteLastBrand(builder, ";\n");
                     Launch_toast.informationToast(context, builder.toString());
                 }
-            }
-
-            @Override
-            public void onClick(View view, List<ProvincieModel> value) {
-
             }
         };
 
@@ -634,11 +569,6 @@ public class DialogExample {
                     ).show();
                 }
             }
-
-            @Override
-            public void onClick(View view, List<VillageModel> value) {
-
-            }
         };
         Bundle bundle = VillagePresenter.BundleBuilder.createBundle(context, 1, false, null);
 
@@ -662,11 +592,6 @@ public class DialogExample {
                             Launch_toast.informationToast(context, value);
                         }
                     }
-
-                    @Override
-                    public void onClick(View view, String value) {
-
-                    }
                 });
         dialog.show();
         return dialog;
@@ -683,11 +608,6 @@ public class DialogExample {
                             Launch_toast.informationToast(context, value);
                         }
                     }
-
-                    @Override
-                    public void onClick(View view, String value) {
-
-                    }
                 });
         dialog.show();
         return dialog;
@@ -703,11 +623,6 @@ public class DialogExample {
                         if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value);
                         }
-                    }
-
-                    @Override
-                    public void onClick(View view, String value) {
-
                     }
                 });
         dialog.show();
@@ -726,11 +641,6 @@ public class DialogExample {
                             Launch_toast.informationToast(context, value1 + value2);
                         }
                     }
-
-                    @Override
-                    public void onClick(View view, String value, String value2) {
-
-                    }
                 });
         dialog.show();
         return dialog;
@@ -746,11 +656,6 @@ public class DialogExample {
                         if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value1 + value2);
                         }
-                    }
-
-                    @Override
-                    public void onClick(View view, String value, String value2) {
-
                     }
                 });
         dialog.show();
@@ -768,11 +673,6 @@ public class DialogExample {
                             Launch_toast.informationToast(context, value2);
                         }
                     }
-
-                    @Override
-                    public void onClick(View view, String value, String value2) {
-
-                    }
                 });
         dialog.show();
         return dialog;
@@ -788,11 +688,6 @@ public class DialogExample {
                         if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value.name());
                         }
-                    }
-
-                    @Override
-                    public void onClick(View view, DialogIcon value) {
-
                     }
                 }
         );
@@ -810,11 +705,6 @@ public class DialogExample {
                         if (result == DialogExtras.OK_EXTRA) {
                             Launch_toast.informationToast(context, value.name());
                         }
-                    }
-
-                    @Override
-                    public void onClick(View view, DialogIcon value) {
-
                     }
                 }
         );
