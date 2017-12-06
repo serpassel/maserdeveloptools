@@ -37,7 +37,14 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
+        if (presenter != null) {
+            presenter.onRestoreInstanceState(savedInstanceState);
+        }
+        if (presenter != null) {
+            viewDataBinding = DataBindingUtil.inflate(inflater, presenter.getViewLayout(), container, false);
+        } else {
+            throw new NullPointerException("Presenter null");
+        }
         preBuild(getContext(), getArguments());
         binObjects(getArguments());
         return viewDataBinding.getRoot();
@@ -58,9 +65,6 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
      */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        if (presenter != null) {
-            presenter.onRestoreInstanceState(savedInstanceState);
-        }
         super.onActivityCreated(savedInstanceState);
         postBuild(getArguments());
     }

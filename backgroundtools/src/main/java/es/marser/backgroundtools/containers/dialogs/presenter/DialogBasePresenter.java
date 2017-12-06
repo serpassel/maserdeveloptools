@@ -33,23 +33,13 @@ public class DialogBasePresenter extends BasePresenter implements WindowAction {
     protected ButtonsSetModel buttonsSetModel;
     /*Variable para cierre de contenedores [EN]  Variable for container closure*/
     protected ClosableView closableView;
-    /*Variable de argumentos [EN]  Variable arguments*/
-    private Bundle arguments;
-
-    /*Variable de la vista principal [EN]  Variable of the main view*/
-    private int dialogLayout;
 
 
     //CONSTRUCTORS___________________________________________________________
-    public DialogBasePresenter(@NonNull Context context) {
-        super(context);
+    public DialogBasePresenter(@NonNull Context context, int viewLayout) {
+        super(context, viewLayout);
         this.model = new DialogModel();
         this.buttonsSetModel = new ButtonsSetModel();
-    }
-
-    public DialogBasePresenter(@NonNull Context context, int dialogLayout) {
-        this(context);
-        this.dialogLayout = dialogLayout;
     }
 
     /**
@@ -72,35 +62,19 @@ public class DialogBasePresenter extends BasePresenter implements WindowAction {
         return model;
     }
 
-    public ClosableView getClosableView() {
-        return closableView;
-    }
-
     public void setClosableView(ClosableView closableView) {
         this.closableView = closableView;
     }
 
-    @Nullable
-    public Bundle getArguments() {
-        return arguments;
-    }
-
+    @Override
     public void setArguments(@Nullable Bundle args) {
-        this.arguments = arguments;
+        super.setArguments(args);
         DialogIcon dialog_icon = null;
 
         if (args != null) {
             dialog_icon = (DialogIcon) args.getSerializable(ICON_EXTRA.name());
         }
         model.icon.set(dialog_icon != null ? dialog_icon : DEFAULT_ICON);
-    }
-
-    public int getDialogLayout() {
-        return dialogLayout;
-    }
-
-    public void setDialogLayout(int dialogLayout) {
-        this.dialogLayout = dialogLayout;
     }
 
     //WINDOWACTION_________________________________________________________

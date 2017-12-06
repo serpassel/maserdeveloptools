@@ -53,9 +53,18 @@ public interface LinkedPresenter extends Restorable {
     /**
      * Indicador del conmienzo de la vinculación de vistas {@link android.databinding.ViewDataBinding}
      * <p>
-     *[EN]  Join linking view indicator
+     * [EN]  Join linking view indicator
      *
      * @param binderContainer Objeto de enlace de vistas [EN]  View link object
      */
     void onBindObjects(@NonNull BinderContainer binderContainer);
+
+    /**
+     * Layout de la vista principal
+     * <p>
+     * [EN]  Layout of the main view
+     *
+     * @return R.layout.XXXXX
+     */
+    int getViewLayout();
 }
