@@ -13,7 +13,7 @@ import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.backgroundtools.containers.dialogs.model.ExampleModelObject;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.widget.auth.dialog.DialogCredential;
+import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
 import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
 import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
@@ -679,8 +679,8 @@ public class DialogExample {
     }
 
     public static BaseDialog credentialLogin(final Context context) {
-        DialogCredential dialog = DialogCredential.newInstance(context,
-                DialogCredential.createCredentialLoginBundle(),
+        CredentialDialog dialog = CredentialDialog.newInstance(context,
+                CredentialDialog.createCredentialLoginBundle(),
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {
@@ -696,8 +696,8 @@ public class DialogExample {
     }
 
     public static BaseDialog credentialReauth(final Context context) {
-        DialogCredential dialog = DialogCredential.newInstance(context,
-                DialogCredential.createCredentialReAuthBundle(context),
+        CredentialDialog dialog = CredentialDialog.newInstance(context,
+                CredentialDialog.createCredentialReAuthBundle(context),
                 new OnResult<DialogIcon>() {
                     @Override
                     public void onResult(DialogExtras result, DialogIcon value) {

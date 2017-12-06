@@ -21,10 +21,10 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class DialogCredential extends BaseDialogBin<CredentialPresenter> {
+public class CredentialDialog extends BaseDialogBin<CredentialPresenter> {
 
     //INSTANCE____________________________________________________________________
-    public static DialogCredential newInstance(
+    public static CredentialDialog newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull OnResult<DialogIcon> result) {
@@ -35,7 +35,7 @@ public class DialogCredential extends BaseDialogBin<CredentialPresenter> {
         presenter.setArguments(bundle);
 
         /*DIALOG*/
-        DialogCredential instance = new DialogCredential();
+        CredentialDialog instance = new CredentialDialog();
         instance.setContext(context);
         instance.setPresenter(presenter);
 

@@ -24,7 +24,7 @@ import es.marser.maserdeveloptools.DialogExample;
 @SuppressWarnings("unused")
 @LargeTest
 @RunWith(AndroidJUnit4.class)
-public class DialogCredentialTest {
+public class CredentialDialogTest {
 
     @Rule
     public ActivityTestRule<DevelopTools> mActivityRule = new ActivityTestRule<>(

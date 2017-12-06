@@ -25,7 +25,7 @@ import es.marser.backgroundtools.systemtools.FilePathUtil;
         NotificationTest2.class,
         ResourcesAccessTest.class,
         DialogInputTest.class,
-        DialogCredentialTest.class,
+        CredentialDialogTest.class,
         ChooserTest.class,
         Launch_toast.class,
         FilePathUtil.class
