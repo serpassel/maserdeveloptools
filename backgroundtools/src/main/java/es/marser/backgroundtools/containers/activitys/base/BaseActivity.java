@@ -32,7 +32,7 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.PermissionChecker;
-import es.marser.backgroundtools.widget.progress.dialog.BinIndeterminateDialog;
+import es.marser.backgroundtools.widget.progress.dialog.IndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
 
 /**
@@ -81,7 +81,7 @@ public abstract class BaseActivity
     protected ActionBarDrawerToggle actionBarDrawerToggle;
 
     @VisibleForTesting
-    public BinIndeterminateDialog mProgressDialog;
+    public IndeterminateDialog mProgressDialog;
 
     @Override
     public void onStop() {
@@ -245,8 +245,8 @@ public abstract class BaseActivity
      */
     public void showProgressDialog() {
         if (mProgressDialog == null) {
-            mProgressDialog = BinIndeterminateDialog
-                    .newInstance(this, BinIndeterminateDialog
+            mProgressDialog = IndeterminateDialog
+                    .newInstance(this, IndeterminateDialog
                             .createBundle(DialogIcon.LOADING_ICON));
             mProgressDialog.setBody("Espere...");
         }

@@ -19,8 +19,8 @@ import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.backgroundtools.widget.edition.dialog.EditDialog;
 import es.marser.backgroundtools.widget.inputbox.dialog.InputDialog;
-import es.marser.backgroundtools.widget.progress.dialog.BinIndeterminateDialog;
-import es.marser.backgroundtools.widget.progress.dialog.BinProgressDialog;
+import es.marser.backgroundtools.widget.progress.dialog.IndeterminateDialog;
+import es.marser.backgroundtools.widget.progress.dialog.ProgressDialog;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -51,8 +51,8 @@ import es.marser.tools.TextTools;
 public class DialogExample {
 
     public static BaseDialog indeterminateBox(Context context) {
-        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstance(context,
-                BinIndeterminateDialog
+        IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context,
+                IndeterminateDialog
                         .createBundle(
                                 DialogIcon.LOADING_ICON)
         );
@@ -63,15 +63,15 @@ public class DialogExample {
     }
 
     public static BaseDialog indeterminateSpinner(Context context) {
-        BinIndeterminateDialog binDialog = BinIndeterminateDialog.newInstance(context, BinIndeterminateDialog.createBundle(null));
+        IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context, IndeterminateDialog.createBundle(null));
         binDialog.show();
         return binDialog;
     }
 
     public static BaseDialog progressIndeterminateBox(Context context) {
-        BinProgressDialog bar = BinProgressDialog
+        ProgressDialog bar = ProgressDialog
                 .newInstance(context,
-                        BinProgressDialog
+                        ProgressDialog
                                 .createBundle(
                                         DialogIcon.EXCEL_ICON
                                 ));
@@ -84,9 +84,9 @@ public class DialogExample {
         int max = 1000;
         String headTitle = "Leyendo xls...";
 
-        BinProgressDialog bar = BinProgressDialog
+        ProgressDialog bar = ProgressDialog
                 .newInstance(context,
-                        BinProgressDialog
+                        ProgressDialog
                                 .createBundle(
                                         DialogIcon.EXCEL_ICON
                                 ));

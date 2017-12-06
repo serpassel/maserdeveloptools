@@ -23,7 +23,7 @@ import es.marser.backgroundtools.widget.progress.presenter.ProgressPresenter;
  */
 
 @SuppressWarnings({"unused", "UnusedReturnValue"})
-public class BinProgressDialog extends BaseDialogBin<ProgressPresenter> implements ProgressBarUpdater {
+public class ProgressDialog extends BaseDialogBin<ProgressPresenter> implements ProgressBarUpdater {
     /**
      * Crear una nueva instancia del Dialogo
      * <p>
@@ -33,7 +33,7 @@ public class BinProgressDialog extends BaseDialogBin<ProgressPresenter> implemen
      * @return nueva instancia
      * @see #createBundle(String)
      */
-    public static BinProgressDialog newInstance(@NonNull Context context, @Nullable Bundle bundle) {
+    public static ProgressDialog newInstance(@NonNull Context context, @Nullable Bundle bundle) {
         if (bundle == null) {
             bundle = createBundle(DialogIcon.DEFAULT_ICON);
         }
@@ -43,7 +43,7 @@ public class BinProgressDialog extends BaseDialogBin<ProgressPresenter> implemen
         presenter.setArguments(bundle);
 
         /*DIALOG*/
-        BinProgressDialog instance = new BinProgressDialog();
+        ProgressDialog instance = new ProgressDialog();
         instance.setContext(context);
         instance.setPresenter(presenter);
 
