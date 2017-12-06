@@ -9,7 +9,6 @@ import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.listables.base.presenter.SharedPreferendSaved;
 
 /**
  * @author sergio
@@ -22,6 +21,7 @@ public class NotificationPresenter extends DialogBasePresenter {
     protected OnResult<Void> result;
 
     //CONTRUCTORS____________________________________________
+    @SuppressWarnings("unused")
     public NotificationPresenter(@NonNull Context context, int viewLayout) {
         super(context, viewLayout);
     }
@@ -36,10 +36,12 @@ public class NotificationPresenter extends DialogBasePresenter {
     }
 
     //RESULT___________________________________________________
+    @SuppressWarnings("unused")
     public OnResult<Void> getResult() {
         return result;
     }
 
+    @SuppressWarnings("unused")
     public void setResult(OnResult<Void> result) {
         this.result = result;
     }
