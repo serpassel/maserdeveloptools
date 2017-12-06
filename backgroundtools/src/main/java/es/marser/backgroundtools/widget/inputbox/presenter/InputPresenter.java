@@ -12,7 +12,7 @@ import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.model.BoxModel;
 
 /**
  * @author sergio
@@ -26,7 +26,7 @@ public class InputPresenter extends DialogBasePresenter {
     /*Variable de resultado [EN]  Result variable*/
     protected OnResult<String> result;
     /*Variable de configuración [EN]  Configuration variable*/
-    protected BoxSettings boxSettings;
+    protected BoxModel boxModel;
 
     //CONSTRUCTORS_________________________________________
     public InputPresenter(@NonNull Context context, int viewLayout) {
@@ -41,33 +41,33 @@ public class InputPresenter extends DialogBasePresenter {
     @Override
     public void onBindObjects(@NonNull BinderContainer binderContainer) {
         super.onBindObjects(binderContainer);
-        binderContainer.bindObject(BR.settings, boxSettings);
+        binderContainer.bindObject(BR.boxmodel, boxModel);
     }
 
     @Override
     public void setArguments(@Nullable Bundle args) {
         super.setArguments(args);
         if (args != null) {
-            boxSettings = getArguments().getParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name());
+            boxModel = getArguments().getParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name());
         }
 
-        if (boxSettings == null) {
-            boxSettings = new BoxSettings();
+        if (boxModel == null) {
+            boxModel = new BoxModel();
         }
     }
 
     //WINACTION______________________________________________
     @Override
     public void onOk(View v) {
-        if (boxSettings.validate()) {
-            result.onResult(DialogExtras.OK_EXTRA, boxSettings.getBody());
+        if (boxModel.validate()) {
+            result.onResult(DialogExtras.OK_EXTRA, boxModel.getBody());
             close();
         }
     }
 
     @Override
     public void onCancel(View v) {
-        result.onResult(DialogExtras.CANCEL_EXTRA, boxSettings.getBody());
+        result.onResult(DialogExtras.CANCEL_EXTRA, boxModel.getBody());
         close();
     }
 
@@ -80,11 +80,11 @@ public class InputPresenter extends DialogBasePresenter {
         this.result = result;
     }
 
-    public BoxSettings getBoxSettings() {
-        return boxSettings;
+    public BoxModel getBoxModel() {
+        return boxModel;
     }
 
-    public void setBoxSettings(BoxSettings boxSettings) {
-        this.boxSettings = boxSettings;
+    public void setBoxModel(BoxModel boxModel) {
+        this.boxModel = boxModel;
     }
 }

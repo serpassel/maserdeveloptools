@@ -21,7 +21,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class BoxSettings extends BaseObservable implements Parcelable {
+public class BoxModel extends BaseObservable implements Parcelable {
 
     public static int textEmailAddress = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS;
     public static int textPassword = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
@@ -41,7 +41,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
     private String hint;
 
     //CONSTRUCTORS_______________________________________________________________________________________________
-    public BoxSettings() {
+    public BoxModel() {
         this(InputType.TYPE_CLASS_TEXT,
                 1,
                 null,
@@ -51,11 +51,11 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         );
     }
 
-    public BoxSettings(String hint) {
+    public BoxModel(String hint) {
         this(1, hint);
     }
 
-    public BoxSettings(int lines, String hint) {
+    public BoxModel(int lines, String hint) {
         this(lines > 1 ? textMultiLine : InputType.TYPE_CLASS_TEXT,
                 lines,
                 null,
@@ -65,7 +65,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         );
     }
 
-    public BoxSettings(int passwordCount) {
+    public BoxModel(int passwordCount) {
         this(textPassword,
                 1,
                 null,
@@ -75,7 +75,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         );
     }
 
-    public BoxSettings(int inputType, int lines, String errorText, int passwordCount, int counterCount, String hint) {
+    public BoxModel(int inputType, int lines, String errorText, int passwordCount, int counterCount, String hint) {
         this.inputType = inputType;
         this.lines = lines;
         this.errorText = TextTools.nc(errorText);
@@ -92,7 +92,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
     }
 
     //EDIT TEXT_________________________________________________________________________
-    public BoxSettings setInputType(int inputType) {
+    public BoxModel setInputType(int inputType) {
         this.inputType = inputType;
         notifyPropertyChanged(BR.inputType);
         return this;
@@ -103,7 +103,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         return this.inputType;
     }
 
-    public BoxSettings setLines(int lines) {
+    public BoxModel setLines(int lines) {
         this.lines = lines;
         notifyPropertyChanged(BR.lines);
         setInputType(
@@ -123,7 +123,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         return this.body;
     }
 
-    public BoxSettings setBody(String body) {
+    public BoxModel setBody(String body) {
         if (counterCount > 0 && body.length() > counterCount) {
             return this;
         }
@@ -135,7 +135,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
     }
 
     //INPUT LAYOUT_______________________________________________________________________
-    public BoxSettings setErrorText(String errorText) {
+    public BoxModel setErrorText(String errorText) {
         this.errorText = errorText;
         notifyPropertyChanged(BR.errorText);
         return this;
@@ -148,7 +148,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
 
 
     /*Validate password*/
-    public BoxSettings setPasswordCount(int passwordCount) {
+    public BoxModel setPasswordCount(int passwordCount) {
         this.passwordCount = passwordCount;
         notifyPropertyChanged(BR.passwordCount);
 
@@ -227,7 +227,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
     }
 
     /*Contador*/
-    public BoxSettings setCounterCount(int counterCount) {
+    public BoxModel setCounterCount(int counterCount) {
         this.counterCount = counterCount;
         notifyPropertyChanged(BR.counterCount);
         return this;
@@ -238,7 +238,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         return this.counterCount;
     }
 
-    public BoxSettings setHint(String hint) {
+    public BoxModel setHint(String hint) {
         this.hint = hint;
         notifyPropertyChanged(BR.hint);
         return this;
@@ -267,7 +267,7 @@ public class BoxSettings extends BaseObservable implements Parcelable {
 
     }
 
-    protected BoxSettings(Parcel in) {
+    protected BoxModel(Parcel in) {
         inputType = in.readInt();
         lines = in.readInt();
         errorText = in.readString();
@@ -277,15 +277,15 @@ public class BoxSettings extends BaseObservable implements Parcelable {
         body = in.readString();
     }
 
-    public static final Parcelable.Creator<BoxSettings> CREATOR = new Parcelable.Creator<BoxSettings>() {
+    public static final Parcelable.Creator<BoxModel> CREATOR = new Parcelable.Creator<BoxModel>() {
         @Override
-        public BoxSettings createFromParcel(Parcel in) {
-            return new BoxSettings(in);
+        public BoxModel createFromParcel(Parcel in) {
+            return new BoxModel(in);
         }
 
         @Override
-        public BoxSettings[] newArray(int size) {
-            return new BoxSettings[size];
+        public BoxModel[] newArray(int size) {
+            return new BoxModel[size];
         }
     };
 

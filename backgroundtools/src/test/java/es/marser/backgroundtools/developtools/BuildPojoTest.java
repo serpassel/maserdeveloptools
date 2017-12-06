@@ -107,7 +107,7 @@ public class BuildPojoTest {
     @Test
     public void buildBoxSettings() {
 
-        String nameclass = "BoxSettings";
+        String nameclass = "BoxModel";
 
         BuildPojo.FieldBuilder[] list = {
                 /*edit*/

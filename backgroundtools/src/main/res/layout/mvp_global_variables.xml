@@ -46,11 +46,11 @@
             type="es.marser.backgroundtools.containers.dialogs.model.StatusModel" />
 
         <!--MODELO de configuración de cajas de texto [EN]  MODEL configuration of text boxes-->
-        <import type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
+        <import type="es.marser.backgroundtools.widget.inputbox.model.BoxModel" />
 
         <variable
-            name="settings"
-            type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
+            name="boxmodel"
+            type="es.marser.backgroundtools.widget.inputbox.model.BoxModel" />
 
         <!--VARIABLE de selección multiple [EN]  VARIABLE multiple selection-->
         <variable

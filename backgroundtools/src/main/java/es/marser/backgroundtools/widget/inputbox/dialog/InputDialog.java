@@ -10,7 +10,7 @@ import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.model.BoxModel;
 import es.marser.backgroundtools.widget.inputbox.presenter.InputPresenter;
 import es.marser.tools.TextTools;
 
@@ -56,13 +56,13 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
      *
      * @param icon        Icono de cabecera [EN]  Header icon
      * @param title       Título de cabecera [EN]  Header title
-     * @param boxSettings Configuración de la caja de texto [EN]  Text box settings
+     * @param boxModel Configuración de la caja de texto [EN]  Text box settings
      * @return Argumentos de configuración [EN]  Configuration arguments
      */
     public static Bundle createBundle(@NonNull Context context,
                                       @NonNull DialogIcon icon,
                                       String title,
-                                      @NonNull BoxSettings boxSettings) {
+                                      @NonNull BoxModel boxModel) {
         Bundle bundle = new Bundle();
        
         /*DIALOG MODEL*/
@@ -75,20 +75,20 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
                 null));
         
         /*BOX SETTINGS*/
-        bundle.putParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name(), boxSettings);
+        bundle.putParcelable(DialogExtras.SETTING_INPUTBOX_EXTRA.name(), boxModel);
 
         return bundle;
     }
 
     public static Bundle createPasswordBundle(@NonNull Context context, String title, int passlength) {
        /*settings*/
-        BoxSettings boxSettings = new BoxSettings(passlength);
-        boxSettings.setHint("Contraseña");
+        BoxModel boxModel = new BoxModel(passlength);
+        boxModel.setHint("Contraseña");
         return createBundle(
                 context,
                 DialogIcon.PASSWORD_ICON,
                 TextTools.nc(title, "Introducir contraseña"),
-                boxSettings
+                boxModel
         );
     }
 
@@ -104,12 +104,12 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
      * @return Argumentos [EN]  Arguments
      */
     public static Bundle createBundle(@NonNull Context context, String title, int lines, String hint, int counter) {
-        BoxSettings boxSettings = new BoxSettings(lines, hint);
-        boxSettings.setCounterCount(counter);
+        BoxModel boxModel = new BoxModel(lines, hint);
+        boxModel.setCounterCount(counter);
         if (lines > 1) {
-            return createBundle(context, DialogIcon.MULTILINE_ICON, TextTools.nc(title, "entrada"), boxSettings);
+            return createBundle(context, DialogIcon.MULTILINE_ICON, TextTools.nc(title, "entrada"), boxModel);
         }
-        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxModel);
     }
 
     /**
@@ -136,9 +136,9 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
      */
     public static Bundle createMailBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
-        BoxSettings boxSettings = new BoxSettings(hint);
-        boxSettings.setInputType(BoxSettings.textEmailAddress);
-        return createBundle(context, DialogIcon.MAIL_ICON, TextTools.nc(title, "Introducir correo electrónico"), boxSettings);
+        BoxModel boxModel = new BoxModel(hint);
+        boxModel.setInputType(BoxModel.textEmailAddress);
+        return createBundle(context, DialogIcon.MAIL_ICON, TextTools.nc(title, "Introducir correo electrónico"), boxModel);
     }
 
     /**
@@ -152,9 +152,9 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
      */
     public static Bundle createNumberBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
-        BoxSettings boxSettings = new BoxSettings(hint);
-        boxSettings.setInputType(BoxSettings.number);
-        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
+        BoxModel boxModel = new BoxModel(hint);
+        boxModel.setInputType(BoxModel.number);
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxModel);
     }
 
     /**
@@ -168,8 +168,8 @@ public class InputDialog extends BaseDialogBin<InputPresenter> {
      */
     public static Bundle createNumberDecimalBundle(@NonNull Context context, String title, String hint) {
         /*settings*/
-        BoxSettings boxSettings = new BoxSettings(hint);
-        boxSettings.setInputType(BoxSettings.numberDecimal);
-        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxSettings);
+        BoxModel boxModel = new BoxModel(hint);
+        boxModel.setInputType(BoxModel.numberDecimal);
+        return createBundle(context, DialogIcon.EDITTEXT_ICON, TextTools.nc(title, "entrada"), boxModel);
     }
 }

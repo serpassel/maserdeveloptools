@@ -9,7 +9,7 @@ import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinDecrep;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
-import es.marser.backgroundtools.widget.inputbox.model.BoxSettings;
+import es.marser.backgroundtools.widget.inputbox.model.BoxModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.tools.TextTools;
@@ -27,8 +27,8 @@ public class DialogLogin extends BaseDialogBinDecrep {
 
     protected OnDResult<String, String> result;
 
-    protected BoxSettings user;
-    protected BoxSettings password;
+    protected BoxModel user;
+    protected BoxModel password;
 
     //INSTANCE____________________________________________________________________
     public static DialogLogin newInstance(
@@ -58,8 +58,8 @@ public class DialogLogin extends BaseDialogBinDecrep {
     public static Bundle createBundle(
             @NonNull DialogIcon icon,
             String title,
-            @NonNull BoxSettings user,
-            @NonNull BoxSettings password) {
+            @NonNull BoxModel user,
+            @NonNull BoxModel password) {
         Bundle bundle = new Bundle();
         /*Fixed*/
         bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
@@ -85,10 +85,10 @@ public class DialogLogin extends BaseDialogBinDecrep {
      */
     public static Bundle createMailPasswordBundle(String title, int passlenght) {
         /*settings*/
-        BoxSettings user = new BoxSettings("Correo electrónico");
-        user.setInputType(BoxSettings.textEmailAddress);
+        BoxModel user = new BoxModel("Correo electrónico");
+        user.setInputType(BoxModel.textEmailAddress);
 
-        BoxSettings password = new BoxSettings(passlenght);
+        BoxModel password = new BoxModel(passlenght);
         password.setHint("Contraseña");
         return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Autentificación"), user, password);
     }
@@ -104,9 +104,9 @@ public class DialogLogin extends BaseDialogBinDecrep {
      */
     public static Bundle createUserPasswordBundle(String title, int passlenght) {
         /*settings*/
-        BoxSettings user = new BoxSettings("Usuario");
+        BoxModel user = new BoxModel("Usuario");
 
-        BoxSettings password = new BoxSettings(passlenght);
+        BoxModel password = new BoxModel(passlenght);
         password.setHint("Contraseña");
         return createBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title, "Autentificación"), user, password);
     }
@@ -122,9 +122,9 @@ public class DialogLogin extends BaseDialogBinDecrep {
      */
     public static Bundle createModificationPasswordBundle(String title, int passlenght) {
         /*settings*/
-        BoxSettings user = new BoxSettings(passlenght);
+        BoxModel user = new BoxModel(passlenght);
         user.setHint("Nueva Contraseña");
-        BoxSettings password = new BoxSettings(passlenght);
+        BoxModel password = new BoxModel(passlenght);
         password.setHint("Confirmar Contraseña");
         return createBundle(DialogIcon.PASSWORD_ICON, TextTools.nc(title, "Modificar Contraseña"), user, password);
     }
@@ -145,11 +145,11 @@ public class DialogLogin extends BaseDialogBinDecrep {
         }
 
         if (user == null) {
-            user = new BoxSettings();
+            user = new BoxModel();
         }
 
         if (password == null) {
-            password = new BoxSettings();
+            password = new BoxModel();
         }
 
         //Configurar botones [EN]  Configure buttons
@@ -173,7 +173,7 @@ public class DialogLogin extends BaseDialogBinDecrep {
     public void onOk(View v) {
 
         if (user.validate() && password.validate()) {
-            if (user.getInputType() == BoxSettings.textPassword) {
+            if (user.getInputType() == BoxModel.textPassword) {
                 if (TextTools.validateAndConfirmPassword(user.getBody(), password.getBody())) {
                     password.setErrorText("Las contraseñas no coinciden");
                     return;
@@ -200,19 +200,19 @@ public class DialogLogin extends BaseDialogBinDecrep {
         this.result = result;
     }
 
-    public BoxSettings getUser() {
+    public BoxModel getUser() {
         return user;
     }
 
-    public void setUser(BoxSettings user) {
+    public void setUser(BoxModel user) {
         this.user = user;
     }
 
-    public BoxSettings getPassword() {
+    public BoxModel getPassword() {
         return password;
     }
 
-    public void setPassword(BoxSettings password) {
+    public void setPassword(BoxModel password) {
         this.password = password;
     }
 }

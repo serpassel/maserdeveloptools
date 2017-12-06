@@ -7,11 +7,11 @@
     <data>
 
         <!--STATUS-->
-        <import type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
+        <import type="es.marser.backgroundtools.widget.inputbox.model.BoxModel" />
 
         <variable
-            name="settings"
-            type="es.marser.backgroundtools.widget.inputbox.model.BoxSettings" />
+            name="boxmodel"
+            type="es.marser.backgroundtools.widget.inputbox.model.BoxModel" />
 
         <!--DATA-->
         <import type="es.marser.backgroundtools.containers.dialogs.model.DialogModel" />
