@@ -110,8 +110,8 @@ public class DialogExample {
         EditDialogBin gene =
                 EditDialogBin.newInstance(
                         context,
-                        EditDialogBin
-                                .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
+                        R.layout.mvp_example_edit_model_object,
+                        new ExampleModelObject(),
                         new OnResult<ExampleModelObject>() {
                             @Override
                             public void onResult(DialogExtras result, ExampleModelObject value) {
@@ -135,8 +135,8 @@ public class DialogExample {
         EditDialogBin gene =
                 EditDialogBin.newInstance(
                         context,
-                        EditDialogBin
-                                .createBundle(R.layout.mvp_example_edit_model_object, new ExampleModelObject()),
+                        R.layout.mvp_example_edit_model_object,
+                        new ExampleModelObject(),
                         result
                 );
 
@@ -420,7 +420,7 @@ public class DialogExample {
                 autonomousModel.preSelectValue(),
                 true);
 
-        AutonomousPresenter presenter = new AutonomousPresenter(context, R.layout.mvp_dialog_object_chooser,false);
+        AutonomousPresenter presenter = new AutonomousPresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
         ChooserDialog<AutonomousModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
 
@@ -542,7 +542,7 @@ public class DialogExample {
 
         Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, 1, true, null);
 
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser,false);
+        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
         ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
 

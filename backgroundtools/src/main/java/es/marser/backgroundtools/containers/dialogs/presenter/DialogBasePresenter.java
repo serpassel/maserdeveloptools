@@ -30,7 +30,7 @@ import static es.marser.backgroundtools.enums.DialogIcon.DEFAULT_ICON;
  *         [EN]  Presenter of view of dialog boxes
  */
 
-public class DialogBasePresenter extends BasePresenter implements WindowAction, SharedPreferendSaved {
+public class DialogBasePresenter extends BasePresenter implements WindowAction, SharedPreferendSaved, ClosableView {
     /*Variable modelo [EN]  Model variable*/
     protected DialogModel model;
     /*Variable modelo de configurador de botonera [EN]  Variable button configurator model*/
@@ -108,6 +108,7 @@ public class DialogBasePresenter extends BasePresenter implements WindowAction, 
     }
 
     //PREFERENCES_____________________________________________________________
+
     /**
      * Graba la selección de preferencias
      * <p>
@@ -157,5 +158,13 @@ public class DialogBasePresenter extends BasePresenter implements WindowAction, 
     @Override
     public void onOption(View v) {
 
+    }
+
+    //CLOSABLE VIEW____________________________________________________________
+    @Override
+    public void close() {
+        if (closableView != null) {
+            closableView.close();
+        }
     }
 }

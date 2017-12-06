@@ -53,9 +53,7 @@ public class NotificationPresenter extends DialogBasePresenter {
             result.onResult(DialogExtras.OK_EXTRA, null);
         }
         savePreferences();
-        if (closableView != null) {
-            closableView.close();
-        }
+        close();
     }
 
     @Override
@@ -64,9 +62,7 @@ public class NotificationPresenter extends DialogBasePresenter {
             result.onResult(DialogExtras.CANCEL_EXTRA, null);
         }
         savePreferences();
-        if (closableView != null) {
-            closableView.close();
-        }
+        close();
     }
 
     @Override
@@ -75,8 +71,6 @@ public class NotificationPresenter extends DialogBasePresenter {
             result.onResult(DialogExtras.OPTION_EXTRA, null);
         }
         savePreferences();
-        if (closableView != null) {
-            closableView.close();
-        }
+        close();
     }
 }
