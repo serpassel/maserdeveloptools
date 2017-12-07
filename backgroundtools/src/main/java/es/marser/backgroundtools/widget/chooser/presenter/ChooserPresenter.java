@@ -23,6 +23,7 @@ import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.widget.chooser.model.SimpleChooserAdapterModel;
+import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -230,5 +231,17 @@ public class ChooserPresenter<T extends Selectable>
 
     public void setMultiselect_flag(boolean multiselect_flag) {
         this.multiselect_flag = multiselect_flag;
+    }
+
+    //BUNDLE BUILDER________________________________
+    public static <T extends Selectable> Bundle createLoadBundle(@Nullable String preselect, @Nullable ArrayList<T> values) {
+        Bundle bundle = new Bundle();
+          /*LOAD BUNDLE*/
+        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(preselect));
+        if (values == null) {
+            values = new ArrayList<>();
+        }
+        bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), values);
+        return bundle;
     }
 }

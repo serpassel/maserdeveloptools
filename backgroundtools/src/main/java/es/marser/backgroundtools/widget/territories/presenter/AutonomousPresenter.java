@@ -46,7 +46,8 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
      */
     @Override
     public void load(@Nullable Bundle bundle) {
-        if (bundle != null) {
+
+        if ( bundle!= null) {
 
             String[] values = ResourcesAccess.getListAutonomousCommunities(getContext());
 

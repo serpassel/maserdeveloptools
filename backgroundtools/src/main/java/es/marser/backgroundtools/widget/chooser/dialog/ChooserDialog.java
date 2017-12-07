@@ -2,7 +2,6 @@ package es.marser.backgroundtools.widget.chooser.dialog;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
@@ -41,13 +40,14 @@ public class ChooserDialog<T extends Selectable>
 
         /*PRESENTER*/
         ChooserPresenter<T> presenter = new ChooserPresenter<>(context);
-        presenter.setArguments(bundle);
+        presenter.setArguments(bundle);//Arguments to iniciate
         presenter.setResult(result);
 
         /*DIALOG*/
         ChooserDialog<T> instance = new ChooserDialog<>();
         instance.setContext(context);
         instance.setPresenter(presenter);
+        instance.setArguments(bundle);//Arguments for load
 
         return instance;
     }
@@ -93,7 +93,7 @@ public class ChooserDialog<T extends Selectable>
                                                              String cancel,
                                                              String preselect,
                                                              ListExtra listExtra,
-                                                             List<T> values) {
+                                                             ArrayList<T> values) {
         Bundle bundle = new Bundle();
 
         /*DIALOG MODEL*/
@@ -113,8 +113,7 @@ public class ChooserDialog<T extends Selectable>
         bundle.putAll(BundleBuilder.createListModeBundle(listExtra));
 
         /*LOAD BUNDLE*/
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-        bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), (ArrayList<? extends Parcelable>) values);
+        bundle.putAll(ChooserPresenter.createLoadBundle(preselect, values));
         return bundle;
     }
 
@@ -128,7 +127,7 @@ public class ChooserDialog<T extends Selectable>
             Context context,
             ListExtra listExtra,
             String premarc,
-            List<T> values) {
+            ArrayList<T> values) {
         return createBundle(
                 DialogIcon.SEARCH_ICON,
                 context.getResources().getString(R.string.bt_dialog_select_title),
@@ -150,7 +149,7 @@ public class ChooserDialog<T extends Selectable>
      */
     public static <T extends Selectable> Bundle createBundle(
             Context context,
-            List<T> values) {
+            ArrayList<T> values) {
         return createBundle(context, ListExtra.ONLY_SINGLE_SELECTION_MODE, null, values);
     }
 }

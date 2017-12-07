@@ -8,6 +8,7 @@ import android.util.Log;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
@@ -82,9 +83,11 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
                                            String preselect,
                                            int index,
                                            ListExtra listExtra,
-                                           boolean placeholder
-        ) {
+                                           boolean placeholder) {
             Bundle bundle = new Bundle();
+
+            /*DIALOG*/
+            bundle.putAll(BundleBuilder.createDialogModelBundle(DialogIcon.LIST_ICON, TextTools.nc(title), null,null));
 
        /*PRE-BUILD*/
             bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.LIST_ICON);
