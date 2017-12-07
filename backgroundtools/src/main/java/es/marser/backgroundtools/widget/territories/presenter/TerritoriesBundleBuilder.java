@@ -25,8 +25,7 @@ import es.marser.tools.TextTools;
 @SuppressWarnings("unused")
 public class TerritoriesBundleBuilder {
 
-        /*PRE_BUILD*/
-
+/*PRE_BUILD*/
     /**
      * Selector de comunidades autónomas
      * [EN]  Autonomous community selector
