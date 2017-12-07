@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.definition.Restorable;
+import es.marser.backgroundtools.enums.EventsExtras;
 
 /**
  * @author sergio
@@ -67,4 +68,20 @@ public interface LinkedPresenter extends Restorable {
      * @return R.layout.XXXXX
      */
     int getViewLayout();
+
+    /**
+     * Eventos de deslizamienos de pantalla
+     * <p>
+     * [EN]  Screen slide events
+     *
+     * @param eventsExtras Eventos causante [EN]  Causing events
+     */
+    void onSwipe(EventsExtras eventsExtras);
+
+    /**
+     * Doble pulsación de la pantalla
+     * <p>
+     * [EN]  Double click on the screen
+     */
+    void onDoubleTap();
 }

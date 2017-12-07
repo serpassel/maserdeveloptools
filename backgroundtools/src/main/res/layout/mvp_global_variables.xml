@@ -32,12 +32,12 @@
         <!--MODELO manejador de eventos de la vista [EN]  MODEL view event handler-->
         <variable
             name="handler"
-            type="es.marser.backgroundtools.handlers.ViewHandler" />
+            type="es.marser.backgroundtools.events.ViewHandler" />
 
         <!--MODELO manejador de eventos de ventana [EN]  MODEL window event handler-->
         <variable
             name="winaction"
-            type="es.marser.backgroundtools.handlers.WindowAction" />
+            type="es.marser.backgroundtools.events.WindowAction" />
 
         <!--MODELO configurador de botonera [EN]  MODEL button configurator-->
         <variable

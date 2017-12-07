@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.enums.EventsExtras;
 
 /**
  * @author sergio
@@ -65,6 +66,7 @@ public abstract class BasePresenter
         this.context = context;
     }
 
+    //LINKED PRESENTER______________________________
     /**
      * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
      * <p>
@@ -76,6 +78,17 @@ public abstract class BasePresenter
     public void onBindObjects(@NonNull BinderContainer binderContainer) {
 
     }
+
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+
+    }
+
+    @Override
+    public void onDoubleTap() {
+
+    }
+
 
     //OPERATIVE_____________________________________
 

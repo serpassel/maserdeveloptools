@@ -51,6 +51,8 @@ public abstract class BaseDialog
         return true;
     }
 
+
+
     @Override
     public void onSwipe(EventsExtras eventsExtras) {
     }

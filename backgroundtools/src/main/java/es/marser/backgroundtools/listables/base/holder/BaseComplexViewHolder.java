@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.view.View;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
+import es.marser.backgroundtools.events.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.listables.complex.controller.ComplexViewHolderController;
 import es.marser.backgroundtools.listables.complex.models.ExpandableGroup;
 

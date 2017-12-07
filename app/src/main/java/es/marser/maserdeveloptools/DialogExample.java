@@ -51,6 +51,7 @@ import es.marser.tools.TextTools;
 @SuppressWarnings({"WeakerAccess", "unused", "UnusedReturnValue"})
 public class DialogExample {
 
+    //PROGRESS
     public static BaseDialog indeterminateBox(Context context) {
         IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context,
                 IndeterminateDialog
@@ -110,6 +111,7 @@ public class DialogExample {
         return bar;
     }
 
+    //EDIT
     public static BaseDialog editGeneric(final Context context) {
         EditDialog gene =
                 EditDialog.newInstance(

@@ -26,7 +26,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.events.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.calendar.async.AsyncMonthDays;
@@ -42,6 +42,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("ALL")
+@Deprecated
 public class CalendarChooserDECREP
         extends BaseDialogBinTableDECREP<DayWeek, CalendarObservable>
         implements ViewHandler<Void> {
@@ -273,7 +274,7 @@ public class CalendarChooserDECREP
     }
 
     //ACTIONS__________________________________________________________________________________
-    /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
+    /* {@link es.marser.backgroundtools.events.WindowAction}*/
     @Override
     public void onOk(View view) {
         if (result != null) {
@@ -329,7 +330,7 @@ public class CalendarChooserDECREP
         }
     }
 
-    /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
+    /*{@link es.marser.backgroundtools.events.ViewItemHandler}*/
     @Override
     public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         super.onClickBodyItem(holder, item, position, mode);

@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.events.TouchableViewHandler;
+import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;

@@ -121,11 +121,11 @@ public abstract class BaseFragmentList extends BaseFragment {
      * el método es llamado tras definir la lista {@link RecyclerView} en el método {@link #onActivityCreated(Bundle)} )}
      * <p>
      * [EN] Link the adapter with the list {@link RecyclerView}, and listeners of the adapter
-     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
-     * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
+     * ej {@link es.marser.backgroundtools.events.ViewItemHandler},
+     * {@link es.marser.backgroundtools.events.TouchableViewHandler}
      * <p>
-     * ej {@link es.marser.backgroundtools.handlers.ViewItemHandler},
-     * {@link es.marser.backgroundtools.handlers.TouchableViewHandler}
+     * ej {@link es.marser.backgroundtools.events.ViewItemHandler},
+     * {@link es.marser.backgroundtools.events.TouchableViewHandler}
      */
     protected abstract void bindAdapter(@Nullable Bundle savedInstanceState);
 

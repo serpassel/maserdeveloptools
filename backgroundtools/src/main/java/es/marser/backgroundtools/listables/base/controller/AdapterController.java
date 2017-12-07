@@ -11,7 +11,7 @@ import java.util.List;
 
 import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.listeners.AdapterNotifier;

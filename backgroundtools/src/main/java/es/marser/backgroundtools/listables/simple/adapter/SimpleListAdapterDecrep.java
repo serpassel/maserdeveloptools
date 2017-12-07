@@ -4,7 +4,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Parcelable;
 import android.util.SparseIntArray;
 
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
+import es.marser.backgroundtools.events.TouchableViewHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapterDecrep;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;

@@ -11,7 +11,7 @@ import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresente
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.events.ViewHandler;
 
 /**
  * @author sergio

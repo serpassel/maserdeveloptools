@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.handlers;
+package es.marser.backgroundtools.events;
 
 import android.os.Parcelable;
 

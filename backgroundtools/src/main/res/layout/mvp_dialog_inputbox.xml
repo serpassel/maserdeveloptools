@@ -20,7 +20,7 @@
             name="model"
             type="DialogModel" />
 
-        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+        <import type="es.marser.backgroundtools.events.WindowAction" />
 
         <!--BUTTONS-->
         <variable

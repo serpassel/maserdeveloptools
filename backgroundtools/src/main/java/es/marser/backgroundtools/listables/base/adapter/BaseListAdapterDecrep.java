@@ -14,7 +14,7 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Restorable;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.controller.ExpandController;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.controller.SelectionControllerD;

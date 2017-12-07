@@ -13,7 +13,7 @@
             type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
 
         <!--HANDLERS-->
-        <import type="es.marser.backgroundtools.handlers.ViewHandler" />
+        <import type="es.marser.backgroundtools.events.ViewHandler" />
 
         <variable
             name="handler"

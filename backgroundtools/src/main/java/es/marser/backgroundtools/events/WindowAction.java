@@ -1,4 +1,4 @@
-package es.marser.backgroundtools.handlers;
+package es.marser.backgroundtools.events;
 
 import android.view.View;
 
@@ -8,7 +8,7 @@ import android.view.View;
  *         Modelo manejador de eventos de ventana
  *         <p>
  *         [EN]  Window event handler model
- * @see es.marser.backgroundtools.handlers.ViewHandler
+ * @see es.marser.backgroundtools.events.ViewHandler
  */
 
 @SuppressWarnings({"unused", "EmptyMethod"})

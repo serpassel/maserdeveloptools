@@ -12,7 +12,7 @@
             name="headmodel"
             type="es.marser.backgroundtools.widget.edition.model.ExampleModelObject" />
 
-        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+        <import type="es.marser.backgroundtools.events.WindowAction" />
 
         <variable
             name="winaction"

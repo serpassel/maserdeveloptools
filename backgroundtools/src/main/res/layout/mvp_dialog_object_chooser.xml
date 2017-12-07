@@ -9,7 +9,7 @@
             type="android.view.View" />
 
         <!--PRESENTER-->
-        <import type="es.marser.backgroundtools.handlers.ViewHandler" />
+        <import type="es.marser.backgroundtools.events.ViewHandler" />
 
         <variable
             name="handler"
@@ -31,7 +31,7 @@
             type="DialogModel" />
 
         <!--FOO BUTTONS-->
-        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+        <import type="es.marser.backgroundtools.events.WindowAction" />
 
         <variable
             name="winaction"

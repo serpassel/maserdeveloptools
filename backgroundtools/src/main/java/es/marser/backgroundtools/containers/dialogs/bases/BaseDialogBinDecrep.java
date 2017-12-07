@@ -15,7 +15,7 @@ import es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel;
 import es.marser.backgroundtools.containers.dialogs.model.DialogModel;
 import es.marser.backgroundtools.containers.dialogs.model.StatusModel;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.handlers.WindowAction;
+import es.marser.backgroundtools.events.WindowAction;
 import es.marser.tools.TextTools;
 
 import static es.marser.backgroundtools.enums.DialogIcon.DEFAULT_ICON;

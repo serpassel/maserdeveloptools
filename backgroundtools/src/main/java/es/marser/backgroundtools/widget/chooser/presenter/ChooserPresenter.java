@@ -19,7 +19,7 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.events.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.widget.chooser.model.SimpleChooserAdapterModel;
@@ -197,7 +197,7 @@ public class ChooserPresenter<T extends Selectable>
     }
 
     //WINACTION____________________________________________________________________
-    /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
+    /* {@link es.marser.backgroundtools.events.WindowAction}*/
     @Override
     public void onOk(View view) {
         if (result != null) {

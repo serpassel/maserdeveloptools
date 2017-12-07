@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.listeners.FragmentActionListener;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ComplexTouchabeViewHandler;
-import es.marser.backgroundtools.handlers.ViewComplexHandler;
+import es.marser.backgroundtools.events.ComplexTouchabeViewHandler;
+import es.marser.backgroundtools.events.ViewComplexHandler;
 import es.marser.backgroundtools.listables.complex.adapter.ComplexAdapter;
 import es.marser.backgroundtools.listables.complex.controller.ComplexExpandController;
 import es.marser.backgroundtools.listables.complex.controller.ComplexSelectionController;
@@ -30,7 +30,7 @@ import es.marser.backgroundtools.listables.complex.models.ExpandableList;
  *         <ul>
  *         <il>Variable start</il>
  *         <il>Abstract Methods of Configuration</il>
- *         <il>View event handlers</il>
+ *         <il>View event events</il>
  *         <il>Control of items</il>
  *         <il>Change listeners in fragments</il>
  *         </ul>

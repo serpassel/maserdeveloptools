@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewComplexHandler;
+import es.marser.backgroundtools.events.ViewComplexHandler;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.complex.listeners.OnItemComplexChangedListener;
 import es.marser.backgroundtools.listables.complex.models.ExpandableGroup;

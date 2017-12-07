@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.definition.RestorableInstanciable;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.listeners.OnItemChangedListener;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.tools.TextTools;

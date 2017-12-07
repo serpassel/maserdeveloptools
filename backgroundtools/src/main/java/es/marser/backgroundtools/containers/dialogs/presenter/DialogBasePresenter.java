@@ -14,7 +14,7 @@ import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.containers.dialogs.model.DialogModel;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.handlers.WindowAction;
+import es.marser.backgroundtools.events.WindowAction;
 import es.marser.backgroundtools.listables.base.presenter.BasePresenter;
 import es.marser.backgroundtools.listables.base.presenter.SharedPreferendSaved;
 import es.marser.backgroundtools.systemtools.SharedPreferenceTools;

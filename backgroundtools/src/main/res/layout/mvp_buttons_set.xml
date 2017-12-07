@@ -7,7 +7,7 @@
             alias="v_bt"
             type="android.view.View" />
 
-        <import type="es.marser.backgroundtools.handlers.WindowAction" />
+        <import type="es.marser.backgroundtools.events.WindowAction" />
 
         <import type="es.marser.backgroundtools.containers.dialogs.model.ButtonsSetModel" />
 

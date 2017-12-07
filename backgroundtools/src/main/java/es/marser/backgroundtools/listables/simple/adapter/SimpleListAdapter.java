@@ -8,8 +8,8 @@ import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.TouchableViewHandler;
-import es.marser.backgroundtools.handlers.ViewItemHandler;
+import es.marser.backgroundtools.events.TouchableViewHandler;
+import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;

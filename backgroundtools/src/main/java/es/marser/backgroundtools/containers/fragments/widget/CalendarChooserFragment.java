@@ -23,7 +23,7 @@ import es.marser.backgroundtools.widget.calendar.async.DateLoader;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBinTable;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.handlers.ViewHandler;
+import es.marser.backgroundtools.events.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
@@ -232,7 +232,7 @@ public class CalendarChooserFragment
     }
 
 
-    /*{@link es.marser.backgroundtools.handlers.ViewItemHandler}*/
+    /*{@link es.marser.backgroundtools.events.ViewItemHandler}*/
     @Override
     public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         super.onClickBodyItem(holder, item, position, mode);
