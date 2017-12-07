@@ -223,4 +223,12 @@ public class ChooserPresenter<T extends Selectable>
     public void setResult(@Nullable OnResult<List<T>> result) {
         this.result = result;
     }
+
+    public boolean isMultiselect_flag() {
+        return multiselect_flag;
+    }
+
+    public void setMultiselect_flag(boolean multiselect_flag) {
+        this.multiselect_flag = multiselect_flag;
+    }
 }

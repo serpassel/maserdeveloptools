@@ -52,6 +52,25 @@ public class ChooserDialog<T extends Selectable>
         return instance;
     }
 
+    public static <T extends Selectable, CP extends ChooserPresenter<T>> ChooserDialog<T> newInstance(
+            @NonNull Context context,
+            @Nullable Bundle bundle,
+            @NonNull CP presenter,
+            @NonNull OnResult<List<T>> result
+    ) {
+
+        /*PRESENTER*/
+        presenter.setArguments(bundle);
+        presenter.setResult(result);
+
+        /*DIALOG*/
+        ChooserDialog<T> instance = new ChooserDialog<>();
+        instance.setContext(context);
+        instance.setPresenter(presenter);
+
+        return instance;
+    }
+
     //BUNDLE BUILDERS_______________________________
 
     /**

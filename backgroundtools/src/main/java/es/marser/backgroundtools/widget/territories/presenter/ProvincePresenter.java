@@ -27,17 +27,13 @@ import es.marser.tools.TextTools;
 @SuppressWarnings("unused")
 public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
 
+    //CONSTRUCTORS________________________________
     public ProvincePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
-        super(context,viewlayout, multiselect_flag);
+        super(context,viewlayout);
+        setMultiselect_flag(multiselect_flag);
     }
 
-    /**
-     * Método para la carga de datos
-     * <p>
-     * [EN]  Method for data loading
-     *
-     * @param bundle Argumentos de carga de datos [EN]  Arguments of data loading
-     */
+    //LOAD__________________________________________
     @Override
     public void load(@Nullable Bundle bundle) {
         if (bundle != null) {
@@ -79,8 +75,7 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
         }
     }
 
-    //BUNDLES
-    public static class BundleBuilder {
+    //BUNDLES BUILDER_______________________________
         private static Bundle createBundle(String title,
                                            String ok,
                                            String cancel,
@@ -152,5 +147,4 @@ public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
                     multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
                     placeholder);
         }
-    }
 }

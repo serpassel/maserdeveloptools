@@ -3,10 +3,8 @@ package es.marser.maserdeveloptools;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import es.marser.LOG_TAG;
@@ -16,7 +14,6 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
 import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
@@ -34,7 +31,6 @@ import es.marser.backgroundtools.widget.progress.dialog.ProgressDialog;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
-import es.marser.backgroundtools.widget.territories.presenter.AutonomousPresenter;
 import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
 import es.marser.backgroundtools.widget.territories.presenter.VillagePresenter;
 import es.marser.generic.GenericFactory;
@@ -391,6 +387,7 @@ public class DialogExample {
 
     public static BaseDialog autonomousChooser(final Context context) {
 
+
         final AutonomousModel autonomousModel = GenericFactory
                 .BuildSingleObject(AutonomousModel.class,
                         context.getResources().getString(R.string.all_spain_ccaa)
@@ -456,7 +453,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, false, null);
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, false, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
@@ -479,14 +476,9 @@ public class DialogExample {
                     Launch_toast.informationToast(context, builder.toString());
                 }
             }
-
-            @Override
-            public void onClick(View view, List<ProvincieModel> value) {
-
-            }
         };
 
-        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, true, null);
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
@@ -522,7 +514,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, -1, true, "Almería, Burgos,");
+        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, "Almería, Burgos,");
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
@@ -551,7 +543,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.BundleBuilder.createBundle(context, 1, true, null);
+        Bundle bundle = ProvincePresenter.createBundle(context, 1, true, null);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
