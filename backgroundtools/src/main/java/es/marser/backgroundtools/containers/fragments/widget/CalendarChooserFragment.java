@@ -37,21 +37,19 @@ import es.marser.tools.TextTools;
  *         <p>
  *         [EN]  Date selector fragment
  */
-
 @SuppressWarnings("unused")
 public class CalendarChooserFragment
         extends BaseFragmentBinHeadBinTable<CalendarObservable, DayWeek, CalendarObservable>
         implements ViewHandler<Void> {
 
-    //INSTANCE__________________________________________________________________________________________
+    //INSTANCE______________________________________
     public static CalendarChooserFragment newInstance() {
 
         return new CalendarChooserFragment();
     }
 
 
-    //OVERWRITING OF SUPERCLASS METHODS________________________________________________________________
-
+    //OVERWRITING OF SUPERCLASS METHODS__________
     @Override
     public int getHeadHolderLayout() {
         return R.layout.mvp_item_calendar_week_day;

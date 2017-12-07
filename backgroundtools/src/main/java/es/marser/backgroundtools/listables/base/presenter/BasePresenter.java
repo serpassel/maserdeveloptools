@@ -41,7 +41,7 @@ public abstract class BasePresenter
 
     @Override
     public int getViewLayout() {
-        return viewLayout;
+        return this.viewLayout;
     }
 
     public void setViewLayout(int viewLayout) {

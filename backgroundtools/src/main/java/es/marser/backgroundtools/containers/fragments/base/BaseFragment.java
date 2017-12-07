@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -19,10 +18,10 @@ import android.view.animation.AnimationUtils;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.definition.PermissionChecker;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivity;
-import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.containers.fragments.listeners.FragmentActionListener;
+import es.marser.backgroundtools.definition.PermissionChecker;
+import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 
 /**
@@ -67,14 +66,6 @@ public abstract class BaseFragment
         }else{
             this.fragmentActionListener = null;
         }
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        inflater.inflate(getFragmentLayout(), container, false);
-        return inflater.inflate(getFragmentLayout(), container, false);
     }
 
     /**

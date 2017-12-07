@@ -32,6 +32,7 @@ import es.marser.LOG_TAG;
 import es.marser.async.Result;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.PermissionChecker;
+import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.widget.progress.dialog.IndeterminateDialog;
 import es.marser.backgroundtools.enums.DialogIcon;
 
@@ -247,7 +248,7 @@ public abstract class BaseActivity
         if (mProgressDialog == null) {
             mProgressDialog = IndeterminateDialog
                     .newInstance(this, IndeterminateDialog
-                            .createBundle(DialogIcon.LOADING_ICON));
+                            .createBundle(DialogIcon.LOADING_ICON),DialogExtras.MODE_SPINNER_EXTRAS);
             mProgressDialog.setBody("Espere...");
         }
         mProgressDialog.show();

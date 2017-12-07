@@ -27,10 +27,6 @@ public abstract class SimpleListPresenter<T extends Parcelable, SLM extends Simp
         implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     //CONSTRUCTORS__________________________________________________________
-    public SimpleListPresenter(@NonNull Context context,int viewlayout) {
-        super(context, viewlayout);
-    }
-
     public SimpleListPresenter(@NonNull Context context,int viewlayout, @NonNull SLM listmodel) {
         super(context, viewlayout, listmodel);
     }

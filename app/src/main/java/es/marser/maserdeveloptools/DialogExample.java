@@ -33,9 +33,9 @@ import es.marser.backgroundtools.widget.progress.dialog.ProgressDialog;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
-import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.ProvinceDialogPresenter;
 import es.marser.backgroundtools.widget.territories.presenter.TerritoriesBundleBuilder;
-import es.marser.backgroundtools.widget.territories.presenter.VillagePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.VillageDialogPresenter;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.MathTools;
 import es.marser.tools.TextTools;
@@ -457,7 +457,7 @@ public class DialogExample {
 
         Bundle bundle = TerritoriesBundleBuilder.createBundle(context, false, null, Territories.PRO);
 
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
+        ProvinceDialogPresenter presenter = new ProvinceDialogPresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
         ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
         dialog.show();
@@ -482,7 +482,7 @@ public class DialogExample {
 
         Bundle bundle = TerritoriesBundleBuilder.createBundle(context, true, null, true, Territories.PRO);
 
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
+        ProvinceDialogPresenter presenter = new ProvinceDialogPresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
         ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context,
                 bundle,
@@ -518,7 +518,7 @@ public class DialogExample {
 
         Bundle bundle = TerritoriesBundleBuilder.createBundle(context, -1, true, "Almería, Burgos,", false, Territories.PRO);
 
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
+        ProvinceDialogPresenter presenter = new ProvinceDialogPresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
         ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context,
                 bundle,
@@ -547,7 +547,7 @@ public class DialogExample {
 
         Bundle bundle = TerritoriesBundleBuilder.createBundle(context, 1, true, "", false, Territories.PRO);
 
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
+        ProvinceDialogPresenter presenter = new ProvinceDialogPresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
         ChooserDialog<ProvincieModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
 
@@ -577,7 +577,7 @@ public class DialogExample {
         };
         Bundle bundle = TerritoriesBundleBuilder.createBundle(context, 1, false, null, false, Territories.MUN);
 
-        VillagePresenter presenter = new VillagePresenter(context, R.layout.mvp_dialog_object_chooser, false);
+        VillageDialogPresenter presenter = new VillageDialogPresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
         ChooserDialog<VillageModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
 

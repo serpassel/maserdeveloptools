@@ -2,14 +2,15 @@ package es.marser.backgroundtools.widget.territories.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.simple.SimpleListFragment;
-import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
-import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.ProvinceFragmentPresenter;
 
 /**
  * @author sergio
@@ -22,36 +23,25 @@ import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
 @SuppressWarnings("unused")
 public class ProvinceChooserFragment extends SimpleListFragment<ProvincieModel> {
 
-    public static ProvinceChooserFragment newInstance(@Nullable Bundle bundle) {
+    public static ProvinceChooserFragment newInstance(@NonNull Context context, @Nullable Bundle bundle) {
+
+        /*FRAGMENT*/
         ProvinceChooserFragment instance = new ProvinceChooserFragment();
         instance.setArguments(bundle);
         return instance;
     }
 
+    /**
+     * Called when a fragment is first attached to its context.
+     * {@link #onCreate(Bundle)} will be called after this.
+     *
+     * @param context al que se adjunta el fragmento
+     */
     @Override
-    protected void preBuild(Context context, @Nullable Bundle args) {
-        super.preBuild(context, args);
-        ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvc_frag_simple_list, false);
-        presenter.setListmodel(new SimpleAdapterModel<ProvincieModel>(context));
+    public void onAttach(Context context) {
+        super.onAttach(context);
+         /*PRESENTER*/
+        ProvinceFragmentPresenter presenter = new ProvinceFragmentPresenter(context);
         setPresenter(presenter);
     }
-
-    /**
-     * Selector de provincias
-     * [EN]  Provincial selector
-     *
-     * @param index       índice de la comunidad autónoma o -1 si son todas
-     * @param preselect   provincias preseleccionadas
-     * @param placeholder bandera para añadir registro extra de territorio completo
-     * @return Argumentos de creación
-     */
-    public static Bundle createBundle(int index, String preselect, boolean placeholder) {
-        Bundle bundle = new Bundle();
-           /*LOAD*/
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-        bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
-        bundle.putBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), placeholder);
-        return bundle;
-    }
-
 }

@@ -25,8 +25,12 @@ public class SimpleListFragment<T extends Parcelable>
             @Nullable Bundle bundle,
             SimpleAdapterModel<T> model,
             SimpleListPresenter<T, SimpleAdapterModel<T>> presenter) {
+
+        /*FRAGMENT*/
         SimpleListFragment<T> instance = new SimpleListFragment<>();
         instance.setArguments(bundle);
+
+        /*PRESENTER*/
         presenter.setListmodel(model);
         if (presenter.getViewLayout() < 0) {
             presenter.setViewLayout(R.layout.mvp_frag_simple_list);

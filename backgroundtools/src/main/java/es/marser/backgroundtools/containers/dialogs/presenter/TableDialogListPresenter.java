@@ -27,7 +27,6 @@ public abstract class TableDialogListPresenter<H extends Parcelable,
         extends DialogListPresenter<TAM> {
 
     //CONSTRUCTORS__________________________________________________________
-
     public TableDialogListPresenter(@NonNull Context context, int viewLayout, TAM listmodel) {
         super(context, viewLayout, listmodel);
     }

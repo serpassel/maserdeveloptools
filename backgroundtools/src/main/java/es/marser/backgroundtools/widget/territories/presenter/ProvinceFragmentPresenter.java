@@ -10,8 +10,9 @@ import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
+import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
-import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.generic.GenericFactory;
 
@@ -22,27 +23,16 @@ import es.marser.generic.GenericFactory;
  */
 
 @SuppressWarnings("unused")
-public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
+public class ProvinceFragmentPresenter extends SimpleListPresenter<ProvincieModel, SimpleAdapterModel<ProvincieModel>> {
 
     //CONSTRUCTORS________________________________
-    public ProvincePresenter(@NonNull Context context) {
-        this(context, false);
+    public ProvinceFragmentPresenter(@NonNull Context context){
+        this(context, R.layout.mvp_frag_simple_list);
     }
 
-    public ProvincePresenter(@NonNull Context context, int viewlayout) {
-        this(context, viewlayout, false);
+    public ProvinceFragmentPresenter(@NonNull Context context, int viewlayout) {
+        super(context, viewlayout, new SimpleAdapterModel<ProvincieModel>(context));
     }
-
-    public ProvincePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
-        super(context,viewlayout);
-        setMultiselect_flag(multiselect_flag);
-    }
-
-    public ProvincePresenter(@NonNull Context context, boolean multiselect_flag) {
-        super(context);
-        setMultiselect_flag(multiselect_flag);
-    }
-
 
     //LOAD__________________________________________
     @Override

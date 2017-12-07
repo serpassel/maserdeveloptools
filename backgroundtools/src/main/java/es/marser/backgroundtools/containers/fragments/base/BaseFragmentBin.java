@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.listables.base.presenter.LinkedPresenter;
 
@@ -39,6 +40,8 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
         super.onCreateView(inflater, container, savedInstanceState);
         if (presenter != null) {
             presenter.onRestoreInstanceState(savedInstanceState);
+        }else {
+            LOG_TAG.assertNotNull(presenter);
         }
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
         preBuild(getContext(), getArguments());

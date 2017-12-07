@@ -4,10 +4,10 @@ import android.view.MenuItem;
 
 import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
 import es.marser.backgroundtools.widget.territories.fragment.ProvinceChooserFragment;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.TerritoriesBundleBuilder;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
 public class DevelopTools extends BaseActivityFragment {
@@ -20,8 +20,8 @@ public class DevelopTools extends BaseActivityFragment {
 
     @Override
     protected BaseFragment instanceFragment() {
-        return ProvinceChooserFragment.newInstance(
-                ProvincePresenter.BundleBuilder.createBundle(this, -1, false, ""));
+        return ProvinceChooserFragment.newInstance(this,
+                TerritoriesBundleBuilder.createLoadBundle("", -1, false));
         //return CalendarChooserFragment.newInstance();
     }
 
@@ -33,7 +33,7 @@ public class DevelopTools extends BaseActivityFragment {
 
     @Override
     public void onBackPressed() {
-      //  Log.i(LOG_TAG.TAG, "Back pulsado");
+        //  Log.i(LOG_TAG.TAG, "Back pulsado");
         if (dialog != null && dialog.isShowing()) {
             dialog.close();
         }

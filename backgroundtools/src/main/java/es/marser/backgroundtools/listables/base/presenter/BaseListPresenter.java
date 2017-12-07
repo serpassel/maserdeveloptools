@@ -24,10 +24,6 @@ public abstract class BaseListPresenter<LM extends BaseAdapterModel>
     private LM listmodel;
 
     //CONSTRUCTORS____________________________________________________
-    public BaseListPresenter(@NonNull Context context, int viewlayout) {
-        super(context, viewlayout);
-    }
-
     public BaseListPresenter(@NonNull Context context, int viewlayout, @NonNull LM listModel) {
         super(context, viewlayout);
         setListmodel(listModel);

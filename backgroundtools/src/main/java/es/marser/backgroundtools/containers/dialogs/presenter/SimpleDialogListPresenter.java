@@ -26,7 +26,6 @@ public abstract class SimpleDialogListPresenter<T extends Parcelable, SLM extend
         implements AdapterPresenter, ViewItemHandler<T>, TouchableViewHandler<T> {
 
     //CONSTRUCTORS__________________________________________________________
-
     public SimpleDialogListPresenter(@NonNull Context context, int viewLayout, SLM listmodel) {
         super(context, viewLayout, listmodel);
     }

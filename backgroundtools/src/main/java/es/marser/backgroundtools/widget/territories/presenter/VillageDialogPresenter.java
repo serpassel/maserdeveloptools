@@ -10,28 +10,37 @@ import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
-import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
+import es.marser.backgroundtools.widget.territories.model.VillageModel;
 import es.marser.generic.GenericFactory;
 
 /**
  * @author sergio
  *         Created by sergio on 30/11/17.
- *         Presentador para Comunidades autónomas
- *         <p>
- *         [EN]  Presenter for Autonomous Communities
  */
 
 @SuppressWarnings("unused")
-public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
+public class VillageDialogPresenter extends ChooserPresenter<VillageModel> {
 
-    //CONTRUCTORS______________________________________________________________________________
-    public AutonomousPresenter(@NonNull Context context) {
+    //CONTRUCTORS_____________________________________________________________________
+    public VillageDialogPresenter(@NonNull Context context) {
+        this(context, false);
+    }
+
+    public VillageDialogPresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, false);
+    }
+
+    public VillageDialogPresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
+        super(context,viewlayout);
+        setMultiselect_flag(multiselect_flag);
+    }
+
+    public VillageDialogPresenter(@NonNull Context context, boolean multiselect_flag) {
         super(context);
+        setMultiselect_flag(multiselect_flag);
     }
 
-    public AutonomousPresenter(@NonNull Context context, int viewlayout) {
-        super(context, viewlayout);
-    }
+    //LOAD______________________________________________________________________________
 
     /**
      * Método para la carga de datos
@@ -42,11 +51,10 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
      */
     @Override
     public void load(@Nullable Bundle bundle) {
-        bundle = replaceNullBundleWithArguments(bundle);
-
         if (bundle != null) {
+            int index = bundle.getInt(DialogExtras.INDEX_EXTRAS.name());
 
-            String[] values = ResourcesAccess.getListAutonomousCommunities(getContext());
+            String[] values = ResourcesAccess.getListVillages(getContext(), index);
 
             String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), "");
 
@@ -54,9 +62,8 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
 
             if (bundle.getBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), false)) {
 
-                AutonomousModel item1 = GenericFactory.BuildSingleObject(AutonomousModel.class,
-                        getContext().getResources().getString(R.string.all_spain_ccaa));
-
+                VillageModel item1 = GenericFactory.BuildSingleObject(VillageModel.class,
+                        getContext().getResources().getString(R.string.all_spain_mun));
                 getListmodel().add(item1);
 
                 if (selectionItemsController != null) {
@@ -64,8 +71,9 @@ public class AutonomousPresenter extends ChooserPresenter<AutonomousModel> {
                 }
             }
 
+
             for (String reg : values) {
-                AutonomousModel item = GenericFactory.BuildSingleObject(AutonomousModel.class, reg);
+                VillageModel item = GenericFactory.BuildSingleObject(VillageModel.class, reg);
                 getListmodel().add(item);
 
                 if (selectionItemsController != null) {

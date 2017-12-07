@@ -64,13 +64,13 @@
                     style="@style/bt_textinputlayout_box"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@{settings.hint}"
+                    android:hint="@{boxmodel.hint}"
                     app:hintTextAppearance="@style/bt_counter_label.text"
-                    app:errorText="@{settings.errorText}"
+                    app:errorText="@{boxmodel.errorText}"
                     app:errorTextAppearance="@style/bt_error_label.text"
-                    app:passwordToggleEnabled="@{settings.passwordCount}"
+                    app:passwordToggleEnabled="@{boxmodel.passwordCount}"
                     app:passwordToggleTint="?attr/colorPrimary"
-                    app:counterEnabled="@{settings.counterCount}"
+                    app:counterEnabled="@{boxmodel.counterCount}"
                     app:counterTextAppearance="@style/bt_counter_label.text"
                   >
 
@@ -79,9 +79,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="start|top"
-                        android:inputType="@{settings.inputType}"
-                        android:lines="@{settings.lines}"
-                        android:text="@={settings.body}"
+                        android:inputType="@{boxmodel.inputType}"
+                        android:lines="@{boxmodel.lines}"
+                        android:text="@={boxmodel.body}"
                         android:textColor="?attr/dialogs_edittext_text_color"
                         />
                 </android.support.design.widget.TextInputLayout>
