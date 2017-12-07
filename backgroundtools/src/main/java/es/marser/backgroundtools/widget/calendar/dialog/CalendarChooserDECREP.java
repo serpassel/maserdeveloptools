@@ -42,7 +42,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("ALL")
-public class CalendarChooser
+public class CalendarChooserDECREP
         extends BaseDialogBinTableDECREP<DayWeek, CalendarObservable>
         implements ViewHandler<Void> {
 
@@ -51,7 +51,7 @@ public class CalendarChooser
     protected CalendarObservable headmodel;
 
     /**
-     * Nueva instancia {@link CalendarChooser}
+     * Nueva instancia {@link CalendarChooserDECREP}
      *
      * @param context contexto de la aplicación [EN]  application context
      * @param bundle  Argumentos de inicio [EN]  Start arguments
@@ -59,12 +59,12 @@ public class CalendarChooser
      * @return nueva instancia del dialogo [EN]  new instance of dialogue
      */
     @SuppressWarnings("All")
-    public static CalendarChooser newInstance(
+    public static CalendarChooserDECREP newInstance(
             @NonNull Context context,
             @NonNull Bundle bundle,
             @Nullable OnResult<CalendarObservable> result) {
 
-        CalendarChooser instance = new CalendarChooser();
+        CalendarChooserDECREP instance = new CalendarChooserDECREP();
         instance.setContext(context);
         instance.setArguments(bundle);
         instance.setResult(result);

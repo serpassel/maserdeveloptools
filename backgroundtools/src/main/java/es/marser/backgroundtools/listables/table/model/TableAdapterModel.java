@@ -61,6 +61,16 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
         this.adapter = new TableListAdapter<>();
     }
 
+    public TableAdapterModel(
+            @NonNull Context context,
+            @NonNull LinearLayoutManager layoutManager,
+            int titleHolderLayout,
+            int headHolderLayout,
+            int bodyHolderLayout) {
+        super(context, layoutManager);
+        this.adapter = new TableListAdapter<>(titleHolderLayout, headHolderLayout, bodyHolderLayout);
+    }
+
     //SETTERS____________________________________________________
 
     public void setTitleViewItemHandler(ViewItemHandler<Selectable> viewItemHandler) {
@@ -359,9 +369,9 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
 
     @Override
     public void clear() {
-       clearTitle();
-       clearHead();
-       clearBody();
+        clearTitle();
+        clearHead();
+        clearBody();
     }
 
     @Override

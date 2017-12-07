@@ -18,7 +18,7 @@ import es.marser.backgroundtools.enums.Territories;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
 import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
-import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
+import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooserDECREP;
 import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserBundleBuilder;
@@ -366,10 +366,10 @@ public class DialogExample {
 
     public static BaseDialog calendarChooser(final Context context) {
 
-        CalendarChooser dialog =
-                CalendarChooser.newInstance(
+        CalendarChooserDECREP dialog =
+                CalendarChooserDECREP.newInstance(
                         context,
-                        CalendarChooser.createBundle(context),
+                        CalendarChooserDECREP.createBundle(context),
                         new OnResult<CalendarObservable>() {
                             @Override
                             public void onResult(DialogExtras result, CalendarObservable value) {
