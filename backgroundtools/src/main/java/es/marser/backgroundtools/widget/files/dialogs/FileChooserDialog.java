@@ -4,21 +4,17 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.view.View;
-
-import java.io.File;
 
 import es.marser.async.Result;
-import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
+import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.PermissionChecker;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.widget.files.OnPathChangedListener;
+import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.systemtools.FilePathUtil;
 import es.marser.backgroundtools.widget.files.model.FileModel;
-import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
 import es.marser.backgroundtools.widget.files.presenter.SimpleFileListPresenter;
 import es.marser.tools.TextTools;
 
@@ -33,12 +29,9 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class FileChooserDialog
-        extends BaseDialogBinList<FileModel, SimpleFileAdapterModel, SimpleFileListPresenter>
-        implements OnPathChangedListener {
+        extends BaseDialogBinList<SimpleFileListPresenter>{
 
-    protected OnResult<FileModel> result;
     protected boolean readablepermission;
-    protected FileModel headmodel;
 
     /**
      * Nueva instancia {@link FileChooserDialog}
@@ -54,21 +47,27 @@ public class FileChooserDialog
             @NonNull Context context,
             @NonNull Bundle bundle,
             @NonNull boolean readablepermission,
-            @NonNull SimpleFileListPresenter presenter,
-            @NonNull SimpleFileAdapterModel model,
             @Nullable OnResult<FileModel> result
     ) {
 
+        /*PRESENTER*/
+        SimpleFileListPresenter presenter = new SimpleFileListPresenter(context);
+        presenter.setArguments(bundle);
+        presenter.setResult(result);
+
+        /*DIALOG*/
         FileChooserDialog instace = new FileChooserDialog();
         instace.setContext(context);
         instace.setArguments(bundle);
-        instace.setResult(result);
         instace.setReadablepermission(readablepermission);
-        instace.setSimpleListModel(model);
         instace.setPresenter(presenter);
+
         return instace;
     }
 
+    public FileChooserDialog() {
+        this.readablepermission = false;
+    }
 
     //PARTICULAR_______________________________________________________________________
     @Override
@@ -78,104 +77,75 @@ public class FileChooserDialog
         }
     }
 
-    @Override
-    protected void preBuild() {
-        headmodel = new FileModel();
-
-        model.body.set(getArguments().getString(DialogExtras.BODY_EXTRA.name(), ""));
-        model.title.set(getArguments().getString(DialogExtras.TITLE_EXTRA.name(), ""));
-
-        buttonsSetModel.ok_name.set(getArguments().getString(DialogExtras.OK_EXTRA.name()));
-        buttonsSetModel.cancel_name.set(getArguments().getString(DialogExtras.CANCEL_EXTRA.name()));
-
-        String[] filter = getArguments().getStringArray(DialogExtras.FILTER_EXTRAS.name());
-
-        StringBuilder builder = new StringBuilder("");
-
-        if (filter != null) {
-            for (String s : filter) {
-                builder.append(s).append(", ");
-            }
+    //BUNDLE_______________________________________________________________________________________
+        /**
+         * Creador de argumentos del cuadro de dialogo
+         * <p>
+         * [EN]  Dialog Box Argument Creator
+         *
+         * @param icon   Icono para la barra de título [EN]  Icon for the title bar
+         * @param title  Título de la barra [EN]  Title of the bar
+         * @param path   Directorio de búsqueda [EN]  Search directory
+         * @param ok     Texto de botón aceptar [EN]  Accept button text
+         * @param cancel Texto de botón cancelar [EN]  Cancel button text
+         * @param filter Listado de extensiones válidas [EN]  List of valid extensions
+         * @return Bundle argumentado [EN]  Bundle argued
+         */
+        @SuppressWarnings("All")
+        public static Bundle createBundle(DialogIcon icon, String title, String path, String ok, String cancel, String[] filter) {
+            Bundle bundle = new Bundle();
+            /*DIALOG*/
+            bundle.putAll(BundleBuilder.createDialogModelBundle(icon,TextTools.nc(title), null, null));
+            /*BUTTONS SET MODEL*/
+            bundle.putAll(BundleBuilder.createButtonSetModelBundle(TextTools.nc(ok),TextTools.nc(cancel),null));
+            /*LOAD BUNDLE*/
+            bundle.putString(DialogExtras.BODY_EXTRA.name(), TextTools.nc(path));
+            bundle.putStringArray(DialogExtras.FILTER_EXTRAS.name(), filter);
+            return bundle;
         }
 
-        model.keyname.set(TextTools.deleteLastBrand(builder, ", "));
-    }
-
-    @Override
-    protected void postBuild() {
-        super.postBuild();
-        presenter.load(getArguments());
-    }
-
-    @Override
-    protected void bindObject() {
-        super.bindObject();
-        viewDataBinding.setVariable(BR.headmodel, headmodel);
-        viewDataBinding.executePendingBindings();
-
-        viewDataBinding.setVariable(BR.handler, presenter);
-        viewDataBinding.executePendingBindings();
-    }
-
-    @Override
-    protected int getDialogLayout() {
-        return R.layout.mvp_dialog_file_chooser;
-    }
-
-   //SELECTIONABLE____________________________________________________________________
-    @Nullable
-    @Override
-    public ListExtra getSelectionmode(@Nullable Integer viewtype) {
-        return simpleListModel != null ? simpleListModel.getSelectionmode(viewtype): null;
-    }
-
-    /**
-     * Filjar el modo de selección de la lista
-     * <p>
-     * [EN]  Filtering the mode selection mode of the list
-     *
-     * @param selectionmode Modo de slección de la lista
-     */
-    @Override
-    public void setSelectionmode(@Nullable Integer viewtype, @NonNull ListExtra selectionmode) {
-        if (simpleListModel != null) {
-            simpleListModel.setSelectionmode(null,selectionmode);
+        /**
+         * @param context contexto de la aplicación [EN]  context of the application
+         * @param path    Directorio de búsqueda [EN]  Search directory
+         * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
+         * @return Bundle argumentado [EN]  Bundle argued
+         */
+        public static Bundle createBundle(Context context, String path, String[] filter) {
+            return createBundle(
+                    DialogIcon.SEARCH_ICON,
+                    context.getResources().getString(R.string.bt_dialog_select_title),
+                    path,
+                    context.getResources().getString(R.string.bt_ACTION_OPEN),
+                    context.getResources().getString(R.string.bt_ACTION_CANCEL), filter
+            );
         }
-    }
 
-    /* {@link es.marser.backgroundtools.handlers.WindowAction}*/
-    @Override
-    public void onOk(View view) {
-        if (result != null) {
-            result.onResult(DialogExtras.OK_EXTRA, headmodel);
+        /**
+         * Valores de prueba por defecto
+         * <p>
+         * [EN]  Default test values
+         *
+         * @param context contexto de la aplicación [EN]  context of the application
+         * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
+         * @return Bundle argumentado [EN]  Bundle argued
+         */
+        public static Bundle createBundle(Context context, String[] filter) {
+            return createBundle(context, FilePathUtil.getDownloadPath().getAbsolutePath(), filter);
         }
-        close();
-    }
 
-    @Override
-    public void onCancel(View view) {
-        if (result != null) {
-            result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
+        /**
+         * Valores de prueba por defecto
+         * <p>
+         * [EN]  Default test values
+         *
+         * @param context contexto de la aplicación [EN]  context of the application
+         * @return Bundle argumentado [EN]  Bundle argued
+         */
+        public static Bundle createBundle(Context context) {
+            return createBundle(context, new String[]{});
         }
-        close();
-    }
 
-    /*{@link OnResult}*/
-    public OnResult<FileModel> getResult() {
-        return result;
-    }
-
-    public void setResult(OnResult<FileModel> result) {
-        this.result = result;
-    }
-
-    //VARIABLES___________________________________________________
-    @Override
-    public void setPresenter(@NonNull SimpleFileListPresenter presenter) {
-        super.setPresenter(presenter);
-        presenter.setOnPathChangedListener(this);
-    }
-
+    //USER PERMISSION_______________________________________
     /**
      * Indica si tenemos los permisos de lectura del disco
      * <p>
@@ -199,16 +169,4 @@ public class FileChooserDialog
     public void setReadablepermission(boolean readablepermission) {
         this.readablepermission = readablepermission;
     }
-
-    //LISTENER____________________________________________________________________
-    @Override
-    public void onPathChanged(@Nullable File oldFile, @NonNull File newPath) {
-        if (newPath.isDirectory()) {
-            headmodel.setFile(new File(""));
-            model.body.set(newPath.getAbsolutePath());
-        }else{
-            headmodel.setFile(newPath);
-        }
-    }
-
 }

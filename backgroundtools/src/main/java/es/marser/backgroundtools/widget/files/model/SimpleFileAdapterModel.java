@@ -15,6 +15,7 @@ import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 @SuppressWarnings("unused")
 public class SimpleFileAdapterModel extends SimpleAdapterModel<FileModel> {
+
     //CONTRUCTORS______________________________________________________________
     public SimpleFileAdapterModel(Context context) {
         this(context, R.layout.mvp_item_file_model);

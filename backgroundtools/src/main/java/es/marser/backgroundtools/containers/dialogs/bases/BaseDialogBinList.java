@@ -1,9 +1,6 @@
 package es.marser.backgroundtools.containers.dialogs.bases;
 
-import android.os.Parcelable;
-
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogListPresenter;
-import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 
 /**
  * @author sergio
@@ -14,10 +11,7 @@ import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseDialogBinList<
-        T extends Parcelable,
-        DLP extends DialogListPresenter<SimpleAdapterModel<T>>
-        >
+public abstract class BaseDialogBinList<DLP extends DialogListPresenter>
         extends BaseDialogBin<DLP> {
 
     @Override

@@ -13,16 +13,17 @@ import java.util.Comparator;
 import java.util.List;
 
 import es.marser.async.DataUploaderTask;
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
+import es.marser.backgroundtools.bindingadapters.BinderContainer;
+import es.marser.backgroundtools.containers.dialogs.presenter.SimpleDialogListPresenter;
+import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
-import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 import es.marser.backgroundtools.systemtools.FilePathUtil;
-import es.marser.backgroundtools.widget.files.OnPathChangedListener;
 import es.marser.backgroundtools.widget.files.model.FileModel;
 import es.marser.backgroundtools.widget.files.model.FileModelOrderByName;
 import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
@@ -37,29 +38,64 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, SimpleFileAdapterModel>
+public class SimpleFileListPresenter extends SimpleDialogListPresenter<FileModel, SimpleFileAdapterModel>
         implements ViewHandler<FileModel> {
 
-    private OnPathChangedListener listener;
     private File path;
     protected String[] filter;
 
+    protected OnResult<FileModel> result;
+    protected FileModel headmodel;
+
+    //CONSTRUCTORS_________________________________________________________________
 
     public SimpleFileListPresenter(@NonNull Context context) {
-        super(context);
+        this(context, R.layout.mvp_dialog_file_chooser);
     }
 
-    public SimpleFileListPresenter(@NonNull Context context, @NonNull SimpleFileAdapterModel listModel) {
-        super(context, listModel);
+    public SimpleFileListPresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, new SimpleFileAdapterModel(context));
     }
 
+    public SimpleFileListPresenter(@NonNull Context context, int viewlayout, @NonNull SimpleFileAdapterModel listmodel) {
+        super(context, viewlayout, listmodel);
+        this.headmodel = new FileModel();
+    }
+
+    //OVERRIDE____________________________________________________
+    @Override
+    public void onBindObjects(@NonNull BinderContainer binderContainer) {
+        super.onBindObjects(binderContainer);
+        binderContainer.bindObject(BR.headmodel, headmodel);
+        binderContainer.bindObject(BR.handler, this);
+    }
+
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+        if (args != null) {
+            String pathname = args.getString(DialogExtras.BODY_EXTRA.name(), "");
+            this.path = new File(pathname);
+            this.filter = args.getStringArray(DialogExtras.FILTER_EXTRAS.name());
+
+            StringBuilder builder = new StringBuilder("");
+
+            if (this.filter != null) {
+                for (String s : this.filter) {
+                    builder.append(s).append(", ");
+                }
+            }
+            model.keyname.set(TextTools.deleteLastBrand(builder, ", "));
+        }
+    }
+
+    //LOAD ADAPTER________________________________________________
     @Override
     public void load(@Nullable Bundle bundle) {
         final List<FileModel> directory = new ArrayList<>();
         final List<FileModel> file = new ArrayList<>();
         final Comparator<FileModel> comparator = new FileModelOrderByName();
         //File path = model.body.get() != null ? new File(model.body.get()) : null;
-        resetByBundle(bundle);
 
         FilePathUtil.getAsyncFiles(path, filter != null ? filter : new String[]{}, new DataUploaderTask<Void, File, Void>() {
             @Override
@@ -94,21 +130,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         });
     }
 
-    /**
-     * Asigna las variables por argumentos
-     * <p>
-     * [EN]  Assign variables by arguments
-     *
-     * @param bundle argumentos [EN]  arguments
-     */
-    private void resetByBundle(@Nullable Bundle bundle) {
-        if (bundle != null) {
-            String pathname = bundle.getString(DialogExtras.BODY_EXTRA.name(), "");
-            this.path = new File(pathname);
-            this.filter = bundle.getStringArray(DialogExtras.FILTER_EXTRAS.name());
-        }
-    }
-
+    //EVENTS______________________________________________________________________
     @Override
     public void onClick(View view, FileModel item) {
         if (view.getId() == R.id.path_up) {
@@ -127,7 +149,25 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         downPath(item);
     }
 
+    //WINACTIONS____________________________________
+    @Override
+    public void onOk(View view) {
+        if (result != null) {
+            result.onResult(DialogExtras.OK_EXTRA, headmodel);
+        }
+        close();
+    }
+
+    @Override
+    public void onCancel(View view) {
+        if (result != null) {
+            result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
+        }
+        close();
+    }
+
     //ACTIONS_____________________________________________________________________________
+
     /**
      * Subir un nivel de directorio
      * <p>
@@ -135,9 +175,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
      */
     private void upPath() {
         if (!path.equals(FilePathUtil.getRootPath())) {
-            if (listener != null) {
-                listener.onPathChanged(path, new File(path.getParent()));
-            }
+            onPathChanged(path, new File(path.getParent()));
             path = new File(path.getParent());
             load(null);
         }
@@ -153,11 +191,7 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
     private void downPath(FileModel item) {
         if (item != null && item.getFile() != null) {
             File path = item.getFile();
-
-            if (listener != null) {
-                listener.onPathChanged(this.path, path);
-            }
-
+            onPathChanged(this.path, path);
             if (path.isDirectory()) {
                 this.path = path;
                 load(null);
@@ -165,81 +199,54 @@ public class SimpleFileListPresenter extends SimpleListPresenter<FileModel, Simp
         }
     }
 
-    //WINDOW ACTIONS____________________________________________________________________
-    public void setOnPathChangedListener(@NonNull OnPathChangedListener listener) {
-        this.listener = listener;
+    /**
+     * Cambio de directorio
+     * <p>
+     * [EN]  Change of directory
+     *
+     * @param oldFile path old
+     * @param newPath new path
+     */
+    public void onPathChanged(@Nullable File oldFile, @NonNull File newPath) {
+        if (newPath.isDirectory()) {
+            headmodel.setFile(new File(""));
+            model.body.set(newPath.getAbsolutePath());
+        } else {
+            headmodel.setFile(newPath);
+        }
     }
 
-    public void removeOnPathChangedListener() {
-        this.listener = null;
+    //PROPERTIES__________________________________________________________________________
+
+    public File getPath() {
+        return path;
     }
 
-    public static class BundleBuilder {
-        /**
-         * Creador de argumentos del cuadro de dialogo
-         * <p>
-         * [EN]  Dialog Box Argument Creator
-         *
-         * @param icon   Icono para la barra de título [EN]  Icon for the title bar
-         * @param title  Título de la barra [EN]  Title of the bar
-         * @param path   Directorio de búsqueda [EN]  Search directory
-         * @param ok     Texto de botón aceptar [EN]  Accept button text
-         * @param cancel Texto de botón cancelar [EN]  Cancel button text
-         * @param filter Listado de extensiones válidas [EN]  List of valid extensions
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        @SuppressWarnings("All")
-        public static Bundle createBundle(DialogIcon icon, String title, String path, String ok, String cancel, String[] filter) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-            bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-            bundle.putString(DialogExtras.BODY_EXTRA.name(), TextTools.nc(path));
-            bundle.putStringArray(DialogExtras.FILTER_EXTRAS.name(), filter);
-            bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
-            bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
-            return bundle;
-        }
+    public void setPath(File path) {
+        this.path = path;
+    }
 
-        /**
-         * @param context contexto de la aplicación [EN]  context of the application
-         * @param path    Directorio de búsqueda [EN]  Search directory
-         * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        public static Bundle createBundle(Context context, String path, String[] filter) {
-            return createBundle(
-                    DialogIcon.SEARCH_ICON,
-                    context.getResources().getString(R.string.bt_dialog_select_title),
-                    path,
-                    context.getResources().getString(R.string.bt_ACTION_OPEN),
-                    context.getResources().getString(R.string.bt_ACTION_CANCEL), filter
-            );
-        }
+    public String[] getFilter() {
+        return filter;
+    }
 
-        /**
-         * Valores de prueba por defecto
-         * <p>
-         * [EN]  Default test values
-         *
-         * @param context contexto de la aplicación [EN]  context of the application
-         * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        public static Bundle createBundle(Context context, String[] filter) {
-            return createBundle(context, FilePathUtil.getDownloadPath().getAbsolutePath(), filter);
-        }
+    public void setFilter(String[] filter) {
+        this.filter = filter;
+    }
 
-        /**
-         * Valores de prueba por defecto
-         * <p>
-         * [EN]  Default test values
-         *
-         * @param context contexto de la aplicación [EN]  context of the application
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        public static Bundle createBundle(Context context) {
-            return createBundle(context, new String[]{});
-        }
+    public OnResult<FileModel> getResult() {
+        return result;
+    }
 
+    public void setResult(OnResult<FileModel> result) {
+        this.result = result;
+    }
+
+    public FileModel getHeadmodel() {
+        return headmodel;
+    }
+
+    public void setHeadmodel(FileModel headmodel) {
+        this.headmodel = headmodel;
     }
 }
