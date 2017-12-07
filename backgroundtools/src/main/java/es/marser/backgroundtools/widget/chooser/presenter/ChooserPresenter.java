@@ -37,7 +37,6 @@ public class ChooserPresenter<T extends Selectable>
         extends SimpleDialogListPresenter<T, SimpleChooserAdapterModel<T>>
         implements ViewHandler<Boolean> {
 
-
     /*VARIABLE DE RESULTADO [EN]  VARIABLE RESULT*/
     protected OnResult<List<T>> result;
 

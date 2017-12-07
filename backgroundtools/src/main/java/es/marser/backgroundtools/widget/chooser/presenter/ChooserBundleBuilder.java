@@ -12,7 +12,6 @@ import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
-import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.tools.TextTools;
 
 /**
@@ -21,12 +20,13 @@ import es.marser.tools.TextTools;
  *         Constructor de argumentos para dialog de selección de listas
  *         <p>
  *         [EN]  Argument constructor for list selection dialog
- *
  */
 
 public class ChooserBundleBuilder {
     //BUNDLE BUILDER________________________________
-    public static <T extends Selectable> Bundle createLoadBundle(@Nullable String preselect, @Nullable ArrayList<T> values) {
+    public static <T extends Selectable> Bundle createLoadBundle(
+            @Nullable String preselect,
+            @Nullable ArrayList<T> values) {
         Bundle bundle = new Bundle();
           /*LOAD BUNDLE*/
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(preselect));

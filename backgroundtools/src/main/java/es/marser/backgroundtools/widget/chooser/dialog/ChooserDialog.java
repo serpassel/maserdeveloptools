@@ -33,14 +33,13 @@ public class ChooserDialog<T extends Selectable>
 
         /*PRESENTER*/
         ChooserPresenter<T> presenter = new ChooserPresenter<>(context);
-        presenter.setArguments(bundle);//Arguments to iniciate
+        presenter.setArguments(bundle);
         presenter.setResult(result);
 
         /*DIALOG*/
         ChooserDialog<T> instance = new ChooserDialog<>();
         instance.setContext(context);
         instance.setPresenter(presenter);
-        instance.setArguments(bundle);//Arguments for load
 
         return instance;
     }
