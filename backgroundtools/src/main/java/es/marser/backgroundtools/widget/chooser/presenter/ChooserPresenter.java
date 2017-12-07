@@ -4,7 +4,6 @@ import android.content.Context;
 import android.databinding.ObservableBoolean;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -19,15 +18,11 @@ import es.marser.backgroundtools.containers.dialogs.presenter.SimpleDialogListPr
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.handlers.ViewHandler;
-import es.marser.backgroundtools.handlers.WindowAction;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
-import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
-import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
-import es.marser.tools.TextTools;
+import es.marser.backgroundtools.widget.chooser.model.SimpleChooserAdapterModel;
 
 /**
  * @author sergio
@@ -39,34 +34,33 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("unused")
 public class ChooserPresenter<T extends Selectable>
-        extends SimpleDialogListPresenter<T, SimpleAdapterModel<T>>
+        extends SimpleDialogListPresenter<T, SimpleChooserAdapterModel<T>>
         implements ViewHandler<Boolean> {
 
+
+    /*VARIABLE DE RESULTADO [EN]  VARIABLE RESULT*/
+    protected OnResult<List<T>> result;
+
+    /*MODELO DE SELECCIÓN MULTIPLE [EN]  MODEL OF MULTIPLE SELECTION*/
     public static ObservableBoolean multiselect = new ObservableBoolean();
     protected boolean multiselect_flag;
 
-    protected OnResult<List<T>> result;
-
     //CONTRUCTORS______________________________________________________________________
-    public ChooserPresenter(@NonNull Context context, int viewlayout, @Nullable OnResult<List<T>> result) {
-        this(context,
-                viewlayout,
-                new SimpleAdapterModel<T>(context, R.layout.mvp_item_object_chooser),
-                true,
-                result);
+    public ChooserPresenter(@NonNull Context context) {
+        this(context, R.layout.mvp_dialog_object_chooser);
     }
 
-    public ChooserPresenter(@NonNull Context context,
-                            int viewlayout,
-                            @NonNull SimpleAdapterModel<T> listModel,
-                            boolean multiselect_flag,
-                            @Nullable OnResult<List<T>> result) {
-        super(context, viewlayout < -1 ? viewlayout : R.layout.mvp_dialog_object_chooser, listModel);
-        this.result = result;
-        this.multiselect_flag = multiselect_flag;
+    public ChooserPresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, new SimpleChooserAdapterModel<T>(context));
+    }
+
+    public ChooserPresenter(@NonNull Context context, int viewlayout, @NonNull SimpleChooserAdapterModel<T> listmodel) {
+        super(context, viewlayout, listmodel);
+        this.multiselect_flag = true;
     }
 
     //OVERRIDE_____________________________________________________________________
+
     /**
      * if (presenter.getViewLayout() < 0) {
      * presenter.setViewLayout(R.layout.mvp_frag_simple_list);
@@ -86,6 +80,7 @@ public class ChooserPresenter<T extends Selectable>
 
         final List<T> values = bundle.getParcelableArrayList(ListExtra.VALUES_EXTRA.name());
         final String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), null);
+
         if (values != null) {
             if (preselect == null) {
                 getListmodel().addAll(values);
@@ -125,7 +120,19 @@ public class ChooserPresenter<T extends Selectable>
         binderContainer.bindObject(BR.multiselect, multiselect);
     }
 
+    @Override
+    public void setArguments(@Nullable Bundle args) {
+        super.setArguments(args);
+        if (args != null) {
+            ListExtra li = (ListExtra) args.getSerializable(ListExtra.LIST_EXTRA.name());
+            if (li != null) {
+                setSelectionmode(null, li);
+            }
+        }
+    }
+
     //OWN METHODS________________________________________________________________
+
     /**
      * Método para ajustar el estado del boón de multiselección
      * Anula los eventos de cambio de estado durante su ajuste
@@ -137,11 +144,11 @@ public class ChooserPresenter<T extends Selectable>
         //  Log.i(LOG_TAG.TAG, "Ajustado " + "/" + multiselect.get());
         multiselect_flag = false;
         boolean old = multiselect.get();
+
         SelectionItemsController selectionItemsController = getListmodel().getSelectionItemsController();
         multiselect.set(selectionItemsController != null && getListmodel().size() == selectionItemsController.getIdSelecteds().size());
         multiselect_flag = (old == multiselect.get());
     }
-
 
     //EVENTS_________________________________________________________________________
     @Override
@@ -213,94 +220,7 @@ public class ChooserPresenter<T extends Selectable>
         return result;
     }
 
-    public void setResult(OnResult<List<T>> result) {
+    public void setResult(@Nullable OnResult<List<T>> result) {
         this.result = result;
-    }
-
-    //BUNDLE BUILDER________________________________________________________________
-    @SuppressWarnings("unused")
-    public static class BundleBuilder {
-        /**
-         * Creador de argumentos del cuadro de dialogo
-         * <p>
-         * [EN]  Dialog Box Argument Creator
-         *
-         * @param icon   Icono para la barra de título [EN]  Icon for the title bar
-         * @param title  Título de la barra [EN]  Title of the bar
-         * @param path   Directorio de búsqueda [EN]  Search directory
-         * @param ok     Texto de botón aceptar [EN]  Accept button text
-         * @param cancel Texto de botón cancelar [EN]  Cancel button text
-         * @param filter Listado de extensiones válidas [EN]  List of valid extensions
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        @SuppressWarnings("All")
-        public static <T extends Selectable> Bundle createBundle(DialogIcon icon,
-                                                                 String title,
-                                                                 String ok,
-                                                                 String cancel,
-                                                                 String preselect,
-                                                                 ListExtra listExtra,
-                                                                 List<T> values
-        ) {
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), icon);
-            bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-            bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-            bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), (ArrayList<? extends Parcelable>) values);
-            bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
-
-            switch (listExtra) {
-
-                case MULTIPLE_SELECTION_MODE:
-                case ONLY_MULTIPLE_SELECTION_MODE:
-                    bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
-                    bundle.putInt(DialogExtras.STATE_EXTRA.name(), 1);
-                    break;
-                default:
-                    bundle.putInt(DialogExtras.STATE_EXTRA.name(), 0);
-                    break;
-            }
-
-            bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
-            return bundle;
-        }
-
-        /**
-         * @param context contexto de la aplicación [EN]  context of the application
-         * @param path    Directorio de búsqueda [EN]  Search directory
-         * @param filter  Listado de extensiones válidas [EN]  List of valid extensions
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        public static <T extends Selectable> Bundle createBundle(
-                Context context,
-                ListExtra listExtra,
-                String premarc,
-                List<T> values
-        ) {
-            return createBundle(
-                    DialogIcon.SEARCH_ICON,
-                    context.getResources().getString(R.string.bt_dialog_select_title),
-                    context.getResources().getString(R.string.bt_ACTION_OK),
-                    context.getResources().getString(R.string.bt_ACTION_CANCEL),
-                    premarc,
-                    listExtra,
-                    values
-            );
-        }
-
-        /**
-         * Valores de prueba por defecto
-         * <p>
-         * [EN]  Default test values
-         *
-         * @param context contexto de la aplicación [EN]  context of the application
-         * @return Bundle argumentado [EN]  Bundle argued
-         */
-        public static <T extends Selectable> Bundle createBundle(
-                Context context,
-                List<T> values
-        ) {
-            return createBundle(context, ListExtra.ONLY_SINGLE_SELECTION_MODE, null, values);
-        }
     }
 }

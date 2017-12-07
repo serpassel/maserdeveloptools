@@ -5,30 +5,32 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
-import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
-import es.marser.backgroundtools.widget.edition.model.ExampleModelObject;
 import es.marser.backgroundtools.containers.dialogs.task.OnDResult;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
-import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
-import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
-import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
-import es.marser.backgroundtools.widget.edition.dialog.EditDialog;
-import es.marser.backgroundtools.widget.inputbox.dialog.InputDialog;
-import es.marser.backgroundtools.widget.progress.dialog.IndeterminateDialog;
-import es.marser.backgroundtools.widget.progress.dialog.ProgressDialog;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
+import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
+import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
+import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
+import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
+import es.marser.backgroundtools.widget.edition.dialog.EditDialog;
+import es.marser.backgroundtools.widget.edition.model.ExampleModelObject;
 import es.marser.backgroundtools.widget.files.dialogs.FileChooserDialog;
 import es.marser.backgroundtools.widget.files.model.FileModel;
-import es.marser.backgroundtools.widget.files.model.SimpleFileAdapterModel;
-import es.marser.backgroundtools.widget.files.presenter.SimpleFileListPresenter;
+import es.marser.backgroundtools.widget.inputbox.dialog.InputDialog;
+import es.marser.backgroundtools.widget.progress.dialog.IndeterminateDialog;
+import es.marser.backgroundtools.widget.progress.dialog.ProgressDialog;
 import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
@@ -54,7 +56,8 @@ public class DialogExample {
         IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context,
                 IndeterminateDialog
                         .createBundle(
-                                DialogIcon.LOADING_ICON)
+                                DialogIcon.LOADING_ICON),
+                DialogExtras.MODE_BOX_EXTRAS
         );
         binDialog.setBody("[Placeholder]");
         binDialog.show();
@@ -63,7 +66,9 @@ public class DialogExample {
     }
 
     public static BaseDialog indeterminateSpinner(Context context) {
-        IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context, IndeterminateDialog.createBundle(null));
+        IndeterminateDialog binDialog = IndeterminateDialog.newInstance(context,
+                IndeterminateDialog.createBundle(null),
+                DialogExtras.MODE_SPINNER_EXTRAS);
         binDialog.show();
         return binDialog;
     }
@@ -320,10 +325,8 @@ public class DialogExample {
         FileChooserDialog dialog =
                 FileChooserDialog.newInstance(
                         context,
-                        SimpleFileListPresenter.BundleBuilder.createBundle(context),
+                        FileChooserDialog.createBundle(context),
                         readeable,
-                        new SimpleFileListPresenter(context),
-                        new SimpleFileAdapterModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
@@ -345,10 +348,8 @@ public class DialogExample {
         FileChooserDialog dialog =
                 FileChooserDialog.newInstance(
                         context,
-                        SimpleFileListPresenter.BundleBuilder.createBundle(context, new String[]{".bc3"}),
+                        FileChooserDialog.createBundle(context, new String[]{".bc3"}),
                         readeable,
-                        new SimpleFileListPresenter(context),
-                        new SimpleFileAdapterModel(context),
                         new OnResult<FileModel>() {
                             @Override
                             public void onResult(DialogExtras result, FileModel value) {
@@ -414,15 +415,25 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = AutonomousPresenter.BundleBuilder.createBundle(
+        List<AutonomousModel> values = new ArrayList<>();
+
+        values.add(autonomousModel);
+
+        for(String s: ResourcesAccess.getListAutonomousCommunities(context)){
+            values.add(GenericFactory.BuildSingleObject(AutonomousModel.class, s));
+        }
+
+        Bundle bundle =  ChooserDialog.createBundle(context, values);
+
+                /*
+                //AutonomousPresenter.BundleBuilder.createBundle(
                 context,
                 false,
                 autonomousModel.preSelectValue(),
-                true);
+                true);//
+        */
 
-        AutonomousPresenter presenter = new AutonomousPresenter(context, R.layout.mvp_dialog_object_chooser, false);
-
-        ChooserDialog<AutonomousModel> dialog = ChooserDialog.newInstance(context, bundle, presenter, result);
+        ChooserDialog<AutonomousModel> dialog = ChooserDialog.newInstance(context, bundle, result);
 
         dialog.show();
         return dialog;

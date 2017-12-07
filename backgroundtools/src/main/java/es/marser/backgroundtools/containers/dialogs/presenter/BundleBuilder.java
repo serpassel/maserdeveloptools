@@ -89,7 +89,7 @@ public class BundleBuilder {
      * @param extra Modo de selección de la lista
      * @return Argumentos para [EN]  Arguments for {@link es.marser.backgroundtools.listables.base.model.Selectionable}
      */
-    public static Bundle createListSelectionModeBundle(@NonNull ListExtra extra){
+    public static Bundle createListModeBundle(@NonNull ListExtra extra){
         Bundle bundle = new Bundle();
         bundle.putSerializable(ListExtra.LIST_EXTRA.name(), extra);
         return bundle;
