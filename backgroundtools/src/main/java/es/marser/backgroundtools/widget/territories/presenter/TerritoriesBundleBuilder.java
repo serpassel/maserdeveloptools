@@ -2,13 +2,16 @@ package es.marser.backgroundtools.widget.territories.presenter;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
 import es.marser.backgroundtools.enums.ListExtra;
+import es.marser.backgroundtools.enums.Territories;
 import es.marser.tools.TextTools;
 
 /**
@@ -22,18 +25,86 @@ import es.marser.tools.TextTools;
 @SuppressWarnings("unused")
 public class TerritoriesBundleBuilder {
 
+        /*PRE_BUILD*/
+
+    /**
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
+     *
+     * @param context   Contexto de la aplicación
+     * @param listExtra Tipo de selección
+     * @param preselect provincias preseleccionadas
+     * @return Argumentos de creación
+     */
+    public static Bundle createBundle(@NonNull Context context, boolean multipleselection, @Nullable String preselect, @NonNull Territories type) {
+        return createBundle(context, multipleselection, preselect, false, type);
+    }
+
+    /**
+     * Selector de comunidades autónomas
+     * [EN]  Autonomous community selector
+     *
+     * @param context     Contexto de la aplicación
+     * @param listExtra   Tipo de selección
+     * @param preselect   provincias preseleccionadas
+     * @param placeholder bandera para añadir registro extra de territorio completo
+     * @return Argumentos de creación
+     */
+    public static Bundle createBundle(@NonNull Context context, boolean multipleselection, @Nullable String preselect, boolean placeholder, @NonNull Territories type) {
+        return createBundle(context, -1, multipleselection, preselect, placeholder, type);
+    }
+
+    /**
+     * Selector de provincias
+     * [EN]  Provincial selector
+     *
+     * @param context     Contexto de la aplicación
+     * @param index       índice de la comunidad autónoma o -1 si son todas
+     * @param listExtra   Tipo de selección
+     * @param preselect   provincias preseleccionadas
+     * @param placeholder bandera para añadir registro extra de territorio completo
+     * @return Argumentos de creación
+     */
+    public static Bundle createBundle(@NonNull Context context, int index, boolean multipleselection, @Nullable String preselect, boolean placeholder, @NonNull Territories type) {
+        LOG_TAG.assertNotNull(context);
+        String title;
+        switch (type) {
+            case CCAA:
+                title = context.getResources().getString(R.string.autonomous_selector_title);
+                break;
+            case PRO:
+                title = context.getResources().getString(R.string.province_selector_title);
+                break;
+            case MUN:
+                title = context.getResources().getString(R.string.village_selector_title);
+                break;
+            default:
+                title = "";
+                break;
+        }
+
+        return createBundle(title,
+                context.getResources().getString(R.string.bt_ACTION_OK),
+                context.getResources().getString(R.string.bt_ACTION_CANCEL),
+                preselect,
+                index,
+                multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
+                placeholder);
+    }
+
+    /*LOAD*/
     /**
      * Argumentos de carga de datos
      * <p>
      * [EN]  Arguments of data loading
      *
-     * @param preselect Texto de preselección [EN]  Pre-selection text
+     * @param preselect   Texto de preselección [EN]  Pre-selection text
      * @param placeholder verdadero si hay que introducir el dato para todo_ el territorio
      *                    [EN]  true if you have to enter the data for all_ the territory
      * @return Argumentos de carga de datos [EN]  Pre-selection text
      */
     public static Bundle createLoadBundle(@Nullable String preselect, boolean placeholder) {
-       return createLoadBundle(preselect, -1, placeholder);
+        return createLoadBundle(preselect, -1, placeholder);
     }
 
     /**
@@ -41,7 +112,7 @@ public class TerritoriesBundleBuilder {
      * <p>
      * [EN]  Arguments of data loading
      *
-     * @param index índice de su objeto dependiente, PRO -> CCAA, MUN -> PRO
+     * @param index       índice de su objeto dependiente, PRO -> CCAA, MUN -> PRO
      * @param preselect   Texto de preselección [EN]  Pre-selection text
      * @param placeholder verdadero si hay que introducir el dato para todo_ el territorio
      *                    [EN]  true if you have to enter the data for all_ the territory
@@ -55,49 +126,18 @@ public class TerritoriesBundleBuilder {
         return bundle;
     }
 
-    /**
-     * Selector de comunidades autónomas
-     * [EN]  Autonomous community selector
-     *
-     * @param context   Contexto de la aplicación
-     * @param listExtra Tipo de selección
-     * @param preselect provincias preseleccionadas
-     * @return Argumentos de creación
-     */
-    public static Bundle createBundle(Context context, boolean multipleselection, String preselect) {
-        return createBundle(context, multipleselection, preselect, false);
-    }
-
-    /**
-     * Selector de comunidades autónomas
-     * [EN]  Autonomous community selector
-     *
-     * @param context     Contexto de la aplicación
-     * @param listExtra   Tipo de selección
-     * @param preselect   provincias preseleccionadas
-     * @param placeholder bandera para añadir registro extra de territorio completo
-     * @return Argumentos de creación
-     */
-    public static Bundle createBundle(Context context, boolean multipleselection, String preselect, boolean placeholder) {
-        return createBundle(context.getResources().getString(R.string.autonomous_selector_title),
-                context.getResources().getString(R.string.bt_ACTION_OK),
-                context.getResources().getString(R.string.bt_ACTION_CANCEL),
-                preselect,
-                multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
-                placeholder);
-    }
-
-    private static Bundle createBundle(
-            String title,
-            String ok,
-            String cancel,
-            String preselect,
-            ListExtra listExtra,
-            boolean placeholder
+    /*GLOBAL*/
+    private static Bundle createBundle(String title,
+                                       String ok,
+                                       String cancel,
+                                       String preselect,
+                                       int index,
+                                       ListExtra listExtra,
+                                       boolean placeholder
     ) {
         Bundle bundle = new Bundle();
 
-        /*DIALOG*/
+         /*DIALOG*/
         bundle.putAll(BundleBuilder.createDialogModelBundle(DialogIcon.LOGIN_ICON, TextTools.nc(title), null, null));
 
         /*BUTTON SET MODEL*/
@@ -112,7 +152,9 @@ public class TerritoriesBundleBuilder {
 
         /*LOAD*/
         bundle.putAll(BundleBuilder.createListModeBundle(listExtra));
-        bundle.putAll(createLoadBundle(preselect, placeholder));
+        bundle.putAll(createLoadBundle(preselect, index, placeholder));
+
         return bundle;
     }
+
 }

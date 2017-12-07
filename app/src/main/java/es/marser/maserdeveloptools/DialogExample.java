@@ -14,6 +14,7 @@ import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.containers.toast.Launch_toast;
 import es.marser.backgroundtools.enums.DialogExtras;
 import es.marser.backgroundtools.enums.DialogIcon;
+import es.marser.backgroundtools.enums.Territories;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
 import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
@@ -33,6 +34,7 @@ import es.marser.backgroundtools.widget.territories.model.AutonomousModel;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
 import es.marser.backgroundtools.widget.territories.presenter.ProvincePresenter;
+import es.marser.backgroundtools.widget.territories.presenter.TerritoriesBundleBuilder;
 import es.marser.backgroundtools.widget.territories.presenter.VillagePresenter;
 import es.marser.generic.GenericFactory;
 import es.marser.tools.MathTools;
@@ -416,7 +418,7 @@ public class DialogExample {
 
         values.add(autonomousModel);
 
-        for(String s: ResourcesAccess.getListAutonomousCommunities(context)){
+        for (String s : ResourcesAccess.getListAutonomousCommunities(context)) {
             values.add(GenericFactory.BuildSingleObject(AutonomousModel.class, s));
         }
 
@@ -453,7 +455,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, false, null);
+        Bundle bundle = TerritoriesBundleBuilder.createBundle(context, false, null, Territories.PRO);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
@@ -478,7 +480,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, null);
+        Bundle bundle = TerritoriesBundleBuilder.createBundle(context, true, null, true, Territories.PRO);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
@@ -514,7 +516,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, -1, true, "Almería, Burgos,");
+        Bundle bundle = TerritoriesBundleBuilder.createBundle(context, -1, true, "Almería, Burgos,", false, Territories.PRO);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, true);
 
@@ -543,7 +545,7 @@ public class DialogExample {
             }
         };
 
-        Bundle bundle = ProvincePresenter.createBundle(context, 1, true, null);
+        Bundle bundle = TerritoriesBundleBuilder.createBundle(context, 1, true, "", false, Territories.PRO);
 
         ProvincePresenter presenter = new ProvincePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
@@ -573,7 +575,7 @@ public class DialogExample {
                 }
             }
         };
-        Bundle bundle = VillagePresenter.BundleBuilder.createBundle(context, 1, false, null);
+        Bundle bundle = TerritoriesBundleBuilder.createBundle(context, 1, false, null, false, Territories.MUN);
 
         VillagePresenter presenter = new VillagePresenter(context, R.layout.mvp_dialog_object_chooser, false);
 
@@ -586,7 +588,7 @@ public class DialogExample {
     //INPUT_______________________________________________________________________________________________
     public static BaseDialog longInputBox(final Context context) {
         InputDialog dialog = InputDialog.newInstance(context,
-                InputDialog.createBundle(context,"Introducir texto", 6, "Texto Largo", 400),
+                InputDialog.createBundle(context, "Introducir texto", 6, "Texto Largo", 400),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -618,7 +620,7 @@ public class DialogExample {
 
     public static BaseDialog passwordBox(final Context context) {
         InputDialog dialog = InputDialog.newInstance(context,
-                InputDialog.createPasswordBundle(context,null, 6),
+                InputDialog.createPasswordBundle(context, null, 6),
                 new OnResult<String>() {
                     @Override
                     public void onResult(DialogExtras result, String value) {
@@ -635,7 +637,7 @@ public class DialogExample {
     //AUTH______________________________________________________________________________________________
     public static BaseDialog loginMailBox(final Context context) {
         LoginDialog dialog = LoginDialog.newInstance(context,
-                LoginDialog.createMailPasswordBundle(context,null, 6),
+                LoginDialog.createMailPasswordBundle(context, null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {
@@ -651,7 +653,7 @@ public class DialogExample {
 
     public static BaseDialog loginUserBox(final Context context) {
         LoginDialog dialog = LoginDialog.newInstance(context,
-                LoginDialog.createUserPasswordBundle(context,null, 6),
+                LoginDialog.createUserPasswordBundle(context, null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {
@@ -667,7 +669,7 @@ public class DialogExample {
 
     public static BaseDialog passwordModificationBox(final Context context) {
         LoginDialog dialog = LoginDialog.newInstance(context,
-                LoginDialog.createModificationPasswordBundle(context,null, 6),
+                LoginDialog.createModificationPasswordBundle(context, null, 6),
                 new OnDResult<String, String>() {
                     @Override
                     public void onResult(DialogExtras result, String value1, String value2) {
