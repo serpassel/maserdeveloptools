@@ -23,7 +23,6 @@ import es.marser.backgroundtools.handlers.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.widget.chooser.model.SimpleChooserAdapterModel;
-import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -61,7 +60,6 @@ public class ChooserPresenter<T extends Selectable>
     }
 
     //OVERRIDE_____________________________________________________________________
-
     /**
      * if (presenter.getViewLayout() < 0) {
      * presenter.setViewLayout(R.layout.mvp_frag_simple_list);
@@ -74,21 +72,27 @@ public class ChooserPresenter<T extends Selectable>
      */
     @Override
     public void load(@Nullable Bundle bundle) {
+        /*Es posible que los argumentos de carga están incorporados en los argumentos globales y en esta entrada sean nulos
+        * [EN]  Arguments of the method or global arguments in case of null entry*/
+        bundle = replaceNullBundleWithArguments(bundle);
 
+        /*Si no hubiese argumentos cancelar la carga de datos
+        * [EN]  If there were no arguments cancel the data load*/
         if (bundle == null) {
-            return;
+                return;
         }
-
+        /*Recuperar variables [EN]  Retrieve variables*/
         final List<T> values = bundle.getParcelableArrayList(ListExtra.VALUES_EXTRA.name());
         final String preselect = bundle.getString(DialogExtras.FILTER_EXTRAS.name(), null);
 
+        /*Insertar valores en el adaptador [EN]  Insert values ​​in the adapter*/
         if (values != null) {
             if (preselect == null) {
                 getListmodel().addAll(values);
                 return;
             }
 
-
+            /*Preselección [EN]  Retrieve variables*/
             AsyncTask.execute(new Runnable() {
                 @Override
                 public void run() {
@@ -231,17 +235,5 @@ public class ChooserPresenter<T extends Selectable>
 
     public void setMultiselect_flag(boolean multiselect_flag) {
         this.multiselect_flag = multiselect_flag;
-    }
-
-    //BUNDLE BUILDER________________________________
-    public static <T extends Selectable> Bundle createLoadBundle(@Nullable String preselect, @Nullable ArrayList<T> values) {
-        Bundle bundle = new Bundle();
-          /*LOAD BUNDLE*/
-        bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(preselect));
-        if (values == null) {
-            values = new ArrayList<>();
-        }
-        bundle.putParcelableArrayList(ListExtra.VALUES_EXTRA.name(), values);
-        return bundle;
     }
 }

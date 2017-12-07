@@ -20,6 +20,7 @@ import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
 import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
 import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
+import es.marser.backgroundtools.widget.chooser.presenter.ChooserBundleBuilder;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.backgroundtools.widget.edition.dialog.EditDialog;
 import es.marser.backgroundtools.widget.edition.model.ExampleModelObject;
@@ -384,7 +385,6 @@ public class DialogExample {
 
 
     //TERRITORY_________________________________________________________________________________________
-
     public static BaseDialog autonomousChooser(final Context context) {
 
 
@@ -412,7 +412,7 @@ public class DialogExample {
             }
         };
 
-        List<AutonomousModel> values = new ArrayList<>();
+        ArrayList<AutonomousModel> values = new ArrayList<>();
 
         values.add(autonomousModel);
 
@@ -420,7 +420,7 @@ public class DialogExample {
             values.add(GenericFactory.BuildSingleObject(AutonomousModel.class, s));
         }
 
-        Bundle bundle =  ChooserDialog.createBundle(context, values);
+        Bundle bundle = ChooserBundleBuilder.createBundle(context, values);
 
                 /*
                 //AutonomousPresenter.BundleBuilder.createBundle(

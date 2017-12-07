@@ -77,6 +77,28 @@ public abstract class BasePresenter
 
     }
 
+    //OPERATIVE_____________________________________
+
+    /**
+     * Operativa para evitar entradas de datos duplicadas, sobretodo en presentadores de carga de datos
+     * Utilizar en aquellos métodos que tengan una entrada de argumentos y puedan haber sido introducidos por vía de argumentos globales
+     * <p>
+     * [EN]  Replace bundle with arguments
+     * [EN]  Use in those methods that have an input of arguments and may have been introduced by way of global arguments
+     *
+     * @param bundle Argumentos de entrada del método
+     *               [EN]  Arguments for the input of the method
+     * @return Argumentos del método o argumentos globales en caso de entrada nula.
+     * [EN]  Arguments for the input of the method
+     */
+    @Nullable
+    protected Bundle replaceNullBundleWithArguments(@Nullable Bundle bundle) {
+        if (bundle == null) {
+            bundle = getArguments();
+        }
+        return bundle;
+    }
+
     //SAVED AND RESTORED_____________________________________________________
     @Override
     public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
