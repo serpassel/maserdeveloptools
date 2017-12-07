@@ -28,6 +28,7 @@ public class ProgressPresenter extends DialogBasePresenter implements ProgressBa
     //CONSTRUCTORS________________________________
     public ProgressPresenter(@NonNull Context context, int viewLayout) {
         super(context, viewLayout);
+        this.progressmodel = new ProgressModel();
     }
 
     public ProgressPresenter(@NonNull Context context) {

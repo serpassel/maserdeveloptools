@@ -64,10 +64,10 @@ public class DevelopTools extends BaseActivityFragment {
                 dialog = DialogExample.notificationInformation(this);
                 break;
             case R.id.item_7:
-                dialog = DialogExample.notificationError(this);
+                dialog = DialogExample.notificationWarning(this);
                 break;
             case R.id.item_8:
-                dialog = DialogExample.notificationWarning(this);
+                dialog = DialogExample.notificationError(this);
                 break;
             case R.id.item_9:
                 dialog = DialogExample.notificationHelp(this);

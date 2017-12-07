@@ -78,7 +78,9 @@ public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
         if (this.headmodel != null && this.headmodel instanceof Editable) {
             ((Editable) this.headmodel).setEditing(false);
         }
-        result.onResult(DialogExtras.OK_EXTRA, headmodel);
+        if (result != null) {
+            result.onResult(DialogExtras.OK_EXTRA, headmodel);
+        }
         close();
     }
 
@@ -87,7 +89,9 @@ public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
         if (this.headmodel != null && this.headmodel instanceof Editable) {
             ((Editable) this.headmodel).setEditing(false);
         }
-        result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
+        if (result != null) {
+            result.onResult(DialogExtras.CANCEL_EXTRA, headmodel);
+        }
         close();
     }
 
@@ -96,7 +100,9 @@ public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
         if (this.headmodel != null && this.headmodel instanceof Editable) {
             ((Editable) this.headmodel).setEditing(false);
         }
-        result.onResult(DialogExtras.OPTION_EXTRA, headmodel);
+        if (result != null) {
+            result.onResult(DialogExtras.OPTION_EXTRA, headmodel);
+        }
         close();
     }
 }
