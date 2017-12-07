@@ -20,7 +20,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class AutonomousBundleBuilder {
+public class TerritoriBundleBuilder {
 
     /**
      * Argumentos de carga de datos
@@ -33,9 +33,25 @@ public class AutonomousBundleBuilder {
      * @return Argumentos de carga de datos [EN]  Pre-selection text
      */
     public static Bundle createLoadBundle(@Nullable String preselect, boolean placeholder) {
+       return createLoadBundle(preselect, -1, placeholder);
+    }
+
+    /**
+     * Argumentos de carga de datos
+     * <p>
+     * [EN]  Arguments of data loading
+     *
+     * @param index índice de su objeto dependiente, PRO -> CCAA, MUN -> PRO
+     * @param preselect   Texto de preselección [EN]  Pre-selection text
+     * @param placeholder verdadero si hay que introducir el dato para todo_ el territorio
+     *                    [EN]  true if you have to enter the data for all_ the territory
+     * @return Argumentos de carga de datos [EN]  Pre-selection text
+     */
+    public static Bundle createLoadBundle(@Nullable String preselect, int index, boolean placeholder) {
         Bundle bundle = new Bundle();
         bundle.putString(DialogExtras.FILTER_EXTRAS.name(), TextTools.nc(preselect));
         bundle.putBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), placeholder);
+        bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
         return bundle;
     }
 

@@ -423,7 +423,7 @@ public class DialogExample {
         Bundle bundle = ChooserBundleBuilder.createBundle(context, values);
 
                 /*
-                //AutonomousBundleBuilder.createBundle(
+                //TerritoriBundleBuilder.createBundle(
                 context,
                 false,
                 autonomousModel.preSelectValue(),
