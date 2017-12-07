@@ -20,7 +20,7 @@ import es.marser.tools.TextTools;
  */
 
 @SuppressWarnings("unused")
-public class TerritoriBundleBuilder {
+public class TerritoriesBundleBuilder {
 
     /**
      * Argumentos de carga de datos

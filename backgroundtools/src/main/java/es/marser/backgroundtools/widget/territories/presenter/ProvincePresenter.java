@@ -8,16 +8,12 @@ import android.util.Log;
 
 import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.presenter.BundleBuilder;
-import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.widget.territories.model.ProvincieModel;
 import es.marser.generic.GenericFactory;
-import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -29,10 +25,24 @@ import es.marser.tools.TextTools;
 public class ProvincePresenter extends ChooserPresenter<ProvincieModel> {
 
     //CONSTRUCTORS________________________________
+    public ProvincePresenter(@NonNull Context context) {
+        this(context, false);
+    }
+
+    public ProvincePresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, false);
+    }
+
     public ProvincePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
         super(context,viewlayout);
         setMultiselect_flag(multiselect_flag);
     }
+
+    public ProvincePresenter(@NonNull Context context, boolean multiselect_flag) {
+        super(context);
+        setMultiselect_flag(multiselect_flag);
+    }
+
 
     //LOAD__________________________________________
     @Override

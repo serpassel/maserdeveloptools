@@ -6,16 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
-import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.widget.chooser.presenter.ChooserPresenter;
 import es.marser.backgroundtools.widget.territories.model.VillageModel;
 import es.marser.generic.GenericFactory;
-import es.marser.tools.TextTools;
 
 /**
  * @author sergio
@@ -26,16 +22,22 @@ import es.marser.tools.TextTools;
 public class VillagePresenter extends ChooserPresenter<VillageModel> {
 
     //CONTRUCTORS_____________________________________________________________________
+    public VillagePresenter(@NonNull Context context) {
+        this(context, false);
+    }
+
     public VillagePresenter(@NonNull Context context, int viewlayout) {
         this(context, viewlayout, false);
     }
 
     public VillagePresenter(@NonNull Context context, int viewlayout, boolean multiselect_flag) {
-        super(context, viewlayout, multiselect_flag);
+        super(context,viewlayout);
+        setMultiselect_flag(multiselect_flag);
     }
 
-    public VillagePresenter(@NonNull Context context, int viewlayout, @NonNull SimpleAdapterModel<VillageModel> listModel) {
-        super(context, viewlayout, listModel);
+    public VillagePresenter(@NonNull Context context, boolean multiselect_flag) {
+        super(context);
+        setMultiselect_flag(multiselect_flag);
     }
 
     //LOAD______________________________________________________________________________
@@ -78,80 +80,6 @@ public class VillagePresenter extends ChooserPresenter<VillageModel> {
                     selectionItemsController.inputSelected(getListmodel().size() - 1, preselect.contains(item.preSelectValue()));
                 }
             }
-        }
-    }
-
-    //BUNDLE CREATORS__________________________________________________________________
-
-    public static class BundleBuilder {
-        private static Bundle createBundle(String title,
-                                           String ok,
-                                           String cancel,
-                                           String preselect,
-                                           int index,
-                                           ListExtra listExtra,
-                                           boolean placeholder
-        ) {
-            Bundle bundle = new Bundle();
-
-       /*PRE-BUILD*/
-            bundle.putSerializable(DialogIcon.ICON_EXTRA.name(), DialogIcon.LIST_ICON);
-            bundle.putString(DialogExtras.TITLE_EXTRA.name(), TextTools.nc(title));
-            bundle.putSerializable(ListExtra.LIST_EXTRA.name(), listExtra);
-            bundle.putBoolean(DialogExtras.PLACEHOLDER_EXTRA.name(), placeholder);
-
-            switch (listExtra) {
-                case ONLY_MULTIPLE_SELECTION_MODE:
-                    bundle.putString(DialogExtras.OK_EXTRA.name(), TextTools.nc(ok));
-                    bundle.putInt(DialogExtras.STATE_EXTRA.name(), 1);
-                    break;
-                default:
-                    bundle.putInt(DialogExtras.STATE_EXTRA.name(), 0);
-                    break;
-            }
-
-            bundle.putString(DialogExtras.CANCEL_EXTRA.name(), TextTools.nc(cancel));
-
-        /*LOAD*/
-            bundle.putString(DialogExtras.FILTER_EXTRAS.name(), preselect);
-            bundle.putInt(DialogExtras.INDEX_EXTRAS.name(), index);
-
-            return bundle;
-        }
-
-        /**
-         * Selector de provincias
-         * [EN]  Provincial selector
-         *
-         * @param context   Contexto de la aplicación
-         * @param index     índice de la comunidad autónoma o -1 si son todas
-         * @param listExtra Tipo de selección
-         * @param preselect provincias preseleccionadas
-         * @return Argumentos de creación
-         */
-        public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect) {
-            return createBundle(context, index, multipleselection, preselect, false);
-        }
-
-        /**
-         * Selector de provincias
-         * [EN]  Provincial selector
-         *
-         * @param context     Contexto de la aplicación
-         * @param index       índice de la comunidad autónoma o -1 si son todas
-         * @param listExtra   Tipo de selección
-         * @param preselect   provincias preseleccionadas
-         * @param placeholder bandera para añadir registro extra de territorio completo
-         * @return Argumentos de creación
-         */
-        public static Bundle createBundle(Context context, int index, boolean multipleselection, String preselect, boolean placeholder) {
-            return createBundle(context.getResources().getString(R.string.village_selector_title),
-                    context.getResources().getString(R.string.bt_ACTION_OK),
-                    context.getResources().getString(R.string.bt_ACTION_CANCEL),
-                    preselect,
-                    index,
-                    multipleselection ? ListExtra.ONLY_MULTIPLE_SELECTION_MODE : ListExtra.ONLY_SINGLE_SELECTION_MODE,
-                    placeholder);
         }
     }
 }
