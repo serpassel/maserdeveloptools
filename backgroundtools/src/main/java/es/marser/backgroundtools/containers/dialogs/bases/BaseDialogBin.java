@@ -11,6 +11,7 @@ import android.view.Window;
 
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
+import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.tools.TextTools;
 
 /**
@@ -44,6 +45,7 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
 
     protected DBP presenter;
 
+
     @Override
     protected void createDialog() {
         preBuild();
@@ -51,6 +53,7 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setCancelable(false);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         if (inflater != null) {
             viewDataBinding = DataBindingUtil.inflate(inflater, getDialogLayout(), null, false);
         }
@@ -128,6 +131,29 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         return this;
     }
 
+    //GESTURE DETECTOR_____________________________
+    /**
+     * Called when a touch event is dispatched to a view. This allows listeners to
+     * get a chance to respond before the target view.
+     *
+     * @param eventsExtras@return True if the listener has consumed the event, false otherwise.
+     */
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+        super.onSwipe(eventsExtras);
+        if (isShowing() && presenter != null) {
+            presenter.onSwipe(eventsExtras);
+        }
+    }
+
+    @Override
+    public void onDoubleTap() {
+        super.onDoubleTap();
+        if (isShowing() && presenter != null) {
+            presenter.onDoubleTap();
+        }
+
+    }
 
     //VARIABLES___________________________________________________________
     public DBP getPresenter() {

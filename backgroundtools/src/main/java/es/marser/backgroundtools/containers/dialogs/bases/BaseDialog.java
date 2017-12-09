@@ -3,13 +3,16 @@ package es.marser.backgroundtools.containers.dialogs.bases;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
+import es.marser.backgroundtools.systemtools.events.WindowsCallbackAdapter;
 
 /**
  * @author sergio
@@ -24,8 +27,7 @@ import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class BaseDialog
         extends DialogFragment
-        implements View.OnTouchListener, SimpleGestureFilter.SimpleGestureListener, ClosableView {
-
+        implements View.OnTouchListener,SimpleGestureFilter.SimpleGestureListener, ClosableView {
     protected Context context;
     protected Dialog dialog;
     protected View view;
@@ -34,7 +36,40 @@ public abstract class BaseDialog
     public BaseDialog() {
         gestureFilter = new SimpleGestureFilter(getActivity(), this);
     }
-//EVENTs____________________________________________________________
+
+
+    //EVENTs____________________________________________________________
+
+    /**
+     * Agregar captador de eventos de ventana
+     * <p>
+     * [EN]  Add window event sensor
+     */
+    private void setWindowCallback() {
+     /*
+        Window w = dialog != null ? dialog.getWindow() : null;
+        if (w != null) {
+            w.setCallback(new WindowsCallbackAdapter() {
+                @Override
+                public boolean dispatchKeyEvent(KeyEvent event) {
+                    if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+                        getDialog().dismiss();
+                    }
+                    return false;
+                }
+
+                @Override
+                public boolean dispatchTouchEvent(MotionEvent event) {
+                    if (gestureFilter != null) {
+                        gestureFilter.onTouchEvent(event);
+                    }
+                    return false;
+                }
+            });
+        }
+*/
+        view.setOnTouchListener(this);
+    }
 
     /**
      * Called when a touch event is dispatched to a view. This allows listeners to
@@ -45,13 +80,13 @@ public abstract class BaseDialog
      *              the event.
      * @return True if the listener has consumed the event, false otherwise.
      */
+
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         gestureFilter.onTouchEvent(event);
         return true;
     }
-
-
 
     @Override
     public void onSwipe(EventsExtras eventsExtras) {
@@ -87,9 +122,11 @@ public abstract class BaseDialog
             createDialog();
 
             if (view != null) {
+                setWindowCallback();
+
                 view.clearFocus();
-                view.setOnTouchListener(this);
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
                 if (imm != null) {
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }

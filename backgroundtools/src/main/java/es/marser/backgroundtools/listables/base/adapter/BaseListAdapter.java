@@ -3,15 +3,16 @@ package es.marser.backgroundtools.listables.base.adapter;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.listables.base.controller.ExpandController;
@@ -50,7 +51,7 @@ import es.marser.backgroundtools.listables.base.model.Selectionable;
  */
 
 @SuppressWarnings({"SameReturnValue", "unused", "EmptyMethod"})
-public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewHolder<T>>
+public abstract class BaseListAdapter<VH extends BaseViewHolder>
         extends
         RecyclerView.Adapter<VH>
         implements
@@ -153,13 +154,13 @@ public abstract class BaseListAdapter<T extends Parcelable, VH extends BaseViewH
     }
 
     //OVERRIDE SUPERCLASS__________________________________________________________________________
-
     @Override
     public VH onCreateViewHolder(ViewGroup parent, int viewType) {
     /*Recuperar inflador de vistas [EN]  Recover view inflator*/
         LayoutInflater layoutInflater = LayoutInflater.from((parent.getContext()));
     /*Inflar elemento de vinculación de datos [EN]  Inflate Data Link Element*/
         ViewDataBinding dataBinding = DataBindingUtil.inflate(layoutInflater, sparseHolderLayout.get(viewType), parent, false);
+       LOG_TAG.assertNotNull(dataBinding);
         /*Nueva instancia de la vista [EN]  New view instance*/
         return onCreateViewHolder(dataBinding, viewType);
     }

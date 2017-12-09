@@ -250,6 +250,7 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
 
     @Override
     public void addHead(int index, @Nullable H item) {
+
         if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
             getAdapter().getHeadAdapterController().add(index, item);
         }
@@ -351,7 +352,7 @@ public class TableAdapterModel<H extends Parcelable, B extends Parcelable>
     @Override
     public void clearHead() {
         if (getAdapter() != null && getAdapter().getHeadAdapterController() != null) {
-            getAdapter().getBodyAdapterController().clear();
+            getAdapter().getHeadAdapterController().clear();
         }
     }
 

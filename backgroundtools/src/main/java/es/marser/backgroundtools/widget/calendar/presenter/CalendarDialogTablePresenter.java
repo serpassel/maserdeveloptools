@@ -4,12 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
@@ -17,6 +19,7 @@ import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.presenter.TableDialogListPresenter;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
 import es.marser.backgroundtools.enums.DialogExtras;
+import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.events.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
@@ -43,6 +46,8 @@ import es.marser.tools.TextTools;
 public class CalendarDialogTablePresenter
         extends TableDialogListPresenter<DayWeek, CalendarObservable, CalendarTableAdapterModel>
         implements ViewHandler<Void> {
+
+    private static String TAG = LOG_TAG.TAG;
 
     /*RESULT*/
     protected OnResult<CalendarObservable> result;
@@ -78,17 +83,18 @@ public class CalendarDialogTablePresenter
 
     @Override
     public void load(@Nullable Bundle bundle) {
-        loadDayMoth();
+      loadDayWeek();
+      loadDayMoth(false);
     }
 
     //LOAD__________________________________________
-
     /**
      * Carga la cabecera
      * <p>
      * [EN]  Load the header
      */
     private void loadDayWeek() {
+        getListmodel().clearHead();
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
@@ -104,7 +110,7 @@ public class CalendarDialogTablePresenter
      * <p>
      * [EN]  Load the days of the month
      */
-    private void loadDayMoth() {
+    private void loadDayMoth(boolean clear) {
         final int[] datepos = new int[1];
 
         if (headmodel == null || headmodel.getCalendar() == null) {
@@ -113,43 +119,46 @@ public class CalendarDialogTablePresenter
 
         int year = headmodel.getCalendar().get(Calendar.YEAR);
 
-        /*Cagar datos [EN]  Download data*/
-        new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
-            @Override
-            public void onStart(Void start) {
-            }
 
-            @Override
-            public void onUpdate(Integer update) {
-                datepos[0] = update;
-            }
-
-            @Override
-            public void onFinish(List<CalendarObservable> finish) {
-                if (getListmodel() != null) {
-                    getListmodel().replaceBody(finish);
-                    SelectionItemsController itemsController = getListmodel().getSelectionItemsController();
-
-                    if (itemsController != null) {
-                        itemsController.inputSelected(datepos[0], true);
-                    }
-
-                }else{
-                    throw new NullPointerException("List model null");
+            /*Cagar datos [EN]  Download data*/
+            new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
+                @Override
+                public void onStart(Void start) {
                 }
-            }
 
-            @Override
-            public void onFailure(Throwable e) {
+                @Override
+                public void onUpdate(Integer update) {
+                    datepos[0] = update;
+                }
 
-            }
-        }).execute(new DateLoader(
-                        headmodel.getCalendar(),
-                        ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year),
-                        ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)
-                )
-        );
+                @Override
+                public void onFinish(List<CalendarObservable> finish) {
+                    if (getListmodel() != null) {
+                        getListmodel().replaceBody(finish);
 
+                        SelectionItemsController itemsController = getListmodel().getSelectionItemsController();
+
+                        if (itemsController != null) {
+                            itemsController.inputSelected(datepos[0], true);
+                        }
+
+                        Log.w(TAG, "onFinish:" + getListmodel().size());
+
+                    } else {
+                        throw new NullPointerException("List model null");
+                    }
+                }
+
+                @Override
+                public void onFailure(Throwable e) {
+
+                }
+            }).execute(new DateLoader(
+                            headmodel.getCalendar(),
+                            ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year),
+                            ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)
+                    )
+            );
     }
 
     //WINACTION_____________________________________
@@ -214,6 +223,26 @@ public class CalendarDialogTablePresenter
     @Override
     public boolean onLongClick(View view, Void item) {
         return false;
+    }
+
+    //GESTUR DETECTOR______________________________
+    @Override
+    public void onSwipe(EventsExtras eventsExtras) {
+        super.onSwipe(eventsExtras);
+        switch (eventsExtras) {
+            case SWIPE_UP:
+                nextYear();
+                break;
+            case SWIPE_DOWN:
+                previousYear();
+                break;
+            case SWIPE_LEFT:
+                previousMonth();
+                break;
+            case SWIPE_RIGHT:
+                nextMonth();
+                break;
+        }
     }
 
     //PROPERTIES___________________________________
@@ -292,7 +321,7 @@ public class CalendarDialogTablePresenter
         headmodel.setCalendar(in);
 
         if (actualMonth != inMonth || actualYear != inYear) {
-            loadDayMoth();
+            loadDayMoth(true);
         }
         completeHeadmodel();
     }

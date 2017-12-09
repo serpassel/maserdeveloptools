@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.events.TouchableViewHandler;
 import es.marser.backgroundtools.events.ViewItemHandler;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
-import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
@@ -37,10 +39,12 @@ import es.marser.backgroundtools.listables.table.holder.TitleViewHolderBinding;
 
 @SuppressWarnings({"SameReturnValue", "unused"})
 public class TableListAdapter<H extends Parcelable, B extends Parcelable>
-        extends BaseListAdapter implements
-        SelectionItemsManager,
+        extends BaseListAdapter<ViewHolderBinding>
+        implements SelectionItemsManager,
         ExpandItemsManager,
         SelectedsModelManager<B> {
+
+    private static String TAG = LOG_TAG.TAG;
 
     /*Eventos sobre vistas menores [EN]  Events on minor views*/
     private TouchableViewHandler<Selectable> titleTouchableViewHandler;
@@ -178,10 +182,44 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
         }
     }
 
-    //OVERRRIDE ADAPTER_________________________________________________________________________________
+    //OVERRRIDE ADAPTER________________________________________________________________________________
+    @Override
+    public ViewHolderBinding<? extends Parcelable> onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
+        ViewHolderType type = ViewHolderType.values()[viewType];
+        switch (type) {
+            case TITLE:
+                return new TitleViewHolderBinding(dataBinding, titleAdapterController);
+            case HEAD:
+                return new HeaderViewHolderBinding<>(dataBinding, headAdapterController);
+            case BODY:
+                return new BodyViewHolderBinding<>(dataBinding, bodyAdapterController);
+            default:
+                throw new ClassCastException("Undefined view");
+        }
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return types.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return types.get(position);
+    }
+
+    /**
+     * Añadir enlaces adicionales de la vista con el modelo de datos
+     * <p>
+     * [EN]  Add additional links of the view with the data model
+     *
+     * @param holder   Holder de tipo generíco [EN]  Generic type holder
+     * @param position posición de datos [EN]  data position
+     */
     @SuppressWarnings("unchecked")
     @Override
-    public void onBindVH(BaseViewHolder holder, int position) {
+    public void onBindVH(ViewHolderBinding holder, int position) {
         ViewHolderType type = ViewHolderType.values()[holder.getIndexTypeView()];
 
         switch (type) {
@@ -197,32 +235,9 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
                 holder.bind(bodyAdapterController.getItemAt(position));
                 ((ViewHolderBinding<B>) holder).attachTouchableViewHandler(getBodyTouchableViewHandler());
                 break;
-        }
-    }
-
-    @Override
-    public BaseViewHolder onCreateViewHolder(ViewDataBinding dataBinding, int viewType) {
-        ViewHolderType type = ViewHolderType.values()[viewType];
-        switch (type) {
-            case TITLE:
-                return new TitleViewHolderBinding(dataBinding, titleAdapterController);
-            case HEAD:
-                return new HeaderViewHolderBinding<>(dataBinding, headAdapterController);
-            case BODY:
-                return new BodyViewHolderBinding<>(dataBinding, bodyAdapterController);
             default:
-                throw new ClassCastException("Undefined view es");
+                throw new ClassCastException("Undefined view");
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        return types.size();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        return types.get(position);
     }
 
     @Override
@@ -268,6 +283,7 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
 
     @Override
     public void notifyItemInserted(int index, int count, int viewType) {
+        //  Log.i(LOG_TAG.TAG, "NOTIFICADA INSERCCION " + index +"/"+count+"/"+viewType);
         int pos = index == count - 1 ? getItemCount() : flatPos(index, viewType);
         types.add(pos, viewType);
           /*Notificar al adapter después de la inserción [EN]  Notify the adapter after insertion*/
@@ -288,16 +304,26 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
 
     @Override
     public void notifyDataRemoved(int count, int viewType) {
+          /*Eliminar de la lista de tipos [EN]  Remove from the list of types*/
+        List<Integer> toSaved = new ArrayList<>();
+
+        for (int i = 0; i < types.size(); ++i) {
+            Log.w(TAG, "notifyDataRemoved: READ " + types.get(i) + "/" + viewType);
+
+            if (types.get(i) != viewType) {
+                toSaved.add(types.get(i));
+                Log.i(TAG, "notifyDataRemoved: REMOVED " + i + "/" + types.size());
+            }
+        }
+        types.clear();
+        types.addAll(toSaved);
+        Log.v(TAG, "notifyDataRemoved: " + getItemCount());
+
         /*Notificar al adapter previa eliminación [EN]  Notify adapter after elimination*/
         super.notifyDataRemoved(count, viewType);
 
-        /*Eliminar de la lista de tipos [EN]  Remove from the list of types*/
-        for (int i = 0; i <= types.lastIndexOf(viewType); ++i) {
-            if (types.get(i) == viewType) {
-                types.remove(i);
-            }
-        }
     }
+
 
     //SAVED AND RESTORE_____________________________________________________________
     @Override
@@ -406,6 +432,7 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
     }
 
     //MANAGERS___________________________________________________________________
+
     /**
      * @return Devuelve el objeto de control de expansión de objetos [EN]  Returns the object expansion control object
      */
@@ -425,6 +452,7 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
     }
 
     //SELECTION BODY MODEL________________________________________________________
+
     /**
      * Devuelve el contralodor de elementos seleccionados
      * <p>

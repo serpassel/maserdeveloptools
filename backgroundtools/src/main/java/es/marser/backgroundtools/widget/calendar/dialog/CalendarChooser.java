@@ -5,15 +5,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinTableDECREP;
+import es.marser.backgroundtools.containers.dialogs.bases.BaseDialogBinList;
 import es.marser.backgroundtools.containers.dialogs.task.OnResult;
-import es.marser.backgroundtools.enums.DialogExtras;
-import es.marser.backgroundtools.enums.DialogIcon;
-import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
-import es.marser.backgroundtools.widget.calendar.model.DayWeek;
-import es.marser.tools.TextTools;
+import es.marser.backgroundtools.widget.calendar.presenter.CalendarDialogTablePresenter;
 
 /**
  * @author sergio
@@ -25,8 +20,7 @@ import es.marser.tools.TextTools;
 
 @SuppressWarnings("ALL")
 public class CalendarChooser
-        extends BaseDialogBinTableDECREP<DayWeek, CalendarObservable>
-       {
+        extends BaseDialogBinList<CalendarDialogTablePresenter> {
 
 
     /**
@@ -43,42 +37,16 @@ public class CalendarChooser
             @NonNull Bundle bundle,
             @Nullable OnResult<CalendarObservable> result) {
 
+        /*PRESENTER*/
+        CalendarDialogTablePresenter presenter = new CalendarDialogTablePresenter(context);
+        presenter.setArguments(bundle);
+        presenter.setResult(result);
+
+        /*DIALOG*/
         CalendarChooser instance = new CalendarChooser();
         instance.setContext(context);
-        instance.setArguments(bundle);
-        instance.setResult(result);
+        instance.setPresenter(presenter);
+
         return instance;
     }
-
-
-    @SuppressWarnings("All")
-
-    @Override
-    protected void postBuild() {
-        super.postBuild();
-        loadDayWeek();
-        load();
-    }
-    //ACTIONS__________________________________________________________________________________
-
-    /*{@link es.marser.backgroundtools.systemtools.events.SimpleGestureFilter.SimpleGestureListener}*/
-    @Override
-    public void onSwipe(EventsExtras eventsExtras) {
-        super.onSwipe(eventsExtras);
-        switch (eventsExtras){
-            case SWIPE_UP:
-                nextYear();
-                break;
-            case SWIPE_DOWN:
-                previousYear();
-                break;
-            case SWIPE_LEFT:
-                previousMonth();
-                break;
-            case SWIPE_RIGHT:
-                nextMonth();
-                break;
-        }
-    }
-
 }

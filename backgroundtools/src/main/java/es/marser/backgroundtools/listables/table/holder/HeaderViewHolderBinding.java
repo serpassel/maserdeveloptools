@@ -1,7 +1,9 @@
 package es.marser.backgroundtools.listables.table.holder;
 
 import android.databinding.ViewDataBinding;
+import android.util.Log;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;
@@ -23,5 +25,6 @@ public class HeaderViewHolderBinding<H> extends ViewHolderBinding<H> {
 
     public HeaderViewHolderBinding(ViewDataBinding itemViewBindable, ViewHolderController<H> viewHolderController) {
         super(itemViewBindable, viewHolderController);
+       // Log.i(LOG_TAG.TAG, "CREADO CABECERA ");
     }
 }

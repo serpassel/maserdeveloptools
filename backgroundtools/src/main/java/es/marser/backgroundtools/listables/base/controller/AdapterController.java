@@ -16,13 +16,13 @@ import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.listeners.AdapterNotifier;
 import es.marser.backgroundtools.listables.base.listeners.OnItemChangedListener;
-import es.marser.backgroundtools.listables.simple.model.AdapterItems;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsController;
 import es.marser.backgroundtools.listables.base.model.ExpandItemsManager;
 import es.marser.backgroundtools.listables.base.model.SelectedsModel;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
 import es.marser.backgroundtools.listables.base.model.SelectionItemsManager;
 import es.marser.backgroundtools.listables.base.model.Selectionable;
+import es.marser.backgroundtools.listables.simple.model.AdapterItems;
 import es.marser.tools.TextTools;
 
 /**
@@ -238,7 +238,13 @@ public class AdapterController<T extends Parcelable>
         if (item != null) {
         /*Agregar elemento [EN]  Add Item*/
             this.items.add(item);
+     /*
+          Log.i(LOG_TAG.TAG, "AÑADIENDO CONTROLLER");
 
+            if(viewHolderType == ViewHolderType.HEAD.ordinal()){
+                Log.w(LOG_TAG.TAG, "Añadido item");
+            }
+*/
         /*Notificar cambios de selección [EN]  Notify selection changes*/
             clearExpanded();
 
@@ -300,15 +306,15 @@ public class AdapterController<T extends Parcelable>
 
     @Override
     public void clear() {
-          /*Notificar cambios de selección [EN]  Notify selection changes*/
+     /*Notificar cambios de selección [EN]  Notify selection changes*/
         clearControllers();
+        int size = this.items.size();
+      /*Limpiar lista [EN]  Clean list*/
+        this.items.clear();
 
         if (adapterNotifier != null) {
-            adapterNotifier.notifyDataRemoved(size(), viewHolderType);
+            adapterNotifier.notifyDataRemoved(size, viewHolderType);
         }
-
-          /*Limpiar lista [EN]  Clean list*/
-        this.items.clear();
     }
 
     @Override

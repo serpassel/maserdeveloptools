@@ -117,10 +117,11 @@ public class SimpleAdapterModel<T extends Parcelable>
 
     @Override
     public void add(@Nullable T item) {
+    /*
         if (item != null) {
-            Log.w(LOG_TAG.TAG, "Insertado " + item.toString());
+           // Log.w(LOG_TAG.TAG, "Insertado " + item.toString());
         }
-
+*/
         if (adapter != null && adapter.getAdapterItemsController() != null) {
             adapter.getAdapterItemsController().add(item);
         }

@@ -2,6 +2,7 @@ package es.marser.backgroundtools.containers.activitys.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
@@ -42,6 +43,20 @@ public abstract class BaseActivityFragment extends BaseActivity {
                                 .getString(R.string.FRAGMENT_PAGER));
             }
         }
+    }
+
+    /**
+     * Called to process touch screen events.  You can override this to
+     * intercept all touch screen events before they are dispatched to the
+     * window.  Be sure to call this implementation for touch screen events
+     * that should be handled normally.
+     *
+     * @param ev The touch screen event.
+     * @return boolean Return true if this event was consumed.
+     */
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override

@@ -5,6 +5,13 @@
 
     <data>
 
+        <!--ADAPTER MODEL-->
+        <import type="es.marser.backgroundtools.listables.base.model.AdapterModel" />
+
+        <variable
+            name="listmodel"
+            type="es.marser.backgroundtools.listables.base.model.AdapterModel" />
+
         <!--HEADMODEL-->
         <import type="es.marser.backgroundtools.widget.calendar.model.CalendarObservable" />
 
@@ -104,8 +111,8 @@
 
         <!--LIST-->
         <include
-            android:id="@+id/id_recyclerview"
-            layout="@layout/com_recyclerview" />
+            layout="@layout/com_mvp_recyclerview"
+            bind:listmodel="@{listmodel}" />
 
         <!--DATE LONG-->
         <android.support.v7.widget.LinearLayoutCompat
@@ -123,9 +130,9 @@
                 android:text="@{model.dateLong}"
                 android:textColor="?attr/dialogs_body_text_color"
                 android:textSize="12sp"
-                bind:isholiday="@{model.holiday}"
+                bind:isOtherMonth="@{model.othermonth}"
                 bind:isOtherholiday="@{model.otherholiday}"
-                bind:isOtherMonth="@{model.othermonth}"/>
+                bind:isholiday="@{model.holiday}" />
 
         </android.support.v7.widget.LinearLayoutCompat>
 

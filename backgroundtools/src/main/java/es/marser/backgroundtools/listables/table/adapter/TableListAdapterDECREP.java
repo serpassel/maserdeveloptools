@@ -8,6 +8,7 @@ import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 
+import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.events.TouchableViewHandler;
 import es.marser.backgroundtools.events.ViewItemHandler;
@@ -31,7 +32,7 @@ import es.marser.backgroundtools.listables.table.holder.TitleViewHolderBinding;
 @SuppressWarnings({"SameReturnValue", "unused"})
 @Deprecated
 public abstract class TableListAdapterDECREP<H extends Parcelable, B extends Parcelable>
-        extends BaseListAdapterDecrep {
+        extends BaseListAdapterDecrep{
 
     /*Controlador de cabecera [EN]  Header controller*/
     public AdapterController<Selectable> tAdapterController;

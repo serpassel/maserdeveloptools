@@ -44,6 +44,7 @@ public class CalendarTableAdapterModel extends TableAdapterModel<DayWeek, Calend
                                      int bodyHolderLayout) {
         super(context, layoutManager, titleHolderLayout, headHolderLayout, bodyHolderLayout);
         //Expansor de celdas de la tabla
+
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {

@@ -18,8 +18,9 @@ import es.marser.backgroundtools.enums.Territories;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
 import es.marser.backgroundtools.widget.auth.dialog.CredentialDialog;
 import es.marser.backgroundtools.widget.auth.dialog.LoginDialog;
-import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooserDECREP;
+import es.marser.backgroundtools.widget.calendar.dialog.CalendarChooser;
 import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
+import es.marser.backgroundtools.widget.calendar.presenter.CalendarBundleBuilder;
 import es.marser.backgroundtools.widget.chooser.dialog.ChooserDialog;
 import es.marser.backgroundtools.widget.chooser.presenter.ChooserBundleBuilder;
 import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
@@ -368,25 +369,23 @@ public class DialogExample {
 
     public static BaseDialog calendarChooser(final Context context) {
 
-        CalendarChooserDECREP dialog =
-                CalendarChooserDECREP.newInstance(
-                        context,
-                        CalendarChooserDECREP.createBundle(context),
-                        new OnResult<CalendarObservable>() {
-                            @Override
-                            public void onResult(DialogExtras result, CalendarObservable value) {
-                                if (result == DialogExtras.OK_EXTRA) {
-                                    Launch_toast.warningToast(context, value.getDateLong());
-                                } else {
-                                    Launch_toast.errorToast(context, "Operación cancelada");
-                                }
-                            }
+        CalendarChooser dialog = CalendarChooser.newInstance(context,
+                CalendarBundleBuilder.createBundle(context),
+                new OnResult<CalendarObservable>() {
+                    @Override
+                    public void onResult(DialogExtras result, CalendarObservable value) {
+                        if (result == DialogExtras.OK_EXTRA) {
+                            Launch_toast.warningToast(context, value.getDateLong());
+                        } else {
+                            Launch_toast.errorToast(context, "Operación cancelada");
                         }
-                );
+                    }
+                }
+        );
+
         dialog.show();
         return dialog;
     }
-
 
     //TERRITORY_________________________________________________________________________________________
     public static BaseDialog autonomousChooser(final Context context) {
