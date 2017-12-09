@@ -8,6 +8,7 @@ package es.marser.backgroundtools.listables.base.presenter;
  *         [EN]  Object records keys in sharedpreferences
  */
 
+@SuppressWarnings("unused")
 public interface SharedPreferendSaved {
     //PREFERENCES_____________________________________________________________
 
@@ -16,5 +17,6 @@ public interface SharedPreferendSaved {
      * <p>
      * [EN]  Record preferences selection
      */
+    @SuppressWarnings("unused")
     void savePreferences();
 }

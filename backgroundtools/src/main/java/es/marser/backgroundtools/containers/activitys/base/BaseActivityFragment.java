@@ -12,6 +12,7 @@ import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
  *         Created by Sergio on 08/04/2017.
  */
 
+@SuppressWarnings("EmptyMethod")
 public abstract class BaseActivityFragment extends BaseActivity {
 
     protected BaseFragment baseFragment;

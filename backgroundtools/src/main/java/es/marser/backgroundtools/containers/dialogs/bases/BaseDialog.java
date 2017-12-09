@@ -3,16 +3,13 @@ package es.marser.backgroundtools.containers.dialogs.bases;
 import android.app.Dialog;
 import android.content.Context;
 import android.support.v4.app.DialogFragment;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 
 import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.enums.EventsExtras;
 import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
-import es.marser.backgroundtools.systemtools.events.WindowsCallbackAdapter;
 
 /**
  * @author sergio

@@ -43,6 +43,7 @@ import es.marser.tools.TextTools;
  *         [EN]  Presenter of calendar dates
  */
 
+@SuppressWarnings("unused")
 public class CalendarDialogTablePresenter
         extends TableDialogListPresenter<DayWeek, CalendarObservable, CalendarTableAdapterModel>
         implements ViewHandler<Void> {
@@ -110,6 +111,7 @@ public class CalendarDialogTablePresenter
      * <p>
      * [EN]  Load the days of the month
      */
+    @SuppressWarnings("unused")
     private void loadDayMoth(boolean clear) {
         final int[] datepos = new int[1];
 
@@ -246,6 +248,7 @@ public class CalendarDialogTablePresenter
     }
 
     //PROPERTIES___________________________________
+    @SuppressWarnings("unused")
     public OnResult<CalendarObservable> getResult() {
         return result;
     }
@@ -254,10 +257,12 @@ public class CalendarDialogTablePresenter
         this.result = result;
     }
 
+    @SuppressWarnings("unused")
     public CalendarObservable getHeadmodel() {
         return headmodel;
     }
 
+    @SuppressWarnings("unused")
     public void setHeadmodel(CalendarObservable headmodel) {
         this.headmodel = headmodel;
     }

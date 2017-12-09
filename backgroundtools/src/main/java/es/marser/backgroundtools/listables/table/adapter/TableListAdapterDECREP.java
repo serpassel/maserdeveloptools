@@ -8,7 +8,6 @@ import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 
-import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.definition.Selectable;
 import es.marser.backgroundtools.events.TouchableViewHandler;
 import es.marser.backgroundtools.events.ViewItemHandler;

@@ -20,6 +20,7 @@ import es.marser.tools.MathTools;
  *         [EN]  Presenter for progress pictures
  */
 
+@SuppressWarnings("unused")
 public class ProgressPresenter extends DialogBasePresenter implements ProgressBarUpdater {
 
     //MODELS______________________________________
@@ -43,10 +44,12 @@ public class ProgressPresenter extends DialogBasePresenter implements ProgressBa
     }
 
     //PROPERTIES____________________________________
+    @SuppressWarnings("unused")
     public ProgressModel getProgressmodel() {
         return progressmodel;
     }
 
+    @SuppressWarnings("unused")
     public void setProgressmodel(ProgressModel progressmodel) {
         this.progressmodel = progressmodel;
     }

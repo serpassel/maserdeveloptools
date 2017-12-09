@@ -20,7 +20,7 @@ import es.marser.backgroundtools.listables.table.model.TableAdapterModel;
  *         [EN]  Presenter for tables
  */
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "SameReturnValue"})
 public abstract class TableDialogListPresenter<H extends Parcelable,
         B extends Parcelable,
         TAM extends TableAdapterModel<H, B>>

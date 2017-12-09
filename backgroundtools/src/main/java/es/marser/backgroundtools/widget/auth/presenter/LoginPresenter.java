@@ -23,6 +23,7 @@ import es.marser.tools.TextTools;
  *         [EN]  Presenter for user login
  */
 
+@SuppressWarnings("unused")
 public class LoginPresenter extends DialogBasePresenter {
 
     //RESULT________________________________________
@@ -88,6 +89,7 @@ public class LoginPresenter extends DialogBasePresenter {
     }
 
     //PROPERTIES____________________________________
+    @SuppressWarnings("unused")
     public OnDResult<String, String> getResult() {
         return result;
     }
@@ -96,18 +98,22 @@ public class LoginPresenter extends DialogBasePresenter {
         this.result = result;
     }
 
+    @SuppressWarnings("unused")
     public BoxModel getUser() {
         return user;
     }
 
+    @SuppressWarnings("unused")
     public void setUser(BoxModel user) {
         this.user = user;
     }
 
+    @SuppressWarnings("unused")
     public BoxModel getPassword() {
         return password;
     }
 
+    @SuppressWarnings("unused")
     public void setPassword(BoxModel password) {
         this.password = password;
     }

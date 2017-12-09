@@ -44,6 +44,7 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
         ExpandItemsManager,
         SelectedsModelManager<B> {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private static String TAG = LOG_TAG.TAG;
 
     /*Eventos sobre vistas menores [EN]  Events on minor views*/

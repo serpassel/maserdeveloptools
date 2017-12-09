@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.dialogs.model.ClosableView;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.events.TouchableViewHandler;
 import es.marser.backgroundtools.events.ViewItemHandler;

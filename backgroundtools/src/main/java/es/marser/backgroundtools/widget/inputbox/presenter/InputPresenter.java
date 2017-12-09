@@ -22,6 +22,7 @@ import es.marser.backgroundtools.widget.inputbox.model.BoxModel;
  *         [EN]  Presenter for securities entries
  */
 
+@SuppressWarnings("unused")
 public class InputPresenter extends DialogBasePresenter {
     /*Variable de resultado [EN]  Result variable*/
     protected OnResult<String> result;
@@ -72,6 +73,7 @@ public class InputPresenter extends DialogBasePresenter {
     }
 
     //PROPERTIES_____________________________________________
+    @SuppressWarnings("unused")
     public OnResult<String> getResult() {
         return result;
     }
@@ -80,10 +82,12 @@ public class InputPresenter extends DialogBasePresenter {
         this.result = result;
     }
 
+    @SuppressWarnings("unused")
     public BoxModel getBoxModel() {
         return boxModel;
     }
 
+    @SuppressWarnings("unused")
     public void setBoxModel(BoxModel boxModel) {
         this.boxModel = boxModel;
     }

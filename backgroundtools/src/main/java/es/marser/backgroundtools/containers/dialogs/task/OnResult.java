@@ -1,7 +1,5 @@
 package es.marser.backgroundtools.containers.dialogs.task;
 
-import android.view.View;
-
 import es.marser.backgroundtools.enums.DialogExtras;
 
 /**

@@ -18,6 +18,7 @@ import es.marser.backgroundtools.enums.EventsExtras;
  *         [EN]  Definition of presenter with linking variables to views
  */
 
+@SuppressWarnings({"unused", "EmptyMethod"})
 public interface LinkedPresenter extends Restorable {
     /**
      * Called to ask the fragment to save its current dynamic state, so it
@@ -76,6 +77,7 @@ public interface LinkedPresenter extends Restorable {
      *
      * @param eventsExtras Eventos causante [EN]  Causing events
      */
+    @SuppressWarnings("unused")
     void onSwipe(EventsExtras eventsExtras);
 
     /**
@@ -83,5 +85,6 @@ public interface LinkedPresenter extends Restorable {
      * <p>
      * [EN]  Double click on the screen
      */
+    @SuppressWarnings("unused")
     void onDoubleTap();
 }

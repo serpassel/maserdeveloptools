@@ -20,6 +20,7 @@ import android.view.accessibility.AccessibilityEvent;
  *         Adaptador de eventos de ventana [EN]  Window event adapter
  */
 
+@SuppressWarnings("unused")
 public class WindowsCallbackAdapter implements Window.Callback {
     /**
      * Called to process key events.  At the very least your
@@ -186,7 +187,7 @@ public class WindowsCallbackAdapter implements Window.Callback {
     /**
      * This is called whenever the current window attributes change.
      *
-     * @param attrs
+     * @param attrs atributos de ventana
      */
     @Override
     public void onWindowAttributesChanged(WindowManager.LayoutParams attrs) {

@@ -21,6 +21,7 @@ import es.marser.backgroundtools.events.ViewHandler;
  *         [EN]  Presenter for obtaining authentication credentials
  */
 
+@SuppressWarnings("unused")
 public class CredentialPresenter
         extends DialogBasePresenter
         implements ViewHandler<DialogIcon> {
@@ -70,6 +71,7 @@ public class CredentialPresenter
     }
 
     //PROPERTIES______________________________________________
+    @SuppressWarnings("unused")
     public OnResult<DialogIcon> getResult() {
         return result;
     }

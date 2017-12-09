@@ -1,9 +1,7 @@
 package es.marser.backgroundtools.listables.table.holder;
 
 import android.databinding.ViewDataBinding;
-import android.util.Log;
 
-import es.marser.LOG_TAG;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.listables.simple.holder.ViewHolderBinding;

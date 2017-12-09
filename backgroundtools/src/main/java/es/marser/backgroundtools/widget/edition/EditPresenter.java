@@ -1,10 +1,8 @@
 package es.marser.backgroundtools.widget.edition;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 
 import es.marser.backgroundtools.BR;
@@ -21,6 +19,7 @@ import es.marser.backgroundtools.enums.DialogExtras;
  *         [EN]  Presenter for object editing
  */
 
+@SuppressWarnings("unused")
 public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
     protected OnResult<T> result;
     protected T headmodel;
@@ -45,14 +44,9 @@ public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
         binderContainer.bindObject(BR.headmodel, headmodel);
     }
 
-    @Override
-    public void setArguments(@Nullable Bundle args) {
-        super.setArguments(args);
-
-    }
-
     //VARIABLES________________________________________________
 
+    @SuppressWarnings("unused")
     public OnResult<T> getResult() {
         return result;
     }
@@ -61,10 +55,12 @@ public class EditPresenter<T extends Parcelable> extends DialogBasePresenter {
         this.result = result;
     }
 
+    @SuppressWarnings("unused")
     public T getHeadmodel() {
         return headmodel;
     }
 
+    @SuppressWarnings("unused")
     public void setHeadmodel(T headmodel) {
         this.headmodel = headmodel;
         if (this.headmodel instanceof Editable) {

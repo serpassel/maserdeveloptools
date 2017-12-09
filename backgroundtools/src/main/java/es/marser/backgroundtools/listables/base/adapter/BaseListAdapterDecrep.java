@@ -15,9 +15,8 @@ import android.view.animation.AnimationUtils;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.events.ViewItemHandler;
-import es.marser.backgroundtools.listables.base.controller.ExpandController;
 import es.marser.backgroundtools.listables.base.controller.AdapterController;
-import es.marser.backgroundtools.listables.base.controller.SelectionControllerD;
+import es.marser.backgroundtools.listables.base.controller.ExpandController;
 import es.marser.backgroundtools.listables.base.controller.ViewHolderController;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
@@ -45,7 +44,6 @@ import es.marser.backgroundtools.listables.base.listeners.OnItemChangedListener;
  *         <il>Access to variables</il>
  *         <p>
  *         </ul>
- * @see SelectionControllerD
  * @see ExpandController
  * @see es.marser.backgroundtools.recyclerviews.simple.holder.ViewHolderBinding
  * @see ViewHolderController
@@ -306,7 +304,7 @@ public abstract class BaseListAdapterDecrep<T extends Parcelable, VH extends Bas
     public void notifyItemInserted(int index, int count, int viewType) {
         /*Comprobar si se agrega al final de la lista o es una insercción
         [EN]  Check if it is added to the end of the list or is an insert*/
-       int pos = index == count -1 ? getItemCount() -1 : flatPos(index, viewType);
+        int pos = index == count - 1 ? getItemCount() - 1 : flatPos(index, viewType);
         notifyItemInserted(pos);
     }
 

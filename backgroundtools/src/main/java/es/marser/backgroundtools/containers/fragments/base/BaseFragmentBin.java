@@ -24,7 +24,7 @@ import es.marser.backgroundtools.listables.base.presenter.LinkedPresenter;
  *         <il>Link Variables</il>
  *         </ul>
  */
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "EmptyMethod"})
 public abstract class BaseFragmentBin<LP extends LinkedPresenter>
         extends BaseFragment implements BinderContainer {
 
