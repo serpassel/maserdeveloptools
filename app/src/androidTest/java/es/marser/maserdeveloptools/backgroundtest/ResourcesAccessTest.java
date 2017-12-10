@@ -65,9 +65,13 @@ public class ResourcesAccessTest {
 
     @Test
     public void error2() {
-        int res = ResourcesAccess.getResArrayId(context, nameError);
-        String[] in = context.getResources().getStringArray(res);
-        runList(context.getResources().getStringArray(res));
+        try {
+            int res = ResourcesAccess.getResArrayId(context, nameError);
+            String[] in = context.getResources().getStringArray(res);
+            runList(context.getResources().getStringArray(res));
+        } catch (android.content.res.Resources.NotFoundException ignored) {
+
+        }
     }
 
     @Test
@@ -88,12 +92,12 @@ public class ResourcesAccessTest {
                 ProvincieModel pm = GenericFactory.BuildSingleObject(ProvincieModel.class, pro);
             /*Generar municipios de la provincia*/
                 String[] cvin = ResourcesAccess.getListVillages(context, pm.getCpro());
-               // Log.i(LOG_TAG.TAG, pm.toString());
+                // Log.i(LOG_TAG.TAG, pm.toString());
                 Assert.assertEquals(pm.getVillagesCount(), cvin.length);
 
                 for (String sv : cvin) {
                     VillageModel vm = GenericFactory.BuildSingleObject(VillageModel.class, sv);
-               //     Log.e(LOG_TAG.TAG, "Municipio " + vm.toString());
+                    //     Log.e(LOG_TAG.TAG, "Municipio " + vm.toString());
                     Assert.assertEquals(pm.getKey(), vm.getCpro());
                 }
             }
@@ -108,7 +112,7 @@ public class ResourcesAccessTest {
             Assert.assertEquals(pm1.getVillagesCount(), cvin1.length);
             for (String sv1 : cvin1) {
                 VillageModel vm1 = GenericFactory.BuildSingleObject(VillageModel.class, sv1);
-              //   Log.v(LOG_TAG.TAG, "Municipio " + vm1.toString());
+                //   Log.v(LOG_TAG.TAG, "Municipio " + vm1.toString());
                 Assert.assertEquals(pm1.getKey(), vm1.getCpro());
             }
         }

@@ -2,6 +2,8 @@ package es.marser.backgroundtools.containers.dialogs.bases;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,6 +70,27 @@ public abstract class BaseDialog
         view.setOnTouchListener(this);
     }
 
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        return new Dialog(getActivity(), getTheme()) {
+            @Override
+            public boolean dispatchTouchEvent(@NonNull MotionEvent motionEvent) {
+                if (getCurrentFocus() != null) {
+                    InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if (inputMethodManager != null) {
+                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    }
+                }
+                if(gestureFilter != null){
+                    gestureFilter.onTouchEvent(motionEvent);
+                }
+                return super.dispatchTouchEvent(motionEvent);
+            }
+
+        };
+    }
+
     /**
      * Called when a touch event is dispatched to a view. This allows listeners to
      * get a chance to respond before the target view.
@@ -78,13 +101,13 @@ public abstract class BaseDialog
      * @return True if the listener has consumed the event, false otherwise.
      */
 
-
+/*
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         gestureFilter.onTouchEvent(event);
         return true;
     }
-
+*/
     @Override
     public void onSwipe(EventsExtras eventsExtras) {
     }
@@ -119,7 +142,7 @@ public abstract class BaseDialog
             createDialog();
 
             if (view != null) {
-                setWindowCallback();
+                //setWindowCallback();
 
                 view.clearFocus();
                 InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);

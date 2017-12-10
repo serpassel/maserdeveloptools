@@ -93,7 +93,7 @@ public class SelectionControllerTest {
         Assert.assertTrue(controller.getIdSelecteds().size() == data.size()-2);
 
         controller.setSelected(2, false);
-        Assert.assertTrue(controller.getIdSelecteds().size() == data.size()-2);
+        Assert.assertTrue(controller.getIdSelecteds().size() == data.size()-3);
     }
 
     @Test
