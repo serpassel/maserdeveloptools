@@ -1,11 +1,9 @@
-package es.marser.backgroundtools.containers.fragments.widget;
+package es.marser.backgroundtools.widget.calendar.presenter;
 
-import android.os.Build;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.Calendar;
@@ -15,130 +13,83 @@ import java.util.List;
 import es.marser.async.DataUploaderTask;
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
-import es.marser.backgroundtools.widget.calendar.model.DayWeek;
-import es.marser.backgroundtools.widget.calendar.model.MonthTitle;
-import es.marser.backgroundtools.widget.calendar.async.AsyncMonthDays;
-import es.marser.backgroundtools.widget.calendar.async.DateLoader;
-import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentBinHeadBinTable;
+import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.events.ViewHandler;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
+import es.marser.backgroundtools.listables.base.model.SelectionItemsController;
+import es.marser.backgroundtools.listables.table.presenter.TableListPresenter;
 import es.marser.backgroundtools.systemtools.ResourcesAccess;
+import es.marser.backgroundtools.widget.calendar.async.AsyncMonthDays;
+import es.marser.backgroundtools.widget.calendar.async.DateLoader;
+import es.marser.backgroundtools.widget.calendar.model.CalendarObservable;
+import es.marser.backgroundtools.widget.calendar.model.CalendarTableAdapterModel;
+import es.marser.backgroundtools.widget.calendar.model.DayWeek;
+import es.marser.backgroundtools.widget.calendar.model.MonthTitle;
+import es.marser.backgroundtools.widget.confirmation.dialog.NotificationDialog;
 import es.marser.tools.DateTools;
 import es.marser.tools.TextTools;
 
 /**
  * @author sergio
- *         Created by sergio on 9/11/17.
- *         Fragmento selector de fechas
+ *         Created by sergio on 9/12/17.
+ *         Presentador para fragmentos de calendarios
  *         <p>
- *         [EN]  Date selector fragment
+ *         [EN]  Announcer for calendar fragments
  */
-@SuppressWarnings("unused")
-public class CalendarChooserFragment
-        extends BaseFragmentBinHeadBinTable<CalendarObservable, DayWeek, CalendarObservable>
+
+public class CalendarTablePresenter
+        extends TableListPresenter<DayWeek, CalendarObservable, CalendarTableAdapterModel>
         implements ViewHandler<Void> {
 
-    //INSTANCE______________________________________
-    public static CalendarChooserFragment newInstance() {
+    private CalendarObservable model;
 
-        return new CalendarChooserFragment();
+    //CONSTRUCTORS____________________________________________________________
+    public CalendarTablePresenter(@NonNull Context context) {
+        this(context, R.layout.mvp_frag_calendar_chooser);
     }
 
+    public CalendarTablePresenter(@NonNull Context context, int viewlayout) {
+        this(context, viewlayout, new CalendarTableAdapterModel(context));
+    }
 
-    //OVERWRITING OF SUPERCLASS METHODS__________
+    public CalendarTablePresenter(@NonNull Context context, int viewlayout, @NonNull CalendarTableAdapterModel listModel) {
+        super(context, viewlayout, listModel);
+        setSelectionmode(ViewHolderType.TITLE.ordinal(), ListExtra.NOT_SELECTION_MODE);
+        setSelectionmode(ViewHolderType.HEAD.ordinal(), ListExtra.NOT_SELECTION_MODE);
+        setSelectionmode(ViewHolderType.BODY.ordinal(), ListExtra.ONLY_SINGLE_SELECTION_MODE);
+        model = new CalendarObservable();
+    }
+
+    //OVERRIDE______________________________________
+
+    /**
+     * Indicador del conmienzo de la vinculación de vistas {@link ViewDataBinding}
+     * <p>
+     * [EN]  Join linking view indicator
+     *
+     * @param binderContainer Objeto de enlace de vistas [EN]  View link object
+     */
     @Override
-    public int getHeadHolderLayout() {
-        return R.layout.mvp_item_calendar_week_day;
+    public void onBindObjects(@NonNull BinderContainer binderContainer) {
+        super.onBindObjects(binderContainer);
+        binderContainer.bindObject(BR.handler, this);
+        binderContainer.bindObject(BR.model, model);
     }
 
+
+    //LOAD DATA_____________________________________
+
+    /**
+     * Método para la carga de datos
+     * <p>
+     * [EN]  Method for data loading
+     *
+     * @param bundle Argumentos de carga de datos [EN]  Arguments of data loading
+     */
     @Override
-    public int getBodyHolderLayout() {
-        return R.layout.mvp_item_calendar_month_day;
-    }
-
-    @Override
-    public int getTitleHolderLayout() {
-        return R.layout.mvp_item_calendar_month_title;
-    }
-
-    @Override
-    protected int getFragmentLayout() {
-        return R.layout.mvp_frag_calendar_chooser;
-    }
-
-    @Override
-    protected RecyclerView.LayoutManager getLayoutManager() {
-        final GridLayoutManager manager;
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            manager = new GridLayoutManager(getContext(), 7);
-        } else {
-            manager = new GridLayoutManager(getActivity(), 7);
-        }
-
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                ViewHolderType type = ViewHolderType.values()[adapter.getItemViewType(position)];
-
-                switch (type) {
-                    case TITLE:
-                        return manager.getSpanCount();
-                    case HEAD:
-                        return 1;
-                    case BODY:
-                        return 1;
-                    default:
-                        return -1;
-                }
-            }
-        });
-
-        return manager;
-    }
-
-    @Override
-    protected ListExtra getInitialSelectionMode() {
-        return ListExtra.ONLY_SINGLE_SELECTION_MODE;
-    }
-
-    @Override
-    public void binObjects(@Nullable Bundle savedInstanceState) {
-        super.binObjects(savedInstanceState);
-        viewDataBinding.setVariable(BR.handler, this);
-        viewDataBinding.executePendingBindings();
-    }
-
-    @NonNull
-    @Override
-    public CalendarObservable getNewModelInstance() {
-        return new CalendarObservable();
-    }
-
-    @Override
-    protected void bindAdapter(@Nullable Bundle savedInstanceState) {
-        super.bindAdapter(savedInstanceState);
-        if (savedInstanceState == null) {
-            getHeadGlobalController().setSelectionmode(null, ListExtra.NOT_SELECTION_MODE);
-
-            //getHeadGlobalController().clear();
-            // loadDayWeek();
-            load(null);
-
-            //loadDayWeek();
-            load(null);
-
-        } else {
-            adapter.onRestoreInstanceState(savedInstanceState);
-        }
-    }
-
-    //LOAD_________________________________________________________________________
-    protected void load(Bundle bundle) {
+    public void load(@Nullable Bundle bundle) {
         loadDayMoth();
     }
 
@@ -151,14 +102,14 @@ public class CalendarChooserFragment
 
         // getHeadGlobalController().clear();
 
-        getTitleGlobalController().add(new MonthTitle("OCTUBRE"));
+        getListmodel().addTitle(new MonthTitle("OCTUBRE"));
 
         String[] names = getContext().getResources().getStringArray(R.array.day_of_week_sort_name);
 
         for (String name : names) {
             DayWeek value = new DayWeek();
             value.day.set(name);
-            getHeadGlobalController().add(value);
+            getListmodel().addHead(value);
         }
 
         //Log.i(LOG_TAG.TAG, "DAYS " + getHeadGlobalController().getItemCount());
@@ -192,8 +143,11 @@ public class CalendarChooserFragment
             @Override
             public void onFinish(List<CalendarObservable> finish) {
                 loadDayWeek();
-                getBodyGlobalController().addAll(finish);
-                getBodyGlobalController().getSelectionItemsController().inputSelected(datepos[0], true);
+                getListmodel().addAllBody(finish);
+                SelectionItemsController itemsController = getListmodel().getSelectionItemsController();
+                if (itemsController != null) {
+                    itemsController.inputSelected(datepos[0], true);
+                }
             }
 
             @Override
@@ -210,9 +164,7 @@ public class CalendarChooserFragment
     }
 
 
-    //PRESENTERS___________________________________________________________________
-
-    /* {@link ViewHandler}*/
+    //VIEW HANDLER__________________________________
     @Override
     public void onClick(View view, Void item) {
         if (view.getId() == R.id.id_calendar_sum_month) {
@@ -231,8 +183,7 @@ public class CalendarChooserFragment
         return false;
     }
 
-
-    /*{@link es.marser.backgroundtools.events.ViewItemHandler}*/
+    //VIEW ITEM HANDLER_____________________________
     @Override
     public void onClickBodyItem(BaseViewHolder<CalendarObservable> holder, CalendarObservable item, int position, ListExtra mode) {
         super.onClickBodyItem(holder, item, position, mode);
@@ -262,8 +213,8 @@ public class CalendarChooserFragment
         return true;
     }
 
+    //OPERATIVE_____________________________________
 
-    //CALCS_____________________________________________________________________________
     /**
      * Fijar festivos en la fecha de cabecera
      * <p>
@@ -327,4 +278,12 @@ public class CalendarChooserFragment
         changedDate(calendar);
     }
 
+    //PROPERTIES____________________________________
+    public CalendarObservable getModel() {
+        return model;
+    }
+
+    public void setModel(CalendarObservable model) {
+        this.model = model;
+    }
 }

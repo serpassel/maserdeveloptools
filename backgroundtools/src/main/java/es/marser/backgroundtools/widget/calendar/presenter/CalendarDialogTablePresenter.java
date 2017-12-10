@@ -57,7 +57,6 @@ public class CalendarDialogTablePresenter
     protected CalendarObservable headmodel;
 
     //CONSTRUCTORS________________________________
-
     public CalendarDialogTablePresenter(@NonNull Context context) {
         this(context, R.layout.mvp_dialog_calendar_chooser);
     }

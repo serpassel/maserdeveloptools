@@ -40,8 +40,6 @@ public abstract class BaseFragmentBin<LP extends LinkedPresenter>
         super.onCreateView(inflater, container, savedInstanceState);
         if (presenter != null) {
             presenter.onRestoreInstanceState(savedInstanceState);
-        }else {
-            LOG_TAG.assertNotNull(presenter);
         }
         viewDataBinding = DataBindingUtil.inflate(inflater, getFragmentLayout(), container, false);
         preBuild(getContext(), getArguments());

@@ -6,8 +6,7 @@ import es.marser.async.Result;
 import es.marser.backgroundtools.containers.activitys.base.BaseActivityFragment;
 import es.marser.backgroundtools.containers.dialogs.bases.BaseDialog;
 import es.marser.backgroundtools.containers.fragments.base.BaseFragment;
-import es.marser.backgroundtools.widget.territories.fragment.ProvinceChooserFragment;
-import es.marser.backgroundtools.widget.territories.presenter.TerritoriesBundleBuilder;
+import es.marser.backgroundtools.widget.calendar.fragment.CalendarChooserFragment;
 
 @SuppressWarnings({"EmptyMethod", "unused"})
 public class DevelopTools extends BaseActivityFragment {
@@ -20,9 +19,9 @@ public class DevelopTools extends BaseActivityFragment {
 
     @Override
     protected BaseFragment instanceFragment() {
-        return ProvinceChooserFragment.newInstance(this,
-                TerritoriesBundleBuilder.createLoadBundle("", -1, false));
-        //return CalendarChooserFragment.newInstance();
+
+        //return ProvinceChooserFragment.newInstance(this,TerritoriesBundleBuilder.createLoadBundle("", -1, false));
+        return CalendarChooserFragment.newInstance();
     }
 
     @Override
@@ -171,7 +170,7 @@ public class DevelopTools extends BaseActivityFragment {
             }
         });
 */
-        DialogExample.calendarChooser(this);
+        //DialogExample.calendarChooser(this);
 
         //DialogExample.provincieChooser(this);
 

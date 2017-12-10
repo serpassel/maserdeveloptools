@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:bind="http://schemas.android.com/tools">
+    xmlns:bind="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -110,9 +111,18 @@
         </android.support.v7.widget.LinearLayoutCompat>
 
         <!--LIST-->
-        <include
-            layout="@layout/com_mvp_recyclerview"
-            bind:listmodel="@{listmodel}" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:minHeight="100dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="?attr/box_default_small_margin"
+            android:adapter="@{listmodel.adapter}"
+            android:layoutManager="@{listmodel.layoutManager}"
+            android:hasFixedSize="@{listmodel.hasFixedSize}"
+            android:background="@color/bt_white"
+            tools:ignore="Overdraw" />
 
         <!--DATE LONG-->
         <android.support.v7.widget.LinearLayoutCompat
