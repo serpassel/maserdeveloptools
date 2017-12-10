@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -309,16 +308,16 @@ public class TableListAdapter<H extends Parcelable, B extends Parcelable>
         List<Integer> toSaved = new ArrayList<>();
 
         for (int i = 0; i < types.size(); ++i) {
-            Log.w(TAG, "notifyDataRemoved: READ " + types.get(i) + "/" + viewType);
+            // Log.w(TAG, "notifyDataRemoved: READ " + types.get(i) + "/" + viewType);
 
             if (types.get(i) != viewType) {
                 toSaved.add(types.get(i));
-                Log.i(TAG, "notifyDataRemoved: REMOVED " + i + "/" + types.size());
+                //   Log.i(TAG, "notifyDataRemoved: REMOVED " + i + "/" + types.size());
             }
         }
         types.clear();
         types.addAll(toSaved);
-        Log.v(TAG, "notifyDataRemoved: " + getItemCount());
+        // Log.v(TAG, "notifyDataRemoved: " + getItemCount());
 
         /*Notificar al adapter previa eliminación [EN]  Notify adapter after elimination*/
         super.notifyDataRemoved(count, viewType);

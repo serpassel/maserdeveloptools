@@ -147,6 +147,7 @@
             android:adapter="@{listmodel.adapter}"
             android:layoutManager="@{listmodel.layoutManager}"
             android:hasFixedSize="@{listmodel.hasFixedSize}"
+            android:onItemTouchListener="@{listmodel.onItemTouchListener}"
             android:background="@color/bt_white"
             tools:ignore="Overdraw" />
 

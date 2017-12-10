@@ -170,7 +170,7 @@ public class DevelopTools extends BaseActivityFragment {
             }
         });
 */
-        //DialogExample.calendarChooser(this);
+        DialogExample.calendarChooser(this);
 
         //DialogExample.provincieChooser(this);
 

@@ -49,4 +49,10 @@ public class CalendarChooser
 
         return instance;
     }
+
+    @Override
+    public void setPresenter(CalendarDialogTablePresenter presenter) {
+        super.setPresenter(presenter);
+        presenter.setOnItemTouchListener(this);
+    }
 }

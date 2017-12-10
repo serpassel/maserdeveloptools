@@ -1,11 +1,15 @@
 package es.marser.backgroundtools.listables.base.model;
 
 import android.content.Context;
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.R;
 import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 
@@ -18,12 +22,13 @@ import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
  */
 
 @SuppressWarnings("unused")
-public abstract class BaseAdapterModel<ADP extends BaseListAdapter>
+public abstract class BaseAdapterModel<ADP extends BaseListAdapter> extends BaseObservable
         implements AdapterModel<ADP, LinearLayoutManager>, Selectionable {
 
     private Context context;
     protected ADP adapter;
     protected LinearLayoutManager layoutManager;
+    private RecyclerView.OnItemTouchListener onItemTouchListener;
 
     private static String[] extras = new String[]{"hoderLayout_key"};
     protected static int defaultHolderLayout = R.layout.mvp_item_object_chooser;
@@ -32,6 +37,7 @@ public abstract class BaseAdapterModel<ADP extends BaseListAdapter>
     public BaseAdapterModel(@NonNull Context context, @NonNull LinearLayoutManager layoutManager) {
         this.context = context;
         this.layoutManager = layoutManager;
+        this.onItemTouchListener = null;
     }
 
     //ADAPTER MODEL_________________________________________________
@@ -53,6 +59,18 @@ public abstract class BaseAdapterModel<ADP extends BaseListAdapter>
     @Override
     public LinearLayoutManager getLayoutManager() {
         return layoutManager;
+    }
+
+    @Bindable
+    @Nullable
+    @Override
+    public RecyclerView.OnItemTouchListener getOnItemTouchListener() {
+        return onItemTouchListener;
+    }
+
+    public void setOnItemTouchListener(RecyclerView.OnItemTouchListener onItemTouchListener) {
+        this.onItemTouchListener = onItemTouchListener;
+        notifyPropertyChanged(BR.onItemTouchListener);
     }
 
     @Override

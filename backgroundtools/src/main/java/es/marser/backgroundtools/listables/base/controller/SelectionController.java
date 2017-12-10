@@ -159,7 +159,7 @@ public class SelectionController implements SelectionItemsController, Restorable
     public void inputSelected(int id, boolean value) {
         if (id > -1) {
             selectedItems.put(id, value);
-            /*Indicar el último registro selecionado*/
+            /*Indicar el último registro seleccionado*/
             if (value) {
                 this.lastposition = this.position;
                 this.position = id;

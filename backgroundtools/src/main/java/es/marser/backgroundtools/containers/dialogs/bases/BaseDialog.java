@@ -2,9 +2,8 @@ package es.marser.backgroundtools.containers.dialogs.bases;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -26,7 +25,10 @@ import es.marser.backgroundtools.systemtools.events.SimpleGestureFilter;
 @SuppressWarnings({"unused", "WeakerAccess"})
 public abstract class BaseDialog
         extends DialogFragment
-        implements View.OnTouchListener,SimpleGestureFilter.SimpleGestureListener, ClosableView {
+        implements RecyclerView.OnItemTouchListener, SimpleGestureFilter.SimpleGestureListener, ClosableView {
+
+    //View.OnTouchListener,
+
     protected Context context;
     protected Dialog dialog;
     protected View view;
@@ -38,12 +40,60 @@ public abstract class BaseDialog
 
 
     //EVENTs____________________________________________________________
+    //RECYCLERVIEW.ONITEMTOUCHLISTENER
+    /**
+     * Silently observe and/or take over touch events sent to the RecyclerView
+     * before they are handled by either the RecyclerView itself or its child views.
+     * <p>
+     * <p>The onInterceptTouchEvent methods of each attached OnItemTouchListener will be run
+     * in the order in which each listener was added, before any other touch processing
+     * by the RecyclerView itself or child views occurs.</p>
+     *
+     * @param rv {@link RecyclerView}
+     * @param e  MotionEvent describing the touch event. All coordinates are in
+     *           the RecyclerView's coordinate system.
+     * @return true if this OnItemTouchListener wishes to begin intercepting touch events, false
+     * to continue with the current behavior and continue observing future events in
+     * the gesture.
+     */
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        gestureFilter.onTouchEvent(e);
+        //   Log.d(TAG, "onInterceptTouchEvent: ");
+        return false;
+    }
 
+    /**
+     * Process a touch event as part of a gesture that was claimed by returning true from
+     * a previous call to {@link #onInterceptTouchEvent}.
+     *
+     * @param rv  {@link RecyclerView}
+     * @param e  MotionEvent describing the touch event. All coordinates are in
+     */
+    @Override
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+        //    Log.w(TAG, "onTouchEvent: " );
+    }
+
+    /**
+     * Called when a child of RecyclerView does not want RecyclerView and its ancestors to
+     * intercept touch events with
+     * {@link ViewGroup#onInterceptTouchEvent(MotionEvent)}.
+     *
+     * @param disallowIntercept True if the child does not want the parent to
+     *                          intercept touch events.
+     * @see ViewParent#requestDisallowInterceptTouchEvent(boolean)
+     */
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+        //  Log.i(TAG, "onRequestDisallowInterceptTouchEvent: ");
+    }
     /**
      * Agregar captador de eventos de ventana
      * <p>
      * [EN]  Add window event sensor
      */
+    @SuppressWarnings("EmptyMethod")
     private void setWindowCallback() {
      /*
         Window w = dialog != null ? dialog.getWindow() : null;
@@ -67,39 +117,8 @@ public abstract class BaseDialog
             });
         }
 */
-        view.setOnTouchListener(this);
+   //     view.setOnTouchListener(this);
     }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        return new Dialog(getActivity(), getTheme()) {
-            @Override
-            public boolean dispatchTouchEvent(@NonNull MotionEvent motionEvent) {
-                if (getCurrentFocus() != null) {
-                    InputMethodManager inputMethodManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if (inputMethodManager != null) {
-                        inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-                    }
-                }
-                if(gestureFilter != null){
-                    gestureFilter.onTouchEvent(motionEvent);
-                }
-                return super.dispatchTouchEvent(motionEvent);
-            }
-
-        };
-    }
-
-    /**
-     * Called when a touch event is dispatched to a view. This allows listeners to
-     * get a chance to respond before the target view.
-     *
-     * @param v     The view the touch event has been dispatched to.
-     * @param event The MotionEvent object containing full information about
-     *              the event.
-     * @return True if the listener has consumed the event, false otherwise.
-     */
 
 /*
     @Override

@@ -73,6 +73,9 @@ public interface AdapterModel<ADP extends RecyclerView.Adapter, RLM extends Recy
      */
     void setLayoutManager(@NonNull RLM layoutManager);
 
+    @Nullable
+    RecyclerView.OnItemTouchListener getOnItemTouchListener();
+
     /**
      * Called to ask the fragment to save its current dynamic state, so it
      * can later be reconstructed in a new instance of its process is

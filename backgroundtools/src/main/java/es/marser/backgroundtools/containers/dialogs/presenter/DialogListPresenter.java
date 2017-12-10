@@ -5,6 +5,7 @@ import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 
 import es.marser.backgroundtools.BR;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
@@ -43,6 +44,13 @@ public abstract class DialogListPresenter<LM extends BaseAdapterModel>
         super.onBindObjects(binderContainer);
         binderContainer.bindObject(BR.listmodel, listmodel);
     }
+
+    public void setOnItemTouchListener(RecyclerView.OnItemTouchListener onItemTouchListener){
+        if(listmodel != null){
+            listmodel.setOnItemTouchListener(onItemTouchListener);
+        }
+    }
+
 
     //SELECTIONABLE______________________________________________________________
     @Nullable

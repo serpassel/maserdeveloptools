@@ -1,14 +1,16 @@
 package es.marser.backgroundtools.containers.dialogs.bases;
 
-import android.app.AlertDialog;
+
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Window;
 
+import es.marser.LOG_TAG;
 import es.marser.backgroundtools.bindingadapters.BinderContainer;
 import es.marser.backgroundtools.containers.dialogs.presenter.DialogBasePresenter;
 import es.marser.backgroundtools.enums.EventsExtras;
@@ -40,6 +42,8 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
         extends BaseDialog
         implements BinderContainer {
 
+    private static String TAG = LOG_TAG.TAG;
+
     /*Vista Controladora [EN]  Controller View*/
     protected ViewDataBinding viewDataBinding;
 
@@ -50,7 +54,9 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
     protected void createDialog() {
         preBuild();
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context){
+
+        };
         builder.setCancelable(false);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -176,4 +182,5 @@ public abstract class BaseDialogBin<DBP extends DialogBasePresenter>
     protected int getDialogLayout() {
         return presenter != null ? presenter.getViewLayout() : -1;
     }
+
 }

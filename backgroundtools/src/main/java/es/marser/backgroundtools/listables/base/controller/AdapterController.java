@@ -416,10 +416,12 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
-    public void onClick(BaseViewHolder<T> holder, int position) {
+    public void onClick(BaseViewHolder<T> holder, int flatpos) {
         if (selectionController != null) {
 
-            int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
+            int index = adapterNotifier != null ? adapterNotifier.indexPos(flatpos, viewHolderType) : flatpos;
+
+            //Log.i(LOG_TAG.TAG, "onClick: " + position +"/"+index +": " + (position-7));
 
             /*Actualizar las variables de posición [EN]  Update position variables*/
             selectionController.setLastposition(selectionController.getPosition());
@@ -427,7 +429,7 @@ public class AdapterController<T extends Parcelable>
 
 
             int lastposition = selectionController.getLastposition();
-            int posicion = selectionController.getPosition();
+            int position = selectionController.getPosition();
 
             switch (selectionmode) {
                 case NOT_SELECTION_MODE:
@@ -475,19 +477,18 @@ public class AdapterController<T extends Parcelable>
     }
 
     @Override
-    public boolean onLongClick(BaseViewHolder<T> holder, int position) {
+    public boolean onLongClick(BaseViewHolder<T> holder, int flatpos) {
 
         if (selectionController != null) {
 
-            int index = adapterNotifier != null ? adapterNotifier.indexPos(position, viewHolderType) : position;
+            int index = adapterNotifier != null ? adapterNotifier.indexPos(flatpos, viewHolderType) : flatpos;
 
            /*Actualizar las variables de posición [EN]  Update position variables*/
             selectionController.setLastposition(selectionController.getPosition());
             selectionController.setPosition(index);
 
-
             int lastposition = selectionController.getLastposition();
-            int posicion = selectionController.getPosition();
+            int position = selectionController.getPosition();
 
 
             switch (selectionmode) {
@@ -509,6 +510,7 @@ public class AdapterController<T extends Parcelable>
 
                 /*Notificar cambios de selección [EN]  Notify selection changes*/
                     onItemChaged(position);
+
                     if (selectionmode == ListExtra.SINGLE_SELECTION_MODE) {
                     /*Activar selección multiple [EN]  Enable multiple selection*/
                         selectionmode = ListExtra.MULTIPLE_SELECTION_MODE;

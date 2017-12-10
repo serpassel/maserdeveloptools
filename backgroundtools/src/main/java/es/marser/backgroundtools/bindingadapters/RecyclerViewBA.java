@@ -4,6 +4,9 @@ import android.databinding.BindingAdapter;
 import android.databinding.BindingMethod;
 import android.databinding.BindingMethods;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+
+import es.marser.LOG_TAG;
 
 /**
  * @author sergio
@@ -17,6 +20,7 @@ import android.support.v7.widget.RecyclerView;
 @BindingMethods({
         @BindingMethod(type = RecyclerView.class, attribute = "android:adapter", method = "setAdapter"),
         @BindingMethod(type = RecyclerView.class, attribute = "android:hasFixedSize", method = "setHasFixedSize"),
+        @BindingMethod(type = RecyclerView.class, attribute = "android:onItemTouchListener", method = "addOnItemTouchListener"),
         @BindingMethod(type = RecyclerView.class, attribute = "android:layoutManager", method = "setLayoutManager")
 })
 public class RecyclerViewBA {
@@ -34,5 +38,13 @@ public class RecyclerViewBA {
     @BindingAdapter("android:hasFixedSize")
     public static void setHasFixedSize(RecyclerView view, boolean value) {
         view.setHasFixedSize(value);
+    }
+
+    @BindingAdapter("android:onItemTouchListener")
+    public static void addOnItemTouchListener(RecyclerView view, RecyclerView.OnItemTouchListener onItemTouchListener) {
+        if (onItemTouchListener != null) {
+            view.addOnItemTouchListener(onItemTouchListener);
+            Log.i(LOG_TAG.TAG, "SETEADO onItemTouchListener" );
+        }
     }
 }

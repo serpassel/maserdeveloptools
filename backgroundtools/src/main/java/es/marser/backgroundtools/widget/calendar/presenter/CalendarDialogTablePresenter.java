@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Calendar;
@@ -83,11 +82,12 @@ public class CalendarDialogTablePresenter
 
     @Override
     public void load(@Nullable Bundle bundle) {
-      loadDayWeek();
-      loadDayMoth(false);
+        loadDayWeek();
+        loadDayMoth(false);
     }
 
     //LOAD__________________________________________
+
     /**
      * Carga la cabecera
      * <p>
@@ -122,44 +122,44 @@ public class CalendarDialogTablePresenter
 
 
             /*Cagar datos [EN]  Download data*/
-            new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
-                @Override
-                public void onStart(Void start) {
-                }
+        new AsyncMonthDays(new DataUploaderTask<Void, Integer, List<CalendarObservable>>() {
+            @Override
+            public void onStart(Void start) {
+            }
 
-                @Override
-                public void onUpdate(Integer update) {
-                    datepos[0] = update;
-                }
+            @Override
+            public void onUpdate(Integer update) {
+                datepos[0] = update;
+            }
 
-                @Override
-                public void onFinish(List<CalendarObservable> finish) {
-                    if (getListmodel() != null) {
-                        getListmodel().replaceBody(finish);
+            @Override
+            public void onFinish(List<CalendarObservable> finish) {
+                if (getListmodel() != null) {
+                    getListmodel().replaceBody(finish);
 
-                        SelectionItemsController itemsController = getListmodel().getSelectionItemsController();
+                    SelectionItemsController itemsController = getListmodel().getSelectionItemsController();
 
-                        if (itemsController != null) {
-                            itemsController.inputSelected(datepos[0], true);
-                        }
-
-                        Log.w(TAG, "onFinish:" + getListmodel().size());
-
-                    } else {
-                        throw new NullPointerException("List model null");
+                    if (itemsController != null) {
+                        itemsController.inputSelected(datepos[0], true);
                     }
-                }
 
-                @Override
-                public void onFailure(Throwable e) {
+                    // Log.w(TAG, "onFinish:" + getListmodel().size());
 
+                } else {
+                    throw new NullPointerException("List model null");
                 }
-            }).execute(new DateLoader(
-                            headmodel.getCalendar(),
-                            ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year),
-                            ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)
-                    )
-            );
+            }
+
+            @Override
+            public void onFailure(Throwable e) {
+
+            }
+        }).execute(new DateLoader(
+                        headmodel.getCalendar(),
+                        ResourcesAccess.getNatinoalHolidaysFilter(getContext(), year),
+                        ResourcesAccess.getAutonomyHolidaysFilter(getContext(), year)
+                )
+        );
     }
 
     //WINACTION_____________________________________
@@ -267,6 +267,7 @@ public class CalendarDialogTablePresenter
     }
 
     //OPERATIVE_____________________________________
+
     /**
      * Fijar festivos en la fecha de cabecera
      * <p>
