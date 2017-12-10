@@ -5,7 +5,7 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import es.marser.backgroundtools.R;
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentListBin;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragmentList;
 import es.marser.backgroundtools.listables.simple.model.SimpleAdapterModel;
 import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 
@@ -19,7 +19,7 @@ import es.marser.backgroundtools.listables.simple.presenter.SimpleListPresenter;
 
 @SuppressWarnings("unused")
 public class SimpleListFragment<T extends Parcelable>
-        extends BaseFragmentListBin<SimpleListPresenter<T, SimpleAdapterModel<T>>> {
+        extends BaseFragmentList<SimpleListPresenter<T, SimpleAdapterModel<T>>> {
 
     public static <T extends Parcelable> SimpleListFragment<T> newInstance(
             @Nullable Bundle bundle,

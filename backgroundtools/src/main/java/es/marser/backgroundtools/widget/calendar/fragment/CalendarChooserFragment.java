@@ -2,7 +2,7 @@ package es.marser.backgroundtools.widget.calendar.fragment;
 
 import android.content.Context;
 
-import es.marser.backgroundtools.containers.fragments.base.BaseFragmentListBin;
+import es.marser.backgroundtools.containers.fragments.base.BaseFragmentList;
 import es.marser.backgroundtools.widget.calendar.presenter.CalendarTablePresenter;
 
 /**
@@ -14,7 +14,7 @@ import es.marser.backgroundtools.widget.calendar.presenter.CalendarTablePresente
  */
 @SuppressWarnings("unused")
 public class CalendarChooserFragment
-        extends BaseFragmentListBin<CalendarTablePresenter> {
+        extends BaseFragmentList<CalendarTablePresenter> {
 
     //INSTANCE______________________________________
     public static CalendarChooserFragment newInstance() {

@@ -200,6 +200,7 @@ public abstract class BaseListAdapter<VH extends BaseViewHolder>
      */
     public abstract VH onCreateViewHolder(ViewDataBinding dataBinding, int viewType);
 
+    //ADAPTER NOTIFIER
     /**
      * Utilizar para cuando existen varias listas
      * Recupera la posición la posición de un índice partiendo de la posción en la lista global

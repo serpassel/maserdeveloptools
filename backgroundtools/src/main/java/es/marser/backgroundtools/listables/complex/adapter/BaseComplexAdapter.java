@@ -3,7 +3,6 @@ package es.marser.backgroundtools.listables.complex.adapter;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ import es.marser.backgroundtools.definition.Restorable;
 import es.marser.backgroundtools.enums.ListExtra;
 import es.marser.backgroundtools.events.ComplexTouchabeViewHandler;
 import es.marser.backgroundtools.events.ViewComplexHandler;
+import es.marser.backgroundtools.listables.base.adapter.BaseListAdapter;
 import es.marser.backgroundtools.listables.base.holder.BaseViewHolder;
 import es.marser.backgroundtools.listables.base.holder.ViewHolderType;
 import es.marser.backgroundtools.listables.complex.controller.ComplexExpandController;
@@ -54,7 +54,7 @@ public abstract class BaseComplexAdapter<
         C extends ChildViewHolderBinding<X, T>,
         X extends ExpandableGroup<T>,
         T extends Parcelable>
-        extends RecyclerView.Adapter<BaseViewHolder>
+        extends BaseListAdapter<BaseViewHolder>
         implements ExpandCollapseListener, ComplexViewHolderController<X, T>, Restorable {
 
     private static final String EXPAND_STATE_MAP = "expandable_recyclerview_adapter_expand_state_map";
@@ -67,7 +67,11 @@ public abstract class BaseComplexAdapter<
     protected ComplexSelectionController<X, T> complexSelectionController;
     protected ComplexExpandController<X, T> expandCollapseController;
 
+    /*Eventos sobre las listas [EN]  Events on the lists*/
+   private ComplexTouchabeViewHandler<X, T> complexTouchabeViewHandler;
+   private ViewComplexHandler<X, T> viewComplexHandler;
 
+    //CONSTRUCTORS________________________________
     public BaseComplexAdapter() {
         /*Inicio de variables de listas [EN]  Start List Variables*/
         this.groups = new ArrayList<>();
@@ -78,51 +82,57 @@ public abstract class BaseComplexAdapter<
         this.complexSelectionController.setViewComplexHandler(getViewComplexHandler());
 
         this.expandCollapseController = new ComplexExpandController<>(expandableList, this);
+
+        /*Eventos sobre las vistas [EN]  Events on the views*/
+        this.complexTouchabeViewHandler = null;
+        this.viewComplexHandler = null;
+
     }
 
-    //SAVED AND RESTORE_____________________________________________________________
-    @Override
-    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
-        //savedInstanceState.putBooleanArray(EXPAND_STATE_MAP, expandableList.expandedGroupIndexes);
+    public BaseComplexAdapter(int goupHolderLayout, int childHolderLayout) {
+        this();
+        setHolderLayout(ViewHolderType.GROUP, goupHolderLayout);
+        setHolderLayout(ViewHolderType.CHILD, childHolderLayout);
     }
 
-    @Override
-    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
-        if (savedInstanceState == null || !savedInstanceState.containsKey(EXPAND_STATE_MAP)) {
-            return;
-        }
-       // expandableList.expandedGroupIndexes = savedInstanceState.getBooleanArray(EXPAND_STATE_MAP);
-        notifyDataSetChanged();
+    //PRESENTERS____________________________________
+    /*ChildEVENT*/
+
+    public void setComplexTouchabeViewHandler(ComplexTouchabeViewHandler<X, T> complexTouchabeViewHandler) {
+        this.complexTouchabeViewHandler = complexTouchabeViewHandler;
     }
 
-    //ACTION EVENTS_______________________________________________________________________________________________
-    /*Sobreescritura para introducir de manejador de eventos [EN]  Overwrite to enter event handler*/
-
-    /**
-     * Oyente de eventos sobre subvistas
-     * <p>
-     * [EN]  Listener event listener
-     *
-     * @return {@link ComplexTouchabeViewHandler}
-     */
     public ComplexTouchabeViewHandler<X, T> getComplexTouchabeViewHandler() {
-        return null;
+        return complexTouchabeViewHandler;
     }
 
-    /**
-     * Oyente de eventos sobre la vista raíz
-     * <p>
-     * [EN]  Root view event listener
-     *
-     * @return {@link ViewComplexHandler}
-     */
+    public void removeComplexTouchabeViewHandler() {
+        this.complexTouchabeViewHandler = null;
+    }
+
+    /*ITEM EVENT*/
+    public void setViewComplexHandler(ViewComplexHandler<X, T> viewComplexHandler) {
+        this.viewComplexHandler = viewComplexHandler;
+    }
+
     public ViewComplexHandler<X, T> getViewComplexHandler() {
-        return null;
+        return viewComplexHandler;
     }
 
+    public void removeViewComplexHandler() {
+        this.viewComplexHandler = null;
+    }
 
+    /*CONTROLLERS*/
+
+    public void setComplexSelectionController(ComplexSelectionController<X, T> complexSelectionController) {
+        this.complexSelectionController = complexSelectionController;
+    }
+
+    public void setExpandCollapseController(ComplexExpandController<X, T> expandCollapseController) {
+        this.expandCollapseController = expandCollapseController;
+    }
     //SUPERCLASS METHODS OVERWRITING______________________________________________________________
-
     /**
      * @return the number of group and child objects currently expanded
      * @see ExpandableList#getVisibleItemCount()
@@ -465,4 +475,20 @@ public abstract class BaseComplexAdapter<
     public ComplexExpandController<X, T> getExpandCollapseController() {
         return expandCollapseController;
     }
+
+    //SAVED AND RESTORE_____________________________________________________________
+    @Override
+    public void onSaveInstanceState(@Nullable Bundle savedInstanceState) {
+        //savedInstanceState.putBooleanArray(EXPAND_STATE_MAP, expandableList.expandedGroupIndexes);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState) {
+        if (savedInstanceState == null || !savedInstanceState.containsKey(EXPAND_STATE_MAP)) {
+            return;
+        }
+        // expandableList.expandedGroupIndexes = savedInstanceState.getBooleanArray(EXPAND_STATE_MAP);
+        notifyDataSetChanged();
+    }
+
 }

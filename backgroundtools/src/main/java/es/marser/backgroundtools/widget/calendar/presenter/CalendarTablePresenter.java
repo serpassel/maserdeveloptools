@@ -279,10 +279,12 @@ public class CalendarTablePresenter
     }
 
     //PROPERTIES____________________________________
+    @SuppressWarnings("unused")
     public CalendarObservable getModel() {
         return model;
     }
 
+    @SuppressWarnings("unused")
     public void setModel(CalendarObservable model) {
         this.model = model;
     }
